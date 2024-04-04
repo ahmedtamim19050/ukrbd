@@ -27,8 +27,8 @@ return new class extends Migration
             $table->string('shipping_url')->nullable();
             $table->integer('subtotal');
             $table->integer('total');
-            $table->integer('vendor_total');
-            $table->boolean('seen', false);
+            $table->integer('vendor_total')->nullable();
+            $table->boolean('seen')->default(false);
             $table->integer('tax')->nullable();
             $table->string('customer_note')->nullable();
             $table->json('billing')->nullable();

@@ -1,5 +1,56 @@
 @php
-    $states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    $states = [
+        'Alabama',
+        'Alaska',
+        'Arizona',
+        'Arkansas',
+        'California',
+        'Colorado',
+        'Connecticut',
+        'Delaware',
+        'Florida',
+        'Georgia',
+        'Hawaii',
+        'Idaho',
+        'Illinois',
+        'Indiana',
+        'Iowa',
+        'Kansas',
+        'Kentucky',
+        'Louisiana',
+        'Maine',
+        'Maryland',
+        'Massachusetts',
+        'Michigan',
+        'Minnesota',
+        'Mississippi',
+        'Missouri',
+        'Montana',
+        'Nebraska',
+        'Nevada',
+        'New Hampshire',
+        'New Jersey',
+        'New Mexico',
+        'New York',
+        'North Carolina',
+        'North Dakota',
+        'Ohio',
+        'Oklahoma',
+        'Oregon',
+        'Pennsylvania',
+        'Rhode Island',
+        'South Carolina',
+        'South Dakota',
+        'Tennessee',
+        'Texas',
+        'Utah',
+        'Vermont',
+        'Virginia',
+        'Washington',
+        'West Virginia',
+        'Wisconsin',
+        'Wyoming',
+    ];
 @endphp
 <style>
     /* .ec-select-inner::after {
@@ -80,9 +131,7 @@
     use App\Models\Prodcat;
     use App\Models\Shop;
     use App\Models\Order;
-    $categories = Prodcat::whereNull('parent_id')
-        ->orderBy('role', 'asc')
-        ->get();
+    $categories = Prodcat::whereNull('parent_id')->get();
     $shops = Shop::latest()->get();
 
     $route = route('shops');
@@ -747,36 +796,36 @@
     $(document).ready(function() {
 
         $('#cityInput').select2();
-    
+
         var selectedState = $('#stateSearch').val();
 
-            if (selectedState) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/get-state',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        state: selectedState,
-                    },
+        if (selectedState) {
+            $.ajax({
+                type: 'POST',
+                url: '/get-state',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    state: selectedState,
+                },
 
-                    success: function(data) {
-                        var cityInput = $('#cityInput');
-                        cityInput.empty();
-                        cityInput.append('<option value="">Select your City</option>');
-                        $.each(data, function(key, value) {
-                            var selectedCities =
-                                @json(session()->get('post_city', [])); // Laravel code
-                            var selected = selectedCities.includes(key) ?
-                                'selected' : '';
-                            cityInput.append('<option value="' + key + '" ' +
-                                selected + '>' +
-                                value + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#cityInput').empty(); // Clear the city dropdown if no state is selected.
-            }
+                success: function(data) {
+                    var cityInput = $('#cityInput');
+                    cityInput.empty();
+                    cityInput.append('<option value="">Select your City</option>');
+                    $.each(data, function(key, value) {
+                        var selectedCities =
+                            @json(session()->get('post_city', [])); // Laravel code
+                        var selected = selectedCities.includes(key) ?
+                            'selected' : '';
+                        cityInput.append('<option value="' + key + '" ' +
+                            selected + '>' +
+                            value + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#cityInput').empty(); // Clear the city dropdown if no state is selected.
+        }
 
 
         $('#stateSearch').on('change', function() {

@@ -44,7 +44,7 @@ class PageController extends Controller
         $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
             $query->whereNull('parent_id');
         })->latest()->limit(8)->get();
-        $prodcats = Prodcat::with('childrens')->where('parent_id', null)->orderBy('role', 'asc')->get();
+        $prodcats = Prodcat::with('childrens')->where('parent_id', null)->get();
         $sliders = Slider::latest()->get();
 
         return view('pages.home', compact('latest_products', 'bestsaleproducts', 'latest_shops', 'prodcats', 'sliders', 'recommandProducts'));
@@ -52,8 +52,8 @@ class PageController extends Controller
     public function shops()
     {
         $productsQuery = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
-                $q->where('status', 1);
-            })->filter()->simplePaginate(12);
+            $q->where('status', 1);
+        })->filter()->simplePaginate(12);
         $products = $productsQuery->groupBy(function ($item) {
             return  $item->shop_id;
         });
