@@ -278,4 +278,8 @@ class PageController extends Controller
         // dd($shops);
         return response()->json($shops);
     }
+
+    public function test(){
+        return view('layouts.app');
+    }
 }

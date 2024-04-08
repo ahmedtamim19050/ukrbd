@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('payment_method_title')->nullable();
             $table->string('transaction_id')->nullable();
-            $table->timestamp('date_paid')->nullable();
+    
             $table->timestamp('date_completed')->nullable();
             $table->string('refund_amount')->nullable();
             $table->string('company')->nullable();
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->boolean('order_accept')->nullable()->default(0);
             $table->bigInteger('parent_id')->unsigned()->nullable()->default(null);
-            $table->timestamps();
+            $table->timestamps();        $table->timestamp('date_paid')->nullable();
         });
     }
 

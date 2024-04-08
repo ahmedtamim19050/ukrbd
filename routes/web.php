@@ -176,3 +176,5 @@ Route::get('hello/{order}', function (Order $order) {
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
 });
 
+
+Route::get('/test' , [PageController::class, 'test']);
