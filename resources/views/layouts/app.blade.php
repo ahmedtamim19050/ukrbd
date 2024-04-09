@@ -2,8 +2,7 @@
 <html lang="en">
 
 
-<!-- Mirrored from portotheme.com/html/wolmart/# by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Apr 2024 06:13:26 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -916,7 +915,7 @@
             <div class="footer-bottom">
                 <div class="container">
                     <div class="footer-left">
-                        <p class="copyright">Copyright © 2021 Wolmart Store. All Rights Reserved.</p>
+                        <p class="copyright">Copyright © 2024 UKRBD Store. All Rights Reserved.</p>
                     </div>
                     <div class="footer-right">
                         <span class="payment-label mr-lg-8">We're using safe payment for</span>
@@ -1154,7 +1153,7 @@
                                 <li><a href="#">Classic</a></li>
                                 <li><a href="#">Listing</a></li>
                                 <li>
-                                    <a href="https://www.portotheme.com/html/wolmart/blog-grid.html">Grid</a>
+                                    <a href="#">Grid</a>
                                     <ul>
                                         <li><a href="#">Grid 2 columns</a></li>
                                         <li><a href="#">Grid 3 columns</a></li>
