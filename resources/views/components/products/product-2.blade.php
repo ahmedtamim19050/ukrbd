@@ -2,7 +2,7 @@
     <div class="ec-product-inner">
         <div class="ec-pro-image-outer">
             <div class="ec-pro-image">
-                <a href="{{ route('product_details', $product->slug) }}" class="image">
+                <a href="{{ $product->path() }}" class="image">
                     <img class="main-image" src="{{ Storage::url($product->image) }}" alt="Product" />
                     <img class="hover-image" src="{{ Storage::url($product->image) }}" alt="Product" />
                 </a>
@@ -18,7 +18,7 @@
         <div class="ec-pro-content  text-center " style="margin-top: 14px">
             <div class="height-shops">
                 <h5 class="ec-pro-title"><a
-                        href="{{ route('product_details', $product->slug) }}">{{ $product->name }}</a></h5>
+                        href="{{ $product->path() }}">{{ $product->name }}</a></h5>
                 <div class="ec-pro-list-desc">
                     <p style="font-size: 9px; color: #787885">
                         {{ Str::limit(strip_tags($product->short_description), $limit = 40, $end = '...') }}
