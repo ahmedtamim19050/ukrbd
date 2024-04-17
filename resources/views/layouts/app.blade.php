@@ -30,16 +30,16 @@
         })(document);
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
+    <link rel="preload" href="{{ asset('assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2')}}" as="font"
         type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font"
+    <link rel="preload" href="{{ asset('assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2') }}" as="font"
         type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font"
-        type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff"
+    <link rel="preload" href="{{ asset('assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2') }}"
+        as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="{{ asset('assets/fonts/wolmart87d5.woff?png09e') }}" as="font" type="font/woff"
         crossorigin="anonymous">
 
-    {{ $css }}
+    {{ $css ?? null }}
 </head>
 
 <body class="home">
@@ -790,7 +790,7 @@
     <script src="{{ asset('assets/vendor/skrollr/skrollr.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
-    @yield('script')
+   
     <script>
         function cartQnty() {
             $.ajax({
@@ -892,4 +892,6 @@
             });
         }
     </script>
+
+{{ $js ?? null }}
 </body>
