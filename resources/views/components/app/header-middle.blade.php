@@ -1,10 +1,10 @@
-<div class="header-bottom sticky-content fix-top sticky-header has-dropdown" style="background-color: #007cc5">
+<div class="header-bottom sticky-content fix-top sticky-header has-dropdown" style="background-color: #007cc5 !important; ">
     <div class="container">
         <div class="inner-wrap">
             <div class="header-left">
                 <div class="dropdown category-dropdown show-dropdown" data-visible="true">
                     <a href="#" class="text-white category-toggle" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories">
+                        aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories" style="background-color: #2A9CF5 !important;">
                         <i class="w-icon-category"></i>
                         <span>Browse Categories</span>
                     </a>
@@ -223,8 +223,8 @@
                 </nav>
             </div>
             <div class="header-right">
-                <a href="#" class="d-xl-show"><i class="w-icon-map-marker mr-1"></i>Track Order</a>
-                <a href="#"><i class="w-icon-sale"></i>Daily Deals</a>
+                <a href="#" class="d-xl-show" style="color: #ffff"><i class="w-icon-map-marker mr-1" style="color: #ffff"></i>Track Order</a>
+                <a href="#" style="color: #ffff"><i class="w-icon-sale" style="color: #ffff"></i>Daily Deals</a>
             </div>
         </div>
     </div>

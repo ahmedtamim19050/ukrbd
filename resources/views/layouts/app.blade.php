@@ -116,7 +116,7 @@
         <!-- End of Header -->
 
         <!-- Start of Main-->
-        <main class="main">
+        <main class="mainn login-page">
             @yield('content')
         </main>
         <!-- End of Main -->
