@@ -1,3 +1,7 @@
+@php
+            $prodcats = App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
