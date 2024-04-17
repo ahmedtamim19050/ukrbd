@@ -10,6 +10,7 @@ class WishlistController extends Controller
 {
     public function add()
     {
+        
 
         $wishlist = session()->get('wishlist', []);
         if (in_array(request()->productId, $wishlist)) {

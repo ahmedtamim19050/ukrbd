@@ -3,8 +3,9 @@
     <div class="container">
         <div class="intro-wrapper">
             <div class="row">
-                <div class="col-md-8">
-                    <div class="swiper-container swiper-theme animation-slider pg-inner" data-swiper-options="{
+                <div class="col-md-12">
+                    <div class="swiper-container swiper-theme animation-slider pg-inner"
+                        data-swiper-options="{
                         'slidesPerView': 1,
                         'autoplay': {
                             'delay': 8000,
@@ -12,73 +13,40 @@
                         }
                     }">
                         <div class="swiper-wrapper row gutter-no cols-1">
-                            <div class="swiper-slide intro-slide intro-slide1 banner banner-fixed br-sm"
-                                style="background-image: url(assets/images/demos/demo5/slides/slide-1.jpg); background-color: #5D5E62;">
-                                <div class="banner-content x-50 w-100 text-center">
-                                    <h3 class="banner-title text-white text-uppercase slide-animate"
+                            @foreach ($sliders as $slider)
+                                <div class="swiper-slide intro-slide intro-slide1 banner banner-fixed br-sm"
+                                    style="background-image: url('{{ Voyager::image($slider->image) }}'); background-color: #5D5E62;">
+                                    <div class="banner-content x-50 w-100 text-center">
+                                        {{-- <h3 class="banner-title text-white text-uppercase slide-animate"
                                         data-animation-options="{'name': 'zoomIn', 'duration': '1s'}">Comfort
-                                    </h3>
-                                    <figure class="slide-animate floating-item" data-animation-options="{
+                                    </h3> --}}
+                                        {{-- <figure class="slide-animate floating-item mt-5" data-animation-options="{
                                         'name': 'fadeInDownShorter', 'duration': '1s', 'delay': '1s'
                                     }" data-options="{'relativeInput':true,'clipRelativeInput':true,'invertX':true,'invertY':true}"
                                         data-child-depth="0.2">
-                                        <img src="assets/images/demos/demo5/slides/bicycle.png" alt="Bicycle"
+                                        <img src="{{Voyager::image($slider->image)}}" alt="Bicycle"
                                             width="495" height="307" />
-                                    </figure>
-                                    <p class="ls-25 slide-animate" data-animation-options="{
+                                    </figure> --}}
+                                        {{-- <p class="ls-25 slide-animate" data-animation-options="{
                                         'name': 'fadeInUpShorter', 'duration': '1s', 'delay': '1s'
                                     }">Get Free Shipping on all orders over <strong
-                                            class="text-secondary">$99.00</strong></p>
-                                    <a href="shop-banner-sidebar.html"
-                                        class="btn btn-white btn-link btn-underline btn-icon-right slide-animate"
-                                        data-animation-options="{
+                                            class="text-secondary">$99.00</strong></p> --}}
+                                        <a href="shop-banner-sidebar.html"
+                                            class="btn btn-white btn-link btn-underline btn-icon-right slide-animate"
+                                            data-animation-options="{
                                             'name': 'fadeInUpShorter', 'duration': '1s', 'delay': '1s'
                                         }">
-                                        Discover Now<i class="w-icon-long-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-slide intro-slide intro-slide2 banner banner-fixed br-sm"
-                                style="background-image: url(assets/images/demos/demo5/slides/slide-2.jpg); background-color: #EBEDEC;">
-                                <div class="banner-content y-50">
-                                    <div class="slide-animate" data-animation-options="{
-                                        'name': 'fadeInRightShorter', 'duration': '1s'
-                                    }">
-                                        <h5 class="banner-subtitle text-uppercase text-primary ls-25">New
-                                            Arrivals
-                                        </h5>
-                                        <h3 class="banner-title text-capitalize ls-25 mb-0">Men's Fashion</h3>
-                                        <div class="banner-price-info text-default font-weight-bold mb-6 ls-50">
-                                            Start at <span class="text-secondary">$12.00</span>
-                                        </div>
-                                        <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded">Shop
-                                            Now</a>
+                                            Discover Now<i class="w-icon-long-arrow-right"></i>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide intro-slide intro-slide3 banner banner-fixed br-sm"
-                                style="background-image: url(assets/images/demos/demo5/slides/slide-3.jpg); background-color: #E0E0DE;">
-                                <div class="banner-content text-right y-50">
-                                    <div class="slide-animate" data-animation-options="{
-                                        'name': 'fadeInUpShorter', 'duration': '1s'
-                                    }">
-                                        <h5 class="banner-subtitle text-primary text-uppercase">Best Sellers
-                                        </h5>
-                                        <h3 class="banner-title text-capitalize lh-1 ls-25">New
-                                            Sneaker<br>Collection</h3>
-                                        <div class="banner-price-info text-uppercase text-default">
-                                            <strong class="text-dark">Up To 10%</strong> Discount
-                                        </div>
-                                        <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded">Shop
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12 col-xs-6 mb-4">
                             <div class="category-banner banner banner-fixed br-sm">
@@ -109,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- End of Intro-wrapper -->
@@ -179,16 +147,16 @@
         <!-- End of Iocn Box Wrapper -->
 
         <div class="title-link-wrapper title-deals appear-animate mb-4">
-            <h2 class="title title-link">Deals Of The Day</h2>
-            <div
-                class="product-countdown-container font-size-sm text-white bg-secondary align-items-center mr-auto">
-                <label>Offer Ends in: </label>
+            <h2 class="title title-link">Trending Product</h2>
+            <div class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
+                {{-- <label>Offer Ends in: </label>
                 <div class="product-countdown countdown-compact ml-1 font-weight-bold" data-until="+10d"
-                    data-relative="true" data-compact="true">10days,00:00:00</div>
+                    data-relative="true" data-compact="true">10days,00:00:00</div> --}}
             </div>
             <a href="#" class="ml-0">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
-        <div class="swiper-container swiper-theme appear-animate mb-6" data-swiper-options="{
+        <div class="swiper-container swiper-theme appear-animate mb-6"
+            data-swiper-options="{
             'spaceBetween': 20,
             'slidesPerView': 2,
             'breakpoints': {
@@ -204,187 +172,22 @@
             }
         }">
             <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+                @foreach ($latest_products as $product)
+                    <x-products.card :product="$product" />
+                @endforeach
 
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/1-1-1.jpg" alt="Product"
-                                    width="300" height="338">
-                                <img src="assets/images/demos/demo5/products/1-1-2.jpg" alt="Product"
-                                    width="300" height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Leather Stripe Watch</a>
-                            </h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 80%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$189.00</ins><del class="old-price">$199.89</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/1-2.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Running Machine</a></h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 60%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$27.00</ins><del class="old-price">$28.99</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/1-3.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Men's Black Watch</a></h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 100%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(5 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$75.00</ins><del class="old-price">$79.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/1-4-1.jpg" alt="Product"
-                                    width="300" height="338">
-                                <img src="assets/images/demos/demo5/products/1-4-2.jpg" alt="Product"
-                                    width="300" height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Summer Sports Shoes</a></h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 100%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(8 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$85.99</ins><del class="old-price">$88.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/1-5.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Best Pedestrian Bag</a></h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 80%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(4 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$48.55</ins><del class="old-price">$49.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- End of Product Wrap -->
             </div>
             <div class="swiper-pagination"></div>
         </div>
         <!-- End of Prodcut Deals Wrapper -->
+        <div class="title-link-wrapper title-deals appear-animate mb-4">
+            <h2 class="title title-link">Categories</h2>
+            <div class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
 
+            </div>
+            <a href="#" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
+        </div>
         <div class="swiper-container swiper-theme shadow-swiper icon-category-wrapper appear-animate mb-10 pb-2"
             data-swiper-options="{
             'spaceBetween': 20,
@@ -404,86 +207,42 @@
                 }
             }
         }">
-            <div class="swiper-wrapper row cols-xl-8 cols-lg-7 cols-md-6 cols-sm-4 cols-xs-3 cols-2">
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-tshirt"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Fashion</a></h4>
+            <div class="swiper">
+                <div class="swiper-container swiper-theme pg-show swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
+                    data-swiper-options="{
+                'spaceBetween': 20,
+                'slidesPerView': 2,
+                'breakpoints': {
+                    '576': {
+                        'slidesPerView': 3
+                    },
+                    '768': {
+                        'slidesPerView': 5
+                    },
+                    '992': {
+                        'slidesPerView': 6
+                    }
+                }
+            }">
+                    <div class="swiper-wrapper " id="swiper-wrapper-a7e603fb2e00d5310" aria-live="polite"
+                        style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                        @foreach ($prodcats as $prodcat)
+                            <div class="swiper-slide category category-classic category-absolute overlay-zoom br-xs swiper-slide-active"
+                                role="group" aria-label="1 / 6" style="width: 190px; margin-right: 20px;">
+                                <a href="shop-banner-sidebar.html" class="category-media">
+                                    <img src="{{ Voyager::image($prodcat->logo) }}" alt="Category" width="130"
+                                        height="130">
+                                </a>
+                                <div class="category-content">
+                                    <h4 class="category-name">{{ $prodcat->name }}</h4>
+                                    <a href="shop-banner-sidebar.html" class="btn btn-primary btn-link btn-underline">Shop
+                                        Now</a>
+                                </div>
+                            </div>
+                        @endforeach
+
                     </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-sofa"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Furniture</a></h4>
-                    </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-basketball"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Sports</a></h4>
-                    </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-bow"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Toys</a></h4>
-                    </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-camera"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Cameras</a></h4>
-                    </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-gamepad"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Games</a></h4>
-                    </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-headphone"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Headphones</a></h4>
-                    </div>
-                </div>
-                <div class="swiper-slide category category-icon">
-                    <a href="shop-banner-sidebar.html">
-                        <figure class="category-media">
-                            <i class="w-icon-mobile"></i>
-                        </figure>
-                    </a>
-                    <div class="category-content">
-                        <h4 class="category-name"><a href="shop-banner-sidebar.html">Smartphones</a></h4>
-                    </div>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                 </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -494,15 +253,14 @@
             <div class="col-md-6 mb-4">
                 <div class="banner banner-fixed br-sm">
                     <figure>
-                        <img src="assets/images/demos/demo5/categories/2-1.jpg" alt="Category Banner"
-                            width="680" height="180" style="background-color: #EAEAEA;" />
+                        <img src="assets/images/demos/demo5/categories/2-1.jpg" alt="Category Banner" width="680"
+                            height="180" style="background-color: #EAEAEA;" />
                     </figure>
                     <div class="banner-content y-50">
                         <h5 class="banner-subtitle text-capitalize font-weight-normal ls-25">From Online Store
                         </h5>
                         <h3 class="banner-title text-capitalize ls-10">Cosmetic Sale</h3>
-                        <a href="shop-banner-sidebar.html"
-                            class="btn btn-dark btn-link btn-underline btn-icon-right">
+                        <a href="shop-banner-sidebar.html" class="btn btn-dark btn-link btn-underline btn-icon-right">
                             Discover Now<i class="w-icon-long-arrow-right"></i>
                         </a>
                     </div>
@@ -511,15 +269,14 @@
             <div class="col-md-6 mb-4">
                 <div class="banner banner-fixed br-sm">
                     <figure>
-                        <img src="assets/images/demos/demo5/categories/2-2.jpg" alt="Category Banner"
-                            width="680" height="180" style="background-color: #565960;" />
+                        <img src="assets/images/demos/demo5/categories/2-2.jpg" alt="Category Banner" width="680"
+                            height="180" style="background-color: #565960;" />
                     </figure>
                     <div class="banner-content y-50">
                         <h5 class="banner-subtitle text-white text-capitalize font-weight-normal ls-25">Season
                             Collection</h5>
                         <h3 class="banner-title text-white text-capitalize">New Fashion Style</h3>
-                        <a href="shop-banner-sidebar.html"
-                            class="btn btn-white btn-link btn-underline btn-icon-right">
+                        <a href="shop-banner-sidebar.html" class="btn btn-white btn-link btn-underline btn-icon-right">
                             Discover Now<i class="w-icon-long-arrow-right"></i>
                         </a>
                     </div>
@@ -549,106 +306,10 @@
                 }
             }">
                 <div class="swiper-wrapper row cols-xl-4 cols-md-3 cols-sm-2 cols-1">
-                    <div class="swiper-slide vendor-widget">
-                        <div class="vendor-widget-banner">
-                            <figure class="vendor-banner">
-                                <a href="#">
-                                    <img src="assets/images/demos/demo3/vendors/1.jpg" alt="Vendor Banner"
-                                        width="1200" height="390" style="background-color: #ECE7DF;" />
-                                </a>
-                            </figure>
-                            <div class="vendor-details">
-                                <figure class="vendor-logo" style="background-color:#dc1921">
-                                    <a href="#">
-                                        <img src="assets/images/demos/demo3/vendors/brand-1.jpg"
-                                            alt="Vendor Logo" width="90" height="90" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-personal">
-                                    <h4 class="vendor-name">
-                                        <a href="#">OAIO Store</a>
-                                    </h4>
-                                    <span class="vendor-product-count">27 Products</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Vendor Widget Banner -->
-                    </div>
-                    <div class="swiper-slide vendor-widget">
-                        <div class="vendor-widget-banner">
-                            <figure class="vendor-banner">
-                                <a href="#">
-                                    <img src="assets/images/demos/demo3/vendors/2.jpg" alt="Vendor Banner"
-                                        width="1200" height="390" style="background-color: #293936;" />
-                                </a>
-                            </figure>
-                            <div class="vendor-details">
-                                <figure class="vendor-logo" style="background-color:#dc1921">
-                                    <a href="#">
-                                        <img src="assets/images/demos/demo3/vendors/brand-2.jpg"
-                                            alt="Vendor Logo" width="90" height="90" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-personal">
-                                    <h4 class="vendor-name">
-                                        <a href="#">Trident Store</a>
-                                    </h4>
-                                    <span class="vendor-product-count">11 Products</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Vendor Widget Banner -->
-                    </div>
-                    <div class="swiper-slide vendor-widget">
-                        <div class="vendor-widget-banner">
-                            <figure class="vendor-banner">
-                                <a href="#">
-                                    <img src="assets/images/demos/demo3/vendors/3.jpg" alt="Vendor Banner"
-                                        width="1200" height="390" style="background-color: #B8CDCE;" />
-                                </a>
-                            </figure>
-                            <div class="vendor-details">
-                                <figure class="vendor-logo" style="background-color:#dc1921">
-                                    <a href="#">
-                                        <img src="assets/images/demos/demo3/vendors/brand-3.jpg"
-                                            alt="Vendor Logo" width="90" height="90" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-personal">
-                                    <h4 class="vendor-name">
-                                        <a href="#">Pam Store</a>
-                                    </h4>
-                                    <span class="vendor-product-count">16 Products</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Vendor Widget Banner -->
-                    </div>
-                    <div class="swiper-slide vendor-widget">
-                        <div class="vendor-widget-banner">
-                            <figure class="vendor-banner">
-                                <a href="#">
-                                    <img src="assets/images/demos/demo3/vendors/4.jpg" alt="Vendor Banner"
-                                        width="1200" height="390" style="background-color: #F5F5F5;" />
-                                </a>
-                            </figure>
-                            <div class="vendor-details">
-                                <figure class="vendor-logo" style="background-color:#dc1921">
-                                    <a href="#">
-                                        <img src="assets/images/demos/demo3/vendors/brand-4.jpg"
-                                            alt="Vendor Logo" width="90" height="90" />
-                                    </a>
-                                </figure>
-                                <div class="vendor-personal">
-                                    <h4 class="vendor-name">
-                                        <a href="#">K Group Store</a>
-                                    </h4>
-                                    <span class="vendor-product-count">25 Products</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Vendor Widget Banner -->
-                    </div>
+                    @foreach ($latest_shops as $shop)
+                        <x-shop.card :shop="$shop" />
+                    @endforeach
+
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -657,7 +318,7 @@
     </div>
     <!-- End of Container -->
 
-    <section class="grey-section appear-animate pt-10 pb-10">
+    {{-- <section class="grey-section appear-animate pt-10 pb-10">
         <div class="container mb-2">
             <div class="title-link-wrapper mb-4">
                 <h2 class="title title-link">Featured Products</h2>
@@ -727,14 +388,11 @@
                                     <div class="social-links-wrapper mt-1">
                                         <div class="social-links">
                                             <div class="social-icons social-no-color border-thin">
-                                                <a href="#"
-                                                    class="social-icon social-facebook w-icon-facebook"></a>
-                                                <a href="#"
-                                                    class="social-icon social-twitter w-icon-twitter"></a>
+                                                <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
+                                                <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
                                                 <a href="#"
                                                     class="social-icon social-pinterest fab fa-pinterest-p"></a>
-                                                <a href="#"
-                                                    class="social-icon social-whatsapp fab fa-whatsapp"></a>
+                                                <a href="#" class="social-icon social-whatsapp fab fa-whatsapp"></a>
                                             </div>
                                         </div>
                                         <span class="divider d-xs-show"></span>
@@ -953,12 +611,12 @@
                 <!-- End of Grid Item -->
             </div>
         </div>
-        <!-- End of Container -->
-    </section>
+    </section> --}}
     <!-- End of Grey Section -->
 
     <div class="container mt-10 pt-2">
-        <div class="banner banner-simple appear-animate br-sm mb-10" style="background-image: url(assets/images/demos/demo5/banners/1.jpg);
+        <div class="banner banner-simple appear-animate br-sm mb-10"
+            style="background-image: url(assets/images/demos/demo5/banners/1.jpg);
             background-color: #414548;">
             <div class="banner-content align-items-center">
                 <div class="banner-price-info">
@@ -974,15 +632,13 @@
                         We are the Leading<br>
                         <strong>Ski Tool Saler in US</strong>
                     </h3>
-                    <a href="shop-banner-sidebar.html"
-                        class="btn btn-primary btn-link btn-underline btn-icon-right">
+                    <a href="shop-banner-sidebar.html" class="btn btn-primary btn-link btn-underline btn-icon-right">
                         Discover Now<i class="w-icon-long-arrow-right"></i></a>
                 </div>
             </div>
             <figure class="skrollable">
                 <img src="assets/images/demos/demo5/banners/ski.png" alt="Banner"
-                    data-bottom-top="transform: translateY(5vh);"
-                    data-top-bottom="transform: translateY(-5vh);">
+                    data-bottom-top="transform: translateY(5vh);" data-top-bottom="transform: translateY(-5vh);">
             </figure>
         </div>
         <!-- End of Banner Simple -->
@@ -991,7 +647,37 @@
             <h2 class="title title-link pt-1">Apparels &amp; Clothings</h2>
             <a href="shop-boxed-banner.html">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
-        <div class="swiper-container swiper-theme products-apparel appear-animate mb-7" data-swiper-options="{
+        <div class="swiper-container swiper-theme products-apparel appear-animate mb-7"
+            data-swiper-options="{
+            'spaceBetween': 20,
+            'slidesPerView': 2,
+            'breakpoints': {
+                '576': {
+                    'slidesPerView': 3
+                },
+                '768': {
+                    'slidesPerView': 4
+                },
+                '992': {
+                    'slidesPerView': 5
+                }
+            }
+        }">
+            <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+                @foreach ($featuredproducts as $product)
+                    <x-products.card :product="$product" />
+                @endforeach
+
+                <!-- End of Product Wrap -->
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="title-link-wrapper appear-animate mb-4">
+            <h2 class="title title-link pt-1">Apparels &amp; Clothings</h2>
+            <a href="shop-boxed-banner.html">More Products<i class="w-icon-long-arrow-right"></i></a>
+        </div>
+        <div class="swiper-container swiper-theme products-apparel appear-animate mb-7"
+            data-swiper-options="{
             'spaceBetween': 20,
             'slidesPerView': 2,
             'breakpoints': {
@@ -1012,14 +698,13 @@
                     <div class="product text-center">
                         <figure class="product-media">
                             <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/3-1-1.jpg" alt="Product"
-                                    width="300" height="338">
-                                <img src="assets/images/demos/demo5/products/3-1-2.jpg" alt="Product"
-                                    width="300" height="338">
+                                <img src="assets/images/demos/demo5/products/3-1-1.jpg" alt="Product" width="300"
+                                    height="338">
+                                <img src="assets/images/demos/demo5/products/3-1-2.jpg" alt="Product" width="300"
+                                    height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1053,8 +738,7 @@
                                     height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1087,8 +771,7 @@
                                     height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1117,14 +800,13 @@
                     <div class="product text-center">
                         <figure class="product-media">
                             <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/3-4-1.jpg" alt="Product"
-                                    width="300" height="338">
-                                <img src="assets/images/demos/demo5/products/3-4-2.jpg" alt="Product"
-                                    width="300" height="338">
+                                <img src="assets/images/demos/demo5/products/3-4-1.jpg" alt="Product" width="300"
+                                    height="338">
+                                <img src="assets/images/demos/demo5/products/3-4-2.jpg" alt="Product" width="300"
+                                    height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1157,8 +839,7 @@
                                     height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1250,7 +931,8 @@
             <h2 class="title title-link pt-1">Consumer Electronics</h2>
             <a href="#" class="ls-normal">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
-        <div class="swiper-container swiper-theme appear-animate mb-9" data-swiper-options="{
+        <div class="swiper-container swiper-theme appear-animate mb-9"
+            data-swiper-options="{
             'spaceBetween': 20,
             'slidesPerView': 2,
             'breakpoints': {
@@ -1271,14 +953,13 @@
                     <div class="product text-center">
                         <figure class="product-media">
                             <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-1-1.jpg" alt="Product"
-                                    width="300" height="338">
-                                <img src="assets/images/demos/demo5/products/4-1-2.jpg" alt="Product"
-                                    width="300" height="338">
+                                <img src="assets/images/demos/demo5/products/4-1-1.jpg" alt="Product" width="300"
+                                    height="338">
+                                <img src="assets/images/demos/demo5/products/4-1-2.jpg" alt="Product" width="300"
+                                    height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1312,8 +993,7 @@
                                     height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1346,8 +1026,7 @@
                                     height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1377,14 +1056,13 @@
                     <div class="product text-center">
                         <figure class="product-media">
                             <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-4-1.jpg" alt="Product"
-                                    width="300" height="338">
-                                <img src="assets/images/demos/demo5/products/4-4-2.jpg" alt="Product"
-                                    width="300" height="338">
+                                <img src="assets/images/demos/demo5/products/4-4-1.jpg" alt="Product" width="300"
+                                    height="338">
+                                <img src="assets/images/demos/demo5/products/4-4-2.jpg" alt="Product" width="300"
+                                    height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1418,8 +1096,7 @@
                                     height="338">
                             </a>
                             <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
+                                <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                     title="Add to wishlist"></a>
                                 <a href="#" class="btn-product-icon btn-quickview w-icon-search"
@@ -1533,7 +1210,8 @@
             <a href="blog-listing.html" class="font-weight-bold font-size-normal ls-normal">View All
                 Articles</a>
         </div>
-        <div class="swiper-container swiper-theme post-wrapper appear-animate mb-3" data-swiper-options="{
+        <div class="swiper-container swiper-theme post-wrapper appear-animate mb-3"
+            data-swiper-options="{
             'slidesPerView': 4,
             'spaceBetween': 20,
             'slidesPerView': 1,
@@ -1553,8 +1231,8 @@
                 <div class="swiper-slide post text-center overlay-zoom">
                     <figure class="post-media br-sm">
                         <a href="post-single.html">
-                            <img src="assets/images/demos/demo5/blogs/1.jpg" alt="Post" width="280" height="180"
-                                style="background-color: #828896;" />
+                            <img src="assets/images/demos/demo5/blogs/1.jpg" alt="Post" width="280"
+                                height="180" style="background-color: #828896;" />
                         </a>
                     </figure>
                     <div class="post-details">
@@ -1571,8 +1249,8 @@
                 <div class="swiper-slide post text-center overlay-zoom">
                     <figure class="post-media br-sm">
                         <a href="post-single.html">
-                            <img src="assets/images/demos/demo5/blogs/2.jpg" alt="Post" width="280" height="180"
-                                style="background-color: #C7C7C5;" />
+                            <img src="assets/images/demos/demo5/blogs/2.jpg" alt="Post" width="280"
+                                height="180" style="background-color: #C7C7C5;" />
                         </a>
                     </figure>
                     <div class="post-details">
@@ -1588,8 +1266,8 @@
                 <div class="swiper-slide post text-center overlay-zoom">
                     <figure class="post-media br-sm">
                         <a href="post-single.html">
-                            <img src="assets/images/demos/demo5/blogs/3.jpg" alt="Post" width="280" height="180"
-                                style="background-color: #BDBDB5;" />
+                            <img src="assets/images/demos/demo5/blogs/3.jpg" alt="Post" width="280"
+                                height="180" style="background-color: #BDBDB5;" />
                         </a>
                     </figure>
                     <div class="post-details">
@@ -1606,8 +1284,8 @@
                 <div class="swiper-slide post text-center overlay-zoom">
                     <figure class="post-media br-sm">
                         <a href="post-single.html">
-                            <img src="assets/images/demos/demo5/blogs/4.jpg" alt="Post" width="280" height="180"
-                                style="background-color: #546B73;" />
+                            <img src="assets/images/demos/demo5/blogs/4.jpg" alt="Post" width="280"
+                                height="180" style="background-color: #546B73;" />
                         </a>
                     </figure>
                     <div class="post-details">
@@ -1630,7 +1308,8 @@
             <a href="shop-list.html" class="font-weight-bold font-size-normal ls-normal">
                 More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
-        <div class="swiper-container swiper-theme shadow-swiper appear-animate pb-4 mb-8" data-swiper-options="{
+        <div class="swiper-container swiper-theme shadow-swiper appear-animate pb-4 mb-8"
+            data-swiper-options="{
             'nav': false,
             'dots': true,
             'spaceBetween': 20,
@@ -1655,8 +1334,8 @@
                     <div class="product text-center product-absolute">
                         <figure class="product-media">
                             <a href="https://www.portotheme.com/html/wolmart/product-defaproduct-default.html">
-                                <img src="assets/images/demos/demo5/products/3-5.jpg" alt="Category image"
-                                    width="130" height="146" style="background-color: #fff" />
+                                <img src="assets/images/demos/demo5/products/3-5.jpg" alt="Category image" width="130"
+                                    height="146" style="background-color: #fff" />
                             </a>
                         </figure>
                         <h4 class="product-name">
@@ -1697,8 +1376,8 @@
                     <div class="product text-center product-absolute">
                         <figure class="product-media">
                             <a href="https://www.portotheme.com/html/wolmart/product-defaproduct-default.html">
-                                <img src="assets/images/demos/demo5/products/2-3.jpg" alt="Category image"
-                                    width="130" height="146" style="background-color: #fff" />
+                                <img src="assets/images/demos/demo5/products/2-3.jpg" alt="Category image" width="130"
+                                    height="146" style="background-color: #fff" />
                             </a>
                         </figure>
                         <h4 class="product-name">
@@ -1711,8 +1390,8 @@
                     <div class="product text-center product-absolute">
                         <figure class="product-media">
                             <a href="https://www.portotheme.com/html/wolmart/product-defaproduct-default.html">
-                                <img src="assets/images/demos/demo5/products/2-5.jpg" alt="Category image"
-                                    width="130" height="146" style="background-color: #fff" />
+                                <img src="assets/images/demos/demo5/products/2-5.jpg" alt="Category image" width="130"
+                                    height="146" style="background-color: #fff" />
                             </a>
                         </figure>
                         <h4 class="product-name">
@@ -1725,8 +1404,8 @@
                     <div class="product text-center product-absolute">
                         <figure class="product-media">
                             <a href="https://www.portotheme.com/html/wolmart/product-defaproduct-default.html">
-                                <img src="assets/images/demos/demo5/products/2-8.jpg" alt="Category image"
-                                    width="130" height="146" style="background-color: #fff" />
+                                <img src="assets/images/demos/demo5/products/2-8.jpg" alt="Category image" width="130"
+                                    height="146" style="background-color: #fff" />
                             </a>
                         </figure>
                         <h4 class="product-name">
@@ -1753,8 +1432,8 @@
                     <div class="product text-center product-absolute">
                         <figure class="product-media">
                             <a href="https://www.portotheme.com/html/wolmart/product-defaproduct-default.html">
-                                <img src="assets/images/demos/demo5/products/1-2.jpg" alt="Category image"
-                                    width="130" height="146" style="background-color: #fff" />
+                                <img src="assets/images/demos/demo5/products/1-2.jpg" alt="Category image" width="130"
+                                    height="146" style="background-color: #fff" />
                             </a>
                         </figure>
                         <h4 class="product-name">
@@ -1769,4 +1448,3 @@
         <!-- End of Reviewed Producs -->
     </div>
 @endsection
-

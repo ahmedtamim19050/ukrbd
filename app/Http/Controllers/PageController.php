@@ -37,6 +37,15 @@ class PageController extends Controller
                 $q->whereIn('post_code', $postcode);
             })
             ->latest()->limit(16)->whereNull('parent_id')->get();
+        $featuredproducts = Product::where('featured', '1')
+            ->whereHas('shop', function ($q) {
+                $q->where('status', 1);
+            })
+            ->when(Session::has('location'), function ($q) {
+                $postcode = Session::get('location.postcode');
+                $q->whereIn('post_code', $postcode);
+            })
+            ->latest()->limit(16)->whereNull('parent_id')->get();
 
         $recommand = session()->get('recommand', []);
         $recommandProducts = Product::whereNull('parent_id')->whereIn('id', $recommand)->get();
@@ -44,10 +53,18 @@ class PageController extends Controller
         $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
             $query->whereNull('parent_id');
         })->latest()->limit(8)->get();
-        $prodcats = Prodcat::with('childrens')->where('parent_id', null)->get();
+        $prodcats = Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
         $sliders = Slider::latest()->get();
 
-        return view('pages.home', compact('latest_products', 'bestsaleproducts', 'latest_shops', 'prodcats', 'sliders', 'recommandProducts'));
+        return view('pages.home', compact(
+            'latest_products',
+            'bestsaleproducts',
+            'latest_shops',
+            'prodcats',
+            'sliders',
+            'recommandProducts',
+            'featuredproducts',
+        ));
     }
     public function shops()
     {
@@ -279,7 +296,8 @@ class PageController extends Controller
         return response()->json($shops);
     }
 
-    public function test(){
+    public function test()
+    {
         return view('layouts.app');
     }
 }

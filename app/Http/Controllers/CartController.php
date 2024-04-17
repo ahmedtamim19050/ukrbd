@@ -87,6 +87,7 @@ class CartController extends Controller
 		} else {
 			$product = Product::find($request->product_id);
 		}
+		
 
 		if ($product->sale_price) {
 			$price = $product->sale_price;
