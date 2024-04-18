@@ -68,7 +68,7 @@
                                     <a href="#" class="product-name">{{$product->name}}</a>
                                     <div class="price-box">
                                         <span class="product-quantity">{{Sohoj::price($product->price)}}</span>
-                                        <span class="product-price"></span>
+                                        <span class="product-price">{{ $product->quantity }}</span>
                                     </div>
                                 </div>
                                 <figure class="product-media">

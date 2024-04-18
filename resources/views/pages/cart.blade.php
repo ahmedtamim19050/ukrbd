@@ -13,6 +13,24 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+
+        <style>
+            .btn-checkout{
+                color: #ffffff;
+                background-color: #cd1921;
+                border: #cd1921;
+            }
+            .btn-checkout:hover{
+                color: #ffffff;
+                background-color: #00A6E9;
+                border: #00A6E9;
+            }
+            .coupon11:hover{
+                color: #ffffffb !important;
+                background-color: #00A6E9 !important;
+                border: #00A6E9 !important;
+            }
+        </style>
     </x-slot>
 
     <main class="main cart container">
@@ -51,13 +69,13 @@
                                             <div class="p-relative">
                                                 <a href="product-default.html">
                                                     <figure>
-                                                        <img src="{{Voyager::image($product->model->image)}}"
+                                                        <img src="{{ Voyager::image($product->model->image) }}"
                                                             alt="product" width="300" height="338">
                                                     </figure>
                                                 </a>
                                                 <button class="btn btn-close">
                                                     <a href="{{ url('/cart-destroy/' . $product->id) }}"><i
-                                                        class="fas fa-times"></i></a>
+                                                            class="fas fa-times"></i></a>
                                                 </button>
                                             </div>
                                         </td>
@@ -66,7 +84,8 @@
                                                 {{ $product->name }}
                                             </a>
                                         </td>
-                                        <td class="product-price"><span class="amount">{{Sohoj::price($product->price)}}</span></td>
+                                        <td class="product-price"><span
+                                                class="amount">{{ Sohoj::price($product->price) }}</span></td>
                                         <td class="product-quantity">
                                             <form method="POST" action="{{ route('cart.update') }}">
                                                 @csrf
@@ -90,20 +109,23 @@
                         </table>
 
                         <div class="cart-action mb-6">
-                            <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto"><i
-                                    class="w-icon-long-arrow-left"></i>Continue Shopping</a>
+                            <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-shopping btn-checkout mr-auto"><i
+                                    class="w-icon-long-arrow-left "></i>Continue Shopping</a>
                             <button type="submit" class="btn btn-rounded btn-default btn-clear" name="clear_cart"
                                 value="Clear Cart">Clear Cart</button>
                             <button type="submit" class="btn btn-rounded btn-update disabled" name="update_cart"
                                 value="Update Cart">Update Cart</button>
                         </div>
-
-                        <form class="coupon">
-                            <h5 class="title coupon-title font-weight-bold text-uppercase">Coupon Discount</h5>
-                            <input type="text" class="form-control mb-4" placeholder="Enter coupon code here..."
-                                required />
-                            <button class="btn btn-dark btn-outline btn-rounded">Apply Coupon</button>
-                        </form>
+                        @if (!session()->has('discount'))
+                            <form class="coupon" action="{{ route('coupon') }}" method="POST">
+                                @csrf
+                                <h5 class="title coupon-title font-weight-bold text-uppercase">Coupon Discount</h5>
+                                <input type="text" class="form-control mb-4" name="coupon_code" placeholder="Enter coupon code here..."
+                                    required />
+                                <button type="submit" class="btn btn-dark btn-outline btn-rounded coupon11">Apply
+                                    Coupon</button>
+                            </form>
+                        @endif
                     </div>
                     <div class="col-lg-4 sticky-sidebar-wrapper">
                         <div class="sticky-sidebar">
@@ -111,7 +133,7 @@
                                 <h3 class="cart-title text-uppercase">Cart Totals</h3>
                                 <div class="cart-subtotal d-flex align-items-center justify-content-between">
                                     <label class="ls-25">Subtotal</label>
-                                    <span>$100.00</span>
+                                    <span>${{ Cart::getSubTotal() }}</span>
                                 </div>
 
                                 <hr class="divider">
@@ -189,9 +211,9 @@
                                 <hr class="divider mb-6">
                                 <div class="order-total d-flex justify-content-between align-items-center">
                                     <label>Total</label>
-                                    <span class="ls-50">{{ Cart::getSubTotal() }}</span>
+                                    <span class="ls-50">{{ Sohoj::newSubtotal() }}</span>
                                 </div>
-                                <a href="#"
+                                <a href="{{route('checkout')}}"
                                     class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
                                     Proceed to checkout<i class="w-icon-long-arrow-right"></i></a>
                             </div>

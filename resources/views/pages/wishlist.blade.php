@@ -1,29 +1,19 @@
 <x-app>
     <x-slot name="css">
-        <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
-            type="font/woff2" crossorigin="anonymous">
-        <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font"
-            type="font/woff2" crossorigin="anonymous">
-        <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font"
-            type="font/woff2" crossorigin="anonymous">
-        <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff"
-            crossorigin="anonymous">
-
         <!-- Vendor CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
-        <link rel="stylesheet" type="text/css"
-            href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.min.css">
 
-        <!-- Plugin CSS -->
-        <link rel="stylesheet" type="text/css"
-            href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
+        <!-- Plugins CSS -->
         <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
 
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
     </x-slot>
 
-    <main class="main wishlist-page container">
+    <main class="wishlist-page">
         <!-- Start of Page Header -->
         <div class="page-header">
             <div class="container">
@@ -36,7 +26,7 @@
         <nav class="breadcrumb-nav mb-10">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="demo1.html">Home</a></li>
+                    <li><a href="{{route('homepage')}}">Home</a></li>
                     <li>Wishlist</li>
                 </ul>
             </div>

@@ -54,9 +54,11 @@
                     <img src="{{ Storage::url($product->image) }}" alt="product" width="300" height="338">
                 </figure>
             </a>
-            {{-- <button type="submit" class="btn btn-close"><i class="fas fa-times"></i></button> --}}
-            <a href="{{ route('wishlist.remove', $product->id) }}" class="btn btn-close" title="Wishlist"><i
-                    class="fas fa-times"></i></a>
+            <button class="btn btn-close"><a
+                    href="{{ route('wishlist.remove', $product->id) }}"title="Wishlist"><i
+                        class="fas fa-times"></i></a></button>
+            {{-- <a href="{{ route('wishlist.remove', $product->id) }}" class="btn btn-close" title="Wishlist"><i
+                    class="fas fa-times"></i></a> --}}
         </div>
     </td>
     <td class="product-name">
@@ -81,11 +83,12 @@
                 class="btn btn-quickview btn-outline btn-default btn-rounded btn-sm mb-2 mb-lg-0"><i
                     class="far fa-eye"></i> Quick
                 View </a>
+            
             <form class="addToCartForm_{{ $product->id }}">
                 @csrf
                 <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
                 <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                <button class="btn btn-dark btn-rounded btn-sm ml-lg-2 btn-cart" type="button"
+                <button class="btn btn-dark btn-rounded btn-sm ml-lg-2 btn-cart" type="submit"
                     data-product-id="{{ $product->id }}"><i class="fas fa-cart-plus"></i> Add to
                     cart
 

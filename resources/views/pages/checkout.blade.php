@@ -21,8 +21,8 @@
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb shop-breadcrumb bb-no">
-                    <li class="passed"><a href="{{route('cart')}}">Shopping Cart</a></li>
-                    <li class="active"><a href="{{route('checkout')}}">Checkout</a></li>
+                    <li class="passed"><a href="{{ route('cart') }}">Shopping Cart</a></li>
+                    <li class="active"><a href="{{ route('checkout') }}">Checkout</a></li>
                     <li><a href="#">Order Complete</a></li>
                 </ul>
             </div>
@@ -78,19 +78,23 @@
                     </div>
                     <button type="submit" class="btn btn-rounded btn-login">Login</button>
                 </form>
-                
-                <div class="coupon-toggle"> Have a coupon? 
+
+                <div class="coupon-toggle"> Have a coupon?
                     <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter your code</a>
                 </div>
-                
+
                 <div class="coupon-content mb-4">
                     <p>If you have a coupon code, please apply it below.</p>
-                    <div class="input-wrapper-inline">
-                        <input type="text" name="coupon_code" class="form-control form-control-md mr-1 mb-2"
-                            placeholder="Coupon code" id="coupon_code">
-                        <button type="submit" class="btn button btn-rounded btn-coupon mb-2" name="apply_coupon"
-                            value="Apply coupon">Apply Coupon</button>
-                    </div>
+                    @if (!session()->has('discount'))
+                        <form action="{{ route('coupon') }}" method="POST">
+                            @csrf
+                            <div class="input-wrapper-inline">
+                                <input type="text" name="coupon_code" class="form-control form-control-md mr-1 mb-2"
+                                    placeholder="Coupon code" id="coupon_code">
+                                <button type="submit" class="btn button btn-rounded btn-coupon mb-2">Apply Coupon</button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
                 <form class="form checkout-form" action="#" method="post">
                     <div class="row mb-9">
