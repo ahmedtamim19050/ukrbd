@@ -1,18 +1,20 @@
-@extends('layouts.seller-dashboar')
-@section('dashboard-content')
-<style>
-    .btn-danger {
-        color: #fff;
-        background-color: #dc3545;
-        border-color: #dc3545;
-    }
+<x-seller>
+    <x-slot name="css">
 
-    .btn-danger:hover {
-        color: #fff;
-        background-color: #c12d3c;
-        border-color: #c12d3c;
-    }
-</style>
+        <style>
+            .btn-danger {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+        
+            .btn-danger:hover {
+                color: #fff;
+                background-color: #c12d3c;
+                border-color: #c12d3c;
+            }
+        </style>
+    </x-slot>
 
 <div class="ec-shop-rightside col-lg-9 col-md-12">
     <div class="ec-vendor-dashboard-card ec-vendor-profile-card">
@@ -41,7 +43,7 @@
                             </div>
                         </div>
                         @endif
-                        <h3 class="mt-3 mb-3 text-center">General Info</h3>
+                        {{-- <h3 class="mt-3 mb-3 text-center">General Info</h3>
                         <div class="pb-3" style="border-bottom: 1px solid #E1E1E1;">
                             <form method="POST" action="{{ route('vendor.generalInfo.update') }}">
                                 @csrf
@@ -65,7 +67,7 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                         <h3 class="mt-3 mb-3 text-center">Bank Information Edit</h3>
                         <div class="pb-3" style="border-bottom: 1px solid #E1E1E1;">
                             <form method="POST" action="{{ route('vendor.bankInfo.update') }}">
@@ -125,7 +127,7 @@
                                     </div>
 
 
-                                    <div class="col-md-6 my-2">
+                                    {{-- <div class="col-md-6 my-2">
                                         <div class="form-group">
                                             <label for="ein">State</label>
                                             @php
@@ -175,7 +177,7 @@
                                             @enderror
 
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                 </div>
@@ -300,4 +302,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-seller>

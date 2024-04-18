@@ -11,6 +11,7 @@ class seller extends Component
      *
      * @return void
      */
+    
     public function __construct()
     {
         //

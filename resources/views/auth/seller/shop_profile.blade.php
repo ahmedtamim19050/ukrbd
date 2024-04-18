@@ -21,8 +21,8 @@
                                 class="img-fluid">
                             <a href="javascript:void(0)" class="shadow-lg"
                                 style="position: absolute; top:0px; right:20px; background-color: #fff; border-radius:50%;padding:10px 0"
-                                data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3"><i
-                                        class="fi-rr-edit" style="font-size: 16px;"></i></span></a>
+                                data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3">
+                                    <i class="fas fa-edit"></i></span></a>
                             <div class="ec-vendor-block-img space-bottom-30" style="background-color: snow;">
                                 <div class="ec-vendor-block-b"></div>
                                 <div class="ec-vendor-block-detail">
@@ -33,8 +33,8 @@
                                             alt="vendor image">
                                         <a href="javascript:void(0)" class="shadow-lg"
                                             style="position: absolute; top:-59px; right:-21px; background-color: #fff; border-radius:50%;padding:10px 0"
-                                            data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
-                                                    class="fi-rr-edit" style="font-size: 16px;"></i></span></a>
+                                            data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3">
+                                                <i class="fas fa-edit"></i></span></a>
                                     </div>
                                     <h5>{{ auth()->user()->name }}</h5>
                                     <p>( {{ auth()->user()->shop ? auth()->user()->shop->name : 'no shop has been created' }}
@@ -48,7 +48,7 @@
                                     <label for="name" class="form-label">Shop Name<span
                                             class="text-danger">*</span></label>
                                     <input type="text" name="name"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->name : old('name') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->name ? auth()->user()->shop->name : old('name') }}"
                                         class="form-control @error('name') is-invalid @enderror" id="name" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
                                 <div class="col-12 mb-3">
                                     <div class="form-floating">
                                         <textarea required maxlength="300" class="form-control @error('short_description') is-invalid @enderror"
-                                            placeholder="Short Description" name="short_description" id="short_description" style="height: 100px" required>{{ auth()->user()->shop ? auth()->user()->shop->short_description : old('short_description') }}</textarea>
+                                            placeholder="Short Description" name="short_description" id="short_description" style="height: 100px" required>{{ auth()->user()->shop && auth()->user()->shop->short_description ? auth()->user()->shop->short_description : old('short_description') }}</textarea>
                                         <label for="floatingTextarea2">Short Description<span
                                                 class="text-danger">*</span></label>
                                         <span id="charCount">Characters left: 300</span>
@@ -88,7 +88,7 @@
                                     <label for="inputEmail4" class="form-label">Phone Number<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->phone : old('phone') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->phone ? auth()->user()->shop->phone : old('phone') }}"
                                         name="phone" id="phone" required>
                                     @error('phone')
                                         <span class="invalid-feedback" role="alert">
@@ -96,10 +96,8 @@
                                         </span>
                                     @enderror
                                 </div>
-                                @php
-                                    
-                                @endphp
-                                <div class="col-md-6 mb-2">
+                               
+                                {{-- <div class="col-md-6 mb-2">
                                     <label for="inputEmail4" class="form-label">Shop Tags <span>( Type and
                                             make comma to separate tags And Use Three word to describe your shop
                                             )</span><span class="text-danger">*</span></label>
@@ -111,12 +109,12 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
-                                <div class="col-md-6 mb-3 mt-4">
+                                </div> --}}
+                                <div class="col-md-6 mb-3">
                                     <label for="inputEmail4" class="form-label">Company Name<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('company_name') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->company_name : old('company_name') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_name &&  auth()->user()->shop->company_name ? auth()->user()->shop->company_name : old('company_name') }}"
                                         name="company_name" id="company_name" required>
                                     @error('company_name')
                                         <span class="invalid-feedback" role="alert">
@@ -125,11 +123,11 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="inputEmail4" class="form-label">Shop Address<span
+                                    <label for="inputEmail4" class="form-label">Shop Registration<span
                                             class="text-danger">*</span></label>
                                     <input type="text"
                                         class="form-control @error('company_registration') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->company_registration : old('company_registration') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_registration  ? auth()->user()->shop->company_registration : old('company_registration') }}"
                                         name="company_registration" id="company_registration" required>
                                     @error('company_registration')
                                         <span class="invalid-feedback" role="alert">
@@ -138,13 +136,13 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6 mb-3">
+                                {{-- <div class="col-md-6 mb-3">
                                     <label for="inputCity" class="form-label">Country<span
                                             class="text-danger">*</span></label>
                                     <x-country />
-                                </div>
+                                </div> --}}
 
-                                <div class="col-md-5 mb-3">
+                                {{-- <div class="col-md-5 mb-3">
                                     <label for="inputState" class="form-label">State<span
                                             class="text-danger">*</span></label>
                                     <x-state />
@@ -153,12 +151,12 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4 mb-3">
                                     <label for="inputCity" class="form-label">City<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('city') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->city : old('city') }}"
+                                        value="{{ auth()->user()->shop &&  auth()->user()->shop->city ? auth()->user()->shop->city : old('city') }}"
                                         name="city" id="city" required>
                                     @error('city')
                                         <span class="invalid-feedback" role="alert">
@@ -170,7 +168,7 @@
                                     <label for="inputZip" class="form-label">Zip</label>
                                     <input type="text"
                                         class="form-control p-2 @error('post_code') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->post_code : old('post_code') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('post_code') }}"
                                         name="post_code" id="post_code" required>
                                     @error('post_code')
                                         <span class="invalid-feedback" role="alert">
@@ -182,7 +180,7 @@
                                 <div class="col-12 mb-3">
                                     <label for="inputAddress2" class="form-label">About Shop<span
                                             class="text-danger">*</span></label>
-                                    <textarea id="description" required maxlength="1000" name="description" cols="20" rows="10" required>{{ auth()->user()->shop ? auth()->user()->shop->description : old('description') }}</textarea>
+                                    <textarea id="description" required maxlength="1000" name="description" cols="20" rows="10" required>{{ auth()->user()->shop && auth()->user()->shop->description ? auth()->user()->shop->description: old('description') }}</textarea>
                                     <span id="descriptionCharCount">Characters left: 1000</span>
                                 </div>
                                 <div class="col-12 mt-3 d-flex justify-content-end">

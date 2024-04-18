@@ -4,12 +4,12 @@
 
 
 <title>UKR | Dashboard</title>
-
-
+<link rel="stylesheet" href="assets/css/vendor/ecicons.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('seller-assets/css/plugins/bootstrap.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/style.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/responsive.css') }}" />
-
+{{ $css ?? null }}
 </head>
 
 <body class="shop_page">
@@ -19,11 +19,11 @@
             <div class="row">
                 <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
                     <div class="ec-sidebar-wrap ec-border-box">
-                  
-                       <x-app.seller.sidebar/>
+
+                        <x-app.seller.sidebar />
                     </div>
                 </div>
-                {{$slot}}
+                {{ $slot }}
             </div>
         </div>
     </section>
@@ -42,10 +42,10 @@
                             <input type="file" class="form-control" required name="logo" id="logo"
                                 aria-describedby="emailHelp">
                         </div>
-    
-    
-    
-    
+
+
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -68,12 +68,12 @@
                         <div class="form-group">
                             <label for="email">Cover</label>
                             <input type="file" class="form-control" required name="banner" id="banner"
-                                aria-describedby="emailHelp" >
+                                aria-describedby="emailHelp">
                         </div>
-    
-    
-    
-    
+
+
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -83,8 +83,8 @@
             </div>
         </div>
     </div>
-    <script src="{{asset('seller-assets/js/vendor/bootstrap.min.js')}}"></script>
-    <script src="{{asset('seller-assets/js/vendor/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{ asset('seller-assets/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('seller-assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
 </body>
 
 

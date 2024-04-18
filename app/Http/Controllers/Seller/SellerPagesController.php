@@ -108,7 +108,7 @@ class SellerPagesController extends Controller
     }
     public function shopStore(Request $request)
     {
-
+     
         $request->validate([
             'name' => ['required', 'max:40'],
             'logo' => ['nullable'],
@@ -117,14 +117,11 @@ class SellerPagesController extends Controller
             'phone' => ['required', 'max:40'],
             'description' => ['required', 'max:1000'],
             'short_description' => ['required', 'max:300'],
-            'tags' => ['required', 'max:60'],
+            'tags' => ['nullable', 'max:60'],
             'company_name' => ['required', 'max:100'],
             'company_registration' => ['required', 'max:100'],
-
             'city' => ['required', 'max:50'],
-            'country' => ['required', 'max:50'],
             'post_code' => ['required', 'max:10'],
-            'state' => ['required', 'max:20'],
 
         ]);
 

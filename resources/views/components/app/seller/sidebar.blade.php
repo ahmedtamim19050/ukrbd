@@ -13,8 +13,8 @@
                         class="img-fluid">
                     <a href="javascript:void(0)" class="shadow-lg"
                         style="position: absolute; top:-11px; right:-11px; background-color: #fff; border-radius:50%;padding:10px 0"
-                        data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3"><i class="fi-rr-edit"
-                                style="font-size: 16px;"></i></span></a>
+                        data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3">
+                            <i class="fas fa-edit"></i></span></a>
                 @else
                     <img src="{{ asset('assets/img/1.jpg') }}" alt=""
                         style="height: 190px;
@@ -32,8 +32,7 @@
 
                             <a href="javascript:void(0)" class="shadow-lg"
                                 style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
-                                data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
-                                        class="fi-rr-edit" style="font-size: 16px;"></i></span></a>
+                                data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i class="fas fa-edit"></i></span></a>
                         </div>
                         <!-- <a href="javascript::void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>><i class="fi-rr-edit"></i></a> -->
                     @else
@@ -42,8 +41,7 @@
                                 alt="vendor image">
                             <a href="javascript:void(0)" class="shadow-lg"
                                 style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
-                                data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
-                                        class="fi-rr-edit" style="font-size: 16px;"></i></span></a>
+                                data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i class="fas fa-edit"></i></span></a>
                         </div>
                     @endif
                     <h5>{{ auth()->user()->name }}</h5>
