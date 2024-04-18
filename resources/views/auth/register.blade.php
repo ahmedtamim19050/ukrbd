@@ -1,5 +1,13 @@
 <x-app>
     <x-slot name="css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.min.css">
+
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
 
@@ -120,7 +128,7 @@
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{route('homepage')}}">Home</a></li>
                     <li>My account</li>
                 </ul>
             </div>
