@@ -1,4 +1,4 @@
-<x-app>
+{{-- <x-app>
     <x-slot name="css">
         <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/plugins/slick.min.css') }}" />
@@ -7,10 +7,10 @@
         <link rel="stylesheet" href="{{ asset('assets/css/seller.css') }}">
     </x-slot>
 
-    {{-- @section('content') --}}
+    @section('content')
 
-    {{-- <x-app.header /> --}}
-    {{-- <x-app.breadcrumb /> --}}
+    <x-app.header />
+    <x-app.breadcrumb />
 
 
     <!-- Vendor dashboard section -->
@@ -31,4 +31,4 @@
     <script src="{{ asset('assets/frontend-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
 
     <script src="{{ asset('assets/frontend-assets/js/main.js') }}"></script>
-@endsection
+@endsection --}}
