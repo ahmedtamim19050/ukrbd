@@ -1,71 +1,5 @@
 @charset "UTF-8";
-/*-----------------------------------------------------------------------------------
 
-    Item Name: Ekka - Ecommerce HTML Template + Admin Dashboard.
-    Author: ashishmaraviya
-    Version: 3.4
-    Copyright 2023
-	Author URI: https://themeforest.net/user/ashishmaraviya
-
------------------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------------
-    Included CSS INDEX
------------------------------------------------------------------------------------
-
-01. Typography
-02. Components
-    - Helper
-    - Common
-    - Popup Model
-    - Breadcrumb
-03. Layout 
-    - Header Section
-    - Mainslider Section
-    - Product Tab Section
-    - Banner Section
-    - Category Section
-    - Specials Section
-    - Services Section
-    - Offer Section
-    - New Product Section
-    - Testimonial Section
-    - Brand Section
-    - Instagram Section
-    - Footer Section
-    - Quickview Section
-    - Category Section
-    - Category Sidebar
-04. Pages
-    - Shop Page
-    - Login Page
-    - Register Page
-    - About us Page
-    - Term Page
-    - Contact us Page
-    - Faq Page
-    - Single Product Page
-    - Blog Page
-    - Cart Page
-    - Compare Page
-    - Track Order Page
-    - Checkout Page    
-    - Elements Tabs Page
-    - Elements Categories Page
-    - Elements Buttons Page
-    - Elements Products Page
-    - Elements Title Page
-    - Elements Coming-Soon Page
-    - Elements Blog Page
-    - Elements Typography Page
-    - Vendor Page
-    - User Page
-    - Offer Page
-    - Thank you Page
-
------------------------------------------------------------------------------------*/
-/*-------------------------------------------------
-  Fonts Family & Style CSS
----------------------------------------------------*/
 @font-face {
   font-family: "Poppins, sans-serif";
   src: url("../fonts/poppins/Poppins-Thin.ttf") format("truetype");
@@ -20165,7 +20099,7 @@ select::-ms-expand {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 172px;
+  /* width: 172px; */
   height: 34px;
   line-height: 1.5;
   background: #ffffff;
@@ -20174,7 +20108,7 @@ select::-ms-expand {
   border: 1px solid #eeeeee;
 }
 .ec-select-inner::after {
-  content: "\f107";
+  content: "";
   position: absolute;
   font-family: "Ecicons";
   top: 0;

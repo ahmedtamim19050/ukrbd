@@ -4,12 +4,13 @@
 
 
 <title>UKR | Dashboard</title>
-<link rel="stylesheet" href="assets/css/vendor/ecicons.min.css" />
+<link rel="stylesheet" href="{{asset('seeler-assets/css/vendor/ecicons.min.css')}}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('seller-assets/css/plugins/bootstrap.css') }}" />
-<link rel="stylesheet" href="{{ asset('seller-assets/css/style.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/responsive.css') }}" />
-{{ $css ?? null }}
+<link rel="stylesheet" href="{{ asset('seller-assets/css/style.css') }}" />
+<link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
 </head>
 
 <body class="shop_page">
@@ -83,8 +84,20 @@
             </div>
         </div>
     </div>
+    <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <x-alert :exclude="[route('user.update_profile')]" />
     <script src="{{ asset('seller-assets/js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('seller-assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
+   
+
+    <script>
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        })
+        $('.toast_close').click(function() {
+            $('.toast').toast('hide');
+        })
+    </script>
 </body>
 
 

@@ -7,7 +7,7 @@
                     <div class="col-md-3">
                         <div class=" shadow bg-white p-2" style="border-radius: 12px;">
                             <div class="d-flex justify-content-between mb-4">
-                                <i class="fa-solid fa-chart-pie dashboard-icon-btn pt-2"></i>
+                                {{-- <i class="fas fa-chart-pie"></i> --}}
                                 <div class="ec-select-inner dashboard-short-card-dropdown">
                                     <select  onchange="filterSecond(this.value,'sales')" class="p-0" name="ec-select" id="ec-select" style="font-weight: 600;">
 

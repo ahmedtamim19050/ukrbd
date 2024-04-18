@@ -16,6 +16,8 @@
         <?php $i = $i + 80; ?>
     @endforeach
 @endif
+
+
 @if (session()->has('success_msg') || session('status'))
     <div class="toast showing bg-info mt-2 mr-2" style="position: absolute; top: 0; right: 0;z-index:11"
         data-delay="6000">
