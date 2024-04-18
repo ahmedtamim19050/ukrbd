@@ -41,10 +41,10 @@
                         @foreach ($products as $product)
                             <tr>
                                 <th scope="row"><span>{{ $loop->index + 1 }}</span></th>
-                                <td> <a href="{{ route('product_details', $product->slug) }}"><img class="prod-img"
+                                <td> <a href="{{ $product->path() }}"><img class="prod-img"
                                             src="{{ Voyager::image($product->image) }}" alt="product image"></a></td>
                                 <td><a
-                                        href="{{ route('product_details', $product->slug) }}"><span>{{ $product->name }}</span></a>
+                                        href="{{ $product->path() }}"><span>{{ $product->name }}</span></a>
                                 </td>
                                 <td>
                                     @foreach ($product->prodcats as $prodcat)

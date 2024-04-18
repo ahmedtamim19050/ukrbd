@@ -1,11 +1,5 @@
-@php
-            $prodcats = App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
-@endphp
-
 <!DOCTYPE html>
 <html lang="en">
-
-
 
 <head>
     <meta charset="UTF-8">
@@ -45,79 +39,31 @@
     <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff"
         crossorigin="anonymous">
 
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
-
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-
-    <!-- Default CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
-    @yield('css')
+    {{ $css }}
 </head>
 
 <body class="home">
     <div class="page-wrapper">
-        {{-- <h1 class="d-none">Wolmart - Responsive Marketplace HTML Template</h1> --}}
         <!-- Start of Header -->
         <header class="header">
-            {{-- <div class="header-top">
-                <div class="container">
-                    <div class="header-left">
-                        <p class="welcome-msg">Welcome to Wolmart Store message or remove it!</p>
-                    </div>
-                    <div class="header-right">
-                        <div class="dropdown">
-                            <a href="#currency">USD</a>
-                            <div class="dropdown-box">
-                                <a href="#USD">USD</a>
-                                <a href="#EUR">EUR</a>
-                            </div>
-                        </div>
-                        <!-- End of DropDown Menu -->
 
-                        <div class="dropdown">
-                            <a href="#language"><img src="assets/images/flags/eng.png" alt="ENG Flag" width="14"
-                                    height="8" class="dropdown-image" /> ENG</a>
-                            <div class="dropdown-box">
-                                <a href="#ENG">
-                                    <img src="assets/images/flags/eng.png" alt="ENG Flag" width="14" height="8"
-                                        class="dropdown-image" />
-                                    ENG
-                                </a>
-                                <a href="#FRA">
-                                    <img src="assets/images/flags/fra.png" alt="FRA Flag" width="14" height="8"
-                                        class="dropdown-image" />
-                                    FRA
-                                </a>
-                            </div>
-                        </div>
-                        <!-- End of Dropdown Menu -->
-                        <span class="divider d-lg-show"></span>
-                        <a href="#" class="d-lg-show">Blog</a>
-                        <a href="#" class="d-lg-show">Contact Us</a>
-                        <a href="#" class="d-lg-show">My Account</a>
-                        <a href="assets/ajax/login.html" class="d-lg-show login sign-in"><i
-                                class="w-icon-account"></i>Sign In</a>
-                        <span class="delimiter d-lg-show">/</span>
-                        <a href="assets/ajax/login.html" class="ml-0 d-lg-show login register">Register</a>
-                    </div>
-                </div>
-            </div> --}}
             <!-- End of Header Top -->
 
-            <x-app.header-top/>
+            <x-app.header-top />
             <!-- End of Header Middle -->
 
-             <x-app.header-middle :prodcats="$prodcats"/>
+            <x-app.header-middle :categories="$categories" />
         </header>
         <!-- End of Header -->
 
         <!-- Start of Main-->
+<<<<<<< HEAD
         <main class="mainn login-page">
             @yield('content')
+=======
+        <main class="main">
+            {{ $slot }}
+>>>>>>> 9d5217e007c9042070583a2a9dc0c2a8f116cd02
         </main>
         <!-- End of Main -->
 
@@ -828,14 +774,14 @@
     <!-- Start of Quick View -->
     <div class="product product-single product-popup">
         <div class="row gutter-lg" id="quick_view">
-           
+
         </div>
     </div>
-    
+
     <!-- End of Quick view -->
 
     <!-- Plugin JS File -->
- 
+
     <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/jquery.plugin/jquery.plugin.min.js') }}"></script>
@@ -928,27 +874,27 @@
         }
     </script>
 
-<script>
-    function wishlist(id) {
+    <script>
+        function wishlist(id) {
 
-        $.ajax({
-            url: '/wishlist/add',
-            method: 'GET',
-            data: {
-                productId: id
-            },
-            success: function() {
-                var element = $('.add-wish-new_' + id);
-                if (element.hasClass('fa-solid')) {
-                    element.addClass('fa-regular').removeClass('fa-solid text-success');
-                } else {
-                    element.addClass('fa-solid text-success').removeClass('fa-regular ');
+            $.ajax({
+                url: '/wishlist/add',
+                method: 'GET',
+                data: {
+                    productId: id
+                },
+                success: function() {
+                    var element = $('.add-wish-new_' + id);
+                    if (element.hasClass('fa-solid')) {
+                        element.addClass('fa-regular').removeClass('fa-solid text-success');
+                    } else {
+                        element.addClass('fa-solid text-success').removeClass('fa-regular ');
+                    }
+
+
                 }
 
-
-            }
-
-        });
-    }
-</script>
+            });
+        }
+    </script>
 </body>

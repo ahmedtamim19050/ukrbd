@@ -33,7 +33,7 @@ class Product extends Model
     }
     public function path()
     {
-        return route('product', $this->slug);
+        return route('product_details', $this);
     }
     public function attributes()
     {
