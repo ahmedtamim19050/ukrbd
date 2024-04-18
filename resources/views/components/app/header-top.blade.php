@@ -3,7 +3,7 @@
         <div class="header-left mr-md-4">
             <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
             </a>
-            <a href="#" class="logo ml-lg-0">
+            <a href="{{route('homepage')}}" class="logo ml-lg-0">
                 <img src="assets/images/demos/demo5/logo-ukr-1.png" alt="logo" width="145" height="45" />
             </a>
             <form method="get" action="#"
@@ -62,52 +62,31 @@
                     </div>
 
                     <div class="products">
-                        <div class="product product-cart">
-                            <div class="product-detail">
-                                <a href="#" class="product-name">Beige knitted
-                                    elas<br>tic
-                                    runner shoes</a>
-                                <div class="price-box">
-                                    <span class="product-quantity">1</span>
-                                    <span class="product-price">$25.68</span>
+                        @foreach (Cart::getContent() as $product)
+                            <div class="product product-cart">
+                                <div class="product-detail">
+                                    <a href="#" class="product-name">{{$product->name}}</a>
+                                    <div class="price-box">
+                                        <span class="product-quantity">{{Sohoj::price($product->price)}}</span>
+                                        <span class="product-price"></span>
+                                    </div>
                                 </div>
+                                <figure class="product-media">
+                                    <a href="#">
+                                        <img src="{{Voyager::image($product->model->image)}}" alt="product" height="84"
+                                            width="94" />
+                                    </a>
+                                </figure>
+                                <button class="btn btn-link btn-close" aria-label="button">
+                                    <a href="{{ url('/cart-destroy/' . $product->id) }}"><i class="fas fa-times"></i></a>
+                                </button>
                             </div>
-                            <figure class="product-media">
-                                <a href="#">
-                                    <img src="assets/images/cart/product-1.jpg" alt="product" height="84"
-                                        width="94" />
-                                </a>
-                            </figure>
-                            <button class="btn btn-link btn-close" aria-label="button">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-
-                        <div class="product product-cart">
-                            <div class="product-detail">
-                                <a href="#" class="product-name">Blue utility
-                                    pina<br>fore
-                                    denim dress</a>
-                                <div class="price-box">
-                                    <span class="product-quantity">1</span>
-                                    <span class="product-price">$32.99</span>
-                                </div>
-                            </div>
-                            <figure class="product-media">
-                                <a href="#">
-                                    <img src="assets/images/cart/product-2.jpg" alt="product" width="84"
-                                        height="94" />
-                                </a>
-                            </figure>
-                            <button class="btn btn-link btn-close" aria-label="button">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
+                        @endforeach
                     </div>
 
                     <div class="cart-total">
                         <label>Subtotal:</label>
-                        <span class="price">$58.67</span>
+                        <span class="price">${{ Cart::getSubTotal() }}</span>
                     </div>
 
                     <div class="cart-action">

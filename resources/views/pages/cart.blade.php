@@ -7,6 +7,12 @@
 
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.min.css">
+
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
     </x-slot>
 
     <main class="main cart container">
@@ -14,9 +20,9 @@
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb shop-breadcrumb bb-no">
-                    <li class="active"><a href="cart.html">Shopping Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
-                    <li><a href="order.html">Order Complete</a></li>
+                    <li class="active"><a href="{{ route('cart') }}">Shopping Cart</a></li>
+                    <li><a href="{{ route('checkout') }}">Checkout</a></li>
+                    <li><a href="#">Order Complete</a></li>
                 </ul>
             </div>
         </nav>
@@ -38,67 +44,48 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <div class="p-relative">
-                                            <a href="product-default.html">
-                                                <figure>
-                                                    <img src="assets/images/shop/12.jpg" alt="product" width="300"
-                                                        height="338">
-                                                </figure>
+                                @foreach (Cart::getContent() as $product)
+                                    {{-- @dd($product) --}}
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <div class="p-relative">
+                                                <a href="product-default.html">
+                                                    <figure>
+                                                        <img src="{{Voyager::image($product->model->image)}}"
+                                                            alt="product" width="300" height="338">
+                                                    </figure>
+                                                </a>
+                                                <button class="btn btn-close">
+                                                    <a href="{{ url('/cart-destroy/' . $product->id) }}"><i
+                                                        class="fas fa-times"></i></a>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="product-name">
+                                            <a href="#">
+                                                {{ $product->name }}
                                             </a>
-                                            <button type="submit" class="btn btn-close"><i
-                                                    class="fas fa-times"></i></button>
-                                        </div>
-                                    </td>
-                                    <td class="product-name">
-                                        <a href="product-default.html">
-                                            Classic Simple Backpack
-                                        </a>
-                                    </td>
-                                    <td class="product-price"><span class="amount">$40.00</span></td>
-                                    <td class="product-quantity">
-                                        <div class="input-group">
-                                            <input class="quantity form-control" type="number" min="1"
-                                                max="100000">
-                                            <button class="quantity-plus w-icon-plus"></button>
-                                            <button class="quantity-minus w-icon-minus"></button>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">
-                                        <span class="amount">$40.00</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <div class="p-relative">
-                                            <a href="product-default.html">
-                                                <figure>
-                                                    <img src="assets/images/shop/13.jpg" alt="product" width="300"
-                                                        height="338">
-                                                </figure>
-                                            </a>
-                                            <button class="btn btn-close"><i class="fas fa-times"></i></button>
-                                        </div>
-                                    </td>
-                                    <td class="product-name">
-                                        <a href="product-default.html">
-                                            Smart Watch
-                                        </a>
-                                    </td>
-                                    <td class="product-price"><span class="amount">$60.00</span></td>
-                                    <td class="product-quantity">
-                                        <div class="input-group">
-                                            <input class="quantity form-control" type="number" min="1"
-                                                max="100000">
-                                            <button class="quantity-plus w-icon-plus"></button>
-                                            <button class="quantity-minus w-icon-minus"></button>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal">
-                                        <span class="amount">$60.00</span>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="product-price"><span class="amount">{{Sohoj::price($product->price)}}</span></td>
+                                        <td class="product-quantity">
+                                            <form method="POST" action="{{ route('cart.update') }}">
+                                                @csrf
+                                                <div class="input-group">
+                                                    <input type="hidden" name="product_id"
+                                                        value="{{ $product->id }}" />
+
+                                                    <input value="{{ $product->quantity }}" min="1"
+                                                        class=" form-control" type="number" name="quantity">
+                                                    <button type="submit" class=" bg-dark text-white">update</button>
+                                                    {{-- <button class="quantity-minus w-icon-minus"></button> --}}
+                                                </div>
+                                            </form>
+                                        </td>
+                                        <td class="product-subtotal">
+                                            <span class="amount">{{ $product->quantity * $product->price }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
@@ -202,7 +189,7 @@
                                 <hr class="divider mb-6">
                                 <div class="order-total d-flex justify-content-between align-items-center">
                                     <label>Total</label>
-                                    <span class="ls-50">$100.00</span>
+                                    <span class="ls-50">{{ Cart::getSubTotal() }}</span>
                                 </div>
                                 <a href="#"
                                     class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">

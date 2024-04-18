@@ -7,15 +7,23 @@
 
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+
+
     </x-slot>
     <main class="main checkout container">
         <!-- Start of Breadcrumb -->
         <nav class="breadcrumb-nav">
             <div class="container">
                 <ul class="breadcrumb shop-breadcrumb bb-no">
-                    <li class="passed"><a href="cart.html">Shopping Cart</a></li>
-                    <li class="active"><a href="checkout.html">Checkout</a></li>
-                    <li><a href="order.html">Order Complete</a></li>
+                    <li class="passed"><a href="{{route('cart')}}">Shopping Cart</a></li>
+                    <li class="active"><a href="{{route('checkout')}}">Checkout</a></li>
+                    <li><a href="#">Order Complete</a></li>
                 </ul>
             </div>
         </nav>
@@ -29,35 +37,52 @@
                     Returning customer? <a href="#"
                         class="show-login font-weight-bold text-uppercase text-dark">Login</a>
                 </div>
-                <form class="login-content">
+                <form class="login-content" method="POST" action="{{ route('login') }}">
+                    @csrf
                     <p>If you have shopped with us before, please enter your details below.
                         If you are a new customer, please proceed to the Billing section.</p>
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Username or email *</label>
-                                <input type="text" class="form-control form-control-md" name="name" required>
+                                <input type="text"
+                                    class="form-control form-control-md @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label>Password *</label>
-                                <input type="text" class="form-control form-control-md" name="password" required>
+                                <input type="password"
+                                    class="form-control form-control-md @error('password') is-invalid @enderror"
+                                    name="password" required autocomplete="current-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="form-group checkbox">
                         <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
                         <label for="remember" class="mb-0 lh-2">Remember me</label>
-                        <a href="#" class="ml-3">Last your password?</a>
+                        @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="ml-3">Last your password?</a>
+                        @endif
                     </div>
-                    <button class="btn btn-rounded btn-login">Login</button>
+                    <button type="submit" class="btn btn-rounded btn-login">Login</button>
                 </form>
-                <div class="coupon-toggle">
-                    Have a coupon? <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter
-                        your
-                        code</a>
+                
+                <div class="coupon-toggle"> Have a coupon? 
+                    <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter your code</a>
                 </div>
+                
                 <div class="coupon-content mb-4">
                     <p>If you have a coupon code, please apply it below.</p>
                     <div class="input-wrapper-inline">
