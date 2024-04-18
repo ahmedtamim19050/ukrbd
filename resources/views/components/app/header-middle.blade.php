@@ -2,7 +2,8 @@
     <div class="container">
         <div class="inner-wrap">
             <div class="header-left">
-                <div class="dropdown category-dropdown show-dropdown" data-visible="true">
+                <div class="dropdown category-dropdown @if (url('/') == url()->current()) show-dropdown @endif"
+                    data-visible="false">
                     <a href="#" class="text-white category-toggle" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories" style="background-color: #2A9CF5 !important;">
                         <i class="w-icon-category"></i>
@@ -118,8 +119,8 @@
                             </ul>
                             <!-- End of Megamenu -->
                         </li>
-                        
-                    
+
+
                     </ul>
                 </nav>
             </div>

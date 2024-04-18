@@ -177,5 +177,12 @@ Route::get('hello/{order}', function (Order $order) {
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
 });
 
+if(env('APP_ENV')=='local'){
+    Route::get('/test/login-as-user/{user}', function (User $user) {
+        Auth::logout();
+        Auth::login($user);
+        return redirect('/');
+    });
+}
 
-Route::get('/test' , [PageController::class, 'test']);
+

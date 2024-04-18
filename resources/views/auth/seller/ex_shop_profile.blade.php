@@ -1,4 +1,7 @@
-<x-seller>
+@extends('layouts.seller-dashboard')
+@section('css')
+@endsection
+@section('dashboard-content')
     <div class="ec-shop-rightside col-lg-9 col-md-12" style="position: relative;">
         <div class="ec-vendor-dashboard-card ec-vendor-profile-card">
             @if (auth()->user()->shop)
@@ -256,6 +259,7 @@
             </div>
         </div>
     </div>
+
     <script>
         const textarea = document.getElementById('short_description');
         const charCount = document.getElementById('charCount');
@@ -285,4 +289,6 @@
             descriptionCharCount.textContent = `Characters left: ${maxLength - currentLength}`;
         });
     </script>
-</x-seller>
+
+
+@endsection
