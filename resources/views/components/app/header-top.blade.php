@@ -4,8 +4,7 @@
             <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
             </a>
             <a href="#" class="logo ml-lg-0">
-                <img src="assets/images/demos/demo5/logo-ukr-1.png" alt="logo" width="145"
-                    height="45" />
+                <img src="assets/images/demos/demo5/logo-ukr-1.png" alt="logo" width="145" height="45" />
             </a>
             <form method="get" action="#"
                 class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
@@ -23,8 +22,8 @@
                         <option value="12">Clothing</option>
                     </select>
                 </div>
-                <input type="text" class="form-control" name="search" id="search"
-                    placeholder="Search in..." required />
+                <input type="text" class="form-control" name="search" id="search" placeholder="Search in..."
+                    required />
                 <button class="btn btn-search" type="submit"><i class="w-icon-search"></i>
                 </button>
             </form>
@@ -39,7 +38,7 @@
                     <a href="#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                 </div>
             </div>
-            <a class="wishlist label-down link d-xs-show" href="#">
+            <a class="wishlist label-down link d-xs-show" href="{{ route('wishlist.index') }}">
                 <i class="w-icon-heart"></i>
                 <span class="wishlist-label d-lg-show">Wishlist</span>
             </a>
@@ -49,7 +48,7 @@
             </a>
             <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                 <div class="cart-overlay"></div>
-                <a href="#" class="cart-toggle label-down link">
+                <a href="" class="cart-toggle label-down link">
                     <i class="w-icon-cart">
 
                         <span class="cart-count" id="cartQty2">0</span>
@@ -59,8 +58,7 @@
                 <div class="dropdown-box">
                     <div class="cart-header">
                         <span>Shopping Cart</span>
-                        <a href="#" class="btn-close">Close<i
-                                class="w-icon-long-arrow-right"></i></a>
+                        <a href="" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
                     </div>
 
                     <div class="products">
@@ -76,8 +74,8 @@
                             </div>
                             <figure class="product-media">
                                 <a href="#">
-                                    <img src="assets/images/cart/product-1.jpg" alt="product"
-                                        height="84" width="94" />
+                                    <img src="assets/images/cart/product-1.jpg" alt="product" height="84"
+                                        width="94" />
                                 </a>
                             </figure>
                             <button class="btn btn-link btn-close" aria-label="button">
@@ -97,8 +95,8 @@
                             </div>
                             <figure class="product-media">
                                 <a href="#">
-                                    <img src="assets/images/cart/product-2.jpg" alt="product"
-                                        width="84" height="94" />
+                                    <img src="assets/images/cart/product-2.jpg" alt="product" width="84"
+                                        height="94" />
                                 </a>
                             </figure>
                             <button class="btn btn-link btn-close" aria-label="button">
@@ -113,8 +111,8 @@
                     </div>
 
                     <div class="cart-action">
-                        <a href="#" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                        <a href="#" class="btn btn-primary  btn-rounded">Checkout</a>
+                        <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>
                     </div>
                 </div>
                 <!-- End of Dropdown Box -->
