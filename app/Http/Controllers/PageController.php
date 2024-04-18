@@ -109,7 +109,8 @@ class PageController extends Controller
 
     public function dashboard()
     {
-        $intent = auth()->user()->createSetupIntent();
+        // $intent = auth()->user()->createSetupIntent();
+        $intent = null;
         return view('auth.user.dashboard', compact('intent'));
     }
     public function addressEdit(Address $address)

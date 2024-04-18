@@ -1,21 +1,25 @@
-@extends('layouts.app')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/style.css') }}" />
-    {{-- <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/plugins/slick.min.css') }}" /> --}}
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assetss/responsive.css') }}" />
-    <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend-assetss/css/backgrounds/bg-4.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}"> --}}
-@endsection
-@section('content')
-    <x-app.header />
+<x-app>
+    <x-slot name="css">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+
+        <style>
+            .login-page .login-popup {
+                margin: 4.2rem auto 5rem;
+                -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    </x-slot>
 
 
-    <section class="ec-page-content section-space-p">
+
+    {{-- <section class="ec-page-content section-space-p">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="section-title">
-                        {{-- <h2 class="ec-bg-title">Log In</h2> --}}
+                  
                         <h2 class="ec-title">Get Started with <span class="text-success">AhroMart</span> </h2>
                         <p class="sub-title mb-3">{{ __('Create your free account') }}</p>
                     </div>
@@ -102,8 +106,125 @@
                 </div>
             </div>
         </div>
-    </section>
-@endsection
+    </section> --}}
+
+    <div class="login-page">
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title mb-0">My Account</h1>
+            </div>
+        </div>
+        <!-- End of Page Header -->
+
+        <!-- Start of Breadcrumb -->
+        <nav class="breadcrumb-nav">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li>My account</li>
+                </ul>
+            </div>
+        </nav>
+        <!-- End of Breadcrumb -->
+        <div class="page-content">
+            <div class="container">
+                <div class="login-popup">
+                    <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
+                        <ul class="nav nav-tabs text-uppercase" role="tablist">
+                            {{-- <li class="nav-item">
+                                <a href="#sign-in" class="nav-link active">Sign In</a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a href="#sign-up" class="nav-link">Sign Up</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+
+                            <div class="tab-pane active">
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                    <div class="form-group mb-5">
+                                        <label>First Name *</label>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            name="name" id="name" value="{{ old('name') }}" required
+                                            autocomplete="name" autofocus>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-5">
+                                        <label>Last Name *</label>
+                                        <input type="text" class="form-control @error('l_name') is-invalid @enderror"
+                                            name="l_name" id="l-name" value="{{ old('l_name') }}" required
+                                            autocomplete="name" autofocus>
+                                        @error('l_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Your email address *</label>
+                                        <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                            name="email" id="email" value="{{ old('email') }}" required
+                                            autocomplete="email" autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-5">
+                                        <label>Password *</label>
+                                        <input type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="current-password" id="password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group mb-5">
+                                        <label>Confirmation Password *</label>
+                                        <input type="password" class="form-control" name="password_confirmation"
+                                            required autocomplete="new-password" id="password_confirmation">
+                                    </div>
+
+                                    <input type="hidden" name="role_id" value="2" id="">
+
+
+                                    <a href="#" class="d-block mb-5 text-primary">Signup as a vendor?</a>
+                                    <div class="form-checkbox d-flex align-items-center justify-content-between mb-5">
+                                        <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
+                                        <label for="remember" class="font-size-md">I agree to the <a href="#"
+                                                class="text-primary font-size-md">privacy policy</a></label>
+                                    </div>
+                                    <button class="btn btn-primary" style="width: 100%">Sign Un</button>
+                                </form>
+                            </div>
+
+                        </div>
+                        <p class="text-center">Already have an account ? <a class="text-success"
+                                href="{{ route('login') }}"> Sign In</a></p>
+                        <div class="social-icons social-icon-border-color d-flex justify-content-center">
+                            <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
+                            <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
+                            <a href="#" class="social-icon social-google fab fa-google"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app>
 
 @section('js')
     <script src="{{ asset('assets/frontend-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
