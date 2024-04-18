@@ -134,7 +134,7 @@
                                                                                             <button class="btn  btn-dark btn-lg rounded shadow"
                                                                                                 style="border-radius: 10px" type="button"
                                                                                                 id="card-button"
-                                                                                                data-secret="{{ $intent->client_secret }}">Add</button>
+                                                                                                data-secret="{{ $intent->client_secret ?? ''}}">Add</button>
                                                                 
                                                                                         </div>
                                                                                     </div>
