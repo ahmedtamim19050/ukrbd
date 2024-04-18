@@ -1,257 +1,226 @@
-@extends('layouts.app')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assetss/responsive.css') }}" />
-    <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend-assetss/css/backgrounds/bg-4.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/shops.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/cart.css') }}">
-@endsection
-@section('content')
-    <x-app.header />
-    <!-- Ec cart page -->
+<x-app>
+    <x-slot name="css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome-free/css/all.min.css">
 
-    <section class="ec-page-content">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="ec-cart-leftside col-lg-7 col-md-12">
-                    <!-- cart content Start -->
-                    <div class="row justify-content-center mb-2">
-                        @php
-                            $items = Cart::getContent();
-                        
-                            $groupedItems = $items->groupBy(function ($item) {
-                                return $item->model->shop_id;
-                            });
-                        @endphp
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css">
 
-                        @if (Cart::getTotalQuantity() > 0)
-                            <div class="ec-cart-content">
-                                <div class="ec-cart-inner">
-                                    <h4 class="p-1 cart-heading">{{ Cart::getTotalQuantity() }} items in your cart</h4>
-                                    @if (Cart::getTotalQuantity() > 0)
-                                        <div class="row">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.min.css">
+    </x-slot>
 
+    <main class="main cart container">
+        <!-- Start of Breadcrumb -->
+        <nav class="breadcrumb-nav">
+            <div class="container">
+                <ul class="breadcrumb shop-breadcrumb bb-no">
+                    <li class="active"><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a href="order.html">Order Complete</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- End of Breadcrumb -->
 
-                                            @foreach ($groupedItems as $shopId => $items)
-                                                <div>
-                                                    <div class="d-flex mb-2 align-items-center">
-                                                        <img height="54" width="64"
-                                                            src="{{ Storage::url($items[0]->model->shop->logo) }}"
-                                                            alt="">
-                                                        <h5>
-
-                                                            <a href="{{ route('store_front', $items[0]->model->shop->slug) }}"
-                                                                class="mb-2"><u>{{ $items[0]->model->shop->name }}</u>
-                                                            </a>Cart
-                                                        </h5>
-
-                                                    </div>
-
-                                                    @foreach ($items as $item)
-                                                        <div class="cart-item card rounded-4 mb-4">
-                                                            <div class="card-body row box-shadow">
-                                                                {{-- <div class="col-md-1 ">
-                                                                    <div
-                                                                        class="w-100 h-100 d-flex justify-content-center align-items-center">
-                                                                        <input type="checkbox" class="cart-item-checkbox">
-                                                                    </div>
-                                                                </div> --}}
-
-                                                                <div class="col-md-3 center">
-                                                                    <img class="cart-item-image"
-                                                                        src="{{ Storage::url($item->model->image) }}"
-                                                                        alt="">
-                                                                </div>
-                                                   
-                                                                <div class="col-md-5  cart-item-text">
-                                                                    <h1 class="font-size">{{ $item->name }}</h1>
-                                                                    <p class="item-title">
-                                                                        {{ Str::limit(strip_tags($item->model->short_description), $limit = 50, $end = '...') }}
-                                                                    </p>
-                                                                    <a href="">
-
-                                                                        @if ($item->model->quantity)
-                                                                            <span class="text-success">In Stok</span>
-                                                                        @else
-                                                                            <span class="text-danger">Out of stock</span>
-                                                                        @endif
-
-                                                                    </a>
-                                                               
-
-                                                                    <form action="{{ route('cart.update') }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                
-                                                                       
-                                                                        @if($item->attributes[0] == 'no_offer')
-                                                                        <input type="hidden" name="product_id"
-                                                                            value="{{ $item->id }}" />
-                                                                        <div class="col-3 mb-3 d-flex ">
-                                                                            <input type="text" name="quantity"
-                                                                                value="{{ $item->quantity }}"
-                                                                                class="cart-input-stock " id="">
-                                                                            <button type="submit"
-                                                                                class="ms-2"><u>Update</u></button>
-                                                                        </div>
-                                                                        @endif
-                                                                   
-                                                                        <a
-                                                                            href="{{ route('cart.destroy', $item->id) }}" onclick="return confirm('Are you sure you want to delete this item?');"><u>remove</u></a>
-                                                                    </form>
-
-                                                                </div>
-                                                                <div
-                                                                    class="col-md-3 justify-content-center align-item-center mt-3">
-                                                                    <h1 class="cart-text">
-                                                                        {{ Sohoj::price($item->price) }}</h1>
-                                                                    <p class="">Shipping cost <span style="font-weight: 800">({{Sohoj::price($item->model->shipping_cost)}})</span></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-
-
-                                                </div>
-                                            @endforeach
-
-
+        <!-- Start of PageContent -->
+        <div class="page-content">
+            <div class="container">
+                <div class="row gutter-lg mb-10">
+                    <div class="col-lg-8 pr-lg-4 mb-6">
+                        <table class="shop-table cart-table">
+                            <thead>
+                                <tr>
+                                    <th class="product-name"><span>Product</span></th>
+                                    <th></th>
+                                    <th class="product-price"><span>Price</span></th>
+                                    <th class="product-quantity"><span>Quantity</span></th>
+                                    <th class="product-subtotal"><span>Subtotal</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <div class="p-relative">
+                                            <a href="product-default.html">
+                                                <figure>
+                                                    <img src="assets/images/shop/12.jpg" alt="product" width="300"
+                                                        height="338">
+                                                </figure>
+                                            </a>
+                                            <button type="submit" class="btn btn-close"><i
+                                                    class="fas fa-times"></i></button>
                                         </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                    </div>
-
-                    <div class="hr">
-
-                    </div>
-
-                    <!--cart content End -->
-                </div>
-                <!-- Sidebar Area Start -->
-                <div class="ec-cart-rightside col-lg-4 col-md-12 " style="margin-top: 40px;">
-                    <div class="ec-sidebar-wrap">
-                        <!-- Sidebar Summary Block -->
-                        <div class="ec-sidebar-block mt-5 side-bar-box ">
-
-                            <div class="ec-sb-block-content">
-                                <div class="ec-cart-summary-bottom">
-                                    <div class="ec-cart-summary p-4">
-
-                                        <div>
-                                            <span class="text-left">Total ({{ Cart::getTotalQuantity() }} items)</span>
-                                            <span class="text-right">{{ Sohoj::price(Sohoj::newItemTotal()) }}</span>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="product-default.html">
+                                            Classic Simple Backpack
+                                        </a>
+                                    </td>
+                                    <td class="product-price"><span class="amount">$40.00</span></td>
+                                    <td class="product-quantity">
+                                        <div class="input-group">
+                                            <input class="quantity form-control" type="number" min="1"
+                                                max="100000">
+                                            <button class="quantity-plus w-icon-plus"></button>
+                                            <button class="quantity-minus w-icon-minus"></button>
                                         </div>
-                                        {{-- <div>
-                                            <span class="text-left">Delivery Charges</span>
-                                            <span class="text-right">$20.00</span>
-                                        </div> --}}
-                                        @if (!session()->has('discount'))
-                                            <div>
-                                                <span class="text-left">Coupan Discount</span>
-                                                <span class="text-right"><a class="ec-cart-coupan">Apply Coupan</a></span>
-                                            </div>
-
-                                            <div class="ec-cart-coupan-content">
-                                                <form class="ec-cart-coupan-form" name="ec-cart-coupan-form" method="POST"
-                                                    action="{{ route('coupon') }}">
-                                                    @csrf
-
-                                                    <input class="ec-coupan bg-white" type="text" required=""
-                                                        placeholder="Enter Your Coupan Code" name="coupon_code"
-                                                        value="">
-                                                    <button class="ec-coupan-btn button btn-dark" type="submit"
-                                                        name="subscribe" value="">Apply</button>
-                                                </form>
-                                            </div>
-                                        @endif
-                                        @if (session()->has('discount'))
-                                        <div class="ec-cart-summary-total">
-                                            <span class="text-left">Discount <a href="{{route('coupon.destroy')}}" class="text-danger" style="text-decoration: underline">Delete</a></span>
-                                            <span class="text-right">{{ Sohoj::price(Sohoj::discount()) }}</span>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="amount">$40.00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <div class="p-relative">
+                                            <a href="product-default.html">
+                                                <figure>
+                                                    <img src="assets/images/shop/13.jpg" alt="product" width="300"
+                                                        height="338">
+                                                </figure>
+                                            </a>
+                                            <button class="btn btn-close"><i class="fas fa-times"></i></button>
                                         </div>
-                                        @endif
-                                        <div class="ec-cart-summary-total">
-                                            <span class="text-left">Total Shipping</span>
-                                            <span class="text-right">{{ Sohoj::price(Sohoj::shipping()) }}</span>
+                                    </td>
+                                    <td class="product-name">
+                                        <a href="product-default.html">
+                                            Smart Watch
+                                        </a>
+                                    </td>
+                                    <td class="product-price"><span class="amount">$60.00</span></td>
+                                    <td class="product-quantity">
+                                        <div class="input-group">
+                                            <input class="quantity form-control" type="number" min="1"
+                                                max="100000">
+                                            <button class="quantity-plus w-icon-plus"></button>
+                                            <button class="quantity-minus w-icon-minus"></button>
                                         </div>
-                                        <div class="ec-cart-summary-total">
-                                            <span class="text-left">Total Amount</span>
-                                            <span class="text-right">{{ Sohoj::price(Sohoj::newSubtotal()) }}</span>
-                                        </div>
-                                        <a href="{{ route('checkout') }}" class="checkout-btn">Proceed to Checkout</a>
-                                    </div>
+                                    </td>
+                                    <td class="product-subtotal">
+                                        <span class="amount">$60.00</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-
-                                </div>
-
-                            </div>
-
+                        <div class="cart-action mb-6">
+                            <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto"><i
+                                    class="w-icon-long-arrow-left"></i>Continue Shopping</a>
+                            <button type="submit" class="btn btn-rounded btn-default btn-clear" name="clear_cart"
+                                value="Clear Cart">Clear Cart</button>
+                            <button type="submit" class="btn btn-rounded btn-update disabled" name="update_cart"
+                                value="Update Cart">Update Cart</button>
                         </div>
-                        <!-- Sidebar Summary Block -->
-                        {{-- <h3 class="text-center">have a question? <a class="message-color" href=""> Message </a>
-                            Seller</h3> --}}
+
+                        <form class="coupon">
+                            <h5 class="title coupon-title font-weight-bold text-uppercase">Coupon Discount</h5>
+                            <input type="text" class="form-control mb-4" placeholder="Enter coupon code here..."
+                                required />
+                            <button class="btn btn-dark btn-outline btn-rounded">Apply Coupon</button>
+                        </form>
                     </div>
-                </div>
-            </div>
-        @else
-            <div class=" col-md-12  m-5">
-                <h3>No product has been added to cart. <a class="text-primary" href="{{ route('homepage') }}">Continue
-                        Shopping</a></h3>
-            </div>
-            @endif
-
-         
-
-
-        </div>
-    </section>
-
-    <!-- New Product Start -->
-    <section class="section ec-new-product">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-left">
-                    <div class="section-title">
-
-                        <h2 class="related-product-sec-title"> Explore Similer Shops</h2>
-                    </div>
-                    <div class="ec-spe-section  data-animation=" slideInLeft">
-
-
-                        <div class="ec-spe-products">
-                            @foreach ($latest_shops->chunk(4) as $shop)
-                                <div class="ec-fs-product">
-                                    <div class="ec-fs-pro-inner">
-
-                                        <div class="row">
-
-                                            @foreach ($shop as $shop)
-                                                <x-shops-card.card-2 :shop="$shop" />
-                                            @endforeach
-
-                                        </div>
-
-                                    </div>
+                    <div class="col-lg-4 sticky-sidebar-wrapper">
+                        <div class="sticky-sidebar">
+                            <div class="cart-summary mb-4">
+                                <h3 class="cart-title text-uppercase">Cart Totals</h3>
+                                <div class="cart-subtotal d-flex align-items-center justify-content-between">
+                                    <label class="ls-25">Subtotal</label>
+                                    <span>$100.00</span>
                                 </div>
-                            @endforeach
+
+                                <hr class="divider">
+
+                                <ul class="shipping-methods mb-2">
+                                    <li>
+                                        <label class="shipping-title text-dark font-weight-bold">Shipping</label>
+                                    </li>
+                                    <li>
+                                        <div class="custom-radio">
+                                            <input type="radio" id="free-shipping" class="custom-control-input"
+                                                name="shipping">
+                                            <label for="free-shipping" class="custom-control-label color-dark">Free
+                                                Shipping</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="custom-radio">
+                                            <input type="radio" id="local-pickup" class="custom-control-input"
+                                                name="shipping">
+                                            <label for="local-pickup" class="custom-control-label color-dark">Local
+                                                Pickup</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="custom-radio">
+                                            <input type="radio" id="flat-rate" class="custom-control-input"
+                                                name="shipping">
+                                            <label for="flat-rate" class="custom-control-label color-dark">Flat
+                                                rate:
+                                                $5.00</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="shipping-calculator">
+                                    <p class="shipping-destination lh-1">Shipping to <strong>CA</strong>.</p>
+
+                                    <form class="shipping-calculator-form">
+                                        <div class="form-group">
+                                            <div class="select-box">
+                                                <select name="country" class="form-control form-control-md">
+                                                    <option value="default" selected="selected">United States
+                                                        (US)
+                                                    </option>
+                                                    <option value="us">United States</option>
+                                                    <option value="uk">United Kingdom</option>
+                                                    <option value="fr">France</option>
+                                                    <option value="aus">Australia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="select-box">
+                                                <select name="state" class="form-control form-control-md">
+                                                    <option value="default" selected="selected">California
+                                                    </option>
+                                                    <option value="ohaio">Ohaio</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control form-control-md" type="text"
+                                                name="town-city" placeholder="Town / City">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control form-control-md" type="text" name="zipcode"
+                                                placeholder="ZIP">
+                                        </div>
+                                        <button type="submit" class="btn btn-dark btn-outline btn-rounded">Update
+                                            Totals</button>
+                                    </form>
+                                </div>
+
+                                <hr class="divider mb-6">
+                                <div class="order-total d-flex justify-content-between align-items-center">
+                                    <label>Total</label>
+                                    <span class="ls-50">$100.00</span>
+                                </div>
+                                <a href="#"
+                                    class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
+                                    Proceed to checkout<i class="w-icon-long-arrow-right"></i></a>
+                            </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
-            <!-- New Product Content -->
-
         </div>
-    </section>
-    <!-- New Product end -->
-@endsection
-@section('js')
-    <script src="{{ asset('assets/frontend-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
+        <!-- End of PageContent -->
+    </main>
 
-    <script src="{{ asset('assets/frontend-assets/js/main.js') }}"></script>
-@endsection
+    <x-slot name="js">
+        <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script src="assets/vendor/jquery/jquery.min.js"></script>
+        <script src="assets/vendor/sticky/sticky.js"></script>
+        <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="assets/js/main.min.js"></script>
+    </x-slot>
+</x-app>
