@@ -1,5 +1,4 @@
-@extends('layouts.seller-dashboar')
-@section('dashboard-content')
+<x-seller>
     <div class="ec-shop-rightside col-lg-9 col-md-12">
         <div class="ec-vendor-dashboard-card">
             <div class="ec-vendor-card-body">
@@ -65,4 +64,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-seller>

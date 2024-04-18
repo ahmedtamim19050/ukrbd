@@ -20,7 +20,7 @@ class TicketsController extends Controller
     }
     public function store(Request $request)
     {
-
+   
 
         $request->validate([
             'subject' => 'required|string',
@@ -28,7 +28,7 @@ class TicketsController extends Controller
             'image' => 'nullable|image',
 
         ]);
-        try {
+        // try {
             $ticket = Ticket::create([
                 'shop_id' => Auth::user()->shop->id,
                 'subject' => $request->subject,
@@ -38,12 +38,12 @@ class TicketsController extends Controller
 
             ]);
             Mail::to(env('MAIL_FROM_ADDRESS'))->send(new TicketPlaced($ticket, 'Thank your for tickets'));
-            return redirect()->route('vendor.ticket.index')->withSuccess('Tickets create successfully');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-        } catch (Error $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-        }
+            return redirect()->route('vendor.ticket.index')->with('success_msg','Tickets create successfully');
+        // } catch (Exception $e) {
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // } catch (Error $e) {
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // }
     }
     public function index()
     {

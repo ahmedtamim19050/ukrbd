@@ -1,8 +1,8 @@
-@extends('layouts.seller-dashboar')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/chat.css') }}">
-@endsection
-@section('dashboard-content')
+<x-seller>
+<x-slot name="css">
+    <link rel="stylesheet" href="{{ asset('seller-assets/css/chat.css') }}">
+</x-slot>
+
 
     <div class="ec-shop-rightside col-lg-9 col-md-12">
         <div class="container bootstrap snippets bootdey my-5">
@@ -110,9 +110,9 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('js')
+
+
     <script>
         $(function() {
             if ($('#ms-menu-trigger')[0]) {
@@ -122,4 +122,4 @@
             }
         });
     </script>
-@endsection
+</x-seller>
