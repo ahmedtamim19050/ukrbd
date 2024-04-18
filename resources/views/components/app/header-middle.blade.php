@@ -52,7 +52,7 @@
                 <nav class="main-nav">
                     <ul class="menu active-underline">
                         <li class="active">
-                            <a href="#">Home</a>
+                            <a href="{{route('homepage')}}">Home</a>
                         </li>
                         <li>
                             <a href="#">Shop</a>
