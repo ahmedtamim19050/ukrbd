@@ -1,5 +1,4 @@
-@extends('layouts.seller-dashboar')
-@section('dashboard-content')
+<x-seller>
     <div class="ec-shop-rightside col-lg-9 col-md-12">
         <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm" style="border-radius: 12px !important;">
             <div class="ec-vendor-card-header">
@@ -182,16 +181,18 @@
             </div>
         </div>
     </div> --}}
-@endsection
-@section('js')
-    <script>
-        var exampleModal = document.getElementById('exampleModal')
-        exampleModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget
-            var recipient = button.getAttribute('data-bs-id')
-            var modalBodyInput = exampleModal.querySelector('#orderId')
 
-            modalBodyInput.value = recipient
-        })
-    </script>
-@endsection
+    <x-slot name="js">
+        <script>
+            var exampleModal = document.getElementById('exampleModal')
+            exampleModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget
+                var recipient = button.getAttribute('data-bs-id')
+                var modalBodyInput = exampleModal.querySelector('#orderId')
+    
+                modalBodyInput.value = recipient
+            })
+        </script>
+    </x-slot>
+</x-seller>
+

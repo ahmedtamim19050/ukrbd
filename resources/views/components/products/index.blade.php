@@ -60,8 +60,7 @@
                                 <td><span>{{ Sohoj::price($product->shipping_cost) }}</span></td>
                                 <td>
                                     <a class="btn btn-primary"
-                                        href="{{ route('vendor.product.edit', $product->slug) }}"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
+                                        href="{{ route('vendor.product.edit', $product->slug) }}">  <i class="fas fa-edit"></i></a>
                                     {{-- <button type="submit" class="btn btn-warning"><i class="fa-solid fa-trash"></i></button> --}}
                                     <x-delete route="{{ route('vendor.products.delete', $product->id) }}" />
 

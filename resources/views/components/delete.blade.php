@@ -11,6 +11,6 @@
     @csrf
  
     <button type="submit" class="{{ $btnClasses }}" onclick="return confirm('{{ $confirmMessage }}');">
-        <i class="fa-solid fa-trash"></i>
+        <i class="fas fa-trash"></i>
     </button>
 </form>

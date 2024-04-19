@@ -49,6 +49,7 @@
                 </div>
                 <div class="ec-vendor-block-items">
                     <ul>
+                        <li><a href="{{ route('homepage') }}">Home</a></li>
                         <li><a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
 
                         <li><a href="{{ route('vendor.shop') }}">Shop Profile</a></li>
@@ -59,8 +60,8 @@
                                 <li><a href="{{ route('vendor.massage') }}">Massages</a></li>
                                 <li><a href="{{ route('vendor.products') }}">Products</a></li>
                                 <li><a href="{{ route('vendor.ordersIndex') }}">Orders</a></li>
-                                <li><a href="{{ route('vendor.charges') }}">Charges</a></li>
-                                <li><a href="{{ route('vendor.cards') }}">Subscription</a></li>
+                                {{-- <li><a href="{{ route('vendor.charges') }}">Charges</a></li> --}}
+                                {{-- <li><a href="{{ route('vendor.cards') }}">Subscription</a></li> --}}
                                 <li><a href="{{ route('vendor.banner') }}">Offer Banner</a></li>
                                 <li><a href="{{ route('vendor.offers') }}">Offer Request</a></li>
                                 <li><a href="{{ route('vendor.shopPolicy') }}">Shop Policy</a></li>

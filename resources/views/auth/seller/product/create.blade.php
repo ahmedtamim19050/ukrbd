@@ -18,7 +18,7 @@
                                             <div class="avatar-edit">
                                                 <input type='file' id="imageUpload" name="image"
                                                     class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                <label for="imageUpload">    <i class="fas fa-edit"></i></label>
                                             </div>
                                             <div class="avatar-preview ec-preview">
                                                 <div class="imagePreview ec-div-preview">
@@ -33,7 +33,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload01" name="images[0]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -47,7 +47,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload02" name="images[1]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -61,7 +61,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload03" name="images[2]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -75,7 +75,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload04" name="images[3]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -89,7 +89,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload05" name="images[4]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -103,7 +103,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload06" name="images[5]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload"><i class="fi-rr-edit"></i></label>
+                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
