@@ -46,9 +46,9 @@
                 <i class="w-icon-compare"></i>
                 <span class="compare-label d-lg-show">Compare</span>
             </a>
-            <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
+            <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{request()->cart=='opened' ? 'opened' :''}}">
                 <div class="cart-overlay"></div>
-                <a href="" class="cart-toggle label-down link">
+                <a href="{{route('homepage',['cart'=>'opened'])}}" class=" label-down link">
                     <i class="w-icon-cart">
 
                         <span class="cart-count" id="cartQty2">0</span>
@@ -56,9 +56,9 @@
                     <span class="cart-label">Cart</span>
                 </a>
                 <div class="dropdown-box">
-                    <div class="cart-header">
-                        <span>Shopping Cart</span>
-                        <a href="" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
+                    <div class="d-flex justify-content-between ">
+                        <span style="font-size: 18px">Shopping Cart</span>
+                        <a href="{{route('homepage')}}" class="" style="font-size: 15px">Close<i class="w-icon-long-arrow-right"></i></a>
                     </div>
 
                     <div class="products">

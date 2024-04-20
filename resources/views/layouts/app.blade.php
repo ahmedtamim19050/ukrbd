@@ -837,9 +837,9 @@
                         console.log(response);
                         cartQnty();
                         addToCartBtn.attr('disabled', true);
-                        parentDiv.find('.fi-rr-shopping-basket').addClass('text-success').attr(
-                            'disabled', true);
-                        parentDiv.find('#addToCartBtn').text('added').attr('disabled', true);
+                        addToCartBtn.css('background-color', '#2A9CF5 !important').attr('disabled', true);
+                        addToCartBtn.attr('title', 'added');
+                    
 
                     },
                     error: function(xhr) {
