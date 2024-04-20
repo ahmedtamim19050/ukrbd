@@ -15395,7 +15395,7 @@ body .product-popup {
 .dropdown > a::after {
   display: inline-block;
   margin-left: 6px;
-  content: "";
+ 
   font-family: "Font Awesome 5 Free";
   font-size: 8px;
   font-weight: 900;
