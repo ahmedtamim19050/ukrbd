@@ -67,9 +67,7 @@ class HomeController extends Controller
     public function vendorSecondStep()
     {
         $user = auth()->user();
-        return view('auth.seller.second_step', [
-            'intent' => $user->createSetupIntent()
-        ]);
+        return view('auth.seller.second_step');
     }
     public function vendorSecondStepStore(Request $request)
     {
@@ -77,49 +75,25 @@ class HomeController extends Controller
 
         $data = $request->validate(
             [
-                "payment_method" => "required",
                 "phone" => "required",
                 "dob"  => "required",
                 "tax_no" =>  "nullable",
                 "address" => "required",
                 "terms" => "required",
-                "country" => "required",
-                "state" => "required",
                 "city" => "required",
                 "post_code" => "required",
                 "govt_id_back" => "required|image|mimes:jpeg,png",
                 "govt_id_front" => "required|image|mimes:jpeg,png",
-                "paypal_email" => "required",
-                'paypal_email_confirmation' => 'required|same:paypal_email',
+    
 
             ]
 
 
         );
 
-        auth()->user()->createOrGetStripeCustomer();
-        auth()->user()->addPaymentMethod($data['payment_method']);
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-        $product = Product::create([
-            'name' => 'Basic Plan',
-        ]);
 
-        $price = Price::create([
-            'product' => $product->id,
-            'unit_amount' => 2495,
-            'currency' => 'usd',
-            'recurring' => [
-                'interval' => 'month',
-            ],
-            'nickname' => 'basic-monthly',
-        ]);
         $user = User::find(auth()->id());
 
-        $sub = $user->newSubscription('basic', $price->id);
-        if (setting('site.free_trial') == "on") {
-            $sub->trialUntil(Carbon::now()->addDays(30));
-        }
-        $sub->create($data['payment_method']);
         Verification::create([
             'user_id' => Auth()->id(),
             'phone' => $request->phone,
