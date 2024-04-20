@@ -11,15 +11,11 @@
                 <div class="select-box">
                     <select id="category" name="category">
                         <option value="">All Categories</option>
-                        <option value="4">Fashion</option>
-                        <option value="5">Furniture</option>
-                        <option value="6">Shoes</option>
-                        <option value="7">Sports</option>
-                        <option value="8">Games</option>
-                        <option value="9">Computers</option>
-                        <option value="10">Electronics</option>
-                        <option value="11">Kitchen</option>
-                        <option value="12">Clothing</option>
+                        @foreach ($categories as $category)
+                            
+                        <option value="{{$category->slug}}">{{$category->name}}</option>
+                        @endforeach
+                       
                     </select>
                 </div>
                 <input type="text" class="form-control" name="search" id="search" placeholder="Search in..."

@@ -1,31 +1,29 @@
-@extends('layouts.app')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/plugins/slick.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assetss/responsive.css') }}" />
-    <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend-assetss/css/backgrounds/bg-4.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}">
-@endsection
-@section('content')
-    <x-app.header />
-    <section class="ec-page-content section-space-p">
+  <x-app>
+    <x-slot name="css">
+          <!-- Vendor CSS -->
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
+          <!-- Plugins CSS -->
+          <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+          <link rel="stylesheet" type="text/css"
+              href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
+
+          <!-- Default CSS -->
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+    </x-slot>
+
+    <section class="ec-page-content  " style="margin:50px 0">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="section-title">
-                        {{-- <h2 class="ec-bg-title">Log In</h2> --}}
-                        <h2 class="ec-title">Get Started with <span class="text-success">AhroMart</span> </h2>
-                        <p class="sub-title mb-3">{{ __('Register as vendor') }}</p>
-                        <p class="bg-primary  mx-auto text-white mt-3 py-2"  style="max-width: 622px;">Try AhroMart and Start selling for free</p>
-                    </div>
-                </div>
-                <div class="ec-login-wrapper" style="max-width: 730px;">
-                    <div class="ec-login-container" style="border: none">
+               
+                <div class=" " style="max-width: 730px;margin:0 auto;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; padding:20px">
+                    <div class="ec-login-container ">
+                        <p class="nav-link" style="font-size: 20px">Vendor as Register </p>
                         <div class="ec-login-form">
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="row">
-                                    <span class="ec-login-wrap col-md-6">
+                                    <span class="ec-login-wrap col-md-6 mb-3">
                                         <label for="name">First Name <span class="text-danger">*</span></label>
                                         <input id="name" type="text" placeholder="First name"
                                             class="form-control bg-light @error('name') is-invalid @enderror" name="name"
@@ -38,7 +36,7 @@
                                         @enderror
                                     </span>
 
-                                    <span class="ec-login-wrap col-md-6">
+                                    <span class="ec-login-wrap col-md-6 mb-3">
                                         <label for="l_name">Last Name <span class="text-danger">*</span></label>
                                         <input id="l_name" type="text" placeholder="{{ __('Last Name') }}"
                                             class="form-control bg-light @error('l_name') is-invalid @enderror"
@@ -53,7 +51,7 @@
                                     </span>
                                 </div>
                                 <div class="row">
-                                    <span class="ec-login-wrap col-md-12">
+                                    <span class="ec-login-wrap col-md-12 mb-3">
                                         <label for="email">Email Address<span class="text-danger">*</span></label>
                                         <input id="email" type="email" placeholder="{{ __('Email Address') }}"
                                             class="form-control bg-light @error('email') is-invalid @enderror"
@@ -70,7 +68,7 @@
                                 </div>
                                 
                                 <div class="row">
-                                    <span class="ec-login-wrap col-md-6">
+                                    <span class="ec-login-wrap col-md-6 mb-3">
                                         <label for="password">Password <span class="text-danger">*</span></label>
                                         <input id="password" type="password" placeholder="{{ __('Password') }}"
                                             class="form-control bg-light @error('password') is-invalid @enderror"
@@ -82,7 +80,7 @@
                                             </span>
                                         @enderror
                                     </span>
-                                    <span class="ec-login-wrap col-md-6">
+                                    <span class="ec-login-wrap col-md-6 mb-3">
                                         <label for="password-confirm">Confirm Password<span
                                                 class="text-danger">*</span></label>
                                         <input id="password-confirm" type="password"
@@ -90,12 +88,12 @@
                                             name="password_confirmation" required autocomplete="new-password">
                                     </span>
                                 </div>
-                                <input type="hidden" value="3" name="role_id">
-                                <div class="d-flex">
+                                <input type="hidden" value="vendor" name="role">
+                                <div class="d-flex mb-3">
 
                                     <input type="checkbox" required class="@error('terms') is-invalid @enderror"
                                         id="terms" style="width: 25px;" value="1" name="terms"
-                                        required><a href="{{url('page/policies')}}" style="" target="_banl" class="mt-3 ms-3">I have
+                                        required><a href="{{url('page/policies')}}" style="" target="_banl" class="mt-0 ml-2">I have
                                         read and agree to the <span>Terms &amp; Conditions of
                                             AhroMart</span></a><span class="checked"></span>
                                     @error('terms')
@@ -119,11 +117,4 @@
             </div>
         </div>
     </section>
-@endsection
-
-@section('js')
-    <script src="{{ asset('assets/frontend-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
-
-    <script src="{{ asset('assets/frontend-assets/js/main.js') }}"></script>
-@endsection
+</x-app>
