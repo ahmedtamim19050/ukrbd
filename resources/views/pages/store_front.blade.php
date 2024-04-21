@@ -73,25 +73,22 @@
                             <div class="widget widget-collapsible widget-products">
                                 <h3 class="widget-title"><span>Best Selling</span></h3>
                                 <div class="widget-body">
-                                    @foreach ($bestSellingProducts as $selling)
+                                    @foreach ($bestSellingProducts as $product)
                                         <div class="product product-widget">
                                             <figure class="product-media">
                                                 <a href="product-default.html">
-                                                    <img src="{{ Voyager::image($shop->banner) }}" alt="Product"
+                                                    <img src="{{ Voyager::image($product->image) }}" alt="Product"
                                                         width="100" height="106" />
                                                 </a>
                                             </figure>
                                             <div class="product-details">
                                                 <h4 class="product-name">
-                                                    <a href="product-default.html">3D Television</a>
+                                                    <a href="product-default.html">{{$product->name}}</a>
                                                 </h4>
                                                 <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 80%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
-                                                    </div>
+                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
                                                 </div>
-                                                <div class="product-price">$220.00</div>
+                                                <div class="product-price">{{Sohoj::price($product->price)}}</div>
                                             </div>
                                         </div>
                                     @endforeach
