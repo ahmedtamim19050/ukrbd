@@ -1,3 +1,7 @@
+@php
+    $images = json_decode($product->images) ?? [];
+
+@endphp
 <x-app>
     <x-slot name="css">
         <!-- Vendor CSS -->
@@ -14,10 +18,49 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+
+        <style>
+            .radio-container {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+
+            input[type="radio"] {
+
+                position: absolute;
+                opacity: 0;
+                left: 24px;
+           
+            }
+
+            input[type="radio"]+label {
+                font-size: 10px;
+                cursor: pointer;
+                margin-bottom: 10px;
+            }
+
+            input[type="radio"]+label:before {
+                content: "";
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                border: 1px solid #4CACF7;
+                border-radius: 50%;
+                margin-right: 8px;
+                vertical-align: middle;
+            }
+
+            input[type="radio"]:checked+label:before {
+                background-color: #4CACF7;
+                /* Change background color when checked */
+            }
+            .rating-container .rating-stars{
+                height: 20px;
+            }
+        </style>
     </x-slot>
 
-    <x-slot name="js">
-    </x-slot>
 
 
     <nav class="breadcrumb-nav container">
@@ -31,7 +74,7 @@
                     <i class="w-icon-angle-left"></i>
                 </a>
                 <span class="product-nav-popup">
-                    <img src="assets/images/products/product-nav-prev.jpg" alt="Product" width="110"
+                    <img src="{{ asset('assets/images/products/product-nav-prev.jpg') }}" alt="Product" width="110"
                         height="110" />
                     <span class="product-name">Soft Sound Maker</span>
                 </span>
@@ -41,7 +84,7 @@
                     <i class="w-icon-angle-right"></i>
                 </a>
                 <span class="product-nav-popup">
-                    <img src="assets/images/products/product-nav-next.jpg" alt="Product" width="110"
+                    <img src="{{ asset('assets/images/products/product-nav-next.jpg') }}" alt="Product" width="110"
                         height="110" />
                     <span class="product-name">Fabulous Sound Speaker</span>
                 </span>
@@ -68,46 +111,24 @@
                                     <div class="swiper-wrapper row cols-1 gutter-no">
                                         <div class="swiper-slide">
                                             <figure class="product-image">
-                                                <img src="assets/images/products/default/1-800x900.jpg"
-                                                    data-zoom-image="assets/images/products/default/1-800x900.jpg"
+                                                <img src="{{ Voyager::image($product->image) }}"
+                                                    data-zoom-image="{{ Voyager::image($product->image) }}"
                                                     alt="Electronics Black Wrist Watch" width="800" height="900">
                                             </figure>
                                         </div>
-                                        <div class="swiper-slide">
-                                            <figure class="product-image">
-                                                <img src="assets/images/products/default/2-800x900.jpg"
-                                                    data-zoom-image="assets/images/products/default/2-800x900.jpg"
-                                                    alt="Electronics Black Wrist Watch" width="488" height="549">
-                                            </figure>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <figure class="product-image">
-                                                <img src="assets/images/products/default/3-800x900.jpg"
-                                                    data-zoom-image="assets/images/products/default/3-800x900.jpg"
-                                                    alt="Electronics Black Wrist Watch" width="800" height="900">
-                                            </figure>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <figure class="product-image">
-                                                <img src="assets/images/products/default/4-800x900.jpg"
-                                                    data-zoom-image="assets/images/products/default/4-800x900.jpg"
-                                                    alt="Electronics Black Wrist Watch" width="800" height="900">
-                                            </figure>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <figure class="product-image">
-                                                <img src="assets/images/products/default/5-800x900.jpg"
-                                                    data-zoom-image="assets/images/products/default/5-800x900.jpg"
-                                                    alt="Electronics Black Wrist Watch" width="800" height="900">
-                                            </figure>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <figure class="product-image">
-                                                <img src="assets/images/products/default/6-800x900.jpg"
-                                                    data-zoom-image="assets/images/products/default/6-800x900.jpg"
-                                                    alt="Electronics Black Wrist Watch" width="800" height="900">
-                                            </figure>
-                                        </div>
+                                        @if ($images)
+                                            @foreach ($images as $image)
+                                                <div class="swiper-slide">
+                                                    <figure class="product-image">
+                                                        <img src="{{ Voyager::image($image) }}"
+                                                            data-zoom-image="{{ Voyager::image($image) }}"
+                                                            alt="Electronics Black Wrist Watch" width="488"
+                                                            height="549">
+                                                    </figure>
+                                                </div>
+                                            @endforeach
+                                        @endif
+
                                     </div>
                                     <button class="swiper-button-next"></button>
                                     <button class="swiper-button-prev"></button>
@@ -122,30 +143,20 @@
                                     }
                                 }">
                                     <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
+                                        @if ($images)
+                                            @foreach ($images as $image)
+                                                <div class="product-thumb swiper-slide">
+                                                    <img src="{{ Voyager::image($image) }}" alt="Product Thumb"
+                                                        width="800" height="900">
+                                                </div>
+                                            @endforeach
+                                        @endif
+
                                         <div class="product-thumb swiper-slide">
-                                            <img src="assets/images/products/default/1-800x900.jpg"
-                                                alt="Product Thumb" width="800" height="900">
+                                            <img src="{{ Voyager::image($product->image) }}" alt="Product Thumb"
+                                                width="800" height="900">
                                         </div>
-                                        <div class="product-thumb swiper-slide">
-                                            <img src="assets/images/products/default/2-800x900.jpg"
-                                                alt="Product Thumb" width="800" height="900">
-                                        </div>
-                                        <div class="product-thumb swiper-slide">
-                                            <img src="assets/images/products/default/3-800x900.jpg"
-                                                alt="Product Thumb" width="800" height="900">
-                                        </div>
-                                        <div class="product-thumb swiper-slide">
-                                            <img src="assets/images/products/default/4-800x900.jpg"
-                                                alt="Product Thumb" width="800" height="900">
-                                        </div>
-                                        <div class="product-thumb swiper-slide">
-                                            <img src="assets/images/products/default/5-800x900.jpg"
-                                                alt="Product Thumb" width="800" height="900">
-                                        </div>
-                                        <div class="product-thumb swiper-slide">
-                                            <img src="assets/images/products/default/6-800x900.jpg"
-                                                alt="Product Thumb" width="800" height="900">
-                                        </div>
+
                                     </div>
                                     <button class="swiper-button-next"></button>
                                     <button class="swiper-button-prev"></button>
@@ -157,14 +168,20 @@
                                 <h1 class="product-title">{{ $product->name }}</h1>
                                 <div class="product-bm-wrapper">
                                     <figure class="brand">
-                                        <img src="{{ Voyager::image($product->image) }}" alt="Brand"
-                                            width="102" height="48" />
+                                        <img src="{{ $product->shop->logo ? Voyager::image($product->shop->logo) : asset('assets/images/defult.png') }}"
+                                            alt="Brand" width="102" height="48" />
                                     </figure>
                                     <div class="product-meta">
                                         <div class="product-categories">
                                             Category:
-                                            <span class="product-category"><a
-                                                    href="#">{{ $product->shop->name }}</a></span>
+                                            <span class="product-category">
+                                                @if ($product->prodcats->count() > 0)
+                                                    @foreach ($product->prodcats as $category)
+                                                        <a href="#">{{ $category->name }} ,</a>
+                                                    @endforeach
+
+                                                @endif
+                                            </span>
                                         </div>
                                         <div class="product-sku">
                                             SKU: <span>{{ $product->sku }}</span>
@@ -174,37 +191,52 @@
 
                                 <hr class="product-divider">
 
-                                <div class="product-price"><ins class="new-price">${{ $product->price }}</ins></div>
+                                <div class="product-price"><ins
+                                        class="new-price">{{ Sohoj::price($product->price) }}</ins></div>
 
                                 <div class="ratings-container">
                                     <div class="ratings-full">
                                         <span class="ratings" style="width: 80%;"></span>
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <a href="#product-tab-reviews"
-                                        class="rating-reviews scroll-to">({{ $product->views }})</a>
+                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">10</a>
                                 </div>
 
                                 <div class="product-short-desc">
-                                    <ul class="list-type-check list-style-none">
-                                        <li>{{ $product->short_description }}</li>
-
-                                    </ul>
+                                    {!! $product->short_description !!}
                                 </div>
 
                                 <hr class="product-divider">
+                                <form class="" action="{{ route('cart.boynow') }}" method="POST">
+                                    @csrf
+                                    @if ($product->is_variable_product && count($product->subproductsuser) > 0)
+                                        @foreach ($product->attributes as $attribute)
+                                            <div
+                                                class=" mt-2 pt-2 w-100 mb-2  product-variation-form product-size-swatc">
+                                                <div class="form-group col-md-12 pl-0 ">
+                                                    <h5 class="ms-3">{{ str_replace('_', ' ', $attribute->name) }}
+                                                        </h4>
+                                                        <div class="" role="group">
+                                                            @foreach ($attribute->value as $value)
+                                                                <input type="radio"
+                                                                    class="btn-check {{ str_replace(' ', '_', $attribute->name) }}"
+                                                                    name="variable_attribute[{{ $attribute->name }}]"
+                                                                    id="{{ str_replace(' ', '_', $value) }}"
+                                                                    value="{{ $value }}" required
+                                                                    onclick="change_variable()">
+                                                                <label class="btn btn-info p-2"
+                                                                    style="padding: 5px 12px;"
+                                                                    for="{{ str_replace(' ', '_', $value) }}">{{ str_replace('_', ' ', $value) }}</label>
+                                                            @endforeach
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
 
-                                <div class="product-form product-variation-form product-color-swatch">
-                                    <label>Color:</label>
-                                    <div class="d-flex align-items-center product-variations">
-                                        <a href="#" class="color" style="background-color: #ffcc01"></a>
-                                        <a href="#" class="color" style="background-color: #ca6d00;"></a>
-                                        <a href="#" class="color" style="background-color: #1c93cb;"></a>
-                                        <a href="#" class="color" style="background-color: #ccc;"></a>
-                                        <a href="#" class="color" style="background-color: #333;"></a>
-                                    </div>
-                                </div>
-                                <div class="product-form product-variation-form product-size-swatch">
+
+
+                                    {{-- <div class="product-form product-variation-form product-size-swatch">
                                     <label class="mb-1">Size:</label>
                                     <div class="flex-wrap d-flex align-items-center product-variations">
                                         <a href="#" class="size">Small</a>
@@ -213,15 +245,15 @@
                                         <a href="#" class="size">Extra Large</a>
                                     </div>
                                     <a href="#" class="product-variation-clean">Clean All</a>
-                                </div>
+                                </div> --}}
 
-                                <div class="product-variation-price">
+                                    {{-- <div class="product-variation-price">
                                     <span></span>
-                                </div>
+                                </div> --}}
 
-                                <div class="fix-bottom sticky-content">
-                                    <div class="product-form container">
-                                        <div class="product-qty-form">
+                                    <div class="fix-bottom sticky-content">
+                                        <div class="product-form container">
+                                            {{-- <div class="product-qty-form">
                                             <form method="POST" action="{{ route('cart.update') }}">
                                                 @csrf
                                                 <div class="input-group">
@@ -230,26 +262,27 @@
                                                     <input value="{{ $product->quantity }}" min="1"
                                                         class=" form-control" type="number" name="quantity">
                                                     <button type="submit" class=" btn-apply bg-dark text-white">update</button>
-                                                    {{-- <button class="quantity-minus w-icon-minus"></button> --}}
+                                                   
                                                 </div>
                                             </form>
-                                        </div>
-                                        <div class="product-qty-form">
+                                        </div> --}}
+                                            <div class="product-qty-form">
 
-                                            <form class="" action="{{route('cart.boynow')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
-                                                <input type="hidden" name="product_id" value="{{ $product->id }}" />
-    
-                                                <button type="submit" class="btn btn-primary" data-product-id="{{ $product->id }}">
+
+                                                <input type="hidden" class="form-control qty" value="1"
+                                                    min="1" name="quantity">
+                                                <input type="hidden" name="product_id"
+                                                    value="{{ $product->id }}" />
+
+                                                <button type="submit" class="btn btn-primary" id="add_to_card">
                                                     <i class="w-icon-cart"></i>
                                                     <span>Add to Cart</span>
                                                 </button>
-                                            </form>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                </form>
                                 <div class="social-links-wrapper">
                                     <div class="social-links">
                                         <div class="social-icons social-no-color border-thin">
@@ -264,10 +297,10 @@
                                     </div>
                                     <span class="divider d-xs-show"></span>
                                     <div class="product-link-wrapper d-flex">
-                                        <a href="#"
+                                        <a href="javascript:void(0)" onclick="wishlist({{ $product->id }})"
                                             class="btn-product-icon btn-wishlist w-icon-heart"><span></span></a>
-                                        <a href="#"
-                                            class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a>
+                                        {{-- <a href="#"
+                                            class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -279,7 +312,7 @@
                         <div class="bought-together-products row mt-8 pb-4">
                             <div class="product product-wrap text-center">
                                 <figure class="product-media">
-                                    <img src="assets/images/products/default/bought-1.jpg" alt="Product"
+                                    <img src="{{asset('assets/images/products/default/bought-1.jpg')}}" alt="Product"
                                         width="138" height="138" />
                                     <div class="product-checkbox">
                                         <input type="checkbox" class="custom-checkbox" id="product_check1"
@@ -296,7 +329,7 @@
                             </div>
                             <div class="product product-wrap text-center">
                                 <figure class="product-media">
-                                    <img src="assets/images/products/default/bought-2.jpg" alt="Product"
+                                    <img src="{{asset('assets/images/products/default/bought-2.jpg')}}" alt="Product"
                                         width="138" height="138" />
                                     <div class="product-checkbox">
                                         <input type="checkbox" class="custom-checkbox" id="product_check2"
@@ -313,7 +346,7 @@
                             </div>
                             <div class="product product-wrap text-center">
                                 <figure class="product-media">
-                                    <img src="assets/images/products/default/bought-3.jpg" alt="Product"
+                                    <img src="{{asset('assets/images/products/default/bought-3.jpg')}}" alt="Product"
                                         width="138" height="138" />
                                     <div class="product-checkbox">
                                         <input type="checkbox" class="custom-checkbox" id="product_check3"
@@ -340,9 +373,9 @@
                         <li class="nav-item">
                             <a href="#product-tab-description" class="nav-link active">Description</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#product-tab-specification" class="nav-link">Specification</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
                         </li>
@@ -353,36 +386,12 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="product-tab-description">
                             <div class="row mb-4">
-                                <div class="col-md-6 mb-5">
-                                    <h4 class="title tab-pane-title font-weight-bold mb-2">Detail</h4>
-                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt arcu cursus vitae congue mauris.
-                                        Sagittis id consectetur purus ut. Tellus rutrum tellus pelle Vel
-                                        pretium lectus quam id leo in vitae turpis massa.</p>
-                                    <ul class="list-type-check">
-                                        <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis
-                                            elit.
-                                        </li>
-                                        <li>Vivamus finibus vel mauris ut vehicula.</li>
-                                        <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.
-                                        </li>
-                                    </ul>
+                                <div class="col-md-12 mb-5">
+                                    {!! $product->description!!}
                                 </div>
-                                <div class="col-md-6 mb-5">
-                                    <div class="banner banner-video product-video br-xs">
-                                        <figure class="banner-media">
-                                            <a href="#">
-                                                <img src="assets/images/products/video-banner-610x300.jpg"
-                                                    alt="banner" width="610" height="300"
-                                                    style="background-color: #bebebe;">
-                                            </a>
-                                            <a class="btn-play-video btn-iframe"
-                                                href="assets/video/memory-of-a-woman.mp4"></a>
-                                        </figure>
-                                    </div>
-                                </div>
+                              
                             </div>
-                            <div class="row cols-md-3">
+                            {{-- <div class="row cols-md-3">
                                 <div class="mb-3">
                                     <h5 class="sub-title font-weight-bold"><span class="mr-3">1.</span>Free
                                         Shipping &amp; Return</h5>
@@ -401,9 +410,9 @@
                                     <p class="detail pl-5">Get 20%-50% off items over 50$ for a month or
                                         over 250$ for a year with our special credit card.</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="tab-pane" id="product-tab-specification">
+                        {{-- <div class="tab-pane" id="product-tab-specification">
                             <ul class="list-none">
                                 <li>
                                     <label>Model</label>
@@ -422,25 +431,26 @@
                                     <p>3 Months</p>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="tab-pane" id="product-tab-vendor">
                             <div class="row mb-3">
                                 <div class="col-md-6 mb-4">
                                     <figure class="vendor-banner br-sm">
-                                        <img src="assets/images/products/vendor-banner.jpg" alt="Vendor Banner"
-                                            width="610" height="295" style="background-color: #353B55;" />
+                                        <img src="{{ $product->shop->banner ? Voyager::image($product->shop->banner) : asset('assets/images/defult.png') }}"
+                                            alt="Vendor Banner" width="610" height="295"
+                                            style="background-color: #353B55;" />
                                     </figure>
                                 </div>
                                 <div class="col-md-6 pl-2 pl-md-6 mb-4">
                                     <div class="vendor-user">
                                         <figure class="vendor-logo mr-4">
                                             <a href="#">
-                                                <img src="assets/images/products/vendor-logo.jpg" alt="Vendor Logo"
-                                                    width="80" height="80" />
+                                                <img src="{{ $product->shop->logo ? Voyager::image($product->shop->logo) : asset('assets/images/defult.png') }}"
+                                                    alt="Vendor Logo" width="80" height="80" />
                                             </a>
                                         </figure>
                                         <div>
-                                            <div class="vendor-name"><a href="#">Jone Doe</a></div>
+                                            <div class="vendor-name"><a href="#">{{$product->shop->user->name}}</a></div>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
                                                     <span class="ratings" style="width: 90%;"></span>
@@ -453,41 +463,27 @@
                                     <ul class="vendor-info list-style-none">
                                         <li class="store-name">
                                             <label>Store Name:</label>
-                                            <span class="detail">OAIO Store</span>
+                                            <span class="detail">{{$product->shop->name}}</span>
                                         </li>
                                         <li class="store-address">
                                             <label>Address:</label>
-                                            <span class="detail">Steven Street, El Carjon, CA 92020, United
-                                                States (US)</span>
+                                            <span class="detail">{{$product->shop->post_code}}, {{$product->shop->city}}</span>
                                         </li>
                                         <li class="store-phone">
                                             <label>Phone:</label>
-                                            <a href="#tel:">1234567890</a>
+                                            <a href="#tel:">{{$product->shop->phone}}</a>
+                                        </li>
+                                        <li class="store-phone">
+                                            <label>Email:</label>
+                                            <a href="#tel:">{{$product->shop->email}}</a>
                                         </li>
                                     </ul>
-                                    <a href="vendor-dokan-store.html"
+                                    <a href="{{route('store_front',$product->shop->slug)}}"
                                         class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
                                         Store<i class="w-icon-long-arrow-right"></i></a>
                                 </div>
                             </div>
-                            <p class="mb-5"><strong class="text-dark">L</strong>orem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                dolore magna aliqua.
-                                Venenatis tellus in metus vulputate eu scelerisque felis. Vel pretium
-                                lectus quam id leo in vitae turpis massa. Nunc id cursus metus aliquam.
-                                Libero id faucibus nisl tincidunt eget. Aliquam id diam maecenas ultricies
-                                mi eget mauris. Volutpat ac tincidunt vitae semper quis lectus. Vestibulum
-                                mattis ullamcorper velit sed. A arcu cursus vitae congue mauris.
-                            </p>
-                            <p class="mb-2"><strong class="text-dark">A</strong> arcu cursus vitae congue
-                                mauris. Sagittis id consectetur purus
-                                ut. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla.
-                                Diam in
-                                arcu cursus euismod quis. Eget sit amet tellus cras adipiscing enim eu. In
-                                fermentum et sollicitudin ac orci phasellus. A condimentum vitae sapien
-                                pellentesque
-                                habitant morbi tristique senectus et. In dictum non consectetur a erat. Nunc
-                                scelerisque viverra mauris in aliquam sem fringilla.</p>
+                             {!! $product->shop->description !!}
                         </div>
                         <div class="tab-pane" id="product-tab-reviews">
                             <div class="row mb-4">
@@ -506,11 +502,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="ratings-value d-flex align-items-center text-dark ls-25">
+                                        {{-- <div class="ratings-value d-flex align-items-center text-dark ls-25">
                                             <span class="text-dark font-weight-bold">66.7%</span>Recommended<span
                                                 class="count">(2 of 3)</span>
-                                        </div>
-                                        <div class="ratings-list">
+                                        </div> --}}
+                                        {{-- <div class="ratings-list">
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
                                                     <span class="ratings" style="width: 100%;"></span>
@@ -571,7 +567,7 @@
                                                     <mark>0%</mark>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="col-xl-8 col-lg-7 mb-4">
@@ -583,13 +579,8 @@
                                         <form action="#" method="POST" class="review-form">
                                             <div class="rating-form">
                                                 <label for="rating">Your Rating Of This Product :</label>
-                                                <span class="rating-stars">
-                                                    <a class="star-1" href="#">1</a>
-                                                    <a class="star-2" href="#">2</a>
-                                                    <a class="star-3" href="#">3</a>
-                                                    <a class="star-4" href="#">4</a>
-                                                    <a class="star-5" href="#">5</a>
-                                                </span>
+                                                <input value="1" name="rating" class="rating product_rating" data-size="xs">
+
                                                 <select name="rating" id="rating" required=""
                                                     style="display: none;">
                                                     <option value="">Rate…</option>
@@ -650,7 +641,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/1-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/1-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -684,10 +675,10 @@
                                                             <div class="review-image">
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-1.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-1.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-1-800x900.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-1-800x900.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                             </div>
@@ -698,7 +689,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/2-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/2-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -732,18 +723,18 @@
                                                             <div class="review-image">
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-2.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-2.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-2.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-2.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-3.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-3.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-3.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-3.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                             </div>
@@ -754,7 +745,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/3-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/3-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -796,7 +787,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/1-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/1-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -830,10 +821,10 @@
                                                             <div class="review-image">
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-1.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-1.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-1.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-1.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                             </div>
@@ -844,7 +835,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/2-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/2-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -878,18 +869,18 @@
                                                             <div class="review-image">
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-2.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-2.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-2-800x900.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-2-800x900.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-3.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-3.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-3-800x900.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-3-800x900.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                             </div>
@@ -904,7 +895,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/3-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/3-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -946,7 +937,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/2-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/2-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -980,18 +971,18 @@
                                                             <div class="review-image">
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-2.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-2.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-2-800x900.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-2-800x900.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-3.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-3.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-3-800x900.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-3-800x900.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                             </div>
@@ -1006,7 +997,7 @@
                                             <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
-                                                        <img src="assets/images/agents/1-100x100.png"
+                                                        <img src="{{ asset('assets/images/agents/1-100x100.png') }}"
                                                             alt="Commenter Avatar" width="90" height="90">
                                                     </figure>
                                                     <div class="comment-content">
@@ -1040,10 +1031,10 @@
                                                             <div class="review-image">
                                                                 <a href="#">
                                                                     <figure>
-                                                                        <img src="assets/images/products/default/review-img-3.jpg"
+                                                                        <img src="{{ asset('assets/images/products/default/review-img-3.jpg') }}"
                                                                             width="60" height="60"
                                                                             alt="Attachment image of John Doe's review on Electronics Black Wrist Watch"
-                                                                            data-zoom-image="assets/images/products/default/review-img-3-800x900.jpg" />
+                                                                            data-zoom-image="{{ asset('assets/images/products/default/review-img-3-800x900.jpg') }}" />
                                                                     </figure>
                                                                 </a>
                                                             </div>
@@ -1120,7 +1111,7 @@
                             <div class="swiper-slide product">
                                 <figure class="product-media">
                                     <a href="product-default.html">
-                                        <img src="assets/images/products/default/5.jpg" alt="Product" width="300"
+                                        <img src="{{asset('assets/images/products/default/5.jpg')}}" alt="Product" width="300"
                                             height="338" />
                                     </a>
                                     <div class="product-action-vertical">
@@ -1153,7 +1144,7 @@
                             <div class="swiper-slide product">
                                 <figure class="product-media">
                                     <a href="product-default.html">
-                                        <img src="assets/images/products/default/6.jpg" alt="Product" width="300"
+                                        <img src="{{asset('assets/images/products/default/6.jpg')}}" alt="Product" width="300"
                                             height="338" />
                                     </a>
                                     <div class="product-action-vertical">
@@ -1189,9 +1180,9 @@
                             <div class="swiper-slide product">
                                 <figure class="product-media">
                                     <a href="product-default.html">
-                                        <img src="assets/images/products/default/7-1.jpg" alt="Product"
+                                        <img src="{{asset('assets/images/products/default/7-1.jpg')}}" alt="Product"
                                             width="300" height="338" />
-                                        <img src="assets/images/products/default/7-2.jpg" alt="Product"
+                                        <img src="{{asset('assets/images/products/default/7-2.jpg')}}" alt="Product"
                                             width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
@@ -1225,7 +1216,7 @@
                             <div class="swiper-slide product">
                                 <figure class="product-media">
                                     <a href="product-default.html">
-                                        <img src="assets/images/products/default/8.jpg" alt="Product" width="300"
+                                        <img src="{{asset('assets/images/products/default/8.jpg')}}" alt="Product" width="300"
                                             height="338" />
                                     </a>
                                     <div class="product-action-vertical">
@@ -1302,7 +1293,7 @@
                             <div class="widget widget-banner mb-9">
                                 <div class="banner banner-fixed br-sm">
                                     <figure>
-                                        <img src="assets/images/shop/banner3.jpg" alt="Banner" width="266"
+                                        <img src="{{asset('assets/images/shop/banner3.jpg')}}" alt="Banner" width="266"
                                             height="220" style="background-color: #1D2D44;" />
                                     </figure>
                                     <div class="banner-content">
@@ -1337,7 +1328,7 @@
                                                 <div class="product product-widget">
                                                     <figure class="product-media">
                                                         <a href="#">
-                                                            <img src="assets/images/shop/13.jpg" alt="Product"
+                                                            <img src="{{asset('assets/images/shop/13.jpg')}}" alt="Product"
                                                                 width="100" height="113" />
                                                         </a>
                                                     </figure>
@@ -1357,7 +1348,7 @@
                                                 <div class="product product-widget">
                                                     <figure class="product-media">
                                                         <a href="#">
-                                                            <img src="assets/images/shop/14.jpg" alt="Product"
+                                                            <img src="{{asset('assets/images/shop/14.jpg')}}" alt="Product"
                                                                 width="100" height="113" />
                                                         </a>
                                                     </figure>
@@ -1377,7 +1368,7 @@
                                                 <div class="product product-widget">
                                                     <figure class="product-media">
                                                         <a href="#">
-                                                            <img src="assets/images/shop/15.jpg" alt="Product"
+                                                            <img src="{{asset('assets/images/shop/15.jpg')}}" alt="Product"
                                                                 width="100" height="113" />
                                                         </a>
                                                     </figure>
@@ -1399,7 +1390,7 @@
                                                 <div class="product product-widget">
                                                     <figure class="product-media">
                                                         <a href="#">
-                                                            <img src="assets/images/shop/16.jpg" alt="Product"
+                                                            <img src="{{asset('assets/images/shop/16.jpg')}}" alt="Product"
                                                                 width="100" height="113" />
                                                         </a>
                                                     </figure>
@@ -1419,7 +1410,7 @@
                                                 <div class="product product-widget">
                                                     <figure class="product-media">
                                                         <a href="#">
-                                                            <img src="assets/images/shop/17.jpg" alt="Product"
+                                                            <img src="{{asset('assets/images/shop/17.jpg')}}" alt="Product"
                                                                 width="100" height="113" />
                                                         </a>
                                                     </figure>
@@ -1439,7 +1430,7 @@
                                                 <div class="product product-widget">
                                                     <figure class="product-media">
                                                         <a href="#">
-                                                            <img src="assets/images/shop/18.jpg" alt="Product"
+                                                            <img src="{{asset('assets/images/shop/18.jpg')}}" alt="Product"
                                                                 width="100" height="113" />
                                                         </a>
                                                     </figure>
@@ -1470,4 +1461,5 @@
             </div>
         </div>
     </div>
+
 </x-app>

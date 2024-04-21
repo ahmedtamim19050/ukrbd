@@ -38,6 +38,7 @@
         type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
 
     {{ $css }}
 </head>
@@ -49,7 +50,7 @@
 
             <!-- End of Header Top -->
 
-            <x-app.header-top :categories="$categories"/>
+            <x-app.header-top :categories="$categories" />
             <!-- End of Header Middle -->
 
             <x-app.header-middle :categories="$categories" />
@@ -790,6 +791,7 @@
     <script src="{{ asset('assets/vendor/skrollr/skrollr.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
+    <script src="{{ asset('assets/js/star-rating.js') }}"></script>
     @yield('script')
     <script>
         function cartQnty() {
@@ -837,9 +839,10 @@
                         console.log(response);
                         cartQnty();
                         addToCartBtn.attr('disabled', true);
-                        addToCartBtn.css('background-color', '#2A9CF5 !important').attr('disabled', true);
+                        addToCartBtn.css('background-color', '#2A9CF5 !important').attr(
+                            'disabled', true);
                         addToCartBtn.attr('title', 'added');
-                    
+
 
                     },
                     error: function(xhr) {
@@ -894,7 +897,7 @@
     </script>
     <script>
         var shopUrl = "{{ route('shops') }}";
-    
+
         $(document).ready(function() {
             $('#ratingForm input[type="checkbox"]').on('change', function() {
                 if ($(this).is(':checked')) {
@@ -903,11 +906,11 @@
                     removeSearchParam("ratings", shopUrl);
                 }
             });
-    
-            $( "#price-slider" ).slider({
+
+            $("#price-slider").slider({
                 range: true,
-                min: {{request()->has('priceMin') ? request('priceMin') : 0 }},
-                max: {{request()->has('priceMax') ? request('priceMax') : 1000 }},
+                min: {{ request()->has('priceMin') ? request('priceMin') : 0 }},
+                max: {{ request()->has('priceMax') ? request('priceMax') : 1000 }},
                 values: [0, 1000],
                 slide: function(event, ui) {
                     $("#minPriceDisplay").text(ui.values[0]);
@@ -917,62 +920,72 @@
                     updateSearchParams('', '', shopUrl, ui.values[0], ui.values[1]);
                 }
             });
-    
+
             // Display initial price values
             $("#minPriceDisplay").text($("#price-slider").slider("values", 0));
             $("#maxPriceDisplay").text($("#price-slider").slider("values", 1));
         });
-    
+
         function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax) {
             var url;
             console.log(searchValue);
-    
+
             if (window.location.pathname !== "/shops" || (new URL(route)).pathname == '/vendors') {
                 url = new URL(route);
             } else {
                 url = new URL(window.location.href);
             }
-    
+
             url.searchParams.set(searchParam, searchValue);
-    
+
             // Set the price range parameters if provided
             if (priceMin !== undefined) {
                 url.searchParams.set('priceMin', priceMin);
             }
-    
+
             if (priceMax !== undefined) {
                 url.searchParams.set('priceMax', priceMax);
             }
-    
+
             var existingParams = new URLSearchParams(window.location.search);
             existingParams.delete(searchParam);
-    
+
             // Remove existing price range parameters
             existingParams.delete('priceMin');
             existingParams.delete('priceMax');
-    
+
             existingParams.forEach(function(value, key) {
                 url.searchParams.set(key, value);
             });
-    
+
             var newUrl = url.href;
             window.location = newUrl;
         }
-    
+
         function removeSearchParam(searchParam, route) {
             var url;
-    
+
             if (window.location.pathname !== "/shops" || (new URL(route)).pathname == '/vendors') {
                 url = new URL(route);
             } else {
                 url = new URL(window.location.href);
             }
-    
+
             var existingParams = new URLSearchParams(window.location.search);
             existingParams.delete(searchParam);
-    
+
             var newUrl = url.href.split('?')[0] + '?' + existingParams.toString();
             window.location = newUrl;
         }
+    </script>
+
+    <script>
+        $("#product_rating").rating({
+            showCaption: true
+        });
+        $(".published_rating").rating({
+            showCaption: false,
+            readonly: true,
+        });
     </script>
 </body>
