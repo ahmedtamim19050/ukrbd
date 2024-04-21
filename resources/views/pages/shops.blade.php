@@ -1,483 +1,468 @@
-@php
-    $route = route('shops');
-@endphp
+  <x-app>
+      @php
+          $route = route('shops');
+      @endphp
+      <x-slot name="css">
+          <!-- Vendor CSS -->
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
+          <!-- Plugins CSS -->
+          <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+          <link rel="stylesheet" type="text/css"
+              href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
 
-@extends('layouts.app')
-@section('css')
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assetss/responsive.css') }}" />
-    <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend-assetss/css/backgrounds/bg-4.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/shops.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assets/css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/frontend-assetss/responsive.css') }}" />
-    <link rel="stylesheet" id="bg-switcher-css" href="{{ asset('assets/frontend-assetss/css/backgrounds/bg-4.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/shops.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+          <!-- Default CSS -->
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+      </x-slot>
 
-    <style>
-        .ec-product-inner .ec-pro-image .ec-pro-actions .wishlist {
-            position: absolute !important;
-            right: 6px !important;
-            bottom: 62px !important;
-            border: 1px solid #eeeeee;
-        }
+      <nav class="breadcrumb-nav">
+          <div class="container">
+              <ul class="breadcrumb bb-no">
+                  <li><a href="demo1.html">Home</a></li>
+                  <li>Shop</li>
+              </ul>
+          </div>
+      </nav>
+      <!-- End of Breadcrumb -->
 
-        label {
-            display: block;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        #price-range {
-            margin-top: 20px;
-        }
-
-        #price-display {
-            margin-top: 10px;
-        }
-        /* .rating-container .filled-stars{
-            left: 5px;
-        } */
-    </style>
-@endsection
-@section('content')
-    <x-app.header />
-    <div class="">
-        <div class="row container-fluid">
-            <aside class="col-md-3 col-sm-12">
-                <div class="wrapper">
-                    <div class="content py-md-0 py-3">
-                        <aside id="sideba" class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <a href="{{ route('shops') }}" class="w-100 btn btn-dark">Remove Filter</a>
-            
-                            <div id="price-range">
-                                <h4 class="font-weight-bold" for="price-slider">Price Range:</h4>
-                                <div id="price-slider"></div>
-                                <div id="price-display">
-                                    Min: <span id="minPriceDisplay"></span>, Max: <span id="maxPriceDisplay"></span>
-                                </div>
-                            </div>
-                            <div class="py-3">
-                                <h5 class="font-weight-bold">Categories</h5>
-                                <ul class="list-group">
-                                    @foreach ($categories as $category)
-                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category"
-                                            style="cursor: default">
-                                            <a href="javascript::void(0)"
-                                                onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
-                                                {{ $category->name }}
-                                            </a>
-                                            <span class="badge badge-primary badge-pill">{{ $category->products->count() }}</span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="py-3">
-                                <h5 class="font-weight-bold">Rating</h5>
-                                <form class="rating" id="ratingForm">
-                                    <div class="form-inline d-flex align-items-center py-2"> <label class="tick"><span
-                                                class="fas fa-star"></span> <span class="fas fa-star"></span> <span
-                                                class="fas fa-star"></span> <span class="fas fa-star"></span> <span
-                                                class="fas fa-star"></span> <input type="checkbox" value="5"
-                                                {{ request('ratings') == 5 ? 'checked' : '' }}> <span class="check"></span>
-                                        </label> </div>
-                                    <div class="form-inline d-flex align-items-center py-2"> <label class="tick"> <span
-                                                class="fas fa-star"></span> <span class="fas fa-star"></span> <span
-                                                class="fas fa-star"></span> <span class="fas fa-star"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <input type="checkbox"
-                                                value="4" {{ request('ratings') == 4 ? 'checked' : '' }}> <span
-                                                class="check"></span> </label> </div>
-                                    <div class="form-inline d-flex align-items-center py-2"> <label class="tick"><span
-                                                class="fas fa-star"></span> <span class="fas fa-star"></span> <span
-                                                class="fas fa-star"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <input type="checkbox"
-                                                value="3" {{ request('ratings') == 3 ? 'checked' : '' }}> <span
-                                                class="check"></span> </label> </div>
-                                    <div class="form-inline d-flex align-items-center py-2"> <label class="tick"><span
-                                                class="fas fa-star"></span> <span class="fas fa-star"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <input type="checkbox"
-                                                value="2" {{ request('ratings') == 2 ? 'checked' : '' }}> <span
-                                                class="check"></span> </label> </div>
-                                    <div class="form-inline d-flex align-items-center py-2"> <label class="tick"> <span
-                                                class="fas fa-star"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <span
-                                                class="far fa-star px-1 text-muted"></span> <input type="checkbox"
-                                                value="1" {{ request('ratings') == 1 ? 'checked' : '' }}> <span
-                                                class="check"></span> </label> </div>
-                                </form>
-                            </div>
-                        </aside>
-                    </div>
+      <!-- Start of Page Content -->
+      <div class="page-content">
+          <div class="container">
+              <!-- Start of Shop Banner -->
+              {{-- <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
+                style="background-image: url(assets/images/shop/banner1.jpg); background-color: #FFC74E;">
+                <div class="banner-content">
+                    <h4 class="banner-subtitle font-weight-bold">Accessories Collection</h4>
+                    <h3 class="banner-title text-white text-uppercase font-weight-bolder ls-normal">Smart Wrist
+                        Watches</h3>
+                    <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded btn-icon-right">Discover
+                        Now<i class="w-icon-long-arrow-right"></i></a>
                 </div>
-            </aside>
-            
-            <div class="col-md-9">
+            </div> --}}
+              <!-- End of Shop Banner -->
 
-                <section class="ec-page-content section-space-p">
-                    <div class="container">
-                        <div class="row">
-                            <div class="ec-shop-rightside col-lg-12 col-md-12">
-                                <!-- Shop Top Start -->
-                                <div class="ec-pro-list-top d-flex ">
-                                    <div class="col-md-6 ec-grid-list">
-                                        <div class="ec-gl-btn">
-                                            <p>Results For “ <span style="color:#3BB77E ">{{ request()->search }}</span> ”
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 ec-sort-select">
-                                        <span class="sort-by text-end">Sort by:</span>
-                                        <div class="ec-select-inner" style="border: none">
-                                            <select name="ec-select"
-                                                onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'
-                                                id="ec-select" style="font-weight: 600;">
-
-                                                <option value="most-sold"
-                                                    {{ request()->filter_products == 'most-sold' ? 'selected' : '' }}>Most
-                                                    Sold
-                                                </option>
-                                                <option value="price-low-high "
-                                                    {{ request()->filter_products == 'price-low-high' ? 'selected' : '' }}>
-                                                    Price, low
-                                                    to
-                                                    high</option>
-                                                <option value="price-high-low"
-                                                    {{ request()->filter_products == 'price-high-low' ? 'selected' : '' }}>
-                                                    Price, high
-                                                    to
-                                                    low</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Shop Top End -->
-
-                                <!-- Shop content Start -->
-                                <div class="shop-pro-content">
-                                    <div class="shop-pro-inner">
-                                        <div class="row">
-                                            @foreach ($products as $shopId => $items)
-                                                @foreach ($items as $product)
-                                                    <x-products.product-2 :product="$product" />
-                                                @endforeach
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    {{-- {{$products->links()}} --}}
-                                    <!-- Ec Pagination Start -->
-                                    {{-- <div class="col d-flex justify-content-center">
-                                    <div class="pagination d-flex justify-content-center  align-items-center">
-                                        <button class="btn btn-dark-light rounded"><i class="fi-rr-arrow-alt-left"></i></button>
-                                        <p>View More</p>
-                                        <button class="btn btn-dark rounded"><i class="fi-rr-arrow-alt-right"></i></button>
-                                    </div>
-                                </div> --}}
-                                    <!-- Ec Pagination End -->
-                                    {{-- Start sort by popular --}}
-                                    <div class="col hr-border">
-
-                                    </div>
-                                    <!-- Shop Top Start -->
-                                    <div class="ec-pro-list-top d-flex " style="margin-top: 40px">
-                                        {{-- <div class="col-md-6 ec-grid-list">
-                                    <div class="ec-gl-btn">
-                                        <p>Results For “ <span style="color:#3BB77E ">{{request()->search}}</span> ”</p>
-                                </div>
-                                </div> --}}
-                                            {{-- <div class="col-md-12 ec-sort-select">
-                                    <span class="sort-by text-end">Sort by:</span>
-                                    <div class="ec-select-inner" style="border: none">
-                                        <select onchange='updateSearchParams("shop_products",this.value,"{{ $route }}")' name="ec-select" id="ec-select" style="font-weight: 600;">
-
-                                            <option value="most-populer" {{ request()->filter_products == 'most-populer' ? 'selected' : '' }}>Most
-                                                Popular
-                                            </option>
-                                            <option value="price-low-hight" {{ request()->filter_products == 'price-low-hight' ? 'selected' : '' }}>Price,
-                                                low
-                                                to high</option>
-                                            <option value="price-high-low" {{ request()->filter_products == 'price-high-low' ? 'selected' : '' }}>Price,
-                                                high
-                                                to low</option>
-                                        </select>
-                                    </div>
-                                </div> --}}
-                                    </div>
-                                    <div>
-                                        @foreach ($products as $shopId => $items)
-                                            <div class="row mb-4">
-                                                <div class="col-md-3">
-                                                    <x-shops-card.card-1 :shop="$items[0]->shop" />
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <div class="ec-spe-products">
-                                                        @foreach ($items->whereNull('parent_id')->chunk(4) as $products)
-                                                            <div class="ec-fs-product">
-                                                                <div class="ec-fs-pro-inner">
-
-                                                                    <div class="row">
-                                                                        @php
-                                                                            
-                                                                            $last = $loop->last;
-                                                                            $count = $items[0]->shop->products->count();
-                                                                        @endphp
-                                                                        @foreach ($products as $product)
-                                                                            <x-products.product-4 :product="$product" />
-                                                                        @endforeach
-
-                                                                        @if ($last && $count >= 8)
-                                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 pro-gl-content d-flex align-items-center"
-                                                                                style="margin-bottom: 35px;">
-                                                                                <a href="{{ route('store_front', $items[0]->shop->slug) }}"
-                                                                                    class="btn btn-dark">View More</a>
-                                                                            </div>
-                                                                        @endif
-
-
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class=" d-flex justify-content-center  align-items-center mt-4">
-                                        <a href="{{ route('vendors') }}" class="btn btn-dark rounded rounded-3 px-5">View
-                                            More Shops <i class="fa-solid fa-angle-right ms-2"></i></a>
-                                    </div>
-                                    {{-- <livewire:shops /> --}}
-                                    <!-- Shop Top End -->
-                                    {{-- End sort by popular --}}
-                                </div>
-
-                            </div>
-                            <!-- Sidebar Area Start -->
-                            <div class="filter-sidebar-overlay"></div>
-                            <div class="ec-shop-leftside filter-sidebar">
-                                <div class="ec-sidebar-heading">
-                                    <h1>Filter Products By</h1>
-                                    <a class="filter-cls-btn" href="javascript:void(0)">×</a>
-                                </div>
-                                <div class="ec-sidebar-wrap">
-                                    <!-- Sidebar Category Block -->
-                                    <div class="ec-sidebar-block">
-                                        <div class="ec-sb-title">
-                                            <h3 class="ec-sidebar-title">Category</h3>
-                                        </div>
-                                        <div class="ec-sb-block-content">
-                                            <ul>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" checked /> <a
-                                                            href="#">clothes</a><span class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" /> <a href="#">Bags</a><span
-                                                            class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" /> <a href="#">Shoes</a><span
-                                                            class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" /> <a href="#">cosmetics</a><span
-                                                            class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" /> <a href="#">electrics</a><span
-                                                            class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" /> <a href="#">phone</a><span
-                                                            class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li id="ec-more-toggle-content" style="padding: 0; display: none;">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="ec-sidebar-block-item">
-                                                                <input type="checkbox" /> <a href="#">Watch</a><span
-                                                                    class="checked"></span>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="ec-sidebar-block-item">
-                                                                <input type="checkbox" /> <a href="#">Cap</a><span
-                                                                    class="checked"></span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item ec-more-toggle">
-                                                        <span class="checked"></span><span id="ec-more-toggle">More
-                                                            Categories</span>
-                                                    </div>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Sidebar Size Block -->
-                                    <div class="ec-sidebar-block">
-                                        <div class="ec-sb-title">
-                                            <h3 class="ec-sidebar-title">Size</h3>
-                                        </div>
-                                        <div class="ec-sb-block-content">
-                                            <ul>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" value="" checked /><a
-                                                            href="#">S</a><span class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" value="" /><a
-                                                            href="#">M</a><span class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" value="" /> <a
-                                                            href="#">L</a><span class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" value="" /><a
-                                                            href="#">XL</a><span class="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item">
-                                                        <input type="checkbox" value="" /><a
-                                                            href="#">XXL</a><span class="checked"></span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Sidebar Color item -->
-                                    <div class="ec-sidebar-block ec-sidebar-block-clr">
-                                        <div class="ec-sb-title">
-                                            <h3 class="ec-sidebar-title">Color</h3>
-                                        </div>
-                                        <div class="ec-sb-block-content">
-                                            <ul>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#c4d6f9;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#ff748b;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#000000;"></span>
-                                                    </div>
-                                                </li>
-                                                <li class="active">
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#2bff4a;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#ff7c5e;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#f155ff;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#ffef00;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#c89fff;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#7bfffa;"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="ec-sidebar-block-item"><span
-                                                            style="background-color:#56ffc1;"></span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Sidebar Price Block -->
-                                    <div class="ec-sidebar-block">
-                                        <div class="ec-sb-title">
-                                            <h3 class="ec-sidebar-title">Price</h3>
-                                        </div>
-                                        <div class="ec-sb-block-content es-price-slider">
-                                            <div class="ec-price-filter">
-                                                <div id="ec-sliderPrice" class="filter__slider-price" data-min="0"
-                                                    data-max="250" data-step="10"></div>
-                                                <div class="ec-price-input">
-                                                    <label class="filter__label"><input type="text"
-                                                            class="filter__input"></label>
-                                                    <span class="ec-price-divider"></span>
-                                                    <label class="filter__label"><input type="text"
-                                                            class="filter__input"></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+              {{-- <div class="shop-default-brands mb-5">
+                <div class="brands-swiper swiper-container swiper-theme "
+                    data-swiper-options="{
+                        'slidesPerView': 2,
+                        'breakpoints': {
+                            '576': {
+                                'slidesPerView': 3
+                            },
+                            '768': {
+                                'slidesPerView': 4
+                            },
+                            '992': {
+                                'slidesPerView': 6
+                            },
+                            '1200': {
+                                'slidesPerView': 7
+                            }
+                        },
+                        'autoplay': {
+                            'delay': 4000,
+                            'disableOnInteraction': false
+                        }
+                    }">
+                    <div class="swiper-wrapper row gutter-no cols-xl-7 cols-lg-6 cols-md-4 cols-sm-3 cols-2">
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/1.png" alt="Brand" width="160" height="90" />
+                            </figure>
+                        </div>
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/2.png" alt="Brand" width="160" height="90" />
+                            </figure>
+                        </div>
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/3.png" alt="Brand" width="160" height="90" />
+                            </figure>
+                        </div>
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/4.png" alt="Brand" width="160" height="90" />
+                            </figure>
+                        </div>
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/5.png" alt="Brand" width="160" height="90" />
+                            </figure>
+                        </div>
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/6.png" alt="Brand" width="160" height="90" />
+                            </figure>
+                        </div>
+                        <div class="swiper-slide">
+                            <figure>
+                                <img src="assets/images/brands/category/7.png" alt="Brand" width="160" height="90" />
+                            </figure>
                         </div>
                     </div>
-                </section>
-            </div>
-        </div>
-    </div>
-    <!-- End Shop page -->
-@endsection
-@section('js')
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div> --}}
+              <!-- End of Shop Brands-->
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="{{ asset('assets/frontend-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/frontend-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
+              <!-- Start of Shop Category -->
+              {{-- <div class="shop-default-category category-ellipse-section mb-6">
+                <div class="swiper-container swiper-theme shadow-swiper"
+                    data-swiper-options="{
+                    'spaceBetween': 20,
+                    'slidesPerView': 2,
+                    'breakpoints': {
+                        '480': {
+                            'slidesPerView': 3
+                        },
+                        '576': {
+                            'slidesPerView': 4
+                        },
+                        '768': {
+                            'slidesPerView': 6
+                        },
+                        '992': {
+                            'slidesPerView': 7
+                        },
+                        '1200': {
+                            'slidesPerView': 8,
+                            'spaceBetween': 30
+                        }
+                    }
+                }">
+                    <div class="swiper-wrapper row gutter-lg cols-xl-8 cols-lg-7 cols-md-6 cols-sm-4 cols-xs-3 cols-2">
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-4.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #5C92C0;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Sports</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-5.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #B8BDC1;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Babies</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-6.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #99C4CA;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Sneakers</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-7.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #4E5B63;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Cameras</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-8.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #D3E5EF;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Games</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-9.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #65737C;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Kitchen</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-20.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #E4E4E4;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Watches</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide category-wrap">
+                            <div class="category category-ellipse">
+                                <figure class="category-media">
+                                    <a href="shop-banner-sidebar.html">
+                                        <img src="assets/images/categories/category-21.jpg" alt="Categroy"
+                                            width="190" height="190" style="background-color: #D3D8DE;" />
+                                    </a>
+                                </figure>
+                                <div class="category-content">
+                                    <h4 class="category-name">
+                                        <a href="shop-banner-sidebar.html">Clothes</a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div> --}}
+              <!-- End of Shop Category -->
 
-    <script src="{{ asset('assets/frontend-assets/js/main.js') }}"></script>
-@endsection
+              <!-- Start of Shop Content -->
+              <div class="shop-content row gutter-lg mb-10">
+                  <!-- Start of Sidebar, Shop Sidebar -->
+                  <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
+                      <!-- Start of Sidebar Overlay -->
+                      <div class="sidebar-overlay"></div>
+                      <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
+
+                      <!-- Start of Sidebar Content -->
+                      <div class="sidebar-content scrollable">
+                          <!-- Start of Sticky Sidebar -->
+                          <div class="sticky-sidebar">
+                              <div class="filter-actions">
+                                  <label>Filter :</label>
+                                  <a href="{{route('shops')}}" class="btn btn-dark btn-link ">Clean All</a>
+                              </div>
+                              <!-- Start of Collapsible widget -->
+                              <div class="widget widget-collapsible">
+                                  <h3 class="widget-title"><label>All Categories</label></h3>
+                                  <ul class="widget-body filter-items search-ul">
+                                      @foreach ($categories as $category)
+                                          <li><a href="javascript::void(0)"
+                                                  onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}</a>
+                                          </li>
+                                      @endforeach
+
+                                  </ul>
+                              </div>
+                              <!-- End of Collapsible Widget -->
+
+                              <!-- Start of Collapsible Widget -->
+                              <div class="widget widget-collapsible">
+                                  <h3 class="widget-title"><label>Price</label></h3>
+                                  <div class="widget-body">
+                                      <ul class="filter-items search-ul">
+                                          <li><a href="javascript::void(0)"
+                                                  onclick='updateSearchParams("","","{{ $route }}","0","500")'>0.00
+                                                  Tk - 500.00 Tk</a></li>
+                                          <li><a href="javascript::void(0)"
+                                                  onclick='updateSearchParams("","","{{ $route }}","500","1000")'>500.00
+                                                  TK - 1000.00 Tk</a></li>
+                                          <li><a href="javascript::void(0)"
+                                                  onclick='updateSearchParams("","","{{ $route }}","1000","5000")'>1000.00
+                                                  Tk - 5000.00 Tk</a></li>
+                                          <li><a href="javascript::void(0)"
+                                                  onclick='updateSearchParams("","","{{ $route }}","5000","10000")'>5000.00
+                                                  Tk - 10000.00 Tk</a></li>
+                                          <li><a href="javascript::void(0)"
+                                                  onclick='updateSearchParams("","","{{ $route }}","10000","")'>10000.00
+                                                  Tk +</a></li>
+                                      </ul>
+                                      {{-- <form class="price-range">
+                                        <input type="number" name="min_price" class="min_price text-center"
+                                            placeholder="$min"><span class="delimiter">-</span><input
+                                            type="number" name="max_price" class="max_price text-center"
+                                            placeholder="$max"><a href="#"
+                                            class="btn btn-primary btn-rounded">Go</a>
+                                    </form> --}}
+                                  </div>
+                              </div>
+                              <!-- End of Collapsible Widget -->
+
+                              <!-- Start of Collapsible Widget -->
+                              <div class="widget widget-collapsible">
+                                  <h3 class="widget-title"><label>Rating</label></h3>
+                                  <ul class="widget-body filter-items item-check mt-1">
+                                      <li class="{{request()->ratings== 5 ? 'active' :''}}">
+                                          <a href="javascript::void(0)"
+                                          onclick='updateSearchParams("ratings","5","{{ $route }}")'>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                          </a>
+                                      </li>
+                                      <li class="{{request()->ratings== 4 ? 'active' :''}}">
+                                          <a href="javascript::void(0)"
+                                          onclick='updateSearchParams("ratings","4","{{ $route }}")'>
+
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                          </a>
+                                      </li>
+                                      <li class="{{request()->ratings== 3 ? 'active' :''}}">
+                                          <a href="javascript::void(0)"
+                                          onclick='updateSearchParams("ratings","3","{{ $route }}")'>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color:  #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                          </a>
+                                      </li>
+                                      <li class="{{request()->ratings== 2 ? 'active' :''}}">
+                                          <a href="javascript::void(0)"
+                                          onclick='updateSearchParams("ratings","2","{{ $route }}")'>
+                                            <i class="fas fa-star" style="color: #f93"></i>
+                                            <i class="fas fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                          </a>
+                                      </li>
+                                      <li class="{{request()->ratings== 1 ? 'active' :''}}">
+                                          <a href="javascript::void(0)"
+                                          onclick='updateSearchParams("ratings","1","{{ $route }}")'>
+                                            <i class="fas fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                            <i class="far fa-star" style="color: #f93"></i>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </div>
+                              <!-- End of Collapsible Widget -->
+
+
+
+
+                          </div>
+                          <!-- End of Sidebar Content -->
+                      </div>
+                      <!-- End of Sidebar Content -->
+                  </aside>
+                  <!-- End of Shop Sidebar -->
+
+                  <!-- Start of Shop Main Content -->
+                  <div class="main-content">
+                      <nav class="toolbox sticky-toolbox sticky-content fix-top">
+                          <div class="toolbox-left">
+                              <a href="#"
+                                  class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle 
+                                btn-icon-left d-block d-lg-none"><i
+                                      class="w-icon-category"></i><span>Filters</span></a>
+                              <div class="toolbox-item toolbox-sort select-box text-dark">
+                                  <label>Sort By :</label>
+                                  <select name="orderby" class="form-control"  onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'>
+                                      <option value="default" selected="selected">Default sorting</option>
+                                      <option  value="most-sold" {{ request()->filter_products == 'most-sold' ? 'selected' : '' }}>Sort by popularity</option>
+                                      <option value="price-low-high" {{ request()->filter_products == 'price-low-high' ? 'selected' : '' }}>Sort by pric: low to high</option>
+                                      <option value="price-high-low" {{ request()->filter_products == 'price-high-low' ? 'selected' : '' }}>Sort by price: high to low</option>
+                                  </select>
+                              </div>
+                          </div>
+                          {{-- <div class="toolbox-right">
+                              <div class="toolbox-item toolbox-show select-box">
+                                  <select name="count" class="form-control">
+                                      <option value="9">Show 9</option>
+                                      <option value="12" selected="selected">Show 12</option>
+                                      <option value="24">Show 24</option>
+                                      <option value="36">Show 36</option>
+                                  </select>
+                              </div>
+                              <div class="toolbox-item toolbox-layout">
+                                  <a href="shop-banner-sidebar.html" class="icon-mode-grid btn-layout active">
+                                      <i class="w-icon-grid"></i>
+                                  </a>
+                                  <a href="shop-list.html" class="icon-mode-list btn-layout">
+                                      <i class="w-icon-list"></i>
+                                  </a>
+                              </div>
+                          </div> --}}
+                      </nav>
+                      <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
+
+                          @foreach ($products as $product)
+                              <x-products.card :product="$product" />
+                          @endforeach
+
+                      </div>
+
+                      <div class="toolbox toolbox-pagination justify-content-between">
+                          <p class="showing-info mb-2 mb-sm-0">
+                              Showing<span>1-12 of 60</span>Products
+                          </p>
+                          <ul class="pagination">
+                              <li class="prev disabled">
+                                  <a href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                      <i class="w-icon-long-arrow-left"></i>Prev
+                                  </a>
+                              </li>
+                              <li class="page-item active">
+                                  <a class="page-link" href="#">1</a>
+                              </li>
+                              <li class="page-item">
+                                  <a class="page-link" href="#">2</a>
+                              </li>
+                              <li class="next">
+                                  <a href="#" aria-label="Next">
+                                      Next<i class="w-icon-long-arrow-right"></i>
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <!-- End of Shop Main Content -->
+              </div>
+              <!-- End of Shop Content -->
+          </div>
+      </div>
+      <!-- End of Page Content -->
+
+  </x-app>

@@ -3,7 +3,7 @@
         <div class="header-left mr-md-4">
             <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
             </a>
-            <a href="{{route('homepage')}}" class="logo ml-lg-0">
+            <a href="{{ route('homepage') }}" class="logo ml-lg-0">
                 <img src="assets/images/demos/demo5/logo-ukr-1.png" alt="logo" width="145" height="45" />
             </a>
             <form method="get" action="#"
@@ -11,15 +11,10 @@
                 <div class="select-box">
                     <select id="category" name="category">
                         <option value="">All Categories</option>
-                        <option value="4">Fashion</option>
-                        <option value="5">Furniture</option>
-                        <option value="6">Shoes</option>
-                        <option value="7">Sports</option>
-                        <option value="8">Games</option>
-                        <option value="9">Computers</option>
-                        <option value="10">Electronics</option>
-                        <option value="11">Kitchen</option>
-                        <option value="12">Clothing</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                        @endforeach
+
                     </select>
                 </div>
                 <input type="text" class="form-control" name="search" id="search" placeholder="Search in..."
@@ -46,50 +41,56 @@
                 <i class="w-icon-compare"></i>
                 <span class="compare-label d-lg-show">Compare</span>
             </a>
-            <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
+            <div
+                class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{ request()->cart == 'opened' ? 'opened' : '' }}">
                 <div class="cart-overlay"></div>
-                <a href="" class="cart-toggle label-down link">
+                <a href="{{ route('homepage', ['cart' => 'opened']) }}" class=" label-down link">
                     <i class="w-icon-cart">
 
                         <span class="cart-count" id="cartQty2">0</span>
                     </i>
                     <span class="cart-label">Cart</span>
                 </a>
-                <div class="dropdown-box">
-                    <div class="cart-header">
-                        <span>Shopping Cart</span>
-                        <a href="" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
-                    </div>
-
-                    <div class="products">
-                        @foreach (Cart::getContent() as $product)
-                            <div class="product product-cart">
-                                <div class="product-detail">
-                                    <a href="#" class="product-name">{{$product->name}}</a>
-                                    <div class="price-box">
-                                        <span class="product-quantity">{{Sohoj::price($product->price)}}</span>
-                                        <span class="product-price">{{ $product->quantity }}</span>
+                <div class="dropdown-box d-flex flex-column h-100 justify-content-between   ">
+                    <div>
+                        <div class="d-flex justify-content-between ">
+                            <span style="font-size: 18px">Shopping Cart</span>
+                            <a href="{{ route('homepage') }}" class="" style="font-size: 15px">Close<i
+                                    class="w-icon-long-arrow-right"></i></a>
+                        </div>
+    
+                        <div class="products">
+                            @foreach (Cart::getContent() as $product)
+                                <div class="product product-cart">
+                                    <div class="product-detail">
+                                        <a href="#" class="product-name">{{ $product->name }}</a>
+                                        <div class="price-box">
+                                            <span class="product-quantity">{{ Sohoj::price($product->price) }}</span>
+                                            <span class="product-price">{{ $product->quantity }}</span>
+                                        </div>
                                     </div>
+                                    <figure class="product-media">
+                                        <a href="#">
+                                            <img src="{{ Voyager::image($product->model->image) }}" alt="product"
+                                                height="84" width="94" />
+                                        </a>
+                                    </figure>
+                                    <button class="btn btn-link btn-close" aria-label="button">
+                                        <a href="{{ url('/cart-destroy/' . $product->id) }}"><i
+                                                class="fas fa-times"></i></a>
+                                    </button>
                                 </div>
-                                <figure class="product-media">
-                                    <a href="#">
-                                        <img src="{{Voyager::image($product->model->image)}}" alt="product" height="84"
-                                            width="94" />
-                                    </a>
-                                </figure>
-                                <button class="btn btn-link btn-close" aria-label="button">
-                                    <a href="{{ url('/cart-destroy/' . $product->id) }}"><i class="fas fa-times"></i></a>
-                                </button>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+    
+                        <div class="cart-total">
+                            <label>Subtotal:</label>
+                            <span class="price">${{ Cart::getSubTotal() }}</span>
+                        </div>
+    
                     </div>
-
-                    <div class="cart-total">
-                        <label>Subtotal:</label>
-                        <span class="price">${{ Cart::getSubTotal() }}</span>
-                    </div>
-
-                    <div class="cart-action">
+                  
+                    <div class="cart-action justify-content-end">
                         <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                         <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>
                     </div>

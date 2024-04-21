@@ -82,7 +82,7 @@ class RegisterController extends Controller
             'l_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role_id' => ['required'],
+            'role' => ['required'],
         ]);
     }
 
@@ -94,19 +94,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-      
+        if($data['role']=='vendor'){
+            $role_id=3;
+        }else{
+            $role_id=2;
+        }
+       
+
         $array=[
             'name' => $data['name'],
             'l_name' => $data['l_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role_id' => $data['role_id'],
+            'role_id' => $role_id,
 
         ];
         $user= User::create($array);
         $verify_token=Str::random(20);
 
-        if($data['role_id']==3){
+        if($data['role']=='vendor'){
             // Mail::to(setting('site.email'))->send(new NotifyEmail($user));
             Mail::to($user->email)->send(new VerifyEmail($user,$verify_token));
         }

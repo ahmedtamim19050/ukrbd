@@ -22,7 +22,7 @@
             </div>
         </figure>
         <div class="product-details">
-            <h4 class="product-name"><a href="{{ $product->path() }}">Leather Stripe Watch</a>
+            <h4 class="product-name"><a href="{{ $product->path() }}">{{$product->name}}</a>
             </h4>
             <div class="ratings-container">
                 <div class="ratings-full">

@@ -13476,7 +13476,7 @@ body .product-popup {
 .dropdown > a::after {
   display: inline-block;
   margin-left: 6px;
-  content: "";
+  
   font-family: "Font Awesome 5 Free";
   font-size: 8px;
   font-weight: 900;
@@ -13505,7 +13505,7 @@ body .product-popup {
           transform: translate3d(0, -10px, 0);
 }
 .dropdown-box a {
-  padding: 0.6rem 1rem;
+  padding: 2px 6px;
   font-size: inherit;
   line-height: 1.1;
 }

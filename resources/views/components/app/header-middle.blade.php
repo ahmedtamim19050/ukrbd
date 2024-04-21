@@ -55,69 +55,9 @@
                             <a href="{{route('homepage')}}">Home</a>
                         </li>
                         <li>
-                            <a href="#">Shop</a>
+                            <a href="{{route('shops')}}">Shop</a>
 
-                            <!-- Start of Megamenu -->
-                            <ul class="megamenu">
-                                <li>
-                                    <h4 class="menu-title">Shop Pages</h4>
-                                    <ul>
-                                        <li><a href="#">Banner With Sidebar</a></li>
-                                        <li><a href="#">Boxed Banner</a></li>
-                                        <li><a href="#">Full Width Banner</a></li>
-                                        <li><a href="#">Horizontal Filter<span class="tip tip-hot">Hot</span></a>
-                                        </li>
-                                        <li><a href="#">Off Canvas Sidebar<span class="tip tip-new">New</span></a>
-                                        </li>
-                                        <li><a href="#">Infinite Ajax Scroll</a>
-                                        </li>
-                                        <li><a href="#">Right Sidebar</a></li>
-                                        <li><a href="#">Both Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h4 class="menu-title">Shop Layouts</h4>
-                                    <ul>
-                                        <li><a href="#">3 Columns Mode</a></li>
-                                        <li><a href="">4 Columns Mode</a></li>
-                                        <li><a href="">5 Columns Mode</a></li>
-                                        <li><a href="">6 Columns Mode</a></li>
-                                        <li><a href="">7 Columns Mode</a></li>
-                                        <li><a href="">8 Columns Mode</a></li>
-                                        <li><a href="">List Mode</a></li>
-                                        <li><a href="#">List Mode With Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h4 class="menu-title">Product Pages</h4>
-                                    <ul>
-                                        <li><a href="#">Variable Product</a></li>
-                                        <li><a href="#">Featured &amp; Sale</a></li>
-                                        <li><a href="#">Data In Accordion</a></li>
-                                        <li><a href="#">Data In Sections</a></li>
-                                        <li><a href="#">Image Swatch</a></li>
-                                        <li><a href="#">Extended Info</a>
-                                        </li>
-                                        <li><a href="#">Without Sidebar</a></li>
-                                        <li><a href="#">360<sup>o</sup> &amp; Video<span
-                                                    class="tip tip-new">New</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h4 class="menu-title">Product Layouts</h4>
-                                    <ul>
-                                        <li><a href="#">Default<span class="tip tip-hot">Hot</span></a></li>
-                                        <li><a href="#">Vertical Thumbs</a></li>
-                                        <li><a href="#">Grid Images</a></li>
-                                        <li><a href="#">Masonry</a></li>
-                                        <li><a href="#">Gallery</a></li>
-                                        <li><a href="#">Sticky Info</a></li>
-                                        <li><a href="#">Sticky Thumbs</a></li>
-                                        <li><a href="#">Sticky Both</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <!-- End of Megamenu -->
+                          
                         </li>
 
 
