@@ -14,7 +14,7 @@
 
     <div class="container">
         <!-- Slider section -->
-        <x-pages.home.slider />
+        <x-pages.home.slider :sliders="$sliders" />
         <!-- End of slider section -->
 
         <!-- Features section -->

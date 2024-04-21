@@ -117,14 +117,14 @@
                                 </div>
                             @endforeach
                         </div>
-
+    
                         <div class="cart-total">
-                            <label>Subtotal:</label>
+                            <strong>Subtotal:</strong>
                             <span class="price">${{ Cart::getSubTotal() }}</span>
                         </div>
-
+    
                     </div>
-
+                  
                     <div class="cart-action justify-content-end">
                         <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                         <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>

@@ -794,6 +794,8 @@
 
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/star-rating.js') }}"></script>
+    <script src="{{ asset('assets/js/filter.js') }}"></script>
+
     @yield('script')
     <script>
         function cartQnty() {
