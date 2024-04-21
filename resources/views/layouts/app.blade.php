@@ -126,12 +126,7 @@
                             <div class="widget">
                                 <h3 class="widget-title">Company</h3>
                                 <ul class="widget-body">
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Team Member</a></li>
-                                    <li><a href="#">Career</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Affilate</a></li>
-                                    <li><a href="#">Order History</a></li>
+                                    {!! menu('main', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
@@ -139,12 +134,7 @@
                             <div class="widget">
                                 <h4 class="widget-title">My Account</h4>
                                 <ul class="widget-body">
-                                    <li><a href="#">Track My Order</a></li>
-                                    <li><a href="#">View Cart</a></li>
-                                    <li><a href="#">Sign In</a></li>
-                                    <li><a href="#">Help</a></li>
-                                    <li><a href="#">My Wishlist</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
+                                    {!! menu('leftside', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>

@@ -24,7 +24,7 @@ class PageController extends Controller
         $bestSellingCategories = Prodcat::with(['products' => function ($query) {
             $query->orderBy('total_sale', 'desc');
         }])->take(3)->get();
-        dd($bestSellingCategories);
+        
         $latest_products = Product::orderBy('views', 'desc')->where("status", 1)
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
