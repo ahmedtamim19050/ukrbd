@@ -1,16 +1,17 @@
 <x-app>
     <x-slot name="css">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-        <!-- Vendor CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/chat.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
         <!-- Plugins CSS -->
         <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-
         <!-- Default CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
-        <link rel="stylesheet" href="{{asset('assets/css/chat.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
     </x-slot>
 
     <div class="container bootstrap snippets bootdey my-5">

@@ -12,6 +12,7 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use TCG\Voyager\Models\Page;
 
@@ -144,9 +145,15 @@ class PageController extends Controller
     {
         $shop = Shop::where('slug', $slug)->products()->firstOrFail();
 
+        $bestSellingProducts = Product::select('products.*', DB::raw('COUNT(orders.product_id) as sales_count'))
+        ->join('orders', 'products.id', '=', 'orders.product_id')
+        ->where('products.shop_id', $shop->id)
+        ->groupBy('products.id')
+        ->orderByDesc('sales_count')
+        ->take(5) // You can adjust this number as per your requirement
+        ->get();
 
-
-        return view('pages.store_front', compact('shop'));
+        return view('pages.store_front', compact('shop', 'bestSellingProducts'));
     }
 
 
