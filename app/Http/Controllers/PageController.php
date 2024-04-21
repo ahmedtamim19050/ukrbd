@@ -146,15 +146,12 @@ class PageController extends Controller
     {
         $shop = Shop::where('slug', $slug)->products()->firstOrFail();
 
-        $bestSellingProducts = Product::select('products.*', DB::raw('COUNT(orders.product_id) as sales_count'))
-        ->join('orders', 'products.id', '=', 'orders.product_id')
-        ->where('products.shop_id', $shop->id)
-        ->groupBy('products.id')
-        ->orderByDesc('sales_count')
-        ->take(5) // You can adjust this number as per your requirement
-        ->get();
+        $bestSellingProducts = $shop->products()->orderBy('total_sale', 'desc')->limit(3)->whereNull('parent_id')->get();
+        $featuredproducts = $shop->products()->where('featured', 1)->latest()->limit(3)->whereNull('parent_id')->get();
+    
 
-        return view('pages.store_front', compact('shop', 'bestSellingProducts'));
+        return view('pages.store_front', compact('shop', 'bestSellingProducts','featuredproducts'));
+       
     }
 
 
