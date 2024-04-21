@@ -1,3 +1,6 @@
+@php
+    $route = route('shops');
+@endphp
 <div class="header-bottom sticky-content fix-top sticky-header has-dropdown" style="background-color: #007cc5 !important; ">
     <div class="container">
         <div class="inner-wrap">
