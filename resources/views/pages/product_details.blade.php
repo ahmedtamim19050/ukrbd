@@ -63,7 +63,7 @@
 
 
 
-    <nav class="breadcrumb-nav container">
+    {{-- <nav class="breadcrumb-nav container">
         <ul class="breadcrumb bb-no">
             <li><a href="{{ route('homepage') }}">Home</a></li>
             <li>Products</li>
@@ -90,7 +90,7 @@
                 </span>
             </li>
         </ul>
-    </nav>
+    </nav> --}}
     <!-- End of Breadcrumb -->
 
     <!-- Start of Page Content -->
