@@ -24,37 +24,32 @@ class CheckoutController extends Controller
 {
     public function store(Request $request)
     {
-
+    //    dd($request->all());
         $request->validate([
-            'prevoius_address' => ['required'],
+        
             'first_name' => ['required', 'max:40'],
             'last_name' => ['required', 'max:40'],
             'email' => ['required', 'max:40', 'email'],
-            'terms' => ['required'],
-            'payment_method' => 'required'
-        ], [
-            'prevoius_address.required' => 'You need to set a address first  by clicking "Add Address" bellow'
+            'terms' => ['nullable'],
         ]);
 
-         auth()->user()->createOrGetStripeCustomer();
-
-        auth()->user()->addPaymentMethod($request->payment_method[0]);
-        $address = Address::find($request->prevoius_address);
+        // $address = Address::find($request->prevoius_address);
 
         $shipping = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'address_1' => $address->address_1,
-            'address_2' => $address->address_2,
-            'city' => $address->city,
-            'post_code' => $address->post_code,
-            'country' => $address->country,
-            'state' => $address->state,
-            'phone' => $address->phone,
+            'address_1' => $request->address_1,
+            // 'address_2' => $address->address_2,
+            'city' => $request->city,
+            'post_code' => $request->post_code,
+            // 'country' => $address->country,
+            'state' => $request->state,
+            'phone' => $request->phone,
             'shipping_method' => null,
             'shipping_url' => null,
         ];
+        // dd($shipping);
 
         if ($this->productsAreNoLongerAvailable()) {
 
@@ -80,7 +75,7 @@ class CheckoutController extends Controller
                 'total' => Sohoj::round_num($total),
                 'quantity' => null,
                 'vendor_total' => null,
-                'payment_method' => $request->payment_method[0],
+                // 'payment_method' => $request->payment_method[0],
             ]);
             
             foreach (Cart::getContent() as $item) {
@@ -109,7 +104,7 @@ class CheckoutController extends Controller
                     'total' => Sohoj::round_num(($item->price * $item->quantity) + $item->model->shipping_cost),
                     'quantity' => $item->quantity,
                     'vendor_total' => $item->model->vendor_price * $item->quantity,
-                    'payment_method' => $request->payment_method[0],
+                    // 'payment_method' => $request->payment_method[0],
                     'product_price'=>$item->price,
                 ]);
                 OrderProduct::create([
@@ -124,26 +119,26 @@ class CheckoutController extends Controller
 
             }
 
-            $payment = auth()->user()->charge(($order->total * 100), $request->payment_method[0]);
-            if ($payment->status == 'succeeded') {
-                $order->transaction_id = $payment->id;
-                $order->status = 1;
-                $order->save();
-                $childOrders = $order->childs;
-                foreach ($childOrders as $childOrder) {
-                    $childOrder->update(['status' => 1]);
-                    Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
-                }
-                Mail::to($order->user->email)->send(new OrderPlaced($order));
-                $this->decreaseQuantities();
-                DB::commit();
-                Cart::clear();
-                session()->forget('discount');
-                session()->forget('discount_code');
-                return redirect('/thankyou')->with('thank', 'Order Created successfully!');
-            } else {
-                throw (new Exception('Something wrong with payment method'));
-            }
+            // $payment = auth()->user()->charge(($order->total * 100), $request->payment_method[0]);
+            // if ($payment->status == 'succeeded') {
+            //     $order->transaction_id = $payment->id;
+            //     $order->status = 1;
+            //     $order->save();
+            //     $childOrders = $order->childs;
+            //     foreach ($childOrders as $childOrder) {
+            //         $childOrder->update(['status' => 1]);
+            //         Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+            //     }
+            //     Mail::to($order->user->email)->send(new OrderPlaced($order));
+            //     $this->decreaseQuantities();
+            //     DB::commit();
+            //     Cart::clear();
+            //     session()->forget('discount');
+            //     session()->forget('discount_code');
+            //     return redirect('/thankyou')->with('thank', 'Order Created successfully!');
+            // } else {
+            //     throw (new Exception('Something wrong with payment method'));
+            // }
             // if ($parent) {
 
             //     $data['parent_id'] = $parent->id;
@@ -189,6 +184,8 @@ class CheckoutController extends Controller
         //     DB::rollBack();
         //     return redirect()->back()->withErrors($e->getMessage());
         // }
+
+        return back();
     }
 
     protected function decreaseQuantities()

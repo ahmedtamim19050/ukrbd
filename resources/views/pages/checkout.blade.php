@@ -34,7 +34,7 @@
         <div class="page-content">
             <div class="container">
                 <div class="">
-                    Returning customer? <a href="{{route('login')}}"
+                    Returning customer? <a href="{{ route('login') }}"
                         class=" font-weight-bold text-uppercase text-dark">Login</a>
                 </div>
 
@@ -51,12 +51,15 @@
                             <div class="input-wrapper-inline">
                                 <input type="text" name="coupon_code" class="form-control form-control-md mr-1 mb-2"
                                     placeholder="Coupon code" id="coupon_code">
-                                <button type="submit" class="btn button btn-rounded btn-coupon mb-2">Apply Coupon</button>
+                                <button type="submit" class="btn button btn-rounded btn-coupon mb-2">Apply
+                                    Coupon</button>
                             </div>
                         </form>
                     @endif
                 </div>
-                <form class="form checkout-form" action="#" method="post">
+
+                <form class="form checkout-form" action="{{ route('checkout.store') }}" method="POST">
+                    @csrf
                     <div class="row mb-9">
                         <div class="col-lg-7 pr-lg-4 mb-4">
                             <h3 class="title billing-title text-uppercase ls-10 pt-1 pb-3 mb-0">
@@ -66,149 +69,178 @@
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label>First name *</label>
-                                        <input type="text" class="form-control form-control-md" name="firstname"
-                                            required>
+                                        <input type="text"
+                                            class="form-control form-control-md @error('first_name') is-invalid @enderror"
+                                            name="first_name" required value="{{ old('first_name') }}"
+                                            autocomplete="first_name" autofocus>
+                                        @error('first_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label>Last name *</label>
-                                        <input type="text" class="form-control form-control-md" name="lastname"
-                                            required>
+                                        <input type="text"
+                                            class="form-control form-control-md @error('last_name') is-invalid @enderror"
+                                            name="last_name" required value="{{ old('last_name') }}"
+                                            autocomplete="last_name" autofocus>
+                                        @error('last_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Company name (optional)</label>
-                                <input type="text" class="form-control form-control-md" name="company-name">
-                            </div>
-                            <div class="form-group">
-                                <label>Country / Region *</label>
-                                <div class="select-box">
-                                    <select name="country" class="form-control form-control-md">
-                                        <option value="default" selected="selected">United States
-                                            (US)
-                                        </option>
-                                        <option value="uk">United Kingdom (UK)</option>
-                                        <option value="us">United States</option>
-                                        <option value="fr">France</option>
-                                        <option value="aus">Australia</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <label>Street address *</label>
                                 <input type="text" placeholder="House number and street name"
-                                    class="form-control form-control-md mb-2" name="street-address-1" required>
-                                <input type="text" placeholder="Apartment, suite, unit, etc. (optional)"
-                                    class="form-control form-control-md" name="street-address-2" required>
+                                    class="form-control form-control-md mb-2 @error('address_1') is-invalid @enderror"
+                                    name="address_1" required value="{{ old('address_1') }}" autocomplete="address_1"
+                                    autofocus>
+                                @error('address_1')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
                             </div>
                             <div class="row gutter-sm">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Town / City *</label>
-                                        <input type="text" class="form-control form-control-md" name="town"
-                                            required>
+                                        <select id="city" class="form-control"@error('city')is invalid @enderror
+                                            name="city" placeholder="city">
+                                            @error('city')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            {{-- <option selected>Open this select menu</option> --}}
+                                            <option value="Dhaka" selected>Dhaka</option>
+                                            <option value="Barguna">Barguna</option>
+                                            <option value="Barishal">Barishal</option>
+                                            <option value="Bhola">Bhola</option>
+                                            <option value="Jhalokati">Jhalokati</option>
+                                            <option value="Patuakhali">Patuakhali</option>
+                                            <option value="Pirojpur">Pirojpur</option>
+                                            <option value="Bandarban">Bandarban</option>
+                                            <option value="Brahmanbaria">Brahmanbaria</option>
+                                            <option value="Chandpur">Chandpur</option>
+                                            <option value="Chittagong">Chittagong</option>
+                                            <option value="Comilla">Comilla</option>
+                                            <option value="Cox's Bazar">Cox's Bazar</option>
+                                            <option value="Feni">Feni</option>
+                                            <option value="Khagrachhari">Khagrachhari</option>
+                                            <option value="Lakshmipur">Lakshmipur</option>
+                                            <option value="Noakhali">Noakhali</option>
+                                            <option value="Rangamati">Rangamati</option>
+
+                                            <option value="Faridpur">Faridpur</option>
+                                            <option value="Gazipur">Gazipur</option>
+                                            <option value="Gopalganj">Gopalganj</option>
+                                            <option value="Kishoreganj">Kishoreganj</option>
+                                            <option value="Madaripur">Madaripur</option>
+                                            <option value="Manikganj">Manikganj</option>
+                                            <option value="Munshiganj">Munshiganj</option>
+                                            <option value="Narayanganj">Narayanganj</option>
+                                            <option value="Narsingdi">Narsingdi</option>
+                                            <option value="Rajbari">Rajbari</option>
+                                            <option value="Shariatpur">Shariatpur</option>
+                                            <option value="Tangail">Tangail</option>
+                                            <option value="Bagerhat">Bagerhat</option>
+                                            <option value="Chuadanga">Chuadanga</option>
+                                            <option value="Jashore">Jashore</option>
+                                            <option value="Jhenaidah">Jhenaidah</option>
+                                            <option value="Khulna">Khulna</option>
+                                            <option value="Kushtia">Kushtia</option>
+                                            <option value="Magura">Magura</option>
+                                            <option value="Meherpur">Meherpur</option>
+                                            <option value="Narail">Narail</option>
+                                            <option value="Satkhira">Satkhira</option>
+                                            <option value="Jamalpur">Jamalpur</option>
+                                            <option value="Mymensingh">Mymensingh</option>
+                                            <option value="Netrokona">Netrokona</option>
+                                            <option value="Sherpur">Sherpur</option>
+                                            <option value="Bogura">Bogura</option>
+                                            <option value="Joypurhat">Joypurhat</option>
+                                            <option value="Naogaon">Naogaon</option>
+                                            <option value="Natore">Natore</option>
+                                            <option value="Chapai Nawabganj">Chapai Nawabganj</option>
+                                            <option value="Pabna">Pabna</option>
+                                            <option value="Rajshahi">Rajshahi</option>
+                                            <option value="Sirajganj">Sirajganj</option>
+                                            <option value="Dinajpur">Dinajpur</option>
+                                            <option value="Gaibandha">Gaibandha</option>
+                                            <option value="Kurigram">Kurigram</option>
+                                            <option value="Lalmonirhat">Lalmonirhat</option>
+                                            <option value="Nilphamari">Nilphamari</option>
+                                            <option value="Panchagarh">Panchagarh</option>
+                                            <option value="Rangpur">Rangpur</option>
+                                            <option value="Thakurgaon">Thakurgaon</option>
+                                            <option value="Habiganj">Habiganj</option>
+                                            <option value="Moulvibazar">Moulvibazar</option>
+                                            <option value="Sunamganj">Sunamganj</option>
+                                            <option value="Sylhet">Sylhet</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>ZIP *</label>
-                                        <input type="text" class="form-control form-control-md" name="zip"
-                                            required>
+                                        <label>ZIP (optional)*</label>
+                                        <input type="text"
+                                            class="form-control form-control-md @error('post_code') is-invalid @enderror"
+                                            name="post_code" value="{{ old('post_code') }}" autocomplete="post_code"
+                                            autofocus>
+                                        @error('post_code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>State *</label>
-                                        <div class="select-box">
-                                            <select name="country" class="form-control form-control-md">
-                                                <option value="default" selected="selected">California</option>
-                                                <option value="uk">United Kingdom (UK)</option>
-                                                <option value="us">United States</option>
-                                                <option value="fr">France</option>
-                                                <option value="aus">Australia</option>
-                                            </select>
-                                        </div>
+                                        <input type="text"
+                                            class="form-control form-control-md @error('state') is-invalid @enderror"
+                                            name="state" value="{{ old('state') }}" autocomplete="state"
+                                            autofocus>
+                                        @error('state')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label>Phone *</label>
-                                        <input type="text" class="form-control form-control-md" name="phone"
-                                            required>
+                                        <input type="text"
+                                            class="form-control form-control-md @error('phone') is-invalid @enderror"
+                                            name="phone" required value="{{ old('phone') }}" autocomplete="phone"
+                                            autofocus>
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group mb-7">
                                 <label>Email address *</label>
-                                <input type="email" class="form-control form-control-md" name="email" required>
+                                <input type="email"
+                                    class="form-control form-control-md @error('email') is-invalid @enderror"
+                                    name="email" required value="{{ old('email') }}" autocomplete="email"
+                                    autofocus>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <div class="form-group checkbox-toggle pb-2">
-                                <input type="checkbox" class="custom-checkbox" id="shipping-toggle"
-                                    name="shipping-toggle">
-                                <label for="shipping-toggle">Ship to a different address?</label>
-                            </div>
-                            <div class="checkbox-content">
-                                <div class="row gutter-sm">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label>First name *</label>
-                                            <input type="text" class="form-control form-control-md"
-                                                name="firstname" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label>Last name *</label>
-                                            <input type="text" class="form-control form-control-md"
-                                                name="lastname" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Company name (optional)</label>
-                                    <input type="text" class="form-control form-control-md" name="company-name">
-                                </div>
-                                <div class="form-group">
-                                    <label>Country / Region *</label>
-                                    <div class="select-box">
-                                        <select name="country" class="form-control form-control-md">
-                                            <option value="default" selected="selected">United States
-                                                (US)
-                                            </option>
-                                            <option value="uk">United Kingdom (UK)</option>
-                                            <option value="us">United States</option>
-                                            <option value="fr">France</option>
-                                            <option value="aus">Australia</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Street address *</label>
-                                    <input type="text" placeholder="House number and street name"
-                                        class="form-control form-control-md mb-2" name="street-address-1" required>
-                                    <input type="text" placeholder="Apartment, suite, unit, etc. (optional)"
-                                        class="form-control form-control-md" name="street-address-2" required>
-                                </div>
-                                <div class="row gutter-sm">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Town / City *</label>
-                                            <input type="text" class="form-control form-control-md" name="town"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Postcode *</label>
-                                            <input type="text" class="form-control form-control-md"
-                                                name="postcode" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Country (optional)</label>
-                                            <input type="text" class="form-control form-control-md" name="zip"
-                                                required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="form-group mt-3">
                                 <label for="order-notes">Order notes (optional)</label>
@@ -250,7 +282,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tfoot>
+                                        {{-- <tfoot>
                                             <tr class="shipping-methods">
                                                 <td colspan="2" class="text-left">
                                                     <h4 class="title title-simple bb-no mb-1 pb-0 pt-3">Shipping
@@ -294,10 +326,10 @@
                                                     <b>$100.00</b>
                                                 </td>
                                             </tr>
-                                        </tfoot>
+                                        </tfoot> --}}
                                     </table>
 
-                                    <div class="payment-methods" id="payment_method">
+                                    {{-- <div class="payment-methods" id="payment_method">
                                         <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
                                         <div class="accordion payment-accordion">
                                             <div class="card">
@@ -354,7 +386,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group place-order pt-6">
                                         <button type="submit" class="btn btn-dark btn-block btn-rounded">Place

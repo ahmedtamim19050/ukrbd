@@ -7802,7 +7802,7 @@ textarea {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  height: 4.4rem;
+  /* height: 4.4rem; */
   position: relative;
   width: 100%;
 }
@@ -7830,9 +7830,9 @@ textarea {
           transform: translateY(-50%);
   right: 1.5rem;
   padding: 0;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
+  width: 7.4rem;
+  height: 4.4rem;
+
   background-color: #eee;
   color: #666;
   font-size: 1.4rem;
@@ -11083,7 +11083,7 @@ body .product-popup {
   background-color: #eee;
   border-color: #eee;
   color: #666;
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
 }
 .product-single .product-qty-form {
   display: -webkit-box;
@@ -18101,7 +18101,7 @@ body .product-popup {
   color: #333;
 }
 .shop-table.cart-table .product-quantity .input-group {
-  max-width: 120px;
+  max-width: 159px;
 }
 .shop-table.cart-table .btn-close {
   top: -8px;

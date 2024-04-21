@@ -90,12 +90,11 @@
                                             <form method="POST" action="{{ route('cart.update') }}">
                                                 @csrf
                                                 <div class="input-group">
-                                                    <input type="hidden" name="product_id"
-                                                        value="{{ $product->id }}" />
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}" />
 
                                                     <input value="{{ $product->quantity }}" min="1"
                                                         class=" form-control" type="number" name="quantity">
-                                                    <button type="submit" class=" bg-dark text-white">update</button>
+                                                    <button type="submit" class=" btn-apply bg-dark text-white">update</button>
                                                     {{-- <button class="quantity-minus w-icon-minus"></button> --}}
                                                 </div>
                                             </form>
