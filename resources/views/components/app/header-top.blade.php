@@ -69,6 +69,7 @@
                                             <span class="product-price">{{ $product->quantity }}</span>
                                         </div>
                                     </div>
+                       
                                     <figure class="product-media">
                                         <a href="#">
                                             <img src="{{ Voyager::image($product->model->image) }}" alt="product"
