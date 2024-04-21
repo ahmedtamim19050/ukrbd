@@ -39,7 +39,7 @@
     <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     {{ $css }}
 </head>
 
@@ -789,6 +789,8 @@
     <script src="{{ asset('assets/vendor/floating-parallax/parallax.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/zoom/jquery.zoom.js') }}"></script>
     <script src="{{ asset('assets/vendor/skrollr/skrollr.min.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/star-rating.js') }}"></script>

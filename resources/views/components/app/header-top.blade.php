@@ -33,18 +33,52 @@
                     <a href="#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                 </div>
             </div>
-            <a class="wishlist label-down link d-xs-show" href="{{ route('wishlist.index') }}">
+            <div class="dropdown">
+                <button class="wishlist label-down link d-xs-show" data-toggle="dropdown"
+                    style=" border: none; background-color: white;">
+                    <i class="w-icon-user" style="font-weight: 600;"></i>
+                    <span class="wishlist-label d-lg-show">user</span>
+                </button>
+                <div class="dropdown-menu">
+                    @if (auth()->check())
+                        @if (auth()->user()->role_id == 2)
+                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('dashboard') }}"
+                                style="font-size: small">My Account</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show" style="font-size: small">
+                                    Logout</button>
+
+                            </form>
+                        @elseif(auth()->user()->role_id == 3)
+                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('dashboard') }}"
+                                style="font-size: small">My Account</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show" style="font-size: small">
+                                    Logout</button>
+
+                            </form>
+                        @endif
+                    @else
+                        <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('login') }}"
+                            style="font-size: small">Login as user</a>
+                        <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
+                            style="font-size: small">Register as vendor </a>
+                    @endif
+                </div>
+            </div>
+            <a class="wishlist label-down link d-xs-show" href="{{ route('wishlist.index') }}"
+                style="text-decoration: none;">
                 <i class="w-icon-heart"></i>
                 <span class="wishlist-label d-lg-show">Wishlist</span>
             </a>
-            <a class="compare label-down link d-xs-show" href="#">
-                <i class="w-icon-compare"></i>
-                <span class="compare-label d-lg-show">Compare</span>
-            </a>
+
             <div
                 class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{ request()->cart == 'opened' ? 'opened' : '' }}">
                 <div class="cart-overlay"></div>
-                <a href="{{ route('homepage', ['cart' => 'opened']) }}" class=" label-down link">
+                <a href="{{ route('homepage', ['cart' => 'opened']) }}" class=" label-down link"
+                    style="text-decoration: none;">
                     <i class="w-icon-cart">
 
                         <span class="cart-count" id="cartQty2">0</span>
@@ -58,7 +92,7 @@
                             <a href="{{ route('homepage') }}" class="" style="font-size: 15px">Close<i
                                     class="w-icon-long-arrow-right"></i></a>
                         </div>
-    
+
                         <div class="products">
                             @foreach (Cart::getContent() as $product)
                                 <div class="product product-cart">
@@ -69,7 +103,7 @@
                                             <span class="product-price">{{ $product->quantity }}</span>
                                         </div>
                                     </div>
-                       
+
                                     <figure class="product-media">
                                         <a href="#">
                                             <img src="{{ Voyager::image($product->model->image) }}" alt="product"
@@ -83,14 +117,14 @@
                                 </div>
                             @endforeach
                         </div>
-    
+
                         <div class="cart-total">
                             <label>Subtotal:</label>
                             <span class="price">${{ Cart::getSubTotal() }}</span>
                         </div>
-    
+
                     </div>
-                  
+
                     <div class="cart-action justify-content-end">
                         <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                         <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>

@@ -1,15 +1,15 @@
   <x-app>
     <x-slot name="css">
-          <!-- Vendor CSS -->
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
-          <!-- Plugins CSS -->
-          <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
-          <link rel="stylesheet" type="text/css"
-              href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-
-          <!-- Default CSS -->
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
+        <!-- Default CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
     </x-slot>
 
     <section class="ec-page-content  " style="margin:50px 0">
@@ -95,7 +95,7 @@
                                         id="terms" style="width: 25px;" value="1" name="terms"
                                         required><a href="{{url('page/policies')}}" style="" target="_banl" class="mt-0 ml-2">I have
                                         read and agree to the <span>Terms &amp; Conditions of
-                                            AhroMart</span></a><span class="checked"></span>
+                                            Ukrbd</span></a><span class="checked"></span>
                                     @error('terms')
                                         <span class="invalid-feedback " role="alert">
                                             <strong>{{ $message }}</strong>

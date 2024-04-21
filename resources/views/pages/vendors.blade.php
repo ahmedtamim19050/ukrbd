@@ -14,9 +14,8 @@
         <!-- Plugins CSS -->
         <link rel="stylesheet" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
-        <link rel="stylesheet" type="text/css"
-            href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-
+        <link rel="stylesheet" type="text/css"href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
     </x-slot>
@@ -27,8 +26,8 @@
             <nav class="breadcrumb-nav">
                 <div class="container">
                     <ul class="breadcrumb mb-8">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Vendor</a></li>
+                        <li><a href="{{ route('homepage') }}">Home</a></li>
+                        <li><a href="#">Vendors</a></li>
 
 
                     </ul>
@@ -41,7 +40,6 @@
                 <div class="container">
                     <div class="row cols-xl-3 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
                         @foreach ($shops as $shop)
-                        {{-- @dd($shop->products) --}}
                             <div class="vendor-brand-wrap mb-8">
                                 <div class="vendor-brand">
                                     <x-shop.card :shop="$shop" />
