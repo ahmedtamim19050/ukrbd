@@ -270,12 +270,12 @@
                         @endforeach --}}
                         {{-- @dd($shop) --}}
                         <figure class="store-media">
-                            <img src="{{ Voyager::image($shop->banner) }}" alt="Vendor" width="930"
+                            <img src="{{ $shop->banner ? Voyager::image($shop->banner) : asset('assets/images/defult.png') }}" alt="Vendor" width="930"
                                 height="390" style="background-color: #ECE7E3;" />
                         </figure>
                         <div class="store-content">
                             <figure class="seller-brand">
-                                <img src="{{ Voyager::image($shop->logo) }}" alt="Brand"
+                                <img src="{{ $shop->logo ? Voyager::image($shop->logo) : asset('assets/images/defult.png') }}" alt="Brand"
                                     width="100" height="100" />
                             </figure>
                             <h4 class="store-title">{{$shop->name}}</h4>
@@ -295,19 +295,20 @@
                                     {{$shop->ratings->count()}} Rating From 1 Review
                                 </div>
                                 <div class="store-email">
-                                    <a href="email:#">
+                                    <span>Email : {{$shop->email}}</span>
+                                    {{-- <a href="email:#">
                                         <i class="w-icon-envelope"></i>
                                         <span class="__cf_email__"
                                             data-cfemail="6f180003020e1d1b190a010b001d5e2f0a020e0603410c0002">[email&#160;protected]</span>
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
                             <div class="social-icons social-icons-colored border-thin">
-                                <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
+                                <a href="{{$shop->facebook}}" class="social-icon social-facebook w-icon-facebook"></a>
+                                <a href="{{$shop->twitter}}" class="social-icon social-twitter w-icon-twitter"></a>
                                 <a href="#" class="social-icon social-linkedin fab fa-linkedin"></a>
                                 <a href="#" class="social-icon social-youtube w-icon-youtube"></a>
-                                <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
+                                <a href="{{$shop->instagram}}" class="social-icon social-instagram w-icon-instagram"></a>
                             </div>
                         </div>
                     </div>
@@ -364,13 +365,13 @@
                                     </div> --}}
                                 </nav>
                                 <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-                                    {{-- @foreach ($shops as $shop)
+                                    @foreach ($shop->products as $product)
                                         <div class="product-wrap">
                                             <div class="product text-center">
-                                                <x-shop.card :shop="$shop" />
+                                                <x-products.card :product="$product" />
                                             </div>
                                         </div>
-                                    @endforeach --}}
+                                    @endforeach
 
                                 </div>
                             </div>
