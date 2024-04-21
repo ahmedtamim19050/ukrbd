@@ -195,11 +195,8 @@
                                         class="new-price">{{ Sohoj::price($product->price) }}</ins></div>
 
                                 <div class="ratings-container">
-                                    <div class="ratings-full">
-                                        <span class="ratings" style="width: 80%;"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">10</a>
+                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
+                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">{{$product->ratings->count()}}</a>
                                 </div>
 
                                 <div class="product-short-desc">
