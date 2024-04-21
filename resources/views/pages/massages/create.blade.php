@@ -1,5 +1,6 @@
 <x-app>
     <x-slot name="css">
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
         <!-- Vendor CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
         <!-- Plugins CSS -->
