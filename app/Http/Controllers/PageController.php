@@ -195,32 +195,33 @@ class PageController extends Controller
 
     public function vendors(Request $request)
     {
-        if (auth()->check() && $request->type == 'liked') {
-            $shops = auth()->user()->followedShops()->active();
-        } else {
-            $shops = Shop::active();
-        }
-        $shops = $shops->with(['products' => function ($query) {
-            $query->whereHas('prodcats', function ($query) {
-                $query->where('slug', request()->category);
-            });
-        }])
-            ->when($request->filled('category'), function ($query) {
-                $query->whereHas('products', function ($query) {
-                    $query->whereHas('prodcats', function ($query) {
-                        $query->where('slug', request()->category);
-                    });
-                });
-            })->when(Session::has('post_city'), function ($q) {
-                $post_city = Session::get('post_city');
-                return $q->where(function ($qp) use ($post_city) {
-                    $qp->where('post_code', 'like', '%' . $post_city . '%')->orWhere('city', 'like', '%' . $post_city . '%');
-                });
-            })->when(Session::has('state'), function ($q) {
-                $state = Session::get('state');
-                return $q->where('state', 'like', '%' . $state . '%');
-            })
-            ->get();
+        // if (auth()->check() && $request->type == 'liked') {
+        //     $shops = auth()->user();
+        // } else {
+        //     $shops = Shop::active();
+        // }
+        // $shops = $shops->with(['products' => function ($query) {
+        //     $query->whereHas('prodcats', function ($query) {
+        //         $query->where('slug', request()->category);
+        //     });
+        // }])
+        //     ->when($request->filled('category'), function ($query) {
+        //         $query->whereHas('products', function ($query) {
+        //             $query->whereHas('prodcats', function ($query) {
+        //                 $query->where('slug', request()->category);
+        //             });
+        //         });
+        //     })->when(Session::has('post_city'), function ($q) {
+        //         $post_city = Session::get('post_city');
+        //         return $q->where(function ($qp) use ($post_city) {
+        //             $qp->where('post_code', 'like', '%' . $post_city . '%')->orWhere('city', 'like', '%' . $post_city . '%');
+        //         });
+        //     })->when(Session::has('state'), function ($q) {
+        //         $state = Session::get('state');
+        //         return $q->where('state', 'like', '%' . $state . '%');
+        //     })
+        //     ->get();
+        $shops=Shop::active()->latest()->get();
         return view('pages.vendors', compact('shops'));
     }
 
