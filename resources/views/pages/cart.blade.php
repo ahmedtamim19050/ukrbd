@@ -63,7 +63,7 @@
                             </thead>
                             <tbody>
                                 @foreach (Cart::getContent() as $product)
-                                    {{-- @dd($product) --}}
+                            
                                     <tr>
                                         <td class="product-thumbnail">
                                             <div class="p-relative">
