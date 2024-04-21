@@ -10,23 +10,23 @@
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
           <link rel="stylesheet" type="text/css"
               href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
           <!-- Default CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
       </x-slot>
 
       <nav class="breadcrumb-nav">
           <div class="container">
-              <ul class="breadcrumb bb-no">
-                  <li><a href="demo1.html">Home</a></li>
-                  <li>Shop</li>
+              <ul class="breadcrumb" style="background-color: #ffff">
+                  <li><a href="{{ route('homepage') }}">Home</a></li>
+                  <li><a href="#">Shops</a></li>
               </ul>
           </div>
       </nav>
       <!-- End of Breadcrumb -->
 
       <!-- Start of Page Content -->
-      <div class="page-content">
+      <div class="page-content mt-5">
           <div class="container">
               <!-- Start of Shop Banner -->
               {{-- <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
@@ -272,7 +272,7 @@
                           <div class="sticky-sidebar">
                               <div class="filter-actions">
                                   <label>Filter :</label>
-                                  <a href="{{route('shops')}}" class="btn btn-dark btn-link ">Clean All</a>
+                                  <a href="{{ route('shops') }}" class="btn btn-dark btn-link ">Clean All</a>
                               </div>
                               <!-- Start of Collapsible widget -->
                               <div class="widget widget-collapsible">
@@ -324,9 +324,9 @@
                               <div class="widget widget-collapsible">
                                   <h3 class="widget-title"><label>Rating</label></h3>
                                   <ul class="widget-body filter-items item-check mt-1">
-                                      <li class="{{request()->ratings== 5 ? 'active' :''}}">
+                                      <li class="{{ request()->ratings == 5 ? 'active' : '' }}">
                                           <a href="javascript::void(0)"
-                                          onclick='updateSearchParams("ratings","5","{{ $route }}")'>
+                                              onclick='updateSearchParams("ratings","5","{{ $route }}")'>
                                               <i class="fas fa-star" style="color: #f93"></i>
                                               <i class="fas fa-star" style="color: #f93"></i>
                                               <i class="fas fa-star" style="color: #f93"></i>
@@ -334,9 +334,9 @@
                                               <i class="fas fa-star" style="color: #f93"></i>
                                           </a>
                                       </li>
-                                      <li class="{{request()->ratings== 4 ? 'active' :''}}">
+                                      <li class="{{ request()->ratings == 4 ? 'active' : '' }}">
                                           <a href="javascript::void(0)"
-                                          onclick='updateSearchParams("ratings","4","{{ $route }}")'>
+                                              onclick='updateSearchParams("ratings","4","{{ $route }}")'>
 
                                               <i class="fas fa-star" style="color: #f93"></i>
                                               <i class="fas fa-star" style="color: #f93"></i>
@@ -345,9 +345,9 @@
                                               <i class="far fa-star" style="color: #f93"></i>
                                           </a>
                                       </li>
-                                      <li class="{{request()->ratings== 3 ? 'active' :''}}">
+                                      <li class="{{ request()->ratings == 3 ? 'active' : '' }}">
                                           <a href="javascript::void(0)"
-                                          onclick='updateSearchParams("ratings","3","{{ $route }}")'>
+                                              onclick='updateSearchParams("ratings","3","{{ $route }}")'>
                                               <i class="fas fa-star" style="color: #f93"></i>
                                               <i class="fas fa-star" style="color:  #f93"></i>
                                               <i class="fas fa-star" style="color: #f93"></i>
@@ -355,24 +355,24 @@
                                               <i class="far fa-star" style="color: #f93"></i>
                                           </a>
                                       </li>
-                                      <li class="{{request()->ratings== 2 ? 'active' :''}}">
+                                      <li class="{{ request()->ratings == 2 ? 'active' : '' }}">
                                           <a href="javascript::void(0)"
-                                          onclick='updateSearchParams("ratings","2","{{ $route }}")'>
-                                            <i class="fas fa-star" style="color: #f93"></i>
-                                            <i class="fas fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
+                                              onclick='updateSearchParams("ratings","2","{{ $route }}")'>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
                                           </a>
                                       </li>
-                                      <li class="{{request()->ratings== 1 ? 'active' :''}}">
+                                      <li class="{{ request()->ratings == 1 ? 'active' : '' }}">
                                           <a href="javascript::void(0)"
-                                          onclick='updateSearchParams("ratings","1","{{ $route }}")'>
-                                            <i class="fas fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
-                                            <i class="far fa-star" style="color: #f93"></i>
+                                              onclick='updateSearchParams("ratings","1","{{ $route }}")'>
+                                              <i class="fas fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
+                                              <i class="far fa-star" style="color: #f93"></i>
                                           </a>
                                       </li>
                                   </ul>
@@ -399,11 +399,18 @@
                                       class="w-icon-category"></i><span>Filters</span></a>
                               <div class="toolbox-item toolbox-sort select-box text-dark">
                                   <label>Sort By :</label>
-                                  <select name="orderby" class="form-control"  onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'>
+                                  <select name="orderby" class="form-control"
+                                      onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'>
                                       <option value="default" selected="selected">Default sorting</option>
-                                      <option  value="most-sold" {{ request()->filter_products == 'most-sold' ? 'selected' : '' }}>Sort by popularity</option>
-                                      <option value="price-low-high" {{ request()->filter_products == 'price-low-high' ? 'selected' : '' }}>Sort by pric: low to high</option>
-                                      <option value="price-high-low" {{ request()->filter_products == 'price-high-low' ? 'selected' : '' }}>Sort by price: high to low</option>
+                                      <option value="most-sold"
+                                          {{ request()->filter_products == 'most-sold' ? 'selected' : '' }}>Sort by
+                                          popularity</option>
+                                      <option value="price-low-high"
+                                          {{ request()->filter_products == 'price-low-high' ? 'selected' : '' }}>Sort
+                                          by pric: low to high</option>
+                                      <option value="price-high-low"
+                                          {{ request()->filter_products == 'price-high-low' ? 'selected' : '' }}>Sort
+                                          by price: high to low</option>
                                   </select>
                               </div>
                           </div>

@@ -25,7 +25,7 @@
         <!-- Start of Breadcrumb -->
         <nav class="breadcrumb-nav mb-10">
             <div class="container">
-                <ul class="breadcrumb">
+                <ul class="breadcrumb" style="background-color: #ffff">
                     <li><a href="{{route('homepage')}}">Home</a></li>
                     <li>Wishlist</li>
                 </ul>

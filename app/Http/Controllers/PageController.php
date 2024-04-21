@@ -20,6 +20,7 @@ class PageController extends Controller
 {
     public function home()
     {
+
         $latest_products = Product::orderBy('views', 'desc')->where("status", 1)
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
@@ -56,7 +57,7 @@ class PageController extends Controller
         })->latest()->limit(8)->get();
         $prodcats = Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
         $sliders = Slider::latest()->get();
-
+        
         return view('pages.home', compact(
             'latest_products',
             'bestsaleproducts',
@@ -225,7 +226,7 @@ class PageController extends Controller
         //         return $q->where('state', 'like', '%' . $state . '%');
         //     })
         //     ->get();
-        $shops=Shop::active()->latest()->get();
+        $shops = Shop::active()->latest()->get();
         return view('pages.vendors', compact('shops'));
     }
 
