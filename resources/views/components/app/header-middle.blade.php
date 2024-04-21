@@ -1,7 +1,9 @@
 @php
     $route = route('shops');
 @endphp
-<div class="header-bottom sticky-content fix-top sticky-header has-dropdown" style="background-color: #007cc5 !important; ">
+
+<div class="header-bottom sticky-content fix-top sticky-header has-dropdown"
+    style="background-color: #007cc5 !important; ">
     <div class="container">
         <div class="inner-wrap">
             <div class="header-left">
@@ -66,11 +68,16 @@
 
                 <nav class="main-nav">
                     <ul class="menu active-underline">
-                        <li class="active">
-                            <a href="{{route('homepage')}}">Home</a>
+                        <li class="{{ request()->route()->uri == '/' ? 'active' : '' }}">
+                            <a href="{{ route('homepage') }}">Home</a>
                         </li>
-                        <li>
-                            <a href="{{route('shops')}}">Shop</a>
+                        <li class="{{ request()->route()->uri == 'shops' ? 'active' : '' }}">
+                            <a href="{{ route('shops') }}">Shop</a>
+
+
+                        </li>
+                        <li class="{{ request()->route()->uri == 'vendors' ? 'active' : '' }}">
+                            <a href="{{ route('vendors') }}">Vendors</a>
 
 
                         </li>

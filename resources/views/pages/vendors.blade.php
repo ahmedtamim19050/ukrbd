@@ -25,7 +25,7 @@
             <!-- Start of Breadcrumb -->
             <nav class="breadcrumb-nav">
                 <div class="container">
-                    <ul class="breadcrumb mb-8">
+                    <ul class="breadcrumb mb-8"  style="background-color: #ffff">
                         <li><a href="{{ route('homepage') }}">Home</a></li>
                         <li><a href="#">Vendors</a></li>
 
@@ -38,7 +38,7 @@
             <!-- Start of Pgae Contetn -->
             <div class="page-content mb-4">
                 <div class="container">
-                    <div class="row cols-xl-3 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+                    <div class="row cols-xl-4 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
                         @foreach ($shops as $shop)
                             <div class="vendor-brand-wrap mb-8">
                                 <div class="vendor-brand">

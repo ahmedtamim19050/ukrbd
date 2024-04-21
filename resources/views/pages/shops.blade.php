@@ -17,7 +17,7 @@
 
       <nav class="breadcrumb-nav">
           <div class="container">
-              <ul class="breadcrumb bb-no">
+              <ul class="breadcrumb" style="background-color: #ffff">
                   <li><a href="{{ route('homepage') }}">Home</a></li>
                   <li><a href="#">Shops</a></li>
               </ul>
@@ -26,7 +26,7 @@
       <!-- End of Breadcrumb -->
 
       <!-- Start of Page Content -->
-      <div class="page-content">
+      <div class="page-content mt-5">
           <div class="container">
               <!-- Start of Shop Banner -->
               {{-- <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
