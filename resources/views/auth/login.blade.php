@@ -102,9 +102,9 @@
         <!-- End of Page Header -->
 
         <!-- Start of Breadcrumb -->
-        <nav class="breadcrumb-nav">
+        <nav class="breadcrumb-nav mt-3 " >
             <div class="container">
-                <ul class="breadcrumb">
+                <ul class="breadcrumb" style="background-color: #fff">
                     <li><a href="{{route('homepage')}}">Home</a></li>
                     <li>My account</li>
                 </ul>

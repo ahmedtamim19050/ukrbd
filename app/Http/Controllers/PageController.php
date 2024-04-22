@@ -12,13 +12,19 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use TCG\Voyager\Models\Category;
 use TCG\Voyager\Models\Page;
 
 class PageController extends Controller
 {
     public function home()
     {
+        $bestSellingCategories = Prodcat::with(['products' => function ($query) {
+            $query->orderBy('total_sale', 'desc');
+        }])->take(3)->get();
+        
         $latest_products = Product::orderBy('views', 'desc')->where("status", 1)
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
@@ -64,6 +70,7 @@ class PageController extends Controller
             'sliders',
             'recommandProducts',
             'featuredproducts',
+            'bestSellingCategories',
         ));
     }
     public function shops()
@@ -144,9 +151,11 @@ class PageController extends Controller
     {
         $shop = Shop::where('slug', $slug)->products()->firstOrFail();
 
+        $bestSellingProducts = $shop->products()->orderBy('total_sale', 'desc')->limit(3)->whereNull('parent_id')->get();
+        $featuredproducts = $shop->products()->where('featured', 1)->latest()->limit(3)->whereNull('parent_id')->get();
 
 
-        return view('pages.store_front', compact('shop'));
+        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts'));
     }
 
 
@@ -221,7 +230,7 @@ class PageController extends Controller
         //         return $q->where('state', 'like', '%' . $state . '%');
         //     })
         //     ->get();
-        $shops=Shop::active()->latest()->get();
+        $shops = Shop::active()->latest()->get();
         return view('pages.vendors', compact('shops'));
     }
 

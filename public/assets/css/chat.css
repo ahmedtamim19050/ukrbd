@@ -198,9 +198,6 @@
     padding: 15px !important;
 }
 
-.btn:not(.btn-alt) {
-    border: 0;
-}
 
 .action-header {
     position: relative;

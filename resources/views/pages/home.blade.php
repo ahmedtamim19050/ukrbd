@@ -1,3 +1,7 @@
+@php
+    $route = route('shops');
+
+@endphp
 <x-app>
     <x-slot name="css">
         <!-- Vendor CSS -->
@@ -14,7 +18,7 @@
 
     <div class="container">
         <!-- Slider section -->
-        <x-pages.home.slider />
+        <x-pages.home.slider :sliders="$sliders" />
         <!-- End of slider section -->
 
         <!-- Features section -->
@@ -396,8 +400,8 @@
         <!-- End of Banner Simple -->
 
         <div class="title-link-wrapper appear-animate mb-4">
-            <h2 class="title title-link pt-1">Apparels &amp; Clothings</h2>
-            <a href="shop-boxed-banner.html">More Products<i class="w-icon-long-arrow-right"></i></a>
+            <h2 class="title title-link pt-1">Featured Products</h2>
+            <a href="{{ Route('shops') }}">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
         <div class="swiper-container swiper-theme products-apparel appear-animate mb-7"
             data-swiper-options="{
@@ -424,7 +428,7 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-        <div class="title-link-wrapper appear-animate mb-4">
+        {{-- <div class="title-link-wrapper appear-animate mb-4">
             <h2 class="title title-link pt-1">Apparels &amp; Clothings</h2>
             <a href="shop-boxed-banner.html">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
@@ -623,9 +627,9 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-        <!-- End of Prodcut Wrapper -->
+        <!-- End of Prodcut Wrapper --> --}}
 
-        <div class="row grid grid-float appear-animate">
+        {{-- <div class="row grid grid-float appear-animate">
             <div class="col-lg-6 grid-item height-x2 grid-item-lg">
                 <div class="banner banner-fixed br-sm">
                     <figure>
@@ -681,213 +685,42 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End of Grid -->
 
-        <div class="title-link-wrapper appear-animate mt-10 mb-4">
-            <h2 class="title title-link pt-1">Consumer Electronics</h2>
-            <a href="#" class="ls-normal">More Products<i class="w-icon-long-arrow-right"></i></a>
-        </div>
-        <div class="swiper-container swiper-theme appear-animate mb-9"
-            data-swiper-options="{
-            'spaceBetween': 20,
-            'slidesPerView': 2,
-            'breakpoints': {
-                '576': {
-                    'slidesPerView': 3
-                },
-                '768': {
-                    'slidesPerView': 4
-                },
-                '992': {
-                    'slidesPerView': 5
-                }
-            }
-        }">
-            <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+        @foreach ($bestSellingCategories as $category)
+            <div class="category-product">
+                <div class="title-link-wrapper appear-animate mt-10 mb-4">
+                    <h2 class="title title-link pt-1">{{ $category->name }}</h2>
+                    <a href="javascript:void(0)"
+                        onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
+                        class="ls-normal">More Products<i class="w-icon-long-arrow-right"></i></a>
+                </div>
+                <div class="swiper-container swiper-theme appear-animate mb-9"
+                    data-swiper-options="{
+                'spaceBetween': 20,
+                'slidesPerView': 2,
+                'breakpoints': {
+                    '576': {
+                        'slidesPerView': 3
+                    },
+                    '768': {
+                        'slidesPerView': 4
+                    },
+                    '992': {
+                        'slidesPerView': 5
+                    }}}">
+                    <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
 
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-1-1.jpg" alt="Product" width="300"
-                                    height="338">
-                                <img src="assets/images/demos/demo5/products/4-1-2.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Red Cap Sound Marker</a>
-                            </h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 80%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$65.89 - $69.99</ins>
-                            </div>
-                        </div>
+                        @foreach ($category->products as $product)
+                            <x-products.card :product="$product" />
+                        @endforeach
+                        <!-- End of Product Wrap -->
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-2.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Men's Black Watch</a></h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 60%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$75.00</ins><del class="old-price">$79.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-3.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Fabulous Sound Speaker</a>
-                            </h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 100%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(5 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$62.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-4-1.jpg" alt="Product" width="300"
-                                    height="338">
-                                <img src="assets/images/demos/demo5/products/4-4-2.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Mini Wireless Earphone</a>
-                            </h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 100%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(8 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$49.99</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
-                <div class="swiper-slide product-wrap">
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product-default.html">
-                                <img src="assets/images/demos/demo5/products/4-5.jpg" alt="Product" width="300"
-                                    height="338">
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                    title="Add to cart"></a>
-                                <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                    title="Add to wishlist"></a>
-                                <a href="#" class="btn-product-icon btn-quickview w-icon-search"
-                                    title="Quickview"></a>
-                                <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                    title="Add to Compare"></a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <h4 class="product-name"><a href="product-default.html">Good-Performance
-                                    Humidifier</a>
-                            </h4>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width: 80%;"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product-default.html" class="rating-reviews">(4 Reviews)</a>
-                            </div>
-                            <div class="product-price">
-                                <ins class="new-price">$79.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of Product Wrap -->
             </div>
-            <div class="swiper-pagination"></div>
-        </div>
+        @endforeach
         <!-- End of Products -->
 
         <h2 class="title text-left title-client  mb-5 appear-animate">Our Clients</h2>
@@ -967,7 +800,7 @@
         </div>
         <!-- End of Brands Wrapper -->
 
-        <div class="title-link-wrapper appear-animate mb-4">
+        {{-- <div class="title-link-wrapper appear-animate mb-4">
             <h2 class="title title-link title-blog">From Our Blog</h2>
             <a href="blog-listing.html" class="font-weight-bold font-size-normal ls-normal">View All
                 Articles</a>
@@ -1064,9 +897,9 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-        <!-- Post Wrapper -->
+        <!-- Post Wrapper --> --}}
 
-        <div class="title-link-wrapper appear-animate mb-4">
+        {{-- <div class="title-link-wrapper appear-animate mb-4">
             <h2 class="title title-link title-viewed">Recently Viewed</h2>
             <a href="shop-list.html" class="font-weight-bold font-size-normal ls-normal">
                 More Products<i class="w-icon-long-arrow-right"></i></a>
@@ -1207,7 +1040,7 @@
                 <!-- End of Product Wrap -->
             </div>
             <div class="swiper-pagination"></div>
-        </div>
+        </div> --}}
         <!-- End of Reviewed Producs -->
     </div>
 </x-app>

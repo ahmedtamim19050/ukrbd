@@ -5866,6 +5866,7 @@ blockquote {
   font-family: "wolmart" !important;
   speak: never;
   font-style: normal;
+  
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
@@ -14502,11 +14503,15 @@ body .product-popup {
   letter-spacing: -0.007em;
   color: #666666;
 }
+a{
+  text-decoration: none !important;
+}
 .category-menu > li > a::before {
   content: none;
 }
 .category-menu > li:not(:last-child) > a {
   border-bottom: 1px solid #e1e1e1;
+  text-align: start;
 }
 .category-menu > li:last-child > a i {
   margin: 0 0 0 0.4rem;
