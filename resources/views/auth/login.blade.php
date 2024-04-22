@@ -109,6 +109,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active">
                             <form method="POST" action="{{ route('login') }}">
+                                @csrf
                                 <div class="form-group">
                                     <label>Email address *</label>
                                     <input type="text" class="form-control @error('email') is-invalid @enderror"
@@ -134,7 +135,7 @@
                                     <input type="checkbox" class="custom-checkbox" id="remember1" name="remember1">
                                     <label for="remember1">Remember me</label>
                                     @if (Route::has('password.request'))
-                                        <a href="{{ route('password.request') }}">Last your password?</a>
+                                        <a href="{{ route('password.request') }}">Forget your password?</a>
                                     @endif
                                 </div>
                                 <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
