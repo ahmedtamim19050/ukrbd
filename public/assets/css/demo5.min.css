@@ -4502,13 +4502,13 @@ blockquote {
 
 .btn-primary {
   color: #fff;
-  border-color: #cd1921 ;
-  background-color: #cd1921;
+  border-color: #cd1921 !important;
+  background-color: #cd1921 !important;
 }
 .btn-primary:hover{
-  color: #fff;
-  border-color: #007cc5 ;
-  background-color: #007cc5 ;
+  color: #fff !important;
+  border-color: #007cc5 !important;
+  background-color: #007cc5 !important;
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   color: #fff;

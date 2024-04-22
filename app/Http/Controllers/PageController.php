@@ -152,10 +152,13 @@ class PageController extends Controller
         $shop = Shop::where('slug', $slug)->products()->firstOrFail();
 
         $bestSellingProducts = $shop->products()->orderBy('total_sale', 'desc')->limit(3)->whereNull('parent_id')->get();
+
         $featuredproducts = $shop->products()->where('featured', 1)->latest()->limit(3)->whereNull('parent_id')->get();
+        $reviews= $shop->ratings()->latest()->get();
+    
 
-
-        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts'));
+        return view('pages.store_front', compact('shop', 'bestSellingProducts','featuredproducts','reviews'));
+       
     }
 
 

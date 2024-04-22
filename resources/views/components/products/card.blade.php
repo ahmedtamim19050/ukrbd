@@ -22,14 +22,19 @@
             </div>
         </figure>
         <div class="product-details">
-            <h4 class="product-name"><a href="{{ $product->path() }}">{{$product->name}}</a>
+            <h4 class="product-name"><a href="{{ $product->path() }}">{{ $product->name }}</a>
             </h4>
-            <div class="ratings-container">
+            {{-- <div class="ratings-container">
                 <div class="ratings-full">
                     <span class="ratings" style="width: 80%;"></span>
                     <span class="tooltiptext tooltip-top"></span>
                 </div>
                 <a href="product-default.html" class="rating-reviews">(1 Reviews)</a>
+            </div> --}}
+
+            <div class="">
+                <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating"
+                    data-size="sm">
             </div>
             <div class="product-price">
                 <ins class="new-price">{{ Sohoj::price($product->price) }}</ins>

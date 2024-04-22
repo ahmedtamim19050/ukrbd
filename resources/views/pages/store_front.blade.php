@@ -83,12 +83,13 @@
                                             </figure>
                                             <div class="product-details">
                                                 <h4 class="product-name">
-                                                    <a href="product-default.html">{{$product->name}}</a>
+                                                    <a href="product-default.html">{{ $product->name }}</a>
                                                 </h4>
                                                 <div class="ratings-container">
-                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
+                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}"
+                                                        class="rating published_rating" data-size="sm">
                                                 </div>
-                                                <div class="product-price">{{Sohoj::price($product->price)}}</div>
+                                                <div class="product-price">{{ Sohoj::price($product->price) }}</div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -96,71 +97,37 @@
                                 </div>
                             </div>
                             <!-- End of Widget -->
-                            <div class="widget widget-collapsible widget-products">
-                                <h3 class="widget-title"><span>Top Rated</span></h3>
-                                <div class="widget-body">
-                                    <div class="product product-widget">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="assets/images/shop/12.jpg" alt="Product" width="100"
-                                                    height="106" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="product-default.html">Classic Simple Backpack</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
+                            @if ($featuredproducts->count() > 0)
+                                <div class="widget widget-collapsible widget-products">
+                                    <h3 class="widget-title"><span>Top Feature</span></h3>
+                                    <div class="widget-body">
+                                        {{-- @dd($featuredproducts) --}}
+
+                                        @foreach ($featuredproducts as $feature)
+                                            <div class="product product-widget">
+                                                <figure class="product-media">
+                                                    <a href="product-default.html">
+                                                        <img src="{{ Voyager::image($feature->image) }}" alt="Product"
+                                                            width="100" height="106" />
+                                                    </a>
+                                                </figure>
+                                                <div class="product-details">
+                                                    <h4 class="product-name">
+                                                        <a href="product-default.html">{{$feature->name}}</a>
+                                                    </h4>
+                                                    <div class="ratings-container">
+                                                        <input value="{{ Sohoj::average_rating($feature->ratings) }}"
+                                                        class="rating published_rating" data-size="sm">
+                                                    </div>
+                                                    <div class="product-price">{{ Sohoj::price($feature->price) }}</div>
                                                 </div>
                                             </div>
-                                            <div class="product-price">$85.00</div>
-                                        </div>
+                                        @endforeach
+
                                     </div>
-                                    <div class="product product-widget">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="assets/images/shop/13.jpg" alt="Product" width="100"
-                                                    height="106" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="product-default.html">Smart Watch</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">$90.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="product product-widget">
-                                        <figure class="product-media">
-                                            <a href="product-default.html">
-                                                <img src="assets/images/shop/20.jpg" alt="Product" width="100"
-                                                    height="106" />
-                                            </a>
-                                        </figure>
-                                        <div class="product-details">
-                                            <h4 class="product-name">
-                                                <a href="product-default.html">Pencil Case</a>
-                                            </h4>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">$54.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                @else
+                                    {{-- <samp>Note Found</samp> --}}
+                            @endif
                             <!-- End of Widget -->
                         </div>
                     </div>
@@ -338,28 +305,30 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab-2">
-                                <h4 class="title review-title pt-6 mb-0">1 review for Vendor 1</h4>
+                                <h4 class="title review-title pt-6 mb-0">{{$reviews->count()}} review for {{$shop->name}}</h4>
                                 <ul class="comments list-style-none">
                                     <li class="comment">
-                                        <div class="comment-body">
-                                            <figure class="comment-avatar">
-                                                <img src="assets/images/agents/2-100x100.png" alt="Avatar"
-                                                    width="100" height="100" />
-                                            </figure>
-                                            <div class="comment-content">
-                                                <div class="ratings-container">
-                                                    <div class="ratings-full">
-                                                        <span class="ratings" style="width: 100%;"></span>
-                                                        <span class="tooltiptext tooltip-top"></span>
+                                        {{-- @dd($reviews) --}}
+                                        @foreach ($reviews as $review)
+                                        
+                                            <div class="comment-body">
+                                                <figure class="comment-avatar">
+                                                    <img src="" alt="Avatar"
+                                                        width="100" height="100" />
+                                                </figure>
+                                                <div class="comment-content">
+                                                    <div class="ratings-container">
+                                                        <input value="{{ $review->rating}}"
+                                                        class="rating published_rating" data-size="sm">
                                                     </div>
+                                                    <h4 class="comment-author">
+                                                        {{$review->name}}
+                                                        <span class="comment-date">- {{$review->created_at->format('M d, Y  ')}}</span>
+                                                    </h4>
+                                                    <p>{{$review->review}}</p>
                                                 </div>
-                                                <h4 class="comment-author">
-                                                    Johnson Doe
-                                                    <span class="comment-date">- March 26, 2021</span>
-                                                </h4>
-                                                <p>Great vendor with high quality products and service </p>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </li>
                                 </ul>
                             </div>
