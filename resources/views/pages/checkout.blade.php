@@ -74,7 +74,7 @@
                                         <label>First name *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('first_name') is-invalid @enderror"
-                                            name="first_name" required value="{{ old('first_name') }}"
+                                            name="first_name" required value="{{ Auth()->user() ? auth()->user()->name : old('first_name') }}"
                                             autocomplete="first_name" autofocus>
                                         @error('first_name')
                                             <span class="invalid-feedback" role="alert">
@@ -88,7 +88,7 @@
                                         <label>Last name *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('last_name') is-invalid @enderror"
-                                            name="last_name" required value="{{ old('last_name') }}"
+                                            name="last_name" required value="{{Auth()->user() ? auth()->user()->l_name :  old('last_name') }}"
                                             autocomplete="last_name" autofocus>
                                         @error('last_name')
                                             <span class="invalid-feedback" role="alert">
@@ -191,6 +191,9 @@
                                             <option value="Sylhet">Sylhet</option>
                                         </select>
                                     </div>
+                                   
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>ZIP (optional)*</label>
                                         <input type="text"
@@ -204,7 +207,21 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                 <div class="col-md-12">
+                                    <div class="form-group mb-7">
+                                        <label>Email address *</label>
+                                        <input type="email"
+                                            class="form-control form-control-md @error('email') is-invalid @enderror"
+                                            name="email" required value="{{ Auth()->user() ? auth()->user()->email :  old('email') }}" autocomplete="email"
+                                            autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                 </div>
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label>State *</label>
                                         <input type="text"
@@ -229,20 +246,9 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="form-group mb-7">
-                                <label>Email address *</label>
-                                <input type="email"
-                                    class="form-control form-control-md @error('email') is-invalid @enderror"
-                                    name="email" required value="{{ old('email') }}" autocomplete="email"
-                                    autofocus>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+
 
 
                             <div class="form-group mt-3">
