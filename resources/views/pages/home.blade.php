@@ -388,7 +388,7 @@
                         We are the Leading<br>
                         <strong>Ski Tool Saler in US</strong>
                     </h3>
-                    <a href="shop-banner-sidebar.html" class="btn btn-primary btn-link btn-underline btn-icon-right">
+                    <a href="shop-banner-sidebar.html" class="btn btn-success btn-link btn-underline btn-icon-right">
                         Discover Now<i class="w-icon-long-arrow-right"></i></a>
                 </div>
             </div>
