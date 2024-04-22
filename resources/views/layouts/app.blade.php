@@ -107,18 +107,18 @@
                             <div class="widget widget-about">
                                 <div class="widget-body">
                                     <p class="widget-about-title">Got Question? Call us 24/7</p>
-                                    <a href="18005707777" class="widget-about-call">1-800-570-7777</a>
-                                    <p class="widget-about-desc">Facilisi nullam vehicula ipsum a arcu cursus vitae
-                                        congue. Pretium quam,
-                                        elit ut aliquam purus sit. Porttitor rhoncus dolor purus non enim.
+                                    <a href="#" class="widget-about-call">{{ setting('site.phone') }}</a>
+                                    <p class="widget-about-desc">{{ setting('site.description') }}
                                     </p>
                                     <label class="label-social d-block text-dark">Social Media</label>
                                     <div class="social-icons social-icons-colored">
-                                        <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
-                                        <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
+                                        <a href="{{ setting('social.fb_link') }}"
+                                            class="social-icon social-facebook w-icon-facebook"></a>
+                                        <a href="{{ setting('social.youtube_link') }}"
+                                            class="social-icon social-youtube w-icon-youtube"></a>
+                                        {{-- <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
                                         <a href="#" class="social-icon social-instagram w-icon-instagram"></a>
-                                        <a href="#" class="social-icon social-youtube w-icon-youtube"></a>
-                                        <a href="#" class="social-icon social-pinterest w-icon-pinterest"></a>
+                                        <a href="#" class="social-icon social-pinterest w-icon-pinterest"></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -127,12 +127,7 @@
                             <div class="widget">
                                 <h3 class="widget-title">Company</h3>
                                 <ul class="widget-body">
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Team Member</a></li>
-                                    <li><a href="#">Career</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Affilate</a></li>
-                                    <li><a href="#">Order History</a></li>
+                                    {!! menu('main', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
@@ -140,12 +135,7 @@
                             <div class="widget">
                                 <h4 class="widget-title">My Account</h4>
                                 <ul class="widget-body">
-                                    <li><a href="#">Track My Order</a></li>
-                                    <li><a href="#">View Cart</a></li>
-                                    <li><a href="#">Sign In</a></li>
-                                    <li><a href="#">Help</a></li>
-                                    <li><a href="#">My Wishlist</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
+                                    {!! menu('leftside', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>

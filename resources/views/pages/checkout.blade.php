@@ -33,19 +33,21 @@
         <!-- Start of PageContent -->
         <div class="page-content">
             <div class="container">
+                @if(!Auth()->check())
                 <div class="">
                     Returning customer? <a href="{{ route('login') }}"
                         class=" font-weight-bold text-uppercase text-dark">Login</a>
                 </div>
+                @endif
 
-
+                @if (!session()->has('discount'))
                 <div class="coupon-toggle"> Have a coupon?
                     <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter your code</a>
                 </div>
 
                 <div class="coupon-content mb-4">
                     <p>If you have a coupon code, please apply it below.</p>
-                    @if (!session()->has('discount'))
+
                         <form action="{{ route('coupon') }}" method="POST">
                             @csrf
                             <div class="input-wrapper-inline">
@@ -55,8 +57,9 @@
                                     Coupon</button>
                             </div>
                         </form>
-                    @endif
+                
                 </div>
+                @endif
 
                 <form class="form checkout-form" action="{{ route('checkout.store') }}" method="POST">
                     @csrf
@@ -71,7 +74,7 @@
                                         <label>First name *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('first_name') is-invalid @enderror"
-                                            name="first_name" required value="{{ old('first_name') }}"
+                                            name="first_name" required value="{{ Auth()->user() ? auth()->user()->name : old('first_name') }}"
                                             autocomplete="first_name" autofocus>
                                         @error('first_name')
                                             <span class="invalid-feedback" role="alert">
@@ -85,7 +88,7 @@
                                         <label>Last name *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('last_name') is-invalid @enderror"
-                                            name="last_name" required value="{{ old('last_name') }}"
+                                            name="last_name" required value="{{Auth()->user() ? auth()->user()->l_name :  old('last_name') }}"
                                             autocomplete="last_name" autofocus>
                                         @error('last_name')
                                             <span class="invalid-feedback" role="alert">
@@ -188,6 +191,9 @@
                                             <option value="Sylhet">Sylhet</option>
                                         </select>
                                     </div>
+                                   
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>ZIP (optional)*</label>
                                         <input type="text"
@@ -201,7 +207,21 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                 <div class="col-md-12">
+                                    <div class="form-group mb-7">
+                                        <label>Email address *</label>
+                                        <input type="email"
+                                            class="form-control form-control-md @error('email') is-invalid @enderror"
+                                            name="email" required value="{{ Auth()->user() ? auth()->user()->email :  old('email') }}" autocomplete="email"
+                                            autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                 </div>
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label>State *</label>
                                         <input type="text"
@@ -226,20 +246,9 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="form-group mb-7">
-                                <label>Email address *</label>
-                                <input type="email"
-                                    class="form-control form-control-md @error('email') is-invalid @enderror"
-                                    name="email" required value="{{ old('email') }}" autocomplete="email"
-                                    autofocus>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+
 
 
                             <div class="form-group mt-3">
@@ -261,24 +270,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach (Cart::getContent() as $item)
+                                                
                                             <tr class="bb-no">
-                                                <td class="product-name">Palm Print Jacket <i
+                                                <td class="product-name">{{$item->name}}<i
                                                         class="fas fa-times"></i> <span
-                                                        class="product-quantity">1</span></td>
-                                                <td class="product-total">$40.00</td>
+                                                        class="product-quantity">{{$item->quantity}}</span></td>
+                                                <td class="product-total">{{Sohoj::price($item->price)}}</td>
                                             </tr>
-                                            <tr class="bb-no">
-                                                <td class="product-name">Brown Backpack <i class="fas fa-times"></i>
-                                                    <span class="product-quantity">1</span>
+                                            @endforeach
+                                        
+                                            <tr class="cart-subtotal">
+                                                <td>
+                                                    Subtotal
                                                 </td>
-                                                <td class="product-total">$60.00</td>
+                                                <td>
+                                                   {{ Sohoj::price(Cart::getSubTotal()) }}
+                                                </td>
                                             </tr>
+                                            @if (session()->has('discount'))
+                                            <tr class="cart-subtotal">
+                                                <td>
+                                                    Discount <a href="{{route('coupon.destroy')}}" class="text-danger ml-2" style="text-decoration: underline;font-size:12px;color:red">Delete</a>
+                                                </td>
+                                                <td>
+                                                    {{ Sohoj::price(Sohoj::discount()) }}
+                                                </td>
+                                            </tr>
+                                            @endif
+                                              
                                             <tr class="cart-subtotal bb-no">
                                                 <td>
-                                                    <b>Subtotal</b>
+                                                    <b>Total</b>
                                                 </td>
                                                 <td>
-                                                    <b>$100.00</b>
+                                                    <b>{{ Sohoj::price(Sohoj::newSubtotal()) }}</b>
                                                 </td>
                                             </tr>
                                         </tbody>

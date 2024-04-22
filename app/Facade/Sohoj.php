@@ -71,7 +71,7 @@ class Sohoj
     }
     public function newSubtotal()
     {
-        return (Cart::getSubTotal() + $this->tax() + $this->shipping() )- $this->discount();
+        return (Cart::getSubTotal() )- $this->discount();
     }
     public function newTotal()
     {

@@ -14,13 +14,17 @@ use App\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use TCG\Voyager\Models\Category;
 use TCG\Voyager\Models\Page;
 
 class PageController extends Controller
 {
     public function home()
     {
-
+        $bestSellingCategories = Prodcat::with(['products' => function ($query) {
+            $query->orderBy('total_sale', 'desc');
+        }])->take(3)->get();
+        
         $latest_products = Product::orderBy('views', 'desc')->where("status", 1)
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
@@ -57,7 +61,7 @@ class PageController extends Controller
         })->latest()->limit(8)->get();
         $prodcats = Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
         $sliders = Slider::latest()->get();
-        
+
         return view('pages.home', compact(
             'latest_products',
             'bestsaleproducts',
@@ -66,6 +70,7 @@ class PageController extends Controller
             'sliders',
             'recommandProducts',
             'featuredproducts',
+            'bestSellingCategories',
         ));
     }
     public function shops()
