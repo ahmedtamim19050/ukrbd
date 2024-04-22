@@ -2,15 +2,13 @@
     <table style="width: 100%">
         <tr>
             <td class="review-name" style="margin-bottom: 20px; display: block;">
-                <h5>Hello {{ $order->firstname }},</h5>
+                <h5>Hello {{ $order->first_name }},</h5>
             </td>
         </tr>
         <tr>
             <td class="header-contain" style="margin-bottom: 40px; display: block;text-align:center">
                 <a class="cart-button" style="background-color:black; border:none;" href="{{ route('cart') }}">take me back
-                    to
-                    my
-                    cart</a>
+                    to my cart</a>
 
             </td>
         </tr>
@@ -25,11 +23,11 @@
                         <p style="font-size: 12px;margin:0px"> Order No: {{ $order->id }}</p>
                     </td>
                     <td style="text-align: right">
-                        <h6 style="font-size: 16px;margin:0px">AhroMart</h6>
+                        <h6 style="font-size: 16px;margin:0px">UKRBD</h6>
                         <br>
-                        <p style="font-size: 12px;margin:0px">New York, USA</p>
+                        <p style="font-size: 12px;margin:0px">BARISHAL, BANGLADESH</p>
                         {{-- <p>+1 (518) 653-8997</p> --}}
-                        <p style="font-size: 12px;margin:0px"> Info@ahromart.com</p>
+                        <p style="font-size: 12px;margin:0px"> ukrbd.com@gmail.com</p>
                     </td>
         </tr>
     </table>
