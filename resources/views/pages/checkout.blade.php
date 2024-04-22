@@ -415,7 +415,7 @@
                                     </div> --}}
 
                                     <div class="form-group place-order pt-6">
-                                        <button type="submit" class="btn btn-dark btn-block btn-rounded">Place
+                                        <button type="submit" class="btn btn-dark btn-primary btn-rounded" style="width:100%">Place
                                             Order</button>
                                     </div>
                                 </div>
