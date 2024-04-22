@@ -15,6 +15,7 @@ class CouponController extends Controller
 	{
 		$coupon = Coupon::where('code', $request->coupon_code)->first();
 
+	
 		if (!$coupon) {
 			session()->flash('errors', collect(['Incorrect coupon code']));
 			return back();

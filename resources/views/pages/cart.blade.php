@@ -108,7 +108,7 @@
                         </table>
 
                         <div class="cart-action mb-6">
-                            <a href="#" class="btn btn-dark btn-rounded btn-icon-left btn-shopping btn-checkout mr-auto"><i
+                            <a href="{{route('shops')}}" class="btn btn-dark btn-rounded btn-icon-left btn-shopping btn-checkout mr-auto"><i
                                     class="w-icon-long-arrow-left "></i>Continue Shopping</a>
                             <button type="submit" class="btn btn-rounded btn-default btn-clear" name="clear_cart"
                                 value="Clear Cart">Clear Cart</button>
@@ -132,43 +132,19 @@
                                 <h3 class="cart-title text-uppercase">Cart Totals</h3>
                                 <div class="cart-subtotal d-flex align-items-center justify-content-between">
                                     <label class="ls-25">Subtotal</label>
-                                    <span>${{ Cart::getSubTotal() }}</span>
+                                    <span>{{ Sohoj::price(Cart::getSubTotal()) }}</span>
+                                </div>
+                                @if (session()->has('discount'))
+                                <hr class="divider">
+                                
+                              
+                                <div class="cart-subtotal d-flex align-items-center justify-content-between">
+                                    <label class="ls-25">Discount <a href="{{route('coupon.destroy')}}" class="text-danger ml-2" style="text-decoration: underline;font-size:12px;color:red">Delete</a></label>
+                                    <span>{{ Sohoj::price(Sohoj::discount()) }}</span>
                                 </div>
 
-                                <hr class="divider">
-
-                                <ul class="shipping-methods mb-2">
-                                    <li>
-                                        <label class="shipping-title text-dark font-weight-bold">Shipping</label>
-                                    </li>
-                                    <li>
-                                        <div class="custom-radio">
-                                            <input type="radio" id="free-shipping" class="custom-control-input"
-                                                name="shipping">
-                                            <label for="free-shipping" class="custom-control-label color-dark">Free
-                                                Shipping</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-radio">
-                                            <input type="radio" id="local-pickup" class="custom-control-input"
-                                                name="shipping">
-                                            <label for="local-pickup" class="custom-control-label color-dark">Local
-                                                Pickup</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-radio">
-                                            <input type="radio" id="flat-rate" class="custom-control-input"
-                                                name="shipping">
-                                            <label for="flat-rate" class="custom-control-label color-dark">Flat
-                                                rate:
-                                                $5.00</label>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <div class="shipping-calculator">
+                                @endif
+                                {{-- <div class="shipping-calculator">
                                     <p class="shipping-destination lh-1">Shipping to <strong>CA</strong>.</p>
 
                                     <form class="shipping-calculator-form">
@@ -205,12 +181,12 @@
                                         <button type="submit" class="btn btn-dark btn-outline btn-rounded">Update
                                             Totals</button>
                                     </form>
-                                </div>
+                                </div> --}}
 
                                 <hr class="divider mb-6">
                                 <div class="order-total d-flex justify-content-between align-items-center">
                                     <label>Total</label>
-                                    <span class="ls-50">{{ Sohoj::newSubtotal() }}</span>
+                                    <span class="ls-50">{{ Sohoj::price(Sohoj::newSubtotal()) }}</span>
                                 </div>
                                 <a href="{{route('checkout')}}"
                                     class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
