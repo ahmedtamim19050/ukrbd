@@ -24,7 +24,7 @@ class PageController extends Controller
         $bestSellingCategories = Prodcat::with(['products' => function ($query) {
             $query->orderBy('total_sale', 'desc');
         }])->take(3)->get();
-        
+
         $latest_products = Product::orderBy('views', 'desc')->where("status", 1)
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
@@ -149,16 +149,33 @@ class PageController extends Controller
     public function store_front($slug)
 
     {
-        $shop = Shop::where('slug', $slug)->products()->firstOrFail();
+        $shop = Shop::where('slug', $slug)->with('products')->firstOrFail();
 
-        $bestSellingProducts = $shop->products()->orderBy('total_sale', 'desc')->limit(3)->whereNull('parent_id')->get();
+        // Initialize arrays to ensure they are not null even if no products are present
+        $bestSellingProducts = [];
+        $featuredproducts = [];
+        $reviews = $shop->ratings()->latest()->get();
 
-        $featuredproducts = $shop->products()->where('featured', 1)->latest()->limit(3)->whereNull('parent_id')->get();
-        $reviews= $shop->ratings()->latest()->get();
-    
+        // Check if the shop has any products
+        if ($shop->products->isNotEmpty()) {
+            // Retrieve best selling products (top 3)
+            $bestSellingProducts = $shop->products()
+                ->orderBy('total_sale', 'desc')
+                ->limit(3)
+                ->whereNull('parent_id')
+                ->get();
 
-        return view('pages.store_front', compact('shop', 'bestSellingProducts','featuredproducts','reviews'));
-       
+            // Retrieve featured products (top 3)
+            $featuredproducts = $shop->products()
+                ->where('featured', 1)
+                ->latest()
+                ->limit(3)
+                ->whereNull('parent_id')
+                ->get();
+        }
+
+
+        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews'));
     }
 
 
@@ -312,4 +329,5 @@ class PageController extends Controller
     {
         return view('layouts.app');
     }
+  
 }
