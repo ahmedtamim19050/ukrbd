@@ -17,7 +17,7 @@
         <div class="main">
             <nav class="breadcrumb-nav mt-3 mb-3">
                 <div class="container">
-                    <ul class="breadcrumb bb-no">
+                    <ul class="breadcrumb bb-no bg-white">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Vendor</a></li>
                         <li><a href="#">WC Marketplace</a></li>
@@ -113,13 +113,14 @@
                                                 </figure>
                                                 <div class="product-details">
                                                     <h4 class="product-name">
-                                                        <a href="product-default.html">{{$feature->name}}</a>
+                                                        <a href="product-default.html">{{ $feature->name }}</a>
                                                     </h4>
                                                     <div class="ratings-container">
                                                         <input value="{{ Sohoj::average_rating($feature->ratings) }}"
-                                                        class="rating published_rating" data-size="sm">
+                                                            class="rating published_rating" data-size="sm">
                                                     </div>
-                                                    <div class="product-price">{{ Sohoj::price($feature->price) }}</div>
+                                                    <div class="product-price">{{ Sohoj::price($feature->price) }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -305,27 +306,28 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab-2">
-                                <h4 class="title review-title pt-6 mb-0">{{$reviews->count()}} review for {{$shop->name}}</h4>
+                                <h4 class="title review-title pt-6 mb-0">{{ $reviews->count() }} review for
+                                    {{ $shop->name }}</h4>
                                 <ul class="comments list-style-none">
                                     <li class="comment">
                                         {{-- @dd($reviews) --}}
                                         @foreach ($reviews as $review)
-                                        
                                             <div class="comment-body">
                                                 <figure class="comment-avatar">
-                                                    <img src="" alt="Avatar"
-                                                        width="100" height="100" />
+                                                    <img src="" alt="Avatar" width="100"
+                                                        height="100" />
                                                 </figure>
                                                 <div class="comment-content">
                                                     <div class="ratings-container">
-                                                        <input value="{{ $review->rating}}"
-                                                        class="rating published_rating" data-size="sm">
+                                                        <input value="{{ $review->rating }}"
+                                                            class="rating published_rating" data-size="sm">
                                                     </div>
                                                     <h4 class="comment-author">
-                                                        {{$review->name}}
-                                                        <span class="comment-date">- {{$review->created_at->format('M d, Y  ')}}</span>
+                                                        {{ $review->name }}
+                                                        <span class="comment-date">-
+                                                            {{ $review->created_at->format('M d, Y  ') }}</span>
                                                     </h4>
-                                                    <p>{{$review->review}}</p>
+                                                    <p>{{ $review->review }}</p>
                                                 </div>
                                             </div>
                                         @endforeach

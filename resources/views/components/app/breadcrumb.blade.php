@@ -1,21 +1,18 @@
-<div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="row ec_breadcrumb_inner">
-                    <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">User Profile</h2>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <!-- ec-breadcrumb-list start -->
-                        <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="{{route('homepage')}}">Home</a></li>
-                            <li class="ec-breadcrumb-item active">Profile</li>
-                        </ul>
-                        <!-- ec-breadcrumb-list end -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+   <!-- Start of Page Header -->
+   <div class="login-page">
+       <div class="page-header">
+           <div class="container">
+               <h1 class="page-title mb-0">{{ $name }}</h1>
+           </div>
+       </div>
+       <!-- End of Page Header -->
+
+       <!-- Start of Breadcrumb -->
+       <nav class="breadcrumb-nav mt-3 ">
+           <div class="container">
+               <ul class="breadcrumb" style="background-color: #fff">
+                   <li><a href="{{ route('homepage') }}">Home</a></li>
+                   <li>{{ $name }}</li>
+               </ul>
+           </div>
+       </nav>

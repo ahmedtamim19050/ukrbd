@@ -20,23 +20,7 @@
         </style>
     </x-slot>
 
-    <div class="login-page">
-        <div class="page-header">
-            <div class="container">
-                <h1 class="page-title mb-0">My Account</h1>
-            </div>
-        </div>
-        <!-- End of Page Header -->
-
-        <!-- Start of Breadcrumb -->
-        <nav class="breadcrumb-nav">
-            <div class="container">
-                <ul class="breadcrumb">
-                    <li><a href="{{route('homepage')}}">Home</a></li>
-                    <li>My account</li>
-                </ul>
-            </div>
-        </nav>
+    <x-app.breadcrumb name="Sign Up" />
         <!-- End of Breadcrumb -->
         <div class="page-content">
             <div class="container">

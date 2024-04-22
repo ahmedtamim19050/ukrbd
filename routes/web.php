@@ -56,7 +56,7 @@ Route::get('/test/{ticket}', function (Ticket $ticket) {
 
 Route::get('/vendors', [PageController::class, 'vendors'])->name('vendors');
 
-Route::any('/get-state', [PageController::class,'getShops']);
+Route::any('/get-state', [PageController::class, 'getShops']);
 
 Route::post('follow/{shop}', [PageController::class, 'follow'])->name('follow');
 Route::get('liked/shops', [PageController::class, 'followShops'])->name('follow.shops');
@@ -113,7 +113,7 @@ Route::post('/store-checkout', [CheckoutController::class, 'store'])->name('chec
 
 //Rating
 Route::post('rating/{product_id}', [PageController::class, 'rating'])->name('rating');
-Route::get('/store_front/{slug}', [PageController::class, 'store_front'])->name('store_front');
+Route::get('/store/{slug}', [PageController::class, 'store_front'])->name('store_front');
 
 Route::get('/seller', [SellerPagesController::class, 'dashboard'])->middleware('role:vendor')->name('dashboard');
 
@@ -136,7 +136,7 @@ Route::get('/shop', [SellerPagesController::class, 'shop'])->name('vendor.shop')
 Route::post('/store-shop', [SellerPagesController::class, 'shopStore'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.store');
 
 Route::get('/shop/set-up-payment-method', [PaymentsController::class, 'setUpPaymentMethod'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.setUpPaymentMethod');
-Route::get('/admin/orders/details/{order}',[AdminController::class,'orderDetails'])->name('admin.order.details')->middleware('auth', 'role:admin');
+Route::get('/admin/orders/details/{order}', [AdminController::class, 'orderDetails'])->name('admin.order.details')->middleware('auth', 'role:admin');
 
 Route::get('email/{offer}', function (Offer $offer) {
     return new OfferEmail($offer);
@@ -177,12 +177,10 @@ Route::get('hello/{order}', function (Order $order) {
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
 });
 
-if(env('APP_ENV')=='local'){
+if (env('APP_ENV') == 'local') {
     Route::get('/test/login-as-user/{user}', function (User $user) {
         Auth::logout();
         Auth::login($user);
         return redirect('/');
     });
 }
-
-
