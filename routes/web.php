@@ -55,7 +55,6 @@ Route::get('/test/{ticket}', function (Ticket $ticket) {
 
 
 Route::get('/vendors', [PageController::class, 'vendors'])->name('vendors');
-
 Route::any('/get-state', [PageController::class, 'getShops']);
 
 Route::post('follow/{shop}', [PageController::class, 'follow'])->name('follow');
