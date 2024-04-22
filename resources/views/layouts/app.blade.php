@@ -131,24 +131,20 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
-                                <h4 class="widget-title">My Account</h4>
+                                <h4 class="widget-title">Customer Service</h4>
                                 <ul class="widget-body">
-                                    {!! menu('leftside', 'bootstrap') !!}
+                                    {!! menu('middle', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
-                                <h4 class="widget-title">Customer Service</h4>
+                                <h4 class="widget-title">My Account</h4>
                                 <ul class="widget-body">
-                                    <li><a href="#">Payment Methods</a></li>
-                                    <li><a href="#">Money-back guarantee!</a></li>
-                                    <li><a href="#">Product Returns</a></li>
-                                    <li><a href="#">Support Center</a></li>
-                                    <li><a href="#">Shipping</a></li>
-                                    <li><a href="#">Term and Conditions</a></li>
+                                    {!! menu('leftside', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>

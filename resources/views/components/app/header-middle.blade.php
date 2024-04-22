@@ -86,11 +86,11 @@
                     </ul>
                 </nav>
             </div>
-            <div class="header-right">
+            {{-- <div class="header-right">
                 <a href="#" class="d-xl-show" style="color: #ffff"><i class="w-icon-map-marker mr-1"
                         style="color: #ffff"></i>Track Order</a>
                 <a href="#" style="color: #ffff"><i class="w-icon-sale" style="color: #ffff"></i>Daily Deals</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
