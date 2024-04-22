@@ -97,41 +97,41 @@
                                 </div>
                             </div>
                             <!-- End of Widget -->
-                            @if ($featuredproducts->count() > 0)
-                                <div class="widget widget-collapsible widget-products">
-                                    <h3 class="widget-title"><span>Top Feature</span></h3>
-                                    <div class="widget-body">
-                                        {{-- @dd($featuredproducts) --}}
+                            {{-- @if ($featuredproducts->count() > 0) --}}
+                            <div class="widget widget-collapsible widget-products">
+                                <h3 class="widget-title"><span>Top Feature</span></h3>
+                                <div class="widget-body">
+                                    {{-- @dd($featuredproducts) --}}
 
-                                        @foreach ($featuredproducts as $feature)
-                                            <div class="product product-widget">
-                                                <figure class="product-media">
-                                                    <a href="product-default.html">
-                                                        <img src="{{ Voyager::image($feature->image) }}" alt="Product"
-                                                            width="100" height="106" />
-                                                    </a>
-                                                </figure>
-                                                <div class="product-details">
-                                                    <h4 class="product-name">
-                                                        <a href="product-default.html">{{ $feature->name }}</a>
-                                                    </h4>
-                                                    <div class="ratings-container">
-                                                        <input value="{{ Sohoj::average_rating($feature->ratings) }}"
-                                                            class="rating published_rating" data-size="sm">
-                                                    </div>
-                                                    <div class="product-price">{{ Sohoj::price($feature->price) }}
-                                                    </div>
+                                    @foreach ($featuredproducts as $feature)
+                                        <div class="product product-widget">
+                                            <figure class="product-media">
+                                                <a href="product-default.html">
+                                                    <img src="{{ Voyager::image($feature->image) }}" alt="Product"
+                                                        width="100" height="106" />
+                                                </a>
+                                            </figure>
+                                            <div class="product-details">
+                                                <h4 class="product-name">
+                                                    <a href="product-default.html">{{ $feature->name }}</a>
+                                                </h4>
+                                                <div class="ratings-container">
+                                                    <input value="{{ Sohoj::average_rating($feature->ratings) }}"
+                                                        class="rating published_rating" data-size="sm">
+                                                </div>
+                                                <div class="product-price">{{ Sohoj::price($feature->price) }}
                                                 </div>
                                             </div>
-                                        @endforeach
+                                        </div>
+                                    @endforeach
 
-                                    </div>
-                                @else
-                                    {{-- <samp>Note Found</samp> --}}
-                            @endif
-                            <!-- End of Widget -->
+                                </div>
+                                {{-- @else --}}
+                                {{-- <samp>Note Found</samp> --}}
+                                {{-- @endif --}}
+                                <!-- End of Widget -->
+                            </div>
                         </div>
-                    </div>
                 </aside>
                 <!-- End of Sidebar -->
 
@@ -198,7 +198,8 @@
                         {{-- @dd($shop) --}}
                         <figure class="store-media">
                             <img src="{{ $shop->banner ? Voyager::image($shop->banner) : asset('assets/images/defult.png') }}"
-                                alt="Vendor" width="930" height="390" style="background-color: #ECE7E3;" />
+                                alt="Vendor" width="930" height="390"
+                                style="background-color: #ECE7E3;height:390px" />
                         </figure>
                         <div class="store-content">
                             <figure class="seller-brand">
