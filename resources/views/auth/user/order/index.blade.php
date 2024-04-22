@@ -14,6 +14,18 @@
 
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+        <style>
+            .order_btn{
+                color: #fff;
+                background-color:orange;
+                border: solid orange;
+            }
+            .order_btn:hover{
+                background-color: #007cc5 !important;
+                color: #fff !important;
+                border: solid #007cc5;
+            }
+        </style>
     </x-slot>
 
     <section class="ec-page-content ec-vendor-dashboard section-space-p mt-4">
@@ -25,8 +37,8 @@
                     <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm"
                         style="border-radius: 10px !important;">
                         <div class="container">
-                            <div class="btn-group  mt-3">
-                                <button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center rounded "
+                            <div class="btn-group  mt-3 ms-4">
+                                <button class="btn btn-primary btn-sm dropdown-toggle d-flex align-items-center rounded "
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (request()->status === '0')
                                         Pending order
@@ -64,33 +76,33 @@
                             @if ($latest_orders->count() > 0)
                                 <div class="col-md-12">
                                     @foreach ($latest_orders as $order)
-                                        <div class="container title-margin mt-2 bg-dark border rounded-5">
+                                        <div class="container-fluid title-margin mt-2 bg-primary border rounded-5">
 
                                             <div
-                                                class="container-fluid title-margin p-2 d-flex justify-content-between align-items-center ">
+                                                class="container-fluid title-margin d-flex justify-content-between align-items-center m-3">
                                                 @if ($order->status == 0)
-                                                    <h4 class="text-white">Pending Order</h4>
+                                                    <h4 class="text-white mb-0">Pending Order</h4>
                                                 @endif
                                                 @if ($order->status == 1)
-                                                    <h4 class="text-white">Processing</h4>
+                                                    <h4 class="text-white  mb-0">Processing</h4>
                                                 @endif
                                                 @if ($order->status == 2)
-                                                    <h4 class="text-white">On the way</h4>
+                                                    <h4 class="text-white mb-0">On the way</h4>
                                                 @endif
                                                 @if ($order->status == 3)
-                                                    <h4 class="text-white">Canceled</h4>
+                                                    <h4 class="text-white mb-0">Canceled</h4>
                                                 @endif
                                                 @if ($order->status == 4)
-                                                    <h4 class="text-white">Delivered</h4>
+                                                    <h4 class="text-white mb-0">Delivered</h4>
                                                 @endif
                                                 @if ($order->status == 5)
-                                                    <h4 class="text-white">Cancelled</h4>
+                                                    <h4 class="text-white mb-0">Cancelled</h4>
                                                 @endif
                                                 <p class="text-white">Order date:
                                                     {{ $order->created_at->format('M-d-Y') }}</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mb-2">
+                                        <div class="col-md-12 mb-2 p-0 mt-4">
                                             <div class="cart-item card rounded-4">
                                                 <div
                                                     class="card-body row box-shadow d-flex justify-content-between align-items-center">
@@ -244,14 +256,14 @@
                                                                     <br>
                                                                     @if ($order->status == 5)
                                                                         <a href="#"
-                                                                            class="btn btn-dark w-100">Return
+                                                                            class="btn btn-dark w-100 ">Return
                                                                             requested</a>
                                                                     @endif
 
                                                                     @if ($order->status == 0 || $order->status == 1)
                                                                         @if ($order->cancel_request == 0)
                                                                             <a href="{{ route('user.order.cancel', $order) }}"
-                                                                                class="btn btn-danger bg-warning text-white mt-2 w-100">Order
+                                                                                class="btn text-white mt-2 w-100 order_btn">Order
                                                                                 Cancel Request ?</a>
                                                                         @elseif($order->cancel_request == 1)
                                                                             <a href=""
@@ -259,7 +271,7 @@
                                                                                 Cancel Request Sended</a>
                                                                         @else
                                                                             <a href=""
-                                                                                class="btn btn-danger bg-success text-white mt-2 w-100">Order
+                                                                                class="btn btn-danger bg-success text-white mt-2 w-100 ">Order
                                                                                 Cancelled</a>
                                                                         @endif
                                                                     @endif
@@ -290,7 +302,7 @@
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -317,7 +329,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- modal feedback start -->
                 {{-- <div class="modal fade" id="feedback" tabindex="-1" aria-labelledby="feedback" aria-hidden="true">
                     <div class="modal-dialog">
