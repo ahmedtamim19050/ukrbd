@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-end mb-2">
-    <button onclick="printDiv('printableArea')" class="btn btn-dark ">Print this page</button>
+<div class="d-flex justify-content-start mb-2">
+    <button onclick="printDiv('printableArea')" class="btn btn-primary">Print this page</button>
    
 </div>
 

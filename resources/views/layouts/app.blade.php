@@ -125,12 +125,13 @@
                         </div>
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
-                                <h3 class="widget-title">Company</h3>
+                                <h4 class="widget-title">My Account</h4>
                                 <ul class="widget-body">
-                                    {!! menu('main', 'bootstrap') !!}
+                                    {!! menu('leftside', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
+
 
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
@@ -142,9 +143,9 @@
                         </div>
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
-                                <h4 class="widget-title">My Account</h4>
+                                <h3 class="widget-title">Company</h3>
                                 <ul class="widget-body">
-                                    {!! menu('leftside', 'bootstrap') !!}
+                                    {!! menu('main', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
