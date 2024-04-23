@@ -81,8 +81,8 @@
             <div
                 class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{ request()->cart == 'opened' ? 'opened' : '' }}">
                 <div class="cart-overlay"></div>
-                
-                <a href="{{ route('homepage', ['cart' => 'opened']) }}" class=" label-down link"
+                 
+                <a href="{{url()->current()}}?cart=opened" class=" label-down link"
                     style="text-decoration: none;">
                     <i class="w-icon-cart">
                         <span class="cart-count" id="cartQty2">0</span>
@@ -93,7 +93,7 @@
                     <div>
                         <div class="d-flex justify-content-between ">
                             <span style="font-size: 18px">Shopping Cart</span>
-                            <a href="{{ route('homepage') }}" class="" style="font-size: 15px">Close<i
+                            <a href="{{url()->current()}}" class="" style="font-size: 15px">Close<i
                                     class="w-icon-long-arrow-right"></i></a>
                         </div>
 

@@ -18,6 +18,11 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+        <style>
+            .vendor-brand {
+                  max-width: 100%;
+            }
+        </style>
     </x-slot>
 
     <div class="container">
@@ -38,7 +43,7 @@
             <!-- Start of Pgae Contetn -->
             <div class="page-content mb-4">
                 <div class="container">
-                    <div class="row cols-xl-3 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+                    <div class="row cols-xl-4 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
                         @foreach ($shops as $shop)
                             <div class="vendor-brand-wrap mb-8">
                                 <div class="vendor-brand">
