@@ -2,7 +2,7 @@
     $route = route('shops');
 
 @endphp
-<x-app>
+<x-App>
     <x-slot name="css">
         <!-- Vendor CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
@@ -1043,4 +1043,4 @@
         </div> --}}
         <!-- End of Reviewed Producs -->
     </div>
-</x-app>
+</x-App>

@@ -5,7 +5,7 @@ namespace App\View\Components;
 use App\Models\Prodcat;
 use Illuminate\View\Component;
 
-class app extends Component
+class App extends Component
 {
     /**
      * Create a new component instance.
