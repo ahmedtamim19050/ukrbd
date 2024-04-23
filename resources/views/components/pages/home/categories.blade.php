@@ -46,13 +46,17 @@
                 @foreach ($categories as $category)
                     <div class="swiper-slide category category-classic category-absolute overlay-zoom br-xs swiper-slide-active"
                         role="group" aria-label="1 / 6" style="width: 190px; margin-right: 20px;">
-                        <a href="shop-banner-sidebar.html" class="category-media">
+                        <a href="javascript:void(0)"
+                            onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
+                            class="category-media">
                             <img src="{{ Voyager::image($category->logo) }}" alt="Category" width="130"
                                 height="130">
                         </a>
                         <div class="category-content">
-                            <h4 class="category-name">{{ $category->name }}</h4>
-                            <a href="shop-banner-sidebar.html" class="btn btn-primary btn-link btn-underline">Shop
+                            <h4 class="category-name text-white">{{ $category->name }}</h4>
+                            <a href="javascript:void(0)"
+                                onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
+                                class="btn btn-warning btn-link btn-underline">Shop
                                 Now</a>
                         </div>
                     </div>
