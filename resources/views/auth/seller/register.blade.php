@@ -225,11 +225,11 @@
                                       a vendor?</a> --}}
                                   <div class="form-checkbox d-flex align-items-center justify-content-between mb-5">
                                       <input type="checkbox" required class="@error('terms') is-invalid @enderror"
-                                          id="terms" style="width: 19px; height: 19px;" value="1" name="terms" required><a
-                                          href="{{ url('page/policies') }}" style="" target="_banl"
-                                          class="mt-0 ml-2">I have
-                                          read and agree to the <span>Terms &amp; Conditions of
-                                              Ukrbd</span></a><span class="checked"></span>
+                                          id="terms" style="width: 19px; height: 19px;" value="1"
+                                          name="terms" required><span class="mt-0 ml-2">I have
+                                          read and agree to the <a href="{{ url('page/policies') }}" style=""
+                                              target="_blank">Terms &amp; Conditions of
+                                              Ukrbd</a></span><span class="checked"></span>
                                       @error('terms')
                                           <span class="invalid-feedback " role="alert">
                                               <strong>{{ $message }}</strong>
