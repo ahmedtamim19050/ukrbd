@@ -51,6 +51,7 @@
                             <div class="widget widget-collapsible widget-contact">
                                 <h3 class="widget-title"><span>Contact Vendor</span></h3>
                                 <div class="widget-body">
+                                    <p>Connect directly with the vendor here</p>
                                     <a href="{{ route('massage.create', ['id' => $shop->id]) }}"
                                         class="btn btn-dark btn-rounded">Send Message</a>
                                 </div>
