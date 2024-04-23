@@ -19,12 +19,21 @@
 
 
                         <li><a href="{{ route('user.ordersIndex') }}">Orders</a></li>
-                        <li><a href="{{route('user.update_profile')}}">Edit
+                        <li><a href="{{ route('user.update_profile') }}">Edit
                                 Profile</a> </li>
-                        <li><a href="{{route('user.offers')}}">Offers</a> </li>
-                        <li><a href="{{route('massage.create')}}">Massages</a> </li>
+                        <li><a href="{{ route('user.offers') }}">Offers</a> </li>
+                        <li><a href="{{ route('massage.create') }}">Massages</a> </li>
 
                         <li><a href="{{ route('user.change_password') }}">Change Password</a></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class=""
+                                    >
+                                    Logout</button>
+
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
