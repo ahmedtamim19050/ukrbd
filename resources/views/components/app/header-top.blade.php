@@ -79,8 +79,7 @@
                             style="font-size: small">Register as user</a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
-                        <a class="dropdown-item wishlist-label d-lg-show" href="{{ url('/admin') }}"
-                            style="font-size: small" >Admin dashboard </a>
+                       
                     @endif
                 </div>
             </div>
