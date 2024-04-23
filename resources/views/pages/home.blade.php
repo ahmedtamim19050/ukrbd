@@ -3,7 +3,7 @@
 
 @endphp
 <x-app>
-    {{-- <x-slot name="css">
+    <x-slot name="css">
         <!-- Vendor CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
         <!-- Plugins CSS -->
@@ -13,7 +13,7 @@
 
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
-    </x-slot> --}}
+    </x-slot>
 
 
     <div class="container">

@@ -16,6 +16,7 @@ class app extends Component
     public function __construct()
     {
         $this->categories = Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+        dd($this->categories);
     }
 
     /**
