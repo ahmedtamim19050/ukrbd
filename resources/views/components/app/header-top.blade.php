@@ -61,6 +61,16 @@
                                     Logout</button>
 
                             </form>
+                        @elseif(auth()->user()->role_id == 1)
+                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.dashboard') }}"
+                                style="font-size: small">My Account</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show"
+                                    style="font-size: small">
+                                    Logout</button>
+
+                            </form>
                         @endif
                     @else
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('login') }}"
@@ -81,9 +91,8 @@
             <div
                 class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{ request()->cart == 'opened' ? 'opened' : '' }}">
                 <div class="cart-overlay"></div>
-                 
-                <a href="{{url()->current()}}?cart=opened" class=" label-down link"
-                    style="text-decoration: none;">
+
+                <a href="{{ url()->current() }}?cart=opened" class=" label-down link" style="text-decoration: none;">
                     <i class="w-icon-cart">
                         <span class="cart-count" id="cartQty2">0</span>
                     </i>
@@ -93,7 +102,7 @@
                     <div>
                         <div class="d-flex justify-content-between ">
                             <span style="font-size: 18px">Shopping Cart</span>
-                            <a href="{{url()->current()}}" class="" style="font-size: 15px">Close<i
+                            <a href="{{ url()->current() }}" class="" style="font-size: 15px">Close<i
                                     class="w-icon-long-arrow-right"></i></a>
                         </div>
 
@@ -129,7 +138,7 @@
                             <strong>Subtotal:</strong>
                             <span class="price">${{ Cart::getSubTotal() }}</span>
                         </div>
-    
+
                         <div class="cart-action justify-content-end">
                             <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                             <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>
