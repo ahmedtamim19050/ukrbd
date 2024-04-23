@@ -44,6 +44,46 @@
     <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+        /* Dropdown button */
+        .dropdown .wishlist.label-down.link.d-xs-show {
+            border: none;
+            background-color: white;
+        }
+
+        .dropdown .wishlist.label-down.link.d-xs-show i.w-icon-user {
+            font-weight: 600;
+        }
+
+        /* Dropdown menu */
+        .dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 100px;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu .dropdown-item {
+            font-size: small;
+        }
+
+        .dropdown-menu .dropdown-item.wishlist-label.d-lg-show {
+            display: block;
+        }
+
+        .dropdown-menu .dropdown-item.wishlist-label.d-lg-show:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-menu .dropdown-item.wishlist-label.d-lg-show:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
     {{ $css ?? null }}
 </head>
 
