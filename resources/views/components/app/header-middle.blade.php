@@ -68,15 +68,15 @@
 
                 <nav class="main-nav">
                     <ul class="menu active-underline">
-                        <li class="{{ request()->route()->uri == '/' ? 'active' : '' }}">
+                        <li class="{{url()->current() == url('/') ? 'active' : '' }}">
                             <a href="{{ route('homepage') }}">Home</a>
                         </li>
-                        <li class="{{ request()->route()->uri == 'shops' ? 'active' : '' }}">
+                        <li class="{{ url()->current() == url('/shops') ? 'active' : '' }}">
                             <a href="{{ route('shops') }}">Shop</a>
 
 
                         </li>
-                        <li class="{{ request()->route()->uri == 'vendors' ? 'active' : '' }}">
+                        <li class="{{ url()->current() == url('/vendors') ? 'active' : '' }}">
                             <a href="{{ route('vendors') }}">Vendors</a>
 
 
