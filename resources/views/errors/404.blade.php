@@ -1,5 +1,5 @@
 <x-app>
-    <x-slot name='css'>
+    <x-slot name="css">
         <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
             type="font/woff2" crossorigin="anonymous">
         <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font"
@@ -13,38 +13,31 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+        
     </x-slot>
-
-    <!-- Ec Thank You page -->
-    <div class="page-content d-flex align-items-center justify-content-center" style="height: 70vh;">
-        <div class="container">
-            <div class="row text-center mt-5">
-                <div class="col-md-12">
-                    <div class="ec-thank-you section-space-p">
-                        <!-- thank content Start -->
-                        <div class="ec-thank-content">
-                            <i class="ecicon eci-check-circle" aria-hidden="true"></i>
-                            <div class="section-title">
-                                <h2 class="ec-title">Thank You</h2>
-                                <p class="sub-title">For Shopping with us.</p>
-                            </div>
-                        </div>
-                        <!--thank content End -->
-                        <div class="ec-hunger mb-5">
-                            <div class="ec-hunger-detial">
-                                <h3>Want to track your order?</h3>
-                                <h6>Just click the link below.</h6>
-                                <a href="{{ route('user.ordersIndex') }}" class="btn btn-primary btn-rounded">Track Order</a>
-                            </div>
-                        </div>
+    <main class="main">
+        <!-- Start of Page Content -->
+        <div class="page-content error-404">
+            <div class="container">
+                <div class="banner error">
+                    <figure>
+                        <img src="assets/images/pages/404.png" alt="Error 404" width="820" height="460" />
+                    </figure>
+                    <div class="banner-content text-center">
+                        <h2 class="banner-title">
+                            <span class="text-secondary">Oops!!!</span> Something Went Wrong Here
+                        </h2>
+                        <p class="text-light">There may be a misspelling in the URL entered, or the page you are looking
+                            for may no longer exist</p>
+                        <a href="{{ route('homepage') }}" class="btn btn-primary btn-rounded btn-icon-right">Go Back Home<i
+                                class="w-icon-long-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <x-slot name='js'>
+        <!-- End of Page Content -->
+    </main>
+    <x-slot name="js">
         <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
         <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/jquery.plugin/jquery.plugin.min.js') }}"></script>
@@ -58,4 +51,7 @@
         <!-- Main JS -->
         <script src="{{ asset('assets/js/main.min.js') }}"></script>
     </x-slot>
+
+
+
 </x-app>

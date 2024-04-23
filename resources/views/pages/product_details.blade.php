@@ -249,7 +249,7 @@
                                 </div> --}}
 
                                     <div class="fix-bottom sticky-content">
-                                        <div class="product-form container">
+                                        <div class="product-form container p-0">
                                             {{-- <div class="product-qty-form">
                                             <form method="POST" action="{{ route('cart.update') }}">
                                                 @csrf

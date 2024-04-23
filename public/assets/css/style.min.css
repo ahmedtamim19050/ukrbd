@@ -18923,16 +18923,21 @@ body .product-popup {
     Error 404
 --------------------------*/
 .error-404 {
-  padding-top: 14.5rem;
-  padding-bottom: 10rem;
+  padding-top: 6.5rem;
+  padding-bottom: 2.5rem;
   background-color: #f7f7f7;
+  
+}
+.error{
+  display: flex;
 }
 .error-404 figure {
   margin: 0 auto;
-  max-width: 82rem;
+  max-width: 70rem;
 }
 .error-404 .banner-content {
-  margin-top: 5.5rem;
+  margin-top: 2.5rem;
+  
 }
 .error-404 .banner-title {
   margin-bottom: 0.8rem;

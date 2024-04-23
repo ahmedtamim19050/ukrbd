@@ -4,7 +4,7 @@
             <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
             </a>
             <a href="{{ route('homepage') }}" class="logo ml-lg-0">
-                <img src="assets/images/demos/demo5/logo-ukr-1.png" alt="logo" width="145" height="45" />
+                <img src="{{ Voyager::image(setting('site.logo')) }}" alt="logo" width="145" height="45" />
             </a>
             <form method="get" action="#"
                 class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
@@ -42,27 +42,31 @@
                 <div class="dropdown-menu">
                     @if (auth()->check())
                         @if (auth()->user()->role_id == 2)
-                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('dashboard') }}"
+                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('user.dashboard') }}"
                                 style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show" style="font-size: small">
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show"
+                                    style="font-size: small">
                                     Logout</button>
 
                             </form>
                         @elseif(auth()->user()->role_id == 3)
-                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('dashboard') }}"
+                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.dashboard') }}"
                                 style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show" style="font-size: small">
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show"
+                                    style="font-size: small">
                                     Logout</button>
 
                             </form>
                         @endif
                     @else
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('login') }}"
-                            style="font-size: small">Login as user</a>
+                            style="font-size: small">Login</a>
+                        <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('register') }}"
+                            style="font-size: small">Register as user</a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
                     @endif
@@ -77,10 +81,10 @@
             <div
                 class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{ request()->cart == 'opened' ? 'opened' : '' }}">
                 <div class="cart-overlay"></div>
+                
                 <a href="{{ route('homepage', ['cart' => 'opened']) }}" class=" label-down link"
                     style="text-decoration: none;">
                     <i class="w-icon-cart">
-
                         <span class="cart-count" id="cartQty2">0</span>
                     </i>
                     <span class="cart-label">Cart</span>
@@ -117,17 +121,19 @@
                                 </div>
                             @endforeach
                         </div>
-    
+
+
+                    </div>
+                    <div class="">
                         <div class="cart-total">
                             <strong>Subtotal:</strong>
                             <span class="price">${{ Cart::getSubTotal() }}</span>
                         </div>
     
-                    </div>
-                  
-                    <div class="cart-action justify-content-end">
-                        <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                        <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>
+                        <div class="cart-action justify-content-end">
+                            <a href="{{ route('cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-primary  btn-rounded">Checkout</a>
+                        </div>
                     </div>
                 </div>
                 <!-- End of Dropdown Box -->

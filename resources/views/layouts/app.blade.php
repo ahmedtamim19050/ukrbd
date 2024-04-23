@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     {{ $css }}
 </head>
 
@@ -73,7 +74,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-xl-3 col-lg-2">
                             <a href="#" class="logo-footer">
-                                <img src="assets/images/demos/demo5/logo-ukr-1.png" alt="logo-footer" width="145"
+                                <img src="{{ Voyager::image(setting('site.logo')) }}" alt="logo-footer" width="145"
                                     height="45" />
                             </a>
                         </div>
@@ -124,30 +125,27 @@
                         </div>
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
-                                <h3 class="widget-title">Company</h3>
-                                <ul class="widget-body">
-                                    {!! menu('main', 'bootstrap') !!}
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="widget">
                                 <h4 class="widget-title">My Account</h4>
                                 <ul class="widget-body">
                                     {!! menu('leftside', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
+
+
                         <div class="col-lg-2 col-sm-6">
                             <div class="widget">
                                 <h4 class="widget-title">Customer Service</h4>
                                 <ul class="widget-body">
-                                    <li><a href="#">Payment Methods</a></li>
-                                    <li><a href="#">Money-back guarantee!</a></li>
-                                    <li><a href="#">Product Returns</a></li>
-                                    <li><a href="#">Support Center</a></li>
-                                    <li><a href="#">Shipping</a></li>
-                                    <li><a href="#">Term and Conditions</a></li>
+                                    {!! menu('middle', 'bootstrap') !!}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6">
+                            <div class="widget">
+                                <h3 class="widget-title">Company</h3>
+                                <ul class="widget-body">
+                                    {!! menu('main', 'bootstrap') !!}
                                 </ul>
                             </div>
                         </div>
@@ -788,6 +786,7 @@
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/star-rating.js') }}"></script>
     <script src="{{ asset('assets/js/filter.js') }}"></script>
+    <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     @yield('script')
     <script>
@@ -985,4 +984,29 @@
             readonly: true,
         });
     </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            "newestOnTop": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "showDuration": "150",
+            "hideDuration": "200",
+            "timeOut": "4500",
+            "extendedTimeOut": "500",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+    {{-- <x-alert/> --}}
+    @stack('script')
+    @if (session()->has('success_msg'))
+        <x-alert.success />
+    @endif
+    @if (session()->has('error'))
+        <x-alert.error />
+    @endif
 </body>
