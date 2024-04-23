@@ -25,6 +25,8 @@ class app extends Component
      */
     public function render()
     {
-        return view('layouts.app_test');
+        dd('hello');
+
+        return view('layouts.app');
     }
 }
