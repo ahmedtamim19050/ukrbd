@@ -39,10 +39,10 @@
                     <i class="w-icon-user" style="font-weight: 600;"></i>
                     <span class="wishlist-label d-lg-show">user</span>
                 </button>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu ">
                     @if (auth()->check())
                         @if (auth()->user()->role_id == 2)
-                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('user.dashboard') }}"
+                            <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('user.dashboard') }}"
                                 style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -52,22 +52,22 @@
 
                             </form>
                         @elseif(auth()->user()->role_id == 3)
-                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.dashboard') }}"
+                            <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('vendor.dashboard') }}"
                                 style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show"
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show bg-none border-0"
                                     style="font-size: small">
                                     Logout</button>
 
                             </form>
                         @elseif(auth()->user()->role_id == 1)
-                            <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.dashboard') }}"
+                            <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('vendor.dashboard') }}"
                                 style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show"
-                                    style="font-size: small">
+                                <button type="submit" class="dropdown-item wishlist-label d-lg-show bg-none border-0 m-2"
+                                    style="font-size: small;background:none;border:none">
                                     Logout</button>
 
                             </form>
@@ -80,7 +80,7 @@
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ url('/admin') }}"
-                            style="font-size: small">Admin dashboard </a>
+                            style="font-size: small" >Admin dashboard </a>
                     @endif
                 </div>
             </div>

@@ -110,6 +110,10 @@ class Product extends Model
     {
         return $this->hasMany(Rating::class)->where('status', 1)->latest();
     }
+    public function scopeParentProduct($query)
+    {
+        return $query->whereNUll('parent_id');
+    }
 
     public function setVariationsAttribute($value)
     {
