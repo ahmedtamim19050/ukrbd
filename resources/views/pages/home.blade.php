@@ -34,7 +34,7 @@
 
         <x-pages.home.productrow title="Trending Product" :products="$latest_products" url="" />
         <!-- End of Prodcut Deals Wrapper -->
-        <x-pages.home.categories :categories="$prodcats" />
+        <x-pages.home.categories :categories="$prodcats" :route="$route" />
 
         @if (false)
             <x-pages.home.categorybanners />
