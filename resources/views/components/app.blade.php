@@ -42,8 +42,7 @@
     <link rel="preload" href="assets/fonts/wolmart87d5.woff?png09e" as="font" type="font/woff"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     {{ $css ?? null }}
 </head>
