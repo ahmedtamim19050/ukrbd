@@ -1,5 +1,5 @@
 @php
-     $categories=App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get()
+    $categories = App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -93,8 +93,9 @@
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-5 col-md-9 mt-4 mt-lg-0 ">
-                            <form action="#" method="get"
+                            <form action="{{ route('subscribe') }}" method="POST"
                                 class="input-wrapper input-wrapper-inline input-wrapper-rounded">
+                                @csrf
                                 <input type="email" class="form-control mr-2 bg-white text-default" name="email"
                                     id="email" placeholder="Your E-mail Address" />
                                 <button class="btn btn-primary btn-rounded" type="submit">Subscribe<i

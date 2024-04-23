@@ -145,11 +145,11 @@
                     </div>
                     <p class="text-center">Don't Have an account ? <a class="text-success"
                             href="{{ route('register') }}"> Create</a></p>
-                    <div class="social-icons social-icon-border-color d-flex justify-content-center">
+                    {{-- <div class="social-icons social-icon-border-color d-flex justify-content-center">
                         <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
                         <a href="#" class="social-icon social-twitter w-icon-twitter"></a>
                         <a href="#" class="social-icon social-google fab fa-google"></a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
