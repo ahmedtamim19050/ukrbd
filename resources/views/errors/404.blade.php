@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
-        
+
     </x-slot>
     <main class="main">
         <!-- Start of Page Content -->
@@ -21,7 +21,8 @@
             <div class="container">
                 <div class="banner error">
                     <figure>
-                        <img src="assets/images/pages/404.png" alt="Error 404" width="820" height="460" />
+                        <img src="{{ asset('assets/images/pages/404.png') }}" alt="Error 404" width="820"
+                            height="460" />
                     </figure>
                     <div class="banner-content text-center">
                         <h2 class="banner-title">
@@ -29,8 +30,8 @@
                         </h2>
                         <p class="text-light">There may be a misspelling in the URL entered, or the page you are looking
                             for may no longer exist</p>
-                        <a href="{{ route('homepage') }}" class="btn btn-primary btn-rounded btn-icon-right">Go Back Home<i
-                                class="w-icon-long-arrow-right"></i></a>
+                        <a href="{{ route('homepage') }}" class="btn btn-primary btn-rounded btn-icon-right">Go Back
+                            Home<i class="w-icon-long-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
