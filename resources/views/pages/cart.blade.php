@@ -70,7 +70,7 @@
                                                 <a href="product-default.html">
                                                     <figure>
                                                         <img src="{{ Voyager::image($product->model->image) }}"
-                                                            alt="product" width="300" height="338">
+                                                            alt="product" width="300" height="118">
                                                     </figure>
                                                 </a>
                                                 <button class="btn btn-close">
@@ -107,18 +107,18 @@
                             </tbody>
                         </table>
 
-                        <div class="cart-action mb-6">
+                        {{-- <div class="cart-action mb-6">
                             <a href="{{route('shops')}}" class="btn btn-dark btn-rounded btn-icon-left btn-shopping btn-checkout mr-auto"><i
                                     class="w-icon-long-arrow-left "></i>Continue Shopping</a>
                             <button type="submit" class="btn btn-rounded btn-default btn-clear" name="clear_cart"
                                 value="Clear Cart">Clear Cart</button>
                             <button type="submit" class="btn btn-rounded btn-update disabled" name="update_cart"
                                 value="Update Cart">Update Cart</button>
-                        </div>
+                        </div> --}}
                         @if (!session()->has('discount'))
                             <form class="coupon" action="{{ route('coupon') }}" method="POST">
                                 @csrf
-                                <h5 class="title coupon-title font-weight-bold text-uppercase">Coupon Discount</h5>
+                                <h5 class="title coupon-title font-weight-bold text-uppercase mt-5">Coupon Discount</h5>
                                 <input type="text" class="form-control mb-4" name="coupon_code" placeholder="Enter coupon code here..."
                                     required />
                                 <button type="submit" class="btn btn-dark btn-outline btn-rounded coupon11">Apply
