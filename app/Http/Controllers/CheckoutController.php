@@ -122,7 +122,7 @@ class CheckoutController extends Controller
                 $childOrder->update(['status' => 1]);
                 Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
             }
-            Mail::to($order->user->email)->send(new OrderPlaced($order));
+            Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
             $this->decreaseQuantities();
             DB::commit();
             Cart::clear();
