@@ -51,7 +51,7 @@
         <div class="p-relative">
             <a href="{{ route('product_details', $product->slug) }}">
                 <figure>
-                    <img src="{{ Storage::url($product->image) }}" alt="product" width="300" height="338">
+                    <img src="{{ Storage::url($product->image) }}" alt="product" width="300" height="118">
                 </figure>
             </a>
             <button class="btn btn-close"><a
