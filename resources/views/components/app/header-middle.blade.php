@@ -56,11 +56,11 @@
                                     </li>
                                 @endif
                             @endforeach
-                            <li>
+                            {{-- <li>
                                 <a href="#" class="font-weight-bold text-uppercase ls-25">
                                     View All Categories<i class="w-icon-angle-right"></i>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
 
                     </div>
