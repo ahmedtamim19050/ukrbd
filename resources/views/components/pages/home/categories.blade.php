@@ -45,7 +45,7 @@
                 style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
                 @foreach ($categories as $category)
                     <div class="swiper-slide category category-classic category-absolute overlay-zoom br-xs swiper-slide-active"
-                        role="group" aria-label="1 / 6" style="width: 190px; margin-right: 20px;">
+                        role="group" aria-label="1 / 6" style="width: 190px; margin-right: 20px; height: 140px;">
                         <a href="javascript:void(0)"
                             onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
                             class="category-media">
