@@ -520,8 +520,8 @@ hr {
 img {
   max-width: 100%;
   /* height: auto; */
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: content;
+     object-fit: content;
   vertical-align: middle;
 }
 
