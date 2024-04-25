@@ -1,8 +1,8 @@
 <div class="swiper-slide vendor-widget">
-    <div class="vendor-widget-banner">
+    <div class="vendor-widget-banner" style="height: 350px;">
         <figure class="vendor-banner">
             <a href="{{ route('store_front', $shop->slug) }}">
-                <img src="{{ Voyager::image($shop->banner) }}" alt="Vendor Banner" width="1200" height="390"
+                <img src="{{ Voyager::image($shop->banner) }}" alt="Vendor Banner" width="1200" height="210"
                     style="background-color: #ECE7DF;" />
             </a>
         </figure>

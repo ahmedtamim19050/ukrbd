@@ -1,6 +1,6 @@
 @php
     $categories = App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
-    
+  
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -216,11 +216,11 @@
 
     <!-- Start of Sticky Footer -->
     <div class="sticky-footer sticky-content fix-bottom">
-        <a href="#" class="sticky-link active">
+        <a href="{{route('homepage')}}" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Home</p>
         </a>
-        <a href="#" class="sticky-link">
+        <a href="{{route('shops')}}" class="sticky-link">
             <i class="w-icon-category"></i>
             <p>Shop</p>
         </a>
@@ -326,7 +326,7 @@
         <!-- End of .mobile-menu-close -->
 
         <div class="mobile-menu-container scrollable">
-            <form action="#" method="get" class="input-wrapper">
+            <form action="{{route('shops')}}" method="get" class="input-wrapper">
                 <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
                     required />
                 <button class="btn btn-search" type="submit">
@@ -334,7 +334,7 @@
                 </button>
             </form>
             <!-- End of Search Form -->
-            <div class="tab">
+            {{-- <div class="tab">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
                         <a href="#main-menu" class="nav-link active">Main Menu</a>
@@ -343,148 +343,69 @@
                         <a href="#categories" class="nav-link">Categories</a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
-                        <li><a href="#">Home</a></li>
+                        <li><a href="{{route('homepage')}}">Home</a></li>
                         <li>
-                            <a href="#">Shop</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Shop Pages</a>
-                                    <ul>
-                                        <li><a href="#">Banner With Sidebar</a></li>
-                                        <li><a href="#">Boxed Banner</a></li>
-                                        <li><a href="#">Full Width Banner</a></li>
-                                        <li><a href="#">Horizontal Filter<span
-                                                    class="tip tip-hot">Hot</span></a></li>
-                                        <li><a href="#">Off Canvas Sidebar<span
-                                                    class="tip tip-new">New</span></a></li>
-                                        <li><a href="#">Infinite Ajax Scroll</a></li>
-                                        <li><a href="#">Right Sidebar</a></li>
-                                        <li><a href="#">Both Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Shop Layouts</a>
-                                    <ul>
-                                        <li><a href="#">3 Columns Mode</a></li>
-                                        <li><a href="#">4 Columns Mode</a></li>
-                                        <li><a href="#">5 Columns Mode</a></li>
-                                        <li><a href="#">6 Columns Mode</a></li>
-                                        <li><a href="#">7 Columns Mode</a></li>
-                                        <li><a href="#">8 Columns Mode</a></li>
-                                        <li><a href="#">List Mode</a></li>
-                                        <li><a href="#">List Mode With Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Product Pages</a>
-                                    <ul>
-                                        <li><a href="#">Variable Product</a></li>
-                                        <li><a href="#">Featured &amp; Sale</a></li>
-                                        <li><a href="#">Data In Accordion</a></li>
-                                        <li><a href="#">Data In Sections</a></li>
-                                        <li><a href="#">Image Swatch</a></li>
-                                        <li><a href="#">Extended Info</a>
-                                        </li>
-                                        <li><a href="#">Without Sidebar</a></li>
-                                        <li><a href="#">360<sup>o</sup> &amp; Video<span
-                                                    class="tip tip-new">New</span></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Product Layouts</a>
-                                    <ul>
-                                        <li><a href="#">Default<span class="tip tip-hot">Hot</span></a></li>
-                                        <li><a href="#">Vertical Thumbs</a></li>
-                                        <li><a href="#">Grid Images</a></li>
-                                        <li><a href="#">Masonry</a></li>
-                                        <li><a href="#">Gallery</a></li>
-                                        <li><a href="#">Sticky Info</a></li>
-                                        <li><a href="#">Sticky Thumbs</a></li>
-                                        <li><a href="#">Sticky Both</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <a href="{{route('shops')}}">Shop</a>
+                         
                         </li>
                         <li>
-                            <a href="#">Vendor</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Store Listing</a>
-                                    <ul>
-                                        <li><a href="#">Store listing 1</a></li>
-                                        <li><a href="#">Store listing 2</a></li>
-                                        <li><a href="#">Store listing 3</a></li>
-                                        <li><a href="#">Store listing 4</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Vendor Store</a>
-                                    <ul>
-                                        <li><a href="#">Vendor Store 1</a></li>
-                                        <li><a href="#">Vendor Store 2</a></li>
-                                        <li><a href="#">Vendor Store 3</a></li>
-                                        <li><a href="#">Vendor Store 4</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <a href="{{route('vendors')}}">Vendors</a>
+                       
                         </li>
+               
                         <li>
-                            <a href="#">Blog</a>
-                            <ul>
-                                <li><a href="#">Classic</a></li>
-                                <li><a href="#">Listing</a></li>
-                                <li>
-                                    <a href="#">Grid</a>
-                                    <ul>
-                                        <li><a href="#">Grid 2 columns</a></li>
-                                        <li><a href="#">Grid 3 columns</a></li>
-                                        <li><a href="#">Grid 4 columns</a></li>
-                                        <li><a href="#">Grid sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Masonry</a>
-                                    <ul>
-                                        <li><a href="#">Masonry 2 columns</a></li>
-                                        <li><a href="#">Masonry 3 columns</a></li>
-                                        <li><a href="#">Masonry 4 columns</a></li>
-                                        <li><a href="#">Masonry sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Mask</a>
-                                    <ul>
-                                        <li><a href="#">Blog mask grid</a></li>
-                                        <li><a href="#">Blog mask masonry</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Single Post</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Pages</a>
-                            <ul>
+                            <a href="#">
+                               User 
 
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Become A Vendor</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Login</a></li>
-                                <li><a href="#">FAQs</a></li>
-                                <li><a href="#">Error 404</a></li>
-                                <li><a href="#">Coming Soon</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Cart</a></li>
-                                <li><a href="#">Checkout</a></li>
-                                <li><a href="#">My Account</a></li>
+                            </a>
+                            <ul>
+                                @if(!auth()->check())
+                                <li><a href="{{route('login')}}">Login</a></li>
+                                <li><a href="{{route('register')}}">Register as a user</a></li>
+                                <li><a href="{{route('vendor.create')}}">Register as a vendor</a></li>
+                                @elseif(auth()->user()->role_id==3)
+                                <li><a href="{{route('vendor.dashboard')}}">My Account</a></li>
+                                
+                                <li>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class=" ml-4 "
+                                            style="font-size: small">
+                                            Logout</button>
+        
+                                    </form>
+                                </li>
+                   
+                                @elseif(auth()->user()->role_id==1)
+                                <li><a href="{{url('/admin')}}">My Account</a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class=" ml-4 "
+                                            style="font-size: small">
+                                            Logout</button>
+        
+                                    </form>
+                                </li>
+                                @else
+                                <li><a href="{{route('user.dashboard')}}">My Account</a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class=" ml-4 "
+                                            style="font-size: small">
+                                            Logout</button>
+        
+                                    </form>
+                                </li>
+                                @endif
                             </ul>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="#">Elements</a>
                             <ul>
                                 <li><a href="#">Products</a></li>
@@ -503,10 +424,10 @@
                                 <li><a href="#">Icon Boxes</a></li>
                                 <li><a href="#">Icons</a></li>
                             </ul>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
-                <div class="tab-pane" id="categories">
+                {{-- <div class="tab-pane" id="categories">
                     <ul class="mobile-menu">
                         <li>
                             <a href="#">
@@ -773,7 +694,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
