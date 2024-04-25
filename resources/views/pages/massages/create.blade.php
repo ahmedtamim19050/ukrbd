@@ -18,7 +18,7 @@
         <div class="tile tile-alt" id="messages-main">
             <div class="ms-menu">
                 <div class="ms-user clearfix">
-                    <img src="{{asset('assets/img/User-avatar.png')}}" alt="" class="img-avatar pull-left">
+                    <img src="{{asset('assets/images/default-avatar.png')}}" alt="" class="img-avatar pull-left">
                     <div>Signed in as <br> {{ auth()->user()->name }}</div>
                 </div>
 
