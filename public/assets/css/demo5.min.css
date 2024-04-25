@@ -13995,6 +13995,7 @@ body .product-popup {
 .menu .has-submenu > a {
   display: block;
   position: relative;
+  text-align: center;
 }
 .menu > .has-submenu > a::after {
   margin-top: 1px;
