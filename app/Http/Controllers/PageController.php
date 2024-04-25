@@ -25,37 +25,18 @@ class PageController extends Controller
             $query->orderBy('total_sale', 'desc');
         }])->take(3)->get();
 
-        $latest_products = Product::orderBy('views', 'desc')->where("status", 1)
+        $latest_products = Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
-            })
-            ->when(Session::has('location'), function ($q) {
-                $postcode = Session::get('location.postcode');
-                $q->whereIn('post_code', $postcode);
-            })
-            ->latest()->limit(24)->whereNull('parent_id')->get();
-        $bestsaleproducts = Product::orderBy('total_sale', 'desc')
+            })->latest()->limit(24)->whereNull('parent_id')->get();
+        $bestsaleproducts = Product::with('ratings')->orderBy('total_sale', 'desc')
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
-            })
-            ->when(Session::has('location'), function ($q) {
-                $postcode = Session::get('location.postcode');
-                $q->whereIn('post_code', $postcode);
-            })
-            ->latest()->limit(16)->whereNull('parent_id')->get();
-        $featuredproducts = Product::where('featured', '1')
+            })->latest()->limit(16)->whereNull('parent_id')->get();
+        $featuredproducts = Product::with('ratings')->where('featured', '1')
             ->whereHas('shop', function ($q) {
                 $q->where('status', 1);
-            })
-            ->when(Session::has('location'), function ($q) {
-                $postcode = Session::get('location.postcode');
-                $q->whereIn('post_code', $postcode);
-            })
-            ->latest()->limit(16)->whereNull('parent_id')->get();
-
-        $recommand = session()->get('recommand', []);
-        $recommandProducts = Product::whereNull('parent_id')->whereIn('id', $recommand)->get();
-
+            })->latest()->limit(16)->whereNull('parent_id')->get();
         $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
             $query->whereNull('parent_id');
         })->latest()->limit(8)->get();
@@ -68,7 +49,6 @@ class PageController extends Controller
             'latest_shops',
             'prodcats',
             'sliders',
-            'recommandProducts',
             'featuredproducts',
             'bestSellingCategories',
         ));
@@ -329,5 +309,4 @@ class PageController extends Controller
     {
         return view('layouts.app');
     }
-  
 }
