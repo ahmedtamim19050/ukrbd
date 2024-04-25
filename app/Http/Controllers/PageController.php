@@ -12,6 +12,7 @@ use App\Models\Shop;
 use App\Models\User;
 use App\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use TCG\Voyager\Models\Category;
@@ -21,27 +22,46 @@ class PageController extends Controller
 {
     public function home()
     {
-        $bestSellingCategories = Prodcat::with(['products' => function ($query) {
-            $query->orderBy('total_sale', 'desc');
-        }])->take(3)->get();
+        $bestSellingCategories = Cache::remember('best_selling_categories', 3600, function () {
+            return Prodcat::with(['products' => function ($query) {
+                $query->orderBy('total_sale', 'desc');
+            }])->take(3)->get();
+        });
 
-        $latest_products = Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
-            ->whereHas('shop', function ($q) {
-                $q->where('status', 1);
-            })->latest()->limit(24)->whereNull('parent_id')->get();
-        $bestsaleproducts = Product::with('ratings')->orderBy('total_sale', 'desc')
-            ->whereHas('shop', function ($q) {
-                $q->where('status', 1);
-            })->latest()->limit(16)->whereNull('parent_id')->get();
-        $featuredproducts = Product::with('ratings')->where('featured', '1')
-            ->whereHas('shop', function ($q) {
-                $q->where('status', 1);
-            })->latest()->limit(16)->whereNull('parent_id')->get();
-        $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
-            $query->whereNull('parent_id');
-        })->latest()->limit(8)->get();
-        $prodcats = Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
-        $sliders = Slider::latest()->get();
+        $latest_products = Cache::remember('latest_products', 3600, function () {
+            return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
+                ->whereHas('shop', function ($q) {
+                    $q->where('status', 1);
+                })->latest()->limit(24)->whereNull('parent_id')->get();
+        });
+
+        $bestsaleproducts = Cache::remember('best_sale_products', 3600, function () {
+            return Product::with('ratings')->orderBy('total_sale', 'desc')
+                ->whereHas('shop', function ($q) {
+                    $q->where('status', 1);
+                })->latest()->limit(16)->whereNull('parent_id')->get();
+        });
+
+        $featuredproducts = Cache::remember('featured_products', 3600, function () {
+            return Product::with('ratings')->where('featured', '1')
+                ->whereHas('shop', function ($q) {
+                    $q->where('status', 1);
+                })->latest()->limit(16)->whereNull('parent_id')->get();
+        });
+
+        $latest_shops = Cache::remember('latest_shops', 3600, function () {
+            return Shop::where("status", 1)->whereHas('products', function ($query) {
+                $query->whereNull('parent_id');
+            })->latest()->limit(8)->get();
+        });
+
+        $prodcats = Cache::remember('product_categories', 3600, function () {
+            return Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+        });
+
+        $sliders = Cache::remember('sliders', 3600, function () {
+            return Slider::latest()->get();
+        });
 
         return view('pages.home', compact(
             'latest_products',
