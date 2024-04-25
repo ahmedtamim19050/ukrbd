@@ -24,6 +24,6 @@ class seller extends Component
      */
     public function render()
     {
-       return view('layouts.seller-dashboard');
+       return view('components.seller');
     }
 }
