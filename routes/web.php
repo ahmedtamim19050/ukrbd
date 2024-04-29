@@ -33,6 +33,7 @@ use Stripe\Price;
 use Stripe\Product;
 use Stripe\Stripe;
 use TCG\Voyager\Facades\Voyager;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,8 +172,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.user'], function () {
     Route::get('/shop/{shop}/freeforlife', [HomeController::class, 'freeforlife'])->name('admin.shop.freeforlife');
 });
 
-Route::get('hello/{order}', function (Order $order) {
-    return new OrderPlaced($order);
+Route::get('hello/{user}', function (User $user) {
+   
+    $verify_token = Str::random(20);
+    return new VerifyEmail($user, $verify_token);
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
 });
 
