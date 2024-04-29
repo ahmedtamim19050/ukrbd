@@ -225,7 +225,7 @@
                         </div>
                     </form>
                     <div class="ec-header-bt">
-                        <a class="btn border btn-outline-dark me-3" href="{{ route('vendor.ordersIndex') }}"><i
+                        <a class="btn border btn-dark me-3" href="{{ route('vendor.ordersIndex') }}"><i
                                 class="fi-rr-calendar-lines"></i> View
                             All</a>
                     </div>
