@@ -143,6 +143,11 @@
                                     }
                                 }">
                                     <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
+                                        <div class="product-thumb swiper-slide"  style="height: 110px">
+                                            <img src="{{ Voyager::image($product->image) }}" alt="Product Thumb"
+                                            style="height: 100%">
+                                        </div>
+                                        
                                         @if ($images)
                                             @foreach ($images as $image)
                                                 <div class="product-thumb swiper-slide"  style="height: 110px">
@@ -152,10 +157,7 @@
                                             @endforeach
                                         @endif
 
-                                        <div class="product-thumb swiper-slide"  style="height: 110px">
-                                            <img src="{{ Voyager::image($product->image) }}" alt="Product Thumb"
-                                            style="height: 100%">
-                                        </div>
+                                      
 
                                     </div>
                                     <button class="swiper-button-next"></button>
