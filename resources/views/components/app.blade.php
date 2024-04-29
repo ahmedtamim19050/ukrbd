@@ -1,6 +1,6 @@
 @php
     $categories = App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
-  
+
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +11,9 @@
 
     <title>UKRBD</title>
 
-    <meta name="keywords" content="Marketplace ecommerce responsive HTML5 Template" />
-    <meta name="description" content="Wolmart is powerful marketplace &amp; ecommerce responsive Html5 Template.">
-    <meta name="author" content="D-THEMES">
+    <meta name="keywords" content="{{ env('APP_NAME') }}" />
+    <meta name="description" content="{{ env('APP_NAME') }}">
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('assets/images/icons/favicon.png') }}">
@@ -216,11 +216,11 @@
 
     <!-- Start of Sticky Footer -->
     <div class="sticky-footer sticky-content fix-bottom">
-        <a href="{{route('homepage')}}" class="sticky-link active">
+        <a href="{{ route('homepage') }}" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Home</p>
         </a>
-        <a href="{{route('shops')}}" class="sticky-link">
+        <a href="{{ route('shops') }}" class="sticky-link">
             <i class="w-icon-category"></i>
             <p>Shop</p>
         </a>
@@ -326,7 +326,7 @@
         <!-- End of .mobile-menu-close -->
 
         <div class="mobile-menu-container scrollable">
-            <form action="{{route('shops')}}" method="get" class="input-wrapper">
+            <form action="{{ route('shops') }}" method="get" class="input-wrapper">
                 <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
                     required />
                 <button class="btn btn-search" type="submit">
@@ -347,61 +347,57 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
-                        <li><a href="{{route('homepage')}}">Home</a></li>
+                        <li><a href="{{ route('homepage') }}">Home</a></li>
                         <li>
-                            <a href="{{route('shops')}}">Shop</a>
-                         
+                            <a href="{{ route('shops') }}">Shop</a>
+
                         </li>
                         <li>
-                            <a href="{{route('vendors')}}">Vendors</a>
-                       
+                            <a href="{{ route('vendors') }}">Vendors</a>
+
                         </li>
-               
+
                         <li>
                             <a href="#">
-                               User 
+                                User
 
                             </a>
                             <ul>
-                                @if(!auth()->check())
-                                <li><a href="{{route('login')}}">Login</a></li>
-                                <li><a href="{{route('register')}}">Register as a user</a></li>
-                                <li><a href="{{route('vendor.create')}}">Register as a vendor</a></li>
-                                @elseif(auth()->user()->role_id==3)
-                                <li><a href="{{route('vendor.dashboard')}}">My Account</a></li>
-                                
-                                <li>
-                                    <form action="{{ route('logout') }}" method="post">
-                                        @csrf
-                                        <button type="submit" class=" ml-4 "
-                                            style="font-size: small">
-                                            Logout</button>
-        
-                                    </form>
-                                </li>
-                   
-                                @elseif(auth()->user()->role_id==1)
-                                <li><a href="{{url('/admin')}}">My Account</a></li>
-                                <li>
-                                    <form action="{{ route('logout') }}" method="post">
-                                        @csrf
-                                        <button type="submit" class=" ml-4 "
-                                            style="font-size: small">
-                                            Logout</button>
-        
-                                    </form>
-                                </li>
+                                @if (!auth()->check())
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                    <li><a href="{{ route('register') }}">Register as a user</a></li>
+                                    <li><a href="{{ route('vendor.create') }}">Register as a vendor</a></li>
+                                @elseif(auth()->user()->role_id == 3)
+                                    <li><a href="{{ route('vendor.dashboard') }}">My Account</a></li>
+
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button type="submit" class=" ml-4 " style="font-size: small">
+                                                Logout</button>
+
+                                        </form>
+                                    </li>
+                                @elseif(auth()->user()->role_id == 1)
+                                    <li><a href="{{ url('/admin') }}">My Account</a></li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button type="submit" class=" ml-4 " style="font-size: small">
+                                                Logout</button>
+
+                                        </form>
+                                    </li>
                                 @else
-                                <li><a href="{{route('user.dashboard')}}">My Account</a></li>
-                                <li>
-                                    <form action="{{ route('logout') }}" method="post">
-                                        @csrf
-                                        <button type="submit" class=" ml-4 "
-                                            style="font-size: small">
-                                            Logout</button>
-        
-                                    </form>
-                                </li>
+                                    <li><a href="{{ route('user.dashboard') }}">My Account</a></li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button type="submit" class=" ml-4 " style="font-size: small">
+                                                Logout</button>
+
+                                        </form>
+                                    </li>
                                 @endif
                             </ul>
                         </li>
