@@ -44,7 +44,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
         /* Dropdown button */
         .dropdown .wishlist.label-down.link.d-xs-show {
@@ -946,7 +946,7 @@
         });
     </script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr.js') }}"></script>
     <script>
         toastr.options = {
             "newestOnTop": true,
