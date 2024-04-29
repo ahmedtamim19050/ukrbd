@@ -48,9 +48,7 @@ class PageController extends Controller
         });
 
         $latest_shops = Cache::remember('latest_shops', 3600, function () {
-            return Shop::where("status", 1)->whereHas('products', function ($query) {
-                $query->whereNull('parent_id');
-            })->latest()->limit(8)->get();
+            return Shop::where("status", 1)->latest()->limit(8)->get();
         });
 
         $prodcats = Cache::remember('product_categories', 3600, function () {
