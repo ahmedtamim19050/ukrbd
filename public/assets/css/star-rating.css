@@ -55,7 +55,7 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    width: 130px;
+    /* width: 130px; */
 }
 .rating-container .rating-input {
     position: absolute;
