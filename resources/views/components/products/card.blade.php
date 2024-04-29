@@ -11,7 +11,7 @@
                     <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
                     <button type="submit" class="btn-product-icon btn-cart w-icon-cart cart-store"
-                        data-product-id="{{ $product->id }}" title="Add to cart"></button>
+                        style="cursor: pointer" data-product-id="{{ $product->id }}" title="Add to cart"></button>
                 </form>
                 <a href="javascript:void(0)" onclick="wishlist({{ $product->id }})"
                     class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
