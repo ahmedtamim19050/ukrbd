@@ -8,7 +8,7 @@
                         <div class=" shadow bg-white p-2" style="border-radius: 12px;">
                             <div class="d-flex justify-content-between mb-4">
                                 {{-- <i class="fas fa-chart-pie"></i> --}}
-                                <div class="ec-select-inner dashboard-short-card-dropdown">
+                                <div class="ec-select-inner dashboard-short-card-dropdown w-100">
                                     <select onchange="filterSecond(this.value,'sales')" class="p-0 form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
 
@@ -33,7 +33,7 @@
                             <div class="d-flex justify-content-between mb-4">
                                 <i class="fa-solid fa-user-group dashboard-icon-btn pt-2"></i>
 
-                                <div class="ec-select-inner dashboard-short-card-dropdown">
+                                <div class="ec-select-inner dashboard-short-card-dropdown w-100">
                                     <select onchange="filterSecond(this.value,'customers')" class="p-0 form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
 
@@ -62,7 +62,7 @@
                                 <i class="fa-solid fa-bag-shopping dashboard-icon-btn pt-2"></i>
 
 
-                                <div class="ec-select-inner dashboard-short-card-dropdown">
+                                <div class="ec-select-inner dashboard-short-card-dropdown w-100">
                                     <select onchange="filterSecond(this.value,'orders')" class="p-0 form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
                                         <option value="">Choose..</option>
