@@ -77,7 +77,7 @@ class PageController extends Controller
     {
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
-        })->filter()->paginate(3);
+        })->filter()->paginate(12);
 
 
         $categories = Prodcat::has('products')->whereNull('parent_id')->latest()->get();
