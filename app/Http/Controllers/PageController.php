@@ -25,7 +25,7 @@ class PageController extends Controller
         $bestSellingCategories = Cache::remember('best_selling_categories', 3600, function () {
             return Prodcat::with(['products' => function ($query) {
                 $query->orderBy('total_sale', 'desc');
-            }])->take(3)->get();
+            }])->take(7)->get();
         });
 
         $latest_products = Cache::remember('latest_products', 3600, function () {
