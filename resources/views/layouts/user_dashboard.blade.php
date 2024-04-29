@@ -9,7 +9,6 @@
 
     @section('content')
 
-    <x-app.header />
     <x-app.breadcrumb />
 
 

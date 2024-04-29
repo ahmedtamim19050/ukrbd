@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/order_page.css') }}">
 @endsection
 @section('content')
-    <x-app.header />
+
     <!-- Product area start -->
     <div class="container">
         <div class="col-12">
