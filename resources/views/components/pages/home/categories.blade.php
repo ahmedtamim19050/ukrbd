@@ -53,7 +53,7 @@
                                 height="130">
                         </a>
                         <div class="category-content">
-                            <h4 class="category-name text-white">{{ $category->name }}</h4>
+                            <h4 class="category-name text-dark">{{ $category->name }}</h4>
                             <a href="javascript:void(0)"
                                 onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
                                 class="btn btn-warning btn-link btn-underline">Shop

@@ -53,7 +53,8 @@
                                                 <p>Email: {{ Auth::user()->email }}</p>
 
                                                 <p>Phone:
-                                                    @if (Auth::check() && !empty(Auth::user()->phone))
+                                                  
+                                                    @if (Auth::check() && Auth::user()->phone != null)
                                                         {{ Auth::user()->phone }}
                                                     @else
                                                         <a href="{{ route('user.update_profile') }}"

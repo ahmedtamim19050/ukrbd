@@ -44,7 +44,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/star-rating.css') }}">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
         /* Dropdown button */
         .dropdown .wishlist.label-down.link.d-xs-show {
@@ -83,6 +83,28 @@
 
         .dropdown-menu .dropdown-item.wishlist-label.d-lg-show:hover {
             background-color: #f8f9fa;
+        }
+
+        .logout-button {
+            border-radius: 0;
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            overflow: visible;
+            text-transform: none;
+            -webkit-appearance: button;
+            -webkit-transition: all 0.3s ease 0s;
+            transition: all 0.3s ease 0s;
+            text-decoration: none;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #f8f9fa;
+            color: #007cc;
         }
     </style>
     {{ $css ?? null }}
@@ -373,7 +395,8 @@
                                     <li>
                                         <form action="{{ route('logout') }}" method="post">
                                             @csrf
-                                            <button type="submit" class=" ml-4 " style="font-size: small">
+                                            <button type="submit" class="logout-button ml-4 "
+                                                style="font-size: small">
                                                 Logout</button>
 
                                         </form>
@@ -946,7 +969,7 @@
         });
     </script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr.js') }}"></script>
     <script>
         toastr.options = {
             "newestOnTop": true,

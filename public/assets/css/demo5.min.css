@@ -5453,8 +5453,8 @@ blockquote {
 }
 .category img {
   display: block;
-  width: 100%;
-  height: auto;
+  width: 100px;
+  height: 100px;
   margin-left: auto;
   margin-right: auto;
 }

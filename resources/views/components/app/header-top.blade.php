@@ -39,34 +39,33 @@
                     <i class="w-icon-user" style="font-weight: 600;"></i>
                     <span class="wishlist-label d-lg-show">user</span>
                 </button>
-                <div class="dropdown-menu " style="width: 165px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px">
+                <div class="dropdown-menu "
+                    style="width: 165px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px">
                     @if (auth()->check())
                         @if (auth()->user()->role_id == 2)
                             <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('user.dashboard') }}"
                                 style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show"
-                                    style="font-size: small">
+                                <button type="submit" class="logout-button" style="font-size: small">
                                     Logout</button>
 
                             </form>
                         @elseif(auth()->user()->role_id == 3)
-                            <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('vendor.dashboard') }}"
-                                style="font-size: small">My Account</a>
+                            <a class="dropdown-item wishlist-label d-lg-show pt-2"
+                                href="{{ route('vendor.dashboard') }}" style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show bg-none border-0"
-                                    style="font-size: small">
+                                <button type="submit" class="logout-button" style="font-size: small">
                                     Logout</button>
 
                             </form>
                         @elseif(auth()->user()->role_id == 1)
-                            <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('vendor.dashboard') }}"
-                                style="font-size: small">My Account</a>
+                            <a class="dropdown-item wishlist-label d-lg-show pt-2"
+                                href="{{ route('vendor.dashboard') }}" style="font-size: small">My Account</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit" class="dropdown-item wishlist-label d-lg-show bg-none border-0 m-2"
+                                <button type="submit" class="logout-button"
                                     style="font-size: small;background:none;border:none">
                                     Logout</button>
 
@@ -79,7 +78,7 @@
                             style="font-size: small">Register as user</a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
-                       
+
                     @endif
                 </div>
             </div>
