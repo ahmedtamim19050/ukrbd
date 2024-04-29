@@ -1,6 +1,6 @@
 <x-seller>
     <div class="ec-shop-rightside col-lg-9 col-md-12">
-      
+
         <div class="row mb-4">
             <div class="col-md-10">
                 <div class="row">
@@ -8,19 +8,24 @@
                         <div class=" shadow bg-white p-2" style="border-radius: 12px;">
                             <div class="d-flex justify-content-between mb-4">
                                 {{-- <i class="fas fa-chart-pie"></i> --}}
-                                <div class="ec-select-inner dashboard-short-card-dropdown">
-                                    <select  onchange="filterSecond(this.value,'sales')" class="p-0" name="ec-select" id="ec-select" style="font-weight: 600;">
+                                <div class="ec-select-inner dashboard-short-card-dropdown w-100">
+                                    <select onchange="filterSecond(this.value,'sales')" class="p-0 form-select"
+                                        name="ec-select" id="ec-select" style="font-weight: 600;">
 
                                         <option value="">Choose..</option>
-                                        <option  {{ request('sales')==1 ? 'selected' : '' }} value="1">This Week</option>
-                                        <option  {{ request('sales')==2 ? 'selected' : '' }} value="2">This Year</option>
-                                        <option  {{ request('sales')==3 ? 'selected' : '' }} value="3">This Day</option>
+                                        <option {{ request('sales') == 1 ? 'selected' : '' }} value="1">This Week
+                                        </option>
+                                        <option {{ request('sales') == 2 ? 'selected' : '' }} value="2">This Year
+                                        </option>
+                                        <option {{ request('sales') == 3 ? 'selected' : '' }} value="3">This Day
+                                        </option>
 
                                     </select>
                                 </div>
                             </div>
                             <span class="" style="color:#8B8D97;font-size:14px; ">Sales</span>
-                            <p style="color: #45464E;font-size: 20px;font-weight: 500;">{{ Sohoj::price($totalSell) }}</p>
+                            <p style="color: #45464E;font-size: 20px;font-weight: 500;">{{ Sohoj::price($totalSell) }}
+                            </p>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -28,13 +33,20 @@
                             <div class="d-flex justify-content-between mb-4">
                                 <i class="fa-solid fa-user-group dashboard-icon-btn pt-2"></i>
 
-                                <div class="ec-select-inner dashboard-short-card-dropdown">
-                                    <select onchange="filterSecond(this.value,'customers')" class="p-0" name="ec-select" id="ec-select" style="font-weight: 600;">
+                                <div class="ec-select-inner dashboard-short-card-dropdown w-100">
+                                    <select onchange="filterSecond(this.value,'customers')" class="p-0 form-select"
+                                        name="ec-select" id="ec-select" style="font-weight: 600;">
 
                                         <option value="">Choose..</option>
-                                        <option  {{ request('customers')==1 ? 'selected' : '' }} value="1">This Week</option>
-                                        <option  {{ request('customers')==2 ? 'selected' : '' }} value="2">This Year</option>
-                                        <option  {{ request('customers')==3 ? 'selected' : '' }} value="3">This Day</option>
+                                        <option {{ request('customers') == 1 ? 'selected' : '' }} value="1">This
+                                            Week
+                                        </option>
+                                        <option {{ request('customers') == 2 ? 'selected' : '' }} value="2">This
+                                            Year
+                                        </option>
+                                        <option {{ request('customers') == 3 ? 'selected' : '' }} value="3">This
+                                            Day
+                                        </option>
 
                                     </select>
                                 </div>
@@ -50,23 +62,27 @@
                                 <i class="fa-solid fa-bag-shopping dashboard-icon-btn pt-2"></i>
 
 
-                                <div class="ec-select-inner dashboard-short-card-dropdown">
-                                    <select onchange="filterSecond(this.value,'orders')" class="p-0" name="ec-select" id="ec-select" style="font-weight: 600;">
+                                <div class="ec-select-inner dashboard-short-card-dropdown w-100">
+                                    <select onchange="filterSecond(this.value,'orders')" class="p-0 form-select"
+                                        name="ec-select" id="ec-select" style="font-weight: 600;">
                                         <option value="">Choose..</option>
-                                        <option {{ request('orders')==1 ? 'selected' : '' }} value="1">This Week</option>
-                                        <option {{ request('orders')==2 ? 'selected' : '' }} value="2">This Year</option>
-                                        <option {{ request('orders')==3 ? 'selected' : '' }} value="3">This Day</option>
+                                        <option {{ request('orders') == 1 ? 'selected' : '' }} value="1">This Week
+                                        </option>
+                                        <option {{ request('orders') == 2 ? 'selected' : '' }} value="2">This Year
+                                        </option>
+                                        <option {{ request('orders') == 3 ? 'selected' : '' }} value="3">This Day
+                                        </option>
 
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 @php
-                                  
+
                                     $allOrders = App\Models\Order::where('shop_id', auth()->user()->shop->id)
-                                    ->countFilter()
-                                    ->count('id');
-                                    $pendingOrders =App\Models\Order::where('status', 0)
+                                        ->countFilter()
+                                        ->count('id');
+                                    $pendingOrders = App\Models\Order::where('status', 0)
                                         ->where('shop_id', auth()->user()->shop->id)
                                         ->countFilter()
                                         ->count('id');
@@ -81,11 +97,13 @@
                                 </div>
                                 <div class="col-4">
                                     <span class="" style="color:#8B8D97;font-size:14px; ">Pending</span>
-                                    <p style="color: #45464E;font-size: 20px;font-weight: 500;">{{ $pendingOrders }}</p>
+                                    <p style="color: #45464E;font-size: 20px;font-weight: 500;">{{ $pendingOrders }}
+                                    </p>
                                 </div>
                                 <div class="col-4">
                                     <span class="" style="color:#8B8D97;font-size:14px; ">Completed</span>
-                                    <p style="color: #45464E;font-size: 20px;font-weight: 500;">{{ $completeOrders }}</p>
+                                    <p style="color: #45464E;font-size: 20px;font-weight: 500;">{{ $completeOrders }}
+                                    </p>
                                 </div>
                             </div>
 
@@ -108,9 +126,9 @@
         </div>
         <div class="row mb-4">
             <div class="col-md-7 ">
-            <div class="container">
-        <canvas id="ordersChart"></canvas>
-    </div>
+                <div class="container">
+                    <canvas id="ordersChart"></canvas>
+                </div>
                 <!-- <table class="table table-dark table-borderless ">
                     <thead>
                         <tr>
@@ -175,14 +193,15 @@
                     @foreach ($offers as $offer)
                         <div class="row border-bottom ">
                             <div class="col-md-8 d-flex  align-items-center">
-                                <img src="{{ Voyager::image($offer->product->image) }}" width="65" height="70"
-                                    alt="">
+                                <img src="{{ Voyager::image($offer->product->image) }}" width="65"
+                                    height="70" alt="">
                                 <div class="p-1">
                                     <p>{{ $offer->user->name }}</p>
                                     <span>{{ $offer->product->name }}</span>
                                 </div>
                             </div>
-                            <div class="col-md-4 d-flex align-items-end"><span>{{ Sohoj::price($offer->price) }}</span>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <span>{{ Sohoj::price($offer->price) }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -199,16 +218,15 @@
                                 <input type="text" name="order_search" class="form-control" style="height: 10px"
                                     placeholder="Search product">
 
-                                <button type="submit" class=" btn border btn-outline-dark "
+                                <button type="submit" class=" btn border btn-dark "
                                     style="margin-right: 0 !important" id="basic-addon2">Search</button>
 
                             </div>
                         </div>
                     </form>
                     <div class="ec-header-bt">
-                        <a class="btn border btn-outline-dark me-3"
-                            
-                            href="{{ route('vendor.ordersIndex') }}"><i class="fi-rr-calendar-lines"></i> View
+                        <a class="btn border btn-outline-dark me-3" href="{{ route('vendor.ordersIndex') }}"><i
+                                class="fi-rr-calendar-lines"></i> View
                             All</a>
                     </div>
 
@@ -222,7 +240,7 @@
                             <tr>
                                 <th scope="col">Customer Name</th>
                                 <th scope="col">Contact</th>
-                               
+
                                 <th scope="col">Tracking Number</th>
                                 <th scope="col">Order Total</th>
                                 <th scope="col">Order Date</th>
@@ -233,12 +251,11 @@
                         </thead>
                         <tbody>
                             @foreach ($latest_orders as $order)
-                            
                                 <tr>
                                     <th scope="row"><span>{{ $order->full_name }}</span></th>
                                     <th scope="row"><span>{{ $order->email }}</span></th>
 
-                                    
+
                                     <td><span>{{ $order->transaction_id }}</span></td>
                                     <td><span>{{ Sohoj::price($order->total + $order->platform_fee) }}</span></td>
                                     <td><span>{{ $order->created_at }}</span></td>
@@ -313,12 +330,12 @@
 
     </div>
     <script>
-        function filterSecond(e,peram) {
+        function filterSecond(e, peram) {
             var currentUrl = window.location.href;
             var url = new URL(currentUrl);
 
             url.searchParams.set(peram, e);
-             console.log(e);
+            console.log(e);
 
             //price
             var newUrl = url.href;
@@ -328,14 +345,14 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var orders = @json($last15daysorders);
 
             // Process the orders data and format it as required by Chart.js
             var labels = orders.map(order => order.formatted_date);
             var data = orders.map(order => order.order_count);
-           
+
             var ctx = document.getElementById('ordersChart').getContext('2d');
             var chart = new Chart(ctx, {
                 type: 'bar',

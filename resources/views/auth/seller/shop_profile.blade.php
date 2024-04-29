@@ -1,10 +1,12 @@
 <x-seller>
+
     <div class="ec-shop-rightside col-lg-9 col-md-12" style="position: relative;">
         <div class="ec-vendor-dashboard-card ec-vendor-profile-card">
             @if (auth()->user()->shop)
                 @if (auth()->user()->shop->status == 0)
                     <div class="card-header text-center">
-                        <span style="color: red">Your shop is pending approval. We'll notify you once it's approved.</span>
+                        <span style="color: red">Your shop is pending approval. We'll notify you once it's
+                            approved.</span>
                     </div>
                 @endif
             @endif
@@ -14,11 +16,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="ec-vendor-block-profile">
-                            <img src="{{ auth()->user()->shop ? Voyager::image(auth()->user()->shop->banner) : asset('assets/img/1.jpg') }}"
-                                alt=""
-                                style="    height: 190px;
-                                    width: 100%;"
-                                class="img-fluid">
+                            <div class="vendor-block-bg"></div>
                             <a href="javascript:void(0)" class="shadow-lg"
                                 style="position: absolute; top:0px; right:20px; background-color: #fff; border-radius:50%;padding:10px 0"
                                 data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3">
@@ -29,8 +27,9 @@
                                     <div style="position: relative;">
 
                                         <img class="v-img img-fluid"
-                                            src="{{ auth()->user()->shop ? Voyager::image(auth()->user()->shop->logo) : asset('assets/img/heaer.jpg') }}"
+                                            src="{{ auth()->user()->shop && auth()->user()->shop->logo ? Voyager::image(auth()->user()->shop->logo) : asset('seller-assets/images/2.jpg') }}"
                                             alt="vendor image">
+
                                         <a href="javascript:void(0)" class="shadow-lg"
                                             style="position: absolute; top:-59px; right:-21px; background-color: #fff; border-radius:50%;padding:10px 0"
                                             data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3">
@@ -49,7 +48,8 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" name="name"
                                         value="{{ auth()->user()->shop && auth()->user()->shop->name ? auth()->user()->shop->name : old('name') }}"
-                                        class="form-control @error('name') is-invalid @enderror" id="name" required>
+                                        class="form-control @error('name') is-invalid @enderror" id="name"
+                                        required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -96,7 +96,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                               
+
                                 {{-- <div class="col-md-6 mb-2">
                                     <label for="inputEmail4" class="form-label">Shop Tags <span>( Type and
                                             make comma to separate tags And Use Three word to describe your shop
@@ -113,8 +113,9 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="inputEmail4" class="form-label">Company Name<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('company_name') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_name &&  auth()->user()->shop->company_name ? auth()->user()->shop->company_name : old('company_name') }}"
+                                    <input type="text"
+                                        class="form-control @error('company_name') is-invalid @enderror"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_name && auth()->user()->shop->company_name ? auth()->user()->shop->company_name : old('company_name') }}"
                                         name="company_name" id="company_name" required>
                                     @error('company_name')
                                         <span class="invalid-feedback" role="alert">
@@ -127,7 +128,7 @@
                                             class="text-danger">*</span></label>
                                     <input type="text"
                                         class="form-control @error('company_registration') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_registration  ? auth()->user()->shop->company_registration : old('company_registration') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_registration ? auth()->user()->shop->company_registration : old('company_registration') }}"
                                         name="company_registration" id="company_registration" required>
                                     @error('company_registration')
                                         <span class="invalid-feedback" role="alert">
@@ -156,7 +157,7 @@
                                     <label for="inputCity" class="form-label">City<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('city') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop &&  auth()->user()->shop->city ? auth()->user()->shop->city : old('city') }}"
+                                        value="{{ auth()->user()->shop && auth()->user()->shop->city ? auth()->user()->shop->city : old('city') }}"
                                         name="city" id="city" required>
                                     @error('city')
                                         <span class="invalid-feedback" role="alert">
@@ -180,7 +181,7 @@
                                 <div class="col-12 mb-3">
                                     <label for="inputAddress2" class="form-label">About Shop<span
                                             class="text-danger">*</span></label>
-                                    <textarea id="description" required maxlength="1000" name="description" cols="20" rows="10" required>{{ auth()->user()->shop && auth()->user()->shop->description ? auth()->user()->shop->description: old('description') }}</textarea>
+                                    <textarea id="description" required maxlength="1000" name="description" cols="20" rows="10" required>{{ auth()->user()->shop && auth()->user()->shop->description ? auth()->user()->shop->description : old('description') }}</textarea>
                                     <span id="descriptionCharCount">Characters left: 1000</span>
                                 </div>
                                 <div class="col-12 mt-3 d-flex justify-content-end">
