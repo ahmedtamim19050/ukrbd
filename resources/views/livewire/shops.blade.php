@@ -3,7 +3,7 @@
     @if ($shop->products->count())
     <div class="row mb-4">
         <div class="col-md-3">
-            <x-shops-card.card-1 :shop="$shop" />
+
         </div>
         <div class="col-md-9">
             <div class="ec-spe-products">
@@ -16,12 +16,7 @@
                             $last = $loop->last;
                             $count = $shop->products->count();
                             @endphp
-                            @foreach ($products as $product)
-                            <x-products.product-4 :product="$product" />
-
-
-
-                            @endforeach
+                      
 
                             @if($last && $count >=8)
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 pro-gl-content d-flex align-items-center" style="margin-bottom: 35px;">

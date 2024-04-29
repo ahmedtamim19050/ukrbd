@@ -7,7 +7,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/checkout.css') }}"> --}}
 @endsection
 @section('content')
-    <x-app.header />
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
