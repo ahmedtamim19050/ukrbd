@@ -261,7 +261,7 @@
                                   
                                             <a class="btn btn-sm btn-warning pull-right view" href="{{route('store_front',$data->slug)}}"><i class="voyager-eye"></i><span class="hidden-xs hidden-sm " style="margin-left: 5px;">View</span></a>
                                             <a class="btn btn-sm btn-dark pull-right view " style="margin-right: 5px;" href="{{route('admin.shop.active',$data)}}"><span class="hidden-xs hidden-sm " style="margin-left: 5px;">{{ $data->status==0 ?  'Active' :'Deactive' }}</span></a>
-                                            <a class="btn btn-sm {{ $data->user->ffl==0 ? 'btn-primary' : 'btn-info' }}  pull-right view " style="margin-right: 5px;" href="{{route('admin.shop.freeforlife',$data)}}"><span class="hidden-xs hidden-sm " style="margin-left: 5px;">{{ $data->user->ffl==0 ?  'Make it free' :'Back to subscription' }}</span></a>
+                                            {{-- <a class="btn btn-sm {{ $data->user->ffl==0 ? 'btn-primary' : 'btn-info' }}  pull-right view " style="margin-right: 5px;" href="{{route('admin.shop.freeforlife',$data)}}"><span class="hidden-xs hidden-sm " style="margin-left: 5px;">{{ $data->user->ffl==0 ?  'Make it free' :'Back to subscription' }}</span></a> --}}
 
                                         </td>
                                     </tr>
