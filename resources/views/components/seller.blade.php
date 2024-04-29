@@ -4,14 +4,26 @@
 
 
 <title>UKR | Dashboard</title>
-<link rel="stylesheet" href="{{asset('seeler-assets/css/vendor/ecicons.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('seeler-assets/css/vendor/ecicons.min.css') }}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('seller-assets/css/plugins/bootstrap.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/responsive.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/style.css') }}" />
 <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-{{ $css ?? null}}
-
+{{ $css ?? null }}
+<style>
+    .vendor-block-bg {
+        width: 100%;
+        height: 200px;
+        background-image: url("{{ auth()->user()->shop && auth()->user()->shop->banner ? Voyager::image(auth()->user()->shop->banner) : asset('seller-assets/images/7.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-blend-mode: overlay;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 5px;
+    }
+</style>
 </head>
 
 <body class="shop_page">
@@ -86,15 +98,15 @@
         </div>
     </div>
 
-     @stack('js')
-    <script src="{{asset('seller-assets/js/main.js')}}"></script>
+    @stack('js')
+    <script src="{{ asset('seller-assets/js/main.js') }}"></script>
     <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <x-alert :exclude="[route('user.update_profile')]" />
     <script src="{{ asset('seller-assets/js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('seller-assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
 
 
-    
+
 
     <script>
         $(document).ready(function() {
@@ -104,7 +116,7 @@
             $('.toast').toast('hide');
         })
     </script>
-    {{$js ?? null}}
+    {{ $js ?? null }}
 </body>
 
 
