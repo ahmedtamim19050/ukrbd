@@ -113,7 +113,7 @@
                                             <figure class="product-image">
                                                 <img src="{{ Voyager::image($product->image) }}"
                                                     data-zoom-image="{{ Voyager::image($product->image) }}"
-                                                    alt="Electronics Black Wrist Watch" width="800" height="900">
+                                                    alt="Electronics Black Wrist Watch" width="800" height="549">
                                             </figure>
                                         </div>
                                         @if ($images)
