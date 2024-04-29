@@ -218,14 +218,14 @@
                                 <input type="text" name="order_search" class="form-control" style="height: 10px"
                                     placeholder="Search product">
 
-                                <button type="submit" class=" btn border btn-outline-dark "
+                                <button type="submit" class=" btn border btn-dark "
                                     style="margin-right: 0 !important" id="basic-addon2">Search</button>
 
                             </div>
                         </div>
                     </form>
                     <div class="ec-header-bt">
-                        <a class="btn border btn-dark me-3" href="{{ route('vendor.ordersIndex') }}"><i
+                        <a class="btn border btn-outline-dark me-3" href="{{ route('vendor.ordersIndex') }}"><i
                                 class="fi-rr-calendar-lines"></i> View
                             All</a>
                     </div>
