@@ -28,7 +28,7 @@ class Products extends AbstractWidget
         $string = trans_choice('Products', $count);
 
         return view('voyager::dimmer', array_merge($this->config, [
-            'icon'   => 'voyager-bag',
+            'icon'   => 'voyager-basket',
             'title'  => "{$count} {$string}",
             'text'   => __("You have $count  $string in your database. Click on button below to view all $string."),
             'button' => [

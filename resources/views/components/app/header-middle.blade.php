@@ -29,28 +29,19 @@
                                         <ul class="megamenu">
                                             @foreach ($category->childrens as $item)
                                                 <li>
-                                                    @if ($item->childrens->count() > 0)
-                                                        <h4 class="menu-title">
-                                                            <!-- Also update the parent item's link if they have children -->
-                                                            <a id="categoryId" class="nav-link menu-item-line"
-                                                                href="javascript:void(0)"
-                                                                onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
-                                                                {{ $item->name }}
-                                                            </a>
-                                                        </h4>
-                                                    @else
-                                                        <!-- Update the link here for leaf node items -->
-                                                        <a id="categoryId" class="nav-link menu-item-line"
+                                                   
+                                                            <a id="categoryId" class="menu-item-line" style="font-weight: 400"
                                                             href="javascript:void(0)"
                                                             onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
                                                             {{ $item->name }}
                                                         </a>
-                                                    @endif
-                                                    <hr class="divider">
-                                                    @if ($item->childrens)
-                                                        <x-categories.child :childs="$item->childrens" :route="$route" />
-                                                    @endif
-                                                </li>
+                                                        </li>
+                                                   
+                                                
+                                                       
+                                               
+                                                
+                                              
                                             @endforeach
                                         </ul>
                                     </li>

@@ -91,8 +91,8 @@ class SellerPagesController extends Controller
     public function setting()
     {
 
-        $status = $this->subscriptionStatus();
-        return view('auth.seller.setting', compact('status'));
+        // $status = $this->subscriptionStatus();
+        return view('auth.seller.setting');
     }
     function ChangePassword(Request $request)
     {
@@ -484,18 +484,18 @@ class SellerPagesController extends Controller
             return redirect()->back()->withErrors($e->getMessage());
         }
     }
-    public function subscriptionStatus()
-    {
+    // public function subscriptionStatus()
+    // {
 
 
-        $getSubscription = auth()->user()->getSubscription();
-        if ($getSubscription->stripe_status !== 'active' || $getSubscription->ends_at !== null) {
-            $status = false;
-        } else {
-            $status = true;
-        }
-        return $status;
-    }
+    //     $getSubscription = auth()->user()->getSubscription();
+    //     if ($getSubscription->stripe_status !== 'active' || $getSubscription->ends_at !== null) {
+    //         $status = false;
+    //     } else {
+    //         $status = true;
+    //     }
+    //     return $status;
+    // }
 
     public function cardAdd(Request $request) {
 
