@@ -29,7 +29,7 @@ class Orders extends AbstractWidget
         $string = trans_choice('Orders', $count);
 
         return view('voyager::dimmer', array_merge($this->config, [
-            'icon'   => 'voyager-bomb',
+            'icon'   => 'voyager-credit-cards',
             'title'  => "{$count} {$string}",
             'text'   => __("You have $count  $string in your database. Click on button below to view all $string."),
             'button' => [
