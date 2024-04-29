@@ -751,7 +751,6 @@
 
     <!-- Plugin JS File -->
 
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/jquery.plugin/jquery.plugin.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/parallax/parallax.min.js') }}"></script>
@@ -770,7 +769,6 @@
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/star-rating.js') }}"></script>
     <script src="{{ asset('assets/js/filter.js') }}"></script>
-    <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     @yield('script')
     <script>
