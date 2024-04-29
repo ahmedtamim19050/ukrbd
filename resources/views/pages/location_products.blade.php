@@ -61,7 +61,7 @@
     </style>
 @endsection
 @section('content')
-    <x-app.header />
+
     <div class="">
         <div class="row justify-content-end">
             <div class="col-md-6">
@@ -148,7 +148,7 @@
                                             @foreach ($shops as $shop)
                                                 <div class="row mb-4">
                                                     <div class="col-md-3">
-                                                        <x-shops-card.card-1 :shop="$shop" />
+                                                        
                                                     </div>
                                                     <div class="col-md-9">
                                                         <div class="ec-spe-products">
@@ -162,9 +162,7 @@
                                                                                 $last = $loop->last;
                                                                                 $count = $items[0]->shop->products->count();
                                                                             @endphp --}}
-                                                                            @foreach ($products as $product)
-                                                                                <x-products.product-4 :product="$product" />
-                                                                            @endforeach
+                                                                      
 
                                                            
 
