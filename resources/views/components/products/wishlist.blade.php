@@ -46,7 +46,7 @@
         </div>
     </div>
 </div> --}}
-<tr>
+<tr class="text-center">
     <td class="product-thumbnail">
         <div class="p-relative">
             <a href="{{ route('product_details', $product->slug) }}">
@@ -54,8 +54,7 @@
                     <img src="{{ Storage::url($product->image) }}" alt="product" width="300" height="118">
                 </figure>
             </a>
-            <button class="btn btn-close"><a
-                    href="{{ route('wishlist.remove', $product->id) }}"title="Wishlist"><i
+            <button class="btn btn-close"><a href="{{ route('wishlist.remove', $product->id) }}"title="Wishlist"><i
                         class="fas fa-times"></i></a></button>
             {{-- <a href="{{ route('wishlist.remove', $product->id) }}" class="btn btn-close" title="Wishlist"><i
                     class="fas fa-times"></i></a> --}}
@@ -78,21 +77,16 @@
         @endif
     </td>
     <td class="wishlist-action">
-        <div class="d-lg-flex">
-            <a href="JavaScript:void(0)" onclick="quickView({{ $product->id }})"
+        <div class="d-lg-flex justify-content-center">
+            {{-- <a href="JavaScript:void(0)" onclick="quickView({{ $product->id }})"
                 class="btn btn-quickview btn-outline btn-default btn-rounded btn-sm mb-2 mb-lg-0"><i
                     class="far fa-eye"></i> Quick
-                View </a>
-            
-            <form class="addToCartForm_{{ $product->id }}">
-                @csrf
-                <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
-                <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                <button class="btn btn-dark btn-rounded btn-sm ml-lg-2 btn-cart" type="submit"
-                    data-product-id="{{ $product->id }}"><i class="fas fa-cart-plus"></i> Add to
-                    cart
+                View </a> --}}
 
-                </button>
+            <form action="{{ route('wishlistToCart', $product) }}" method="GET">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <button type="submit" class="btn btn-dark"><i class="fas fa-cart-plus"></i> Move to Cart</button>
             </form>
             {{-- <a href="#" class="btn btn-dark btn-rounded btn-sm ml-lg-2 btn-cart">Add to
                 cart</a> --}}

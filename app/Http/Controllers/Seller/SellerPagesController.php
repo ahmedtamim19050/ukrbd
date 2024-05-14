@@ -153,6 +153,7 @@ class SellerPagesController extends Controller
             'state' => $request->state,
             'post_code' => $request->post_code,
             'country' => $request->country,
+            'status' => 1,
 
         ]);
 

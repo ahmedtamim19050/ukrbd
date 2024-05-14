@@ -31,7 +31,7 @@
                 position: absolute;
                 opacity: 0;
                 left: 24px;
-
+           
             }
 
             input[type="radio"]+label {
@@ -55,8 +55,7 @@
                 background-color: #4CACF7;
                 /* Change background color when checked */
             }
-
-            .rating-container .rating-stars {
+            .rating-container .rating-stars{
                 height: 20px;
             }
         </style>
@@ -111,10 +110,10 @@
                                 }">
                                     <div class="swiper-wrapper row cols-1 gutter-no">
                                         <div class="swiper-slide">
-                                            <figure class="product-image" style="height: 500px;">
+                                            <figure class="product-image">
                                                 <img src="{{ Voyager::image($product->image) }}"
                                                     data-zoom-image="{{ Voyager::image($product->image) }}"
-                                                    alt="Electronics Black Wrist Watch" width="800" height="900">
+                                                    alt="Electronics Black Wrist Watch" width="800" height="549">
                                             </figure>
                                         </div>
                                         @if ($images)
@@ -144,19 +143,21 @@
                                     }
                                 }">
                                     <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
+                                        <div class="product-thumb swiper-slide"  style="height: 110px">
+                                            <img src="{{ Voyager::image($product->image) }}" alt="Product Thumb"
+                                            style="height: 100%">
+                                        </div>
+                                        
                                         @if ($images)
                                             @foreach ($images as $image)
-                                                <div class="product-thumb swiper-slide" style="height: 110px">
+                                                <div class="product-thumb swiper-slide"  style="height: 110px">
                                                     <img src="{{ Voyager::image($image) }}" alt="Product Thumb"
                                                         style="height: 100%">
                                                 </div>
                                             @endforeach
                                         @endif
 
-                                        <div class="product-thumb swiper-slide" style="height: 110px">
-                                            <img src="{{ Voyager::image($product->image) }}" alt="Product Thumb"
-                                                style="height: 100%">
-                                        </div>
+                                      
 
                                     </div>
                                     <button class="swiper-button-next"></button>
@@ -196,10 +197,8 @@
                                         class="new-price">{{ Sohoj::price($product->price) }}</ins></div>
 
                                 <div class="ratings-container">
-                                    <input value="{{ Sohoj::average_rating($product->ratings) }}"
-                                        class="rating published_rating" data-size="sm">
-                                    <a href="#product-tab-reviews"
-                                        class="rating-reviews scroll-to">{{ $product->ratings->count() }}</a>
+                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
+                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">{{$product->ratings->count()}}</a>
                                 </div>
 
                                 <div class="product-short-desc">
@@ -380,17 +379,16 @@
                             <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#product-tab-reviews" class="nav-link">Customer Reviews
-                                {{ $product->ratings->count() > 0 ? $product->ratings->count() : '' }}</a>
+                            <a href="#product-tab-reviews" class="nav-link">Customer Reviews {{ $product->ratings->count() > 0 ? $product->ratings->count() : ''  }}</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="product-tab-description">
                             <div class="row mb-4">
                                 <div class="col-md-12 mb-5">
-                                    {!! $product->description !!}
+                                    {!! $product->description!!}
                                 </div>
-
+                              
                             </div>
                             {{-- <div class="row cols-md-3">
                                 <div class="mb-3">
@@ -451,8 +449,7 @@
                                             </a>
                                         </figure>
                                         <div>
-                                            <div class="vendor-name"><a
-                                                    href="#">{{ $product->shop->user->name }}</a></div>
+                                            <div class="vendor-name"><a href="#">{{$product->shop->user->name}}</a></div>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
                                                     <span class="ratings" style="width: 90%;"></span>
@@ -465,44 +462,39 @@
                                     <ul class="vendor-info list-style-none">
                                         <li class="store-name">
                                             <label>Store Name:</label>
-                                            <span class="detail">{{ $product->shop->name }}</span>
+                                            <span class="detail">{{$product->shop->name}}</span>
                                         </li>
                                         <li class="store-address">
                                             <label>Address:</label>
-                                            <span class="detail">{{ $product->shop->post_code }},
-                                                {{ $product->shop->city }}</span>
+                                            <span class="detail">{{$product->shop->post_code}}, {{$product->shop->city}}</span>
                                         </li>
                                         <li class="store-phone">
                                             <label>Phone:</label>
-                                            <a href="#tel:">{{ $product->shop->phone }}</a>
+                                            <a href="#tel:">{{$product->shop->phone}}</a>
                                         </li>
                                         <li class="store-phone">
                                             <label>Email:</label>
-                                            <a href="#tel:">{{ $product->shop->email }}</a>
+                                            <a href="#tel:">{{$product->shop->email}}</a>
                                         </li>
                                     </ul>
-                                    <a href="{{ route('store_front', $product->shop->slug) }}"
+                                    <a href="{{route('store_front',$product->shop->slug)}}"
                                         class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
                                         Store<i class="w-icon-long-arrow-right"></i></a>
                                 </div>
                             </div>
-                            {!! $product->shop->description !!}
+                             {!! $product->shop->description !!}
                         </div>
                         <div class="tab-pane" id="product-tab-reviews">
                             <div class="row mb-4">
                                 <div class="col-xl-4 col-lg-5 mb-4">
                                     <div class="ratings-wrapper">
                                         <div class="avg-rating-container">
-                                            <h4 class="avg-mark font-weight-bolder ls-50">
-                                                {{ Sohoj::average_rating($product->ratings) }}.1</h4>
+                                            <h4 class="avg-mark font-weight-bolder ls-50">{{Sohoj::average_rating($product->ratings)}}.1</h4>
                                             <div class="avg-rating">
                                                 <p class="text-dark mb-1">Average Rating</p>
                                                 <div class="ratings-container">
-                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}"
-                                                        class="rating published_rating" data-size="sm">
-                                                    <a href="#"
-                                                        class="rating-reviews">({{ $product->ratings->count() }}
-                                                        Reviews)</a>
+                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
+                                                    <a href="#" class="rating-reviews">({{$product->ratings->count()}} Reviews)</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -575,29 +567,28 @@
                                     </div>
                                 </div>
                                 @php
-                                    $user = Auth()->id();
-                                    $rating = App\Models\Rating::where('user_id', $user)
-                                        ->where('product_id', $product->id)
-                                        ->get();
+                                $user = Auth()->id();
+                                $rating = App\Models\Rating::where('user_id', $user)
+                                ->where('product_id', $product->id)
+                                ->get();
+                           
 
                                 @endphp
                                 @if (Auth::check())
-                                    @if ($rating->count() == 0)
-                                        <div class="col-xl-8 col-lg-7 mb-4">
-                                            <div class="review-form-wrapper">
-                                                <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
-                                                    Review</h3>
-                                                <p class="mb-3">Your email address will not be published. Required
-                                                    fields are marked *</p>
-                                                <form action="{{ route('rating', ['product_id' => $product->id]) }}"
-                                                    method="POST" class="review-form">
-                                                    @csrf
-                                                    <div class="rating-form">
-                                                        <label for="rating">Your Rating Of This Product :</label>
-                                                        <input value="1" name="rating"
-                                                            class="rating product_rating" data-size="xs">
+                                @if ( $rating->count() == 0)
+                                <div class="col-xl-8 col-lg-7 mb-4">
+                                    <div class="review-form-wrapper">
+                                        <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
+                                            Review</h3>
+                                        <p class="mb-3">Your email address will not be published. Required
+                                            fields are marked *</p>
+                                        <form action="{{ route('rating', ['product_id' => $product->id]) }}" method="POST" class="review-form">
+                                            @csrf
+                                            <div class="rating-form">
+                                                <label for="rating">Your Rating Of This Product :</label>
+                                                <input value="1" name="rating" class="rating product_rating" data-size="xs">
 
-                                                        {{-- <select name="rating" id="rating" required=""
+                                                {{-- <select name="rating" id="rating" required=""
                                                     style="display: none;">
                                                     <option value="">Rate…</option>
                                                     <option value="5">Perfect</option>
@@ -606,10 +597,9 @@
                                                     <option value="2">Not that bad</option>
                                                     <option value="1">Very poor</option>
                                                 </select> --}}
-                                                    </div>
-                                                    <textarea name="review" cols="30" rows="6"
-                                                        placeholder="Write Your Review Here..." class="form-control"
-                                                        id="review"></textarea required>
+                                            </div>
+                                            <textarea name="review" cols="30" rows="6" placeholder="Write Your Review Here..." class="form-control"
+                                                id="review"></textarea required>
                                             <div class="row gutter-md">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control"
@@ -630,7 +620,7 @@
                                         </form>
                                     </div>
                                 </div>
-@endif
+                                @endif
                                 @endif
                             </div>
 
@@ -658,7 +648,8 @@
                                     <div class="tab-pane active" id="show-all">
                                         <ul class="comments list-style-none">
                                             @foreach ($product->ratings as $rating)
-<li class="comment">
+                                                
+                                            <li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
                                                         <img src="{{ asset('assets/images/agents/1-100x100.png') }}"
@@ -666,13 +657,13 @@
                                                     </figure>
                                                     <div class="comment-content">
                                                         <h4 class="comment-author">
-                                                            <a href="#">{{ $rating->name }}</a>
-                                                            <span class="comment-date">{{ $rating->created_at->format('d M, y') }}</span>
+                                                            <a href="#">{{$rating->name}}</a>
+                                                            <span class="comment-date">{{$rating->created_at->format('d M, y')}}</span>
                                                         </h4>
                                                         <div class="ratings-container comment-rating">
-                                                            <input value="{{ $rating->rating }}" class="rating published_rating" data-size="sm">
+                                                            <input value="{{$rating->rating}}" class="rating published_rating" data-size="sm">
                                                         </div>
-                                                        <p>{{ $rating->review }}</p>
+                                                        <p>{{$rating->review}}</p>
                                                         {{-- <div class="comment-action">
                                                             <a href="#"
                                                                 class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
@@ -697,7 +688,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-@endforeach
+                                            @endforeach
                                         
                                     </div>
                                 
@@ -734,8 +725,8 @@
                     }">
                         <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
                             @foreach ($related_products as $product)
-<x-products.card :product="$product" />
-@endforeach
+                                <x-products.card :product="$product" />
+                            @endforeach
 
                             <!-- End of Product Wrap -->
                         </div>

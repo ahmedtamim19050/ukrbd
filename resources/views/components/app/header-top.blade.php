@@ -27,10 +27,10 @@
             <div class="header-call d-xs-show d-lg-flex align-items-center">
                 <a href="#" class="w-icon-call"></a>
                 <div class="call-info d-lg-show">
-                    <h4 class="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
-                        <a href="#" class="text-capitalize">Call Us Now</a> :
+                    <h4 class="chat font-weight-normal font-size-md text-normal ls-normal  mb-0">
+                        Call Us Now :
                     </h4>
-                    <a href="#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
+                    <a href="tel:0(800)123-456" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
                 </div>
             </div>
             <div class="dropdown">

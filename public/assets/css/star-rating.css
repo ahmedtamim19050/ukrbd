@@ -28,7 +28,7 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    width: 180px;
+    /* width: 180px; */
 }
 .ec-t-review-rating .rating-container .rating-stars {
     position: relative;
@@ -55,7 +55,7 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    width: 130px;
+    /* width: 130px; */
 }
 .rating-container .rating-input {
     position: absolute;

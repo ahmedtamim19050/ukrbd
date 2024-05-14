@@ -8,7 +8,7 @@
         </figure>
 
         <div class="vendor-details">
-            <figure class="vendor-logo" style="background-color:#dc1921">
+            <figure class="vendor-logo" style="background-color:#fff">
                 <a href="{{ route('store_front', $shop->slug) }}">
                     <img src="{{ Voyager::image($shop->logo) }}" alt="Vendor Logo" width="90" height="90" />
                 </a>
