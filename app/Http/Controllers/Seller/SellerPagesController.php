@@ -325,6 +325,7 @@ class SellerPagesController extends Controller
 
     public function logoCover(Request $request)
     {
+        $uniqueId =substr(Str::uuid()->toString(8), 0, 10);
         if ($request->file('logo')) {
             if (auth()->user()->shop) {
                 $oldLogo = auth()->user()->shop->logo; // get the old logo file name
@@ -334,6 +335,8 @@ class SellerPagesController extends Controller
             }
             Shop::updateOrCreate(['user_id' => auth()->user()->id], [
                 'logo' => $request->logo->store("logos"),
+                'slug'=>$uniqueId,
+                
             ]);
             return back()->with('success_msg', 'Logo upload successfully');
         }
@@ -347,6 +350,7 @@ class SellerPagesController extends Controller
             }
             Shop::updateOrCreate(['user_id' => auth()->user()->id], [
                 'banner' => $request->banner->store("banners"),
+                'slug'=>$uniqueId,
             ]);
             return back()->with('success_msg', 'Banner upload successfully');
         }
