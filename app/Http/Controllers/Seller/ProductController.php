@@ -47,16 +47,14 @@ class ProductController extends Controller
 
 
                 "quantity"      => "required|integer",
-                "description"   => "required",
-                "short_description"   => "required",
+                "description"   => "nullable",
+                "short_description"   => "nullable",
 
                 "image"         => "required|mimes:jpg,jpeg,png",
                 "images.*"      => "mimes:jpg,jpeg,png",
 
                 "dimensions"    => "nullable",
                 "weight"        => "nullable",
-                "vendor_price"  => "required",
-                "post_code" => "required",
                 "options" => "nullable",
                 "sizes" => "nullable",
                 "color" => "nullable",
@@ -135,14 +133,13 @@ class ProductController extends Controller
                 "price"         => "required|regex:/^\\d*(\\.\\d{1,2})?$/",
                 "sale_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
                 "quantity"      => "required|integer",
-                "description"   => "required",
-                "short_description"   => "required",
+                "description"   => "nullable",
+                "short_description"   => "nullable",
                 // "image"         => "required|mimes:jpg,jpeg,png",
                 "images.*"      => "mimes:jpg,jpeg,png",
                 "dimensions"    => "nullable",
                 "weight"        => "nullable",
-                "vendor_price"  => "nullable",
-                "post_code" => "required",
+        
 
             ]
         );
@@ -192,9 +189,6 @@ class ProductController extends Controller
             'weight' => $request->weight,
             'dimensions' => $request->dimensions,
             'is_offer' => $request->offer,
-            'post_code'=>$request->post_code,
-            'color'=>$request->color,
-            'sizes'=>$request->sizes,
             'shipping_cost'=>$request->shipping_cost,
 
         ]);

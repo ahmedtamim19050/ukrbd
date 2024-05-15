@@ -132,24 +132,24 @@
                                             <input type="text" value="{{ $product->price }}" name="price"
                                                 class="form-control @error('price') is-invalid @enderror"
                                                 id="price">
-                                            <p class="text-danger" id="priceMassage"> </p>
+                                            <p class="text-danger" id=""> </p>
                                             @error('price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         </div>
-                                        {{-- <div class="col-md-6 mt-2">
+                                        <div class="col-md-6 mt-2">
                                         <label class="form-label">saleprice </label>
                                         <input type="text" value="{{ $product->sale_price }}" name="sale_price"
                                             class="form-control @error('sale_price') is-invalid @enderror" id="salePrice">
-                                        <p class="text-danger" id="salePriceMassage"></p>
+                                        <p class="text-danger" id=""></p>
                                         @error('sale_price')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div> --}}
+                                    </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Quantity</label>
                                             <input type="text" value="{{ $product->quantity }}" name="quantity"
@@ -235,8 +235,7 @@
                                                 Allow make offer
                                             </label>
                                         </div>
-                                        <input type="hidden" name="post_code"
-                                            value="{{ auth()->user()->shop->post_code }}">
+
                                         <div class="col-md-12 mt-2">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
