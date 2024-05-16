@@ -111,11 +111,11 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Email address *</label>
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" id="email" value="{{ old('email') }}" required
-                                        autocomplete="email" autofocus>
-                                    @error('email')
+                                    <label>Email or phone *</label>
+                                    <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                        name="username" id="email" value="{{ old('username') }}" required
+                                        autocomplete="username" autofocus>
+                                    @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

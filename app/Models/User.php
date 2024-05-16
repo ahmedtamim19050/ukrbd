@@ -19,7 +19,6 @@ class User extends \TCG\Voyager\Models\User
      * @var array<int, string>
      */
     protected $meta_attributes = [
-        "phone",
         'birth_date',
         'tax_no',
         'card_info',
@@ -38,7 +37,9 @@ class User extends \TCG\Voyager\Models\User
         'l_name',
         'email_verified_at',
         'remember_token',
-        'ffl'
+        'ffl',
+        'username',
+        'phone',
     ];
     // protected $guarded = [];
 
@@ -145,6 +146,7 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->subscription('basic')->cancel();
     }
+
 
 
     public function notifications()

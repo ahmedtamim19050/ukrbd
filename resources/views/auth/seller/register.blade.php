@@ -165,7 +165,7 @@
                               <form method="POST" action="{{ route('register') }}">
                                   @csrf
                                   <div class="form-group mb-5">
-                                      <label>First Name *</label>
+                                      <label>Name *</label>
                                       <input type="text" class="form-control @error('name') is-invalid @enderror"
                                           name="name" id="name" value="{{ old('name') }}" required
                                           autocomplete="name" autofocus>
@@ -176,20 +176,9 @@
                                       @enderror
                                   </div>
 
-                                  <div class="form-group mb-5">
-                                      <label>Last Name *</label>
-                                      <input type="text" class="form-control @error('l_name') is-invalid @enderror"
-                                          name="l_name" id="l-name" value="{{ old('l_name') }}" required
-                                          autocomplete="name" autofocus>
-                                      @error('l_name')
-                                          <span class="invalid-feedback" role="alert">
-                                              <strong>{{ $message }}</strong>
-                                          </span>
-                                      @enderror
-                                  </div>
 
                                   <div class="form-group">
-                                      <label>Your email address *</label>
+                                      <label>Your email address or Phone *</label>
                                       <input type="text" class="form-control @error('email') is-invalid @enderror"
                                           name="email" id="email" value="{{ old('email') }}" required
                                           autocomplete="email" autofocus>
