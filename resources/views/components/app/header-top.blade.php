@@ -136,7 +136,7 @@
                     <div class="">
                         <div class="cart-total">
                             <strong>Subtotal:</strong>
-                            <span class="price">${{ Cart::getSubTotal() }}</span>
+                            <span class="price">{{ Sohoj::price(Cart::getSubTotal()) }}</span>
                         </div>
 
                         <div class="cart-action justify-content-end">

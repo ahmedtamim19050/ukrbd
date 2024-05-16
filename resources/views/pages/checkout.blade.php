@@ -207,7 +207,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                 <div class="col-md-12">
+                                 <div class="col-md-6">
                                     <div class="form-group mb-7">
                                         <label>Email address *</label>
                                         <input type="email"
@@ -221,8 +221,8 @@
                                         @enderror
                                     </div>
                                  </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="form-group">
+                                <div class="col-md-6">
+                                    {{-- <div class="form-group">
                                         <label>State *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('state') is-invalid @enderror"
@@ -233,7 +233,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label>Phone *</label>
                                         <input type="text"
@@ -246,7 +246,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
 
