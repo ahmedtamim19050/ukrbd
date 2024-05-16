@@ -15,11 +15,11 @@
                 <p> Order No: {{ $order->id }}</p>
             </div>
             <div class="customer-info col-md-6">
-                <h5>AhroMart</h5>
+                <h5>UKRBD</h5>
 
-                <p>New York, USA</p>
+                <p>Barisal, Bangladesh</p>
                 {{-- <p>+1 (518) 653-8997</p> --}}
-                <p> Info@ahromart.com</p>
+                <p> Info@ukrbd.com</p>
 
             </div>
         </div>
@@ -148,7 +148,7 @@
 
 
                             </div>
-                            <span class="ms-1">Thank You! -Ahromart</span>
+                            <span class="ms-1">Thank You! -UKRBD</span>
                         </td>
                         <td class="text-end " style="text-transform:uppercase">usd</td>
                     </tr>

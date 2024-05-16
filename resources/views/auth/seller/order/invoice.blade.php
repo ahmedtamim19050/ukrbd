@@ -1,5 +1,4 @@
-@extends('layouts.seller-dashboar')
-@section('css')
+<x-seller>
     <style>
         .invoice-container {
             max-width: 700px;
@@ -110,9 +109,9 @@
             font-size: 12px
         }
     </style>
-@endsection
-@section('dashboard-content')
+
+
     <div class="ec-shop-rightside col-lg-9 col-md-12">
         <x-invoice :order="$order" />
     </div>
-@endsection
+</x-seller>

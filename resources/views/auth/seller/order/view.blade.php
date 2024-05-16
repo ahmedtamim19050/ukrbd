@@ -1,5 +1,4 @@
-@extends('layouts.seller-dashboar')
-@section('dashboard-content')
+<x-seller>
     <style>
         /* Add your custom CSS styles here */
         /* For example: */
@@ -173,12 +172,15 @@
                 <p style="font-weight: 700;font-size:16px">Customer- {{ $order->fullname }}</p>
                 <p>Date: {{ $order->created_at->format('M d,Y') }}</p>
                 <p>Order ID: {{ $order->id }}</p>
-                <p>Customer Email: {{ $order->user->email }}</p>
+                <p>Customer Email: {{ $order->shipping->email ?? null }}</p>
+                <p>Customer Phone: {{ $order->shipping->phone ?? null }}</p>
             </div>
             <div class="invoice text-end col-md-6">
-                <a href="{{ route('vendor.invoice', $order) }}" class="btn btn-dark">Invoice <i class="fa-regular fa-eye"></i>
+                <a href="{{ route('vendor.invoice', $order) }}" class="btn btn-dark">Invoice <i class="fas fa-arrow-down"></i>
                 </a>
+                @if($order->user)
                 <a href="{{route('vendor.massage',$order->user->id)}}" class="btn btn-dark">Send Massage</a>
+                @endif
             </div>
         </div>
         <div class="order-items">
@@ -373,14 +375,13 @@
             </div>
             <div class="col-md-6 text-end">
                 <span style="font-weight: 600">Shipping Address</span><br>
-
                 <span>
-                    {{ json_decode($order->shipping)->country }},
-                    {{ json_decode($order->shipping)->state }},
-                    <br>{{ json_decode($order->shipping)->city }} ,
-                    {{ json_decode($order->shipping)->address_1 }},
-                    {{ json_decode($order->shipping)->address_2 }},
-                    {{ json_decode($order->shipping)->post_code }},
+                    {{ json_decode($order->shipping)->country ?? null }},
+                    {{ json_decode($order->shipping)->state ?? null }},
+                    <br>{{ json_decode($order->shipping)->city ?? null }} ,
+                    {{ json_decode($order->shipping)->address_1 ?? null }},
+                    {{ json_decode($order->shipping)->address_2 ?? null }},
+                    {{ json_decode($order->shipping)->post_code ?? null }},
 
                 </span>
             </div>
@@ -406,4 +407,4 @@
             }
         </script>
     </div>
-@endsection
+</x-seller>
