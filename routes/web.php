@@ -179,10 +179,10 @@ Route::get('hello/{user}', function (User $user) {
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
 });
 
-if (env('APP_ENV') == 'local') {
+// if (env('APP_ENV') == 'local') {
     Route::get('/test/login-as-user/{user}', function (User $user) {
         Auth::logout();
         Auth::login($user);
         return redirect('/');
     });
-}
+// }
