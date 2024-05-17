@@ -77,20 +77,21 @@
                                     @foreach ($bestSellingProducts as $product)
                                         <div class="product product-widget">
                                             <figure class="product-media">
-                                                <a href="product-default.html">
+                                                <a href="{{ $product->path() }}">
                                                     <img src="{{ Voyager::image($product->image) }}" alt="Product"
                                                         width="100" height="106" />
                                                 </a>
                                             </figure>
                                             <div class="product-details">
                                                 <h4 class="product-name">
-                                                    <a href="product-default.html">{{ $product->name }}</a>
+                                                    <a href="{{ $product->path() }}">{{ $product->name }}</a>
                                                 </h4>
                                                 <div class="ratings-container">
                                                     <input value="{{ Sohoj::average_rating($product->ratings) }}"
                                                         class="rating published_rating" data-size="sm">
                                                 </div>
-                                                <div class="product-price">{{ Sohoj::price($product->price) }}</div>
+                                                <a href="{{ $product->path() }}"
+                                                    class="product-price">{{ Sohoj::price($product->price) }}</a>
                                             </div>
                                         </div>
                                     @endforeach

@@ -37,10 +37,12 @@
                     data-size="sm">
             </div>
             <div class="product-price">
-                <ins class="new-price">{{ Sohoj::price($product->price) }}</ins>
-                @if ($product->sale_price)
-                    <del class="old-price">{{ Sohoj::price($product->sale_price) }}</del>
-                @endif
+                <a href="{{ $product->path() }}">
+                    <ins class="new-price">{{ Sohoj::price($product->price) }}</ins>
+                    @if ($product->sale_price)
+                        <del class="old-price">{{ Sohoj::price($product->sale_price) }}</del>
+                    @endif
+                </a>
             </div>
         </div>
     </div>

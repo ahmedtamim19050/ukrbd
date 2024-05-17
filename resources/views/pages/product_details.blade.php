@@ -498,72 +498,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="ratings-value d-flex align-items-center text-dark ls-25">
-                                            <span class="text-dark font-weight-bold">66.7%</span>Recommended<span
-                                                class="count">(2 of 3)</span>
-                                        </div> --}}
-                                        {{-- <div class="ratings-list">
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 100%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <div class="progress-bar progress-bar-sm ">
-                                                    <span></span>
-                                                </div>
-                                                <div class="progress-value">
-                                                    <mark>70%</mark>
-                                                </div>
-                                            </div>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 80%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <div class="progress-bar progress-bar-sm ">
-                                                    <span></span>
-                                                </div>
-                                                <div class="progress-value">
-                                                    <mark>30%</mark>
-                                                </div>
-                                            </div>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 60%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <div class="progress-bar progress-bar-sm ">
-                                                    <span></span>
-                                                </div>
-                                                <div class="progress-value">
-                                                    <mark>40%</mark>
-                                                </div>
-                                            </div>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 40%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <div class="progress-bar progress-bar-sm ">
-                                                    <span></span>
-                                                </div>
-                                                <div class="progress-value">
-                                                    <mark>0%</mark>
-                                                </div>
-                                            </div>
-                                            <div class="ratings-container">
-                                                <div class="ratings-full">
-                                                    <span class="ratings" style="width: 20%;"></span>
-                                                    <span class="tooltiptext tooltip-top"></span>
-                                                </div>
-                                                <div class="progress-bar progress-bar-sm ">
-                                                    <span></span>
-                                                </div>
-                                                <div class="progress-value">
-                                                    <mark>0%</mark>
-                                                </div>
-                                            </div>
-                                        </div> --}}
+                                       
                                     </div>
                                 </div>
                                 @php
