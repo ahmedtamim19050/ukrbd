@@ -83,9 +83,9 @@
 
     @php
         $user_count = App\Models\User::count();
-        $shop_count =App\Models\Shop::count();
-        $product_count=App\Models\Product::count();
-        $order_count=App\Models\Order::count();
+        $shop_count = App\Models\Shop::count();
+        $product_count = App\Models\Product::count();
+        $order_count = App\Models\Order::count();
     @endphp
     {{-- @include('voyager::dimmers') --}}
     <div class="container">
@@ -93,52 +93,52 @@
             <div class="col-md-3">
                 <div class="widget">
                     <h6>
-                        Users  :
+                        Users :
                     </h6>
                     <h2>
-                        {{$user_count}}
+                        {{ $user_count }}
                     </h2>
                     <i class="icon voyager-people"></i>
-                    <a href="">View</a>
+                    <a href="{{ url('admin/users') }}">View</a>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="widget">
                     <h6>
-                        Shops  :
+                        Shops :
                     </h6>
                     <h2>
-                        {{$shop_count}}
+                        {{ $shop_count }}
                     </h2>
                     <i class="icon voyager-shop"></i>
-                    <a href="">View</a>
+                    <a href="{{ url('admin/shops') }}">View</a>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="widget">
                     <h6>
-                        products  :
+                        products :
                     </h6>
                     <h2>
-                        {{$product_count}}
+                        {{ $product_count }}
                     </h2>
                     <i class="icon voyager-gift"></i>
-                    <a href="">View</a>
+                    <a href="{{ url('admin/products') }}">View</a>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="widget">
                     <h6>
-                        Orders  :
+                        Orders :
                     </h6>
                     <h2>
-                        {{$order_count}}
+                        {{ $order_count }}
                     </h2>
                     <i class="icon voyager-basket"></i>
-                    <a href="">View</a>
+                    <a href="{{ url('admin/orders') }}">View</a>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
