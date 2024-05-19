@@ -71,7 +71,7 @@ class CartController extends Controller
 
 		$this->cart($request);
 
-		return redirect('/cart')->with('success_msg', 'Item has been updated!');;
+		return back()->with('success_msg', 'Item has been updated!');;
 	}
 
 	private function cart($request)

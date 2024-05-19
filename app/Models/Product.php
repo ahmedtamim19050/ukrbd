@@ -114,6 +114,10 @@ class Product extends Model
     {
         return $query->whereNUll('parent_id');
     }
+    public function scopeChildProduct($query)
+    {
+        return $query->whereNotNUll('parent_id');
+    }
 
     public function setVariationsAttribute($value)
     {
