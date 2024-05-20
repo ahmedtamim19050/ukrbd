@@ -1,3 +1,10 @@
+@php
+$user_count = App\Models\User::count();
+$shop_count = App\Models\Shop::count();
+$product_count = App\Models\Product::whereNull('parent_id')->count();
+$order_count = App\Models\Order::whereNull('parent_id')->count();
+
+@endphp
 @extends('voyager::master')
 
 @section('content')
@@ -81,12 +88,7 @@
 <div class="page-content">
     @include('voyager::alerts')
 
-    @php
-        $user_count = App\Models\User::count();
-        $shop_count = App\Models\Shop::count();
-        $product_count = App\Models\Product::count();
-        $order_count = App\Models\Order::count();
-    @endphp
+
     {{-- @include('voyager::dimmers') --}}
     <div class="container">
         <div class="row">
