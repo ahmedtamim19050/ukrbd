@@ -54,8 +54,14 @@
 
         table td img {
             height: 80px !important;
-            object-fit: cover
+            object-fit: cover;
         }
+
+        table td,table th{
+            border: 2px solid #000;
+        }
+        
+        
     </style>
 
     @if (!empty(config('voyager.additional_css')))<!-- Additional CSS -->
