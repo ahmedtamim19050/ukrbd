@@ -292,8 +292,6 @@
                                                 </td>
                                             @endforeach
                                             <td class="no-sort no-click bread-actions">
-                                                <a href="{{ route('product_details', $data->slug) }}" target="_blank"
-                                                    class="btn btn-warning"> <i class="voyager-eye"></i> View</a>
                                                 @foreach ($actions as $action)
                                                     @if (!method_exists($action, 'massAction'))
                                                         @include('voyager::bread.partials.actions', [
