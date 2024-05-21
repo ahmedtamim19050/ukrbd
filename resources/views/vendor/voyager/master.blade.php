@@ -53,15 +53,16 @@
         }
 
         table td img {
-            height: 80px !important;
+            height: 50px !important;
+            width: 50px !important;
+            border-radius: 10px;
             object-fit: cover;
         }
 
-        table td,table th{
-            border: 2px solid #000;
+        table td,
+        table th {
+            border: 1px solid #000;
         }
-        
-        
     </style>
 
     @if (!empty(config('voyager.additional_css')))<!-- Additional CSS -->
