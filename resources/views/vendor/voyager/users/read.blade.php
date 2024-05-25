@@ -5,8 +5,8 @@
 @section('css')
     <style>
         .card-img-top {
-            height: 300px;
-            width: 100%;
+            /* height: 300px;
+            width: 100%; */
         }
 
         .card-no-border .card {
@@ -241,7 +241,10 @@
 
                 <!-- Column -->
                 {{-- @dd($dataTypeContent->role->name) --}}
-                <div class="card"> <img class="card-img-top" src="{{ Voyager::image(setting('site.user_cover_image')) }}" alt="Card image cap">
+                <div class="card">
+                    <div class="" style="height: 300px;">
+                        <img class="card-img-top" src="{{asset('assets/img/user_cover.jpg')}}" alt="Card image cap" style="height: 100%; width: 100%;">
+                    </div>
                     <div class="card-body little-profile text-center" style="height: 350px;">
                         <div class="pro-img"><img src="{{Voyager::image($dataTypeContent->avatar)}}" alt="user"></div>
                         <strong style="font-size: 22px;">{{$dataTypeContent->role->name}}</strong>
