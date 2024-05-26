@@ -107,10 +107,10 @@ class Shop extends Model
                 });
             })
             ->when(request()->has('shop_products') && request()->shop_products == 'price-low-hight', function ($q) {
-                $q->orderBy('sale_price', 'asc');
+                $q->orderBy('price', 'asc');
             })
             ->when(request()->has('shop_products') && request()->shop_products == 'price-high-low', function ($q) {
-                $q->orderBy('sale_price', 'desc');
+                $q->orderBy('price', 'desc');
             })
             ->when(request()->has('shop_products') && request()->shop_products == 'most-popular', function ($q) {
                 $q->orderBy('total_sale', 'desc');
