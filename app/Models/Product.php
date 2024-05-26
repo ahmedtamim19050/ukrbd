@@ -89,9 +89,10 @@ class Product extends Model
             ->when(request()->has('filter_products') && request()->filter_products == 'trending', function ($q) {
                 return $q->orderBy('views', 'desc');
             })
-            ->when(request('priceMin') && request('priceMax'),function ($q){
-                 return $q->whereBetween('price', [request('priceMin'), request('priceMax')]);
+            ->when(request()->has(['priceMin', 'priceMax']), function ($q) {
+                return $q->whereBetween('price', [request('priceMin'), request('priceMax')]);
             })
+            
             ->when(Session::has('post_city'), function ($q) {
                 $post_city = Session::get('post_city');
                 return $q->whereHas('shop', function ($qr) use($post_city) {
