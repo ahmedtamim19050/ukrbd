@@ -93,8 +93,7 @@
                                                 Contact number
                                             </label>
                                             <input class="form-control  @error('meta') is-invalid @enderror"
-                                                name="meta[phone]" id="contact_number"
-                                                value="{{ Auth::user()->phone }}">
+                                                name="phone" id="contact_number" value="{{ Auth::user()->phone }}">
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

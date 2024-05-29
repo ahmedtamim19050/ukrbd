@@ -28,7 +28,7 @@ class UserController extends Controller
             'first_name' => ['required', 'max:40'],
             'last_name' => ['required', 'max:40'],
             'email' => ['required', 'max:40'],
-            // 'contact_number' => ['required', 'max:200'],
+            'phone' => ['nullable', 'max:200'],
 
             // 'avatar' => ['nullable','mimes:jpg,png,jpeg,gif'],
         ]);
@@ -43,13 +43,12 @@ class UserController extends Controller
 
             $avatar = auth()->user()->avatar;
         }
-        $phone = auth()->user();
-        $phone->createMetas($request->meta);
+
         auth()->user()->update([
 
             'name' => $request->first_name,
             'l_name' => $request->last_name,
-
+            'phone' => $request->phone,
             'email' => $request->email,
             'avatar' => $avatar,
 
@@ -190,10 +189,10 @@ class UserController extends Controller
     public function removeCard(Request $request)
     {
         $user = auth()->user();
-        if($user->role_id==2){
+        if ($user->role_id == 2) {
             $user->deletePaymentMethod($request->method);
             return redirect()->back()->with('success', 'Payment method deleted successfully.');
-        }else{
+        } else {
             if ($user->paymentMethods()->count() > 1) {
 
                 $user->deletePaymentMethod($request->method);
@@ -202,8 +201,6 @@ class UserController extends Controller
                 return redirect()->back()->withErrors('You must have at least one payment method.');
             }
         }
-
-  
     }
     public function setCardAsDefault(Request $request)
     {
