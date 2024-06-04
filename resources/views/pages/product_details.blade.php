@@ -31,7 +31,7 @@
                 position: absolute;
                 opacity: 0;
                 left: 24px;
-           
+
             }
 
             input[type="radio"]+label {
@@ -55,7 +55,8 @@
                 background-color: #4CACF7;
                 /* Change background color when checked */
             }
-            .rating-container .rating-stars{
+
+            .rating-container .rating-stars {
                 height: 20px;
             }
         </style>
@@ -143,21 +144,21 @@
                                     }
                                 }">
                                     <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
-                                        <div class="product-thumb swiper-slide"  style="height: 110px">
+                                        <div class="product-thumb swiper-slide" style="height: 110px">
                                             <img src="{{ Voyager::image($product->image) }}" alt="Product Thumb"
-                                            style="height: 100%">
+                                                style="height: 100%">
                                         </div>
-                                        
+
                                         @if ($images)
                                             @foreach ($images as $image)
-                                                <div class="product-thumb swiper-slide"  style="height: 110px">
+                                                <div class="product-thumb swiper-slide" style="height: 110px">
                                                     <img src="{{ Voyager::image($image) }}" alt="Product Thumb"
                                                         style="height: 100%">
                                                 </div>
                                             @endforeach
                                         @endif
 
-                                      
+
 
                                     </div>
                                     <button class="swiper-button-next"></button>
@@ -193,12 +194,14 @@
 
                                 <hr class="product-divider">
 
-                                <div class="product-price"><ins
-                                        class="new-price">{{ Sohoj::price($product->price) }}</ins></div>
+                                <div class="product-price"><ins class="new-price"
+                                        id="amount">{{ Sohoj::price($product->price) }}</ins></div>
 
                                 <div class="ratings-container">
-                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
-                                    <a href="#product-tab-reviews" class="rating-reviews scroll-to">{{$product->ratings->count()}}</a>
+                                    <input value="{{ Sohoj::average_rating($product->ratings) }}"
+                                        class="rating published_rating" data-size="sm">
+                                    <a href="#product-tab-reviews"
+                                        class="rating-reviews scroll-to">{{ $product->ratings->count() }}</a>
                                 </div>
 
                                 <div class="product-short-desc">
@@ -235,36 +238,13 @@
 
 
 
-                                    {{-- <div class="product-form product-variation-form product-size-swatch">
-                                    <label class="mb-1">Size:</label>
-                                    <div class="flex-wrap d-flex align-items-center product-variations">
-                                        <a href="#" class="size">Small</a>
-                                        <a href="#" class="size">Medium</a>
-                                        <a href="#" class="size">Large</a>
-                                        <a href="#" class="size">Extra Large</a>
-                                    </div>
-                                    <a href="#" class="product-variation-clean">Clean All</a>
-                                </div> --}}
 
-                                    {{-- <div class="product-variation-price">
-                                    <span></span>
-                                </div> --}}
+                                    <p id="notice">
 
+                                    </p>
                                     <div class="fix-bottom sticky-content">
                                         <div class="product-form container p-0">
-                                            {{-- <div class="product-qty-form">
-                                            <form method="POST" action="{{ route('cart.update') }}">
-                                                @csrf
-                                                <div class="input-group">
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}" />
 
-                                                    <input value="{{ $product->quantity }}" min="1"
-                                                        class=" form-control" type="number" name="quantity">
-                                                    <button type="submit" class=" btn-apply bg-dark text-white">update</button>
-                                                   
-                                                </div>
-                                            </form>
-                                        </div> --}}
                                             <div class="product-qty-form">
 
 
@@ -273,7 +253,7 @@
                                                 <input type="hidden" name="product_id"
                                                     value="{{ $product->id }}" />
 
-                                                <button type="submit" class="btn btn-primary" id="add_to_card">
+                                                <button type="submit" class="btn btn-primary" id="cart_button">
                                                     <i class="w-icon-cart"></i>
                                                     <span>Add to Cart</span>
                                                 </button>
@@ -298,139 +278,39 @@
                                     <div class="product-link-wrapper d-flex">
                                         <a href="javascript:void(0)" onclick="wishlist({{ $product->id }})"
                                             class="btn-product-icon btn-wishlist w-icon-heart"><span></span></a>
-                                        {{-- <a href="#"
-                                            class="btn-product-icon btn-compare btn-icon-left w-icon-compare"><span></span></a> --}}
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- <div class="frequently-bought-together mt-5">
-                        <h2 class="title title-underline">Frequently Bought Together</h2>
-                        <div class="bought-together-products row mt-8 pb-4">
-                            <div class="product product-wrap text-center">
-                                <figure class="product-media">
-                                    <img src="{{asset('assets/images/products/default/bought-1.jpg')}}" alt="Product"
-                                        width="138" height="138" />
-                                    <div class="product-checkbox">
-                                        <input type="checkbox" class="custom-checkbox" id="product_check1"
-                                            name="product_check1">
-                                        <label></label>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name">
-                                        <a href="#">Electronics Black Wrist Watch</a>
-                                    </h4>
-                                    <div class="product-price">$40.00</div>
-                                </div>
-                            </div>
-                            <div class="product product-wrap text-center">
-                                <figure class="product-media">
-                                    <img src="{{asset('assets/images/products/default/bought-2.jpg')}}" alt="Product"
-                                        width="138" height="138" />
-                                    <div class="product-checkbox">
-                                        <input type="checkbox" class="custom-checkbox" id="product_check2"
-                                            name="product_check2">
-                                        <label></label>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name">
-                                        <a href="#">Apple Laptop</a>
-                                    </h4>
-                                    <div class="product-price">$1,800.00</div>
-                                </div>
-                            </div>
-                            <div class="product product-wrap text-center">
-                                <figure class="product-media">
-                                    <img src="{{asset('assets/images/products/default/bought-3.jpg')}}" alt="Product"
-                                        width="138" height="138" />
-                                    <div class="product-checkbox">
-                                        <input type="checkbox" class="custom-checkbox" id="product_check3"
-                                            name="product_check3">
-                                        <label></label>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name">
-                                        <a href="#">White Lenovo Headphone</a>
-                                    </h4>
-                                    <div class="product-price">$34.00</div>
-                                </div>
-                            </div>
-                            <div class="product-button">
-                                <div class="bought-price font-weight-bolder text-primary ls-50">$1,874.00</div>
-                                <div class="bought-count">For 3 items</div>
-                                <a href="cart.html" class="btn btn-dark btn-rounded">Add All To Cart</a>
-                            </div>
-                        </div>
-                    </div> --}}
+
                 <div class="tab tab-nav-boxed tab-nav-underline product-tabs">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a href="#product-tab-description" class="nav-link active">Description</a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href="#product-tab-specification" class="nav-link">Specification</a>
-                        </li> --}}
+
                         <li class="nav-item">
                             <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#product-tab-reviews" class="nav-link">Customer Reviews {{ $product->ratings->count() > 0 ? $product->ratings->count() : ''  }}</a>
+                            <a href="#product-tab-reviews" class="nav-link">Customer Reviews
+                                {{ $product->ratings->count() > 0 ? $product->ratings->count() : '' }}</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="product-tab-description">
                             <div class="row mb-4">
                                 <div class="col-md-12 mb-5">
-                                    {!! $product->description!!}
+                                    {!! $product->description !!}
                                 </div>
-                              
+
                             </div>
-                            {{-- <div class="row cols-md-3">
-                                <div class="mb-3">
-                                    <h5 class="sub-title font-weight-bold"><span class="mr-3">1.</span>Free
-                                        Shipping &amp; Return</h5>
-                                    <p class="detail pl-5">We offer free shipping for products on orders
-                                        above 50$ and offer free delivery for all orders in US.</p>
-                                </div>
-                                <div class="mb-3">
-                                    <h5 class="sub-title font-weight-bold"><span>2.</span>Free and Easy
-                                        Returns</h5>
-                                    <p class="detail pl-5">We guarantee our products and you could get back
-                                        all of your money anytime you want in 30 days.</p>
-                                </div>
-                                <div class="mb-3">
-                                    <h5 class="sub-title font-weight-bold"><span>3.</span>Special Financing
-                                    </h5>
-                                    <p class="detail pl-5">Get 20%-50% off items over 50$ for a month or
-                                        over 250$ for a year with our special credit card.</p>
-                                </div>
-                            </div> --}}
+
                         </div>
-                        {{-- <div class="tab-pane" id="product-tab-specification">
-                            <ul class="list-none">
-                                <li>
-                                    <label>Model</label>
-                                    <p>Skysuite 320</p>
-                                </li>
-                                <li>
-                                    <label>Color</label>
-                                    <p>Black</p>
-                                </li>
-                                <li>
-                                    <label>Size</label>
-                                    <p>Large, Small</p>
-                                </li>
-                                <li>
-                                    <label>Guarantee Time</label>
-                                    <p>3 Months</p>
-                                </li>
-                            </ul>
-                        </div> --}}
+
                         <div class="tab-pane" id="product-tab-vendor">
                             <div class="row mb-3">
                                 <div class="col-md-6 mb-4">
@@ -449,7 +329,8 @@
                                             </a>
                                         </figure>
                                         <div>
-                                            <div class="vendor-name"><a href="#">{{$product->shop->user->name}}</a></div>
+                                            <div class="vendor-name"><a
+                                                    href="#">{{ $product->shop->user->name }}</a></div>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
                                                     <span class="ratings" style="width: 90%;"></span>
@@ -462,68 +343,74 @@
                                     <ul class="vendor-info list-style-none">
                                         <li class="store-name">
                                             <label>Store Name:</label>
-                                            <span class="detail">{{$product->shop->name}}</span>
+                                            <span class="detail">{{ $product->shop->name }}</span>
                                         </li>
                                         <li class="store-address">
                                             <label>Address:</label>
-                                            <span class="detail">{{$product->shop->post_code}}, {{$product->shop->city}}</span>
+                                            <span class="detail">{{ $product->shop->post_code }},
+                                                {{ $product->shop->city }}</span>
                                         </li>
                                         <li class="store-phone">
                                             <label>Phone:</label>
-                                            <a href="#tel:">{{$product->shop->phone}}</a>
+                                            <a href="#tel:">{{ $product->shop->phone }}</a>
                                         </li>
                                         <li class="store-phone">
                                             <label>Email:</label>
-                                            <a href="#tel:">{{$product->shop->email}}</a>
+                                            <a href="#tel:">{{ $product->shop->email }}</a>
                                         </li>
                                     </ul>
-                                    <a href="{{route('store_front',$product->shop->slug)}}"
+                                    <a href="{{ route('store_front', $product->shop->slug) }}"
                                         class="btn btn-dark btn-link btn-underline btn-icon-right">Visit
                                         Store<i class="w-icon-long-arrow-right"></i></a>
                                 </div>
                             </div>
-                             {!! $product->shop->description !!}
+                            {!! $product->shop->description !!}
                         </div>
                         <div class="tab-pane" id="product-tab-reviews">
                             <div class="row mb-4">
                                 <div class="col-xl-4 col-lg-5 mb-4">
                                     <div class="ratings-wrapper">
                                         <div class="avg-rating-container">
-                                            <h4 class="avg-mark font-weight-bolder ls-50">{{Sohoj::average_rating($product->ratings)}}.1</h4>
+                                            <h4 class="avg-mark font-weight-bolder ls-50">
+                                                {{ Sohoj::average_rating($product->ratings) }}.1</h4>
                                             <div class="avg-rating">
                                                 <p class="text-dark mb-1">Average Rating</p>
                                                 <div class="ratings-container">
-                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}" class="rating published_rating" data-size="sm">
-                                                    <a href="#" class="rating-reviews">({{$product->ratings->count()}} Reviews)</a>
+                                                    <input value="{{ Sohoj::average_rating($product->ratings) }}"
+                                                        class="rating published_rating" data-size="sm">
+                                                    <a href="#"
+                                                        class="rating-reviews">({{ $product->ratings->count() }}
+                                                        Reviews)</a>
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                                 @php
-                                $user = Auth()->id();
-                                $rating = App\Models\Rating::where('user_id', $user)
-                                ->where('product_id', $product->id)
-                                ->get();
-                           
+                                    $user = Auth()->id();
+                                    $rating = App\Models\Rating::where('user_id', $user)
+                                        ->where('product_id', $product->id)
+                                        ->get();
 
                                 @endphp
                                 @if (Auth::check())
-                                @if ( $rating->count() == 0)
-                                <div class="col-xl-8 col-lg-7 mb-4">
-                                    <div class="review-form-wrapper">
-                                        <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
-                                            Review</h3>
-                                        <p class="mb-3">Your email address will not be published. Required
-                                            fields are marked *</p>
-                                        <form action="{{ route('rating', ['product_id' => $product->id]) }}" method="POST" class="review-form">
-                                            @csrf
-                                            <div class="rating-form">
-                                                <label for="rating">Your Rating Of This Product :</label>
-                                                <input value="1" name="rating" class="rating product_rating" data-size="xs">
+                                    @if ($rating->count() == 0)
+                                        <div class="col-xl-8 col-lg-7 mb-4">
+                                            <div class="review-form-wrapper">
+                                                <h3 class="title tab-pane-title font-weight-bold mb-1">Submit Your
+                                                    Review</h3>
+                                                <p class="mb-3">Your email address will not be published. Required
+                                                    fields are marked *</p>
+                                                <form action="{{ route('rating', ['product_id' => $product->id]) }}"
+                                                    method="POST" class="review-form">
+                                                    @csrf
+                                                    <div class="rating-form">
+                                                        <label for="rating">Your Rating Of This Product :</label>
+                                                        <input value="1" name="rating"
+                                                            class="rating product_rating" data-size="xs">
 
-                                                {{-- <select name="rating" id="rating" required=""
+                                                        {{-- <select name="rating" id="rating" required=""
                                                     style="display: none;">
                                                     <option value="">Rate…</option>
                                                     <option value="5">Perfect</option>
@@ -532,9 +419,10 @@
                                                     <option value="2">Not that bad</option>
                                                     <option value="1">Very poor</option>
                                                 </select> --}}
-                                            </div>
-                                            <textarea name="review" cols="30" rows="6" placeholder="Write Your Review Here..." class="form-control"
-                                                id="review"></textarea required>
+                                                    </div>
+                                                    <textarea name="review" cols="30" rows="6"
+                                                        placeholder="Write Your Review Here..." class="form-control"
+                                                        id="review"></textarea required>
                                             <div class="row gutter-md">
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control"
@@ -555,7 +443,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                @endif
+@endif
                                 @endif
                             </div>
 
@@ -583,8 +471,7 @@
                                     <div class="tab-pane active" id="show-all">
                                         <ul class="comments list-style-none">
                                             @foreach ($product->ratings as $rating)
-                                                
-                                            <li class="comment">
+<li class="comment">
                                                 <div class="comment-body">
                                                     <figure class="comment-avatar">
                                                         <img src="{{ asset('assets/images/agents/1-100x100.png') }}"
@@ -592,13 +479,13 @@
                                                     </figure>
                                                     <div class="comment-content">
                                                         <h4 class="comment-author">
-                                                            <a href="#">{{$rating->name}}</a>
-                                                            <span class="comment-date">{{$rating->created_at->format('d M, y')}}</span>
+                                                            <a href="#">{{ $rating->name }}</a>
+                                                            <span class="comment-date">{{ $rating->created_at->format('d M, y') }}</span>
                                                         </h4>
                                                         <div class="ratings-container comment-rating">
-                                                            <input value="{{$rating->rating}}" class="rating published_rating" data-size="sm">
+                                                            <input value="{{ $rating->rating }}" class="rating published_rating" data-size="sm">
                                                         </div>
-                                                        <p>{{$rating->review}}</p>
+                                                        <p>{{ $rating->review }}</p>
                                                         {{-- <div class="comment-action">
                                                             <a href="#"
                                                                 class="btn btn-secondary btn-link btn-underline sm btn-icon-left font-weight-normal text-capitalize">
@@ -623,7 +510,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            @endforeach
+@endforeach
                                         
                                     </div>
                                 
@@ -659,390 +546,76 @@
                         }
                     }">
                         <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
-                            @foreach ($related_products as $product)
-                                <x-products.card :product="$product" />
-                            @endforeach
+                            @foreach ($related_products as $data)
+<x-products.card :product="$data" />
+@endforeach
 
                             <!-- End of Product Wrap -->
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
                 </section>
-                {{-- <section class="related-product-section">
-                    <div class="title-link-wrapper mb-4">
-                        <h4 class="title">Related Products</h4>
-                        <a href="#" class="btn btn-dark btn-link btn-slide-right btn-icon-right">More
-                            Products<i class="w-icon-long-arrow-right"></i></a>
-                    </div>
-                    <div class="swiper-container swiper-theme"
-                        data-swiper-options="{
-                            'spaceBetween': 20,
-                            'slidesPerView': 2,
-                            'breakpoints': {
-                                '576': {
-                                    'slidesPerView': 3
-                                },
-                                '768': {
-                                    'slidesPerView': 4
-                                },
-                                '992': {
-                                    'slidesPerView': 3
-                                }
-                            }
-                        }">
-                        <div class="swiper-wrapper row cols-lg-3 cols-md-4 cols-sm-3 cols-2">
-                            <div class="swiper-slide product">
-                                <figure class="product-media">
-                                    <a href="product-default.html">
-                                        <img src="{{asset('assets/images/products/default/5.jpg')}}" alt="Product" width="300"
-                                            height="338" />
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Add to cart"></a>
-                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Add to wishlist"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Add to Compare"></a>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                            View</a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name"><a href="product-default.html">Drone</a></h4>
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width: 100%;"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
-                                    </div>
-                                    <div class="product-pa-wrapper">
-                                        <div class="product-price">$632.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide product">
-                                <figure class="product-media">
-                                    <a href="product-default.html">
-                                        <img src="{{asset('assets/images/products/default/6.jpg')}}" alt="Product" width="300"
-                                            height="338" />
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Add to cart"></a>
-                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Add to wishlist"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Add to Compare"></a>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                            View</a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name"><a href="product-default.html">Official Camera</a>
-                                    </h4>
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width: 100%;"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
-                                    </div>
-                                    <div class="product-pa-wrapper">
-                                        <div class="product-price">
-                                            <ins class="new-price">$263.00</ins><del class="old-price">$300.00</del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide product">
-                                <figure class="product-media">
-                                    <a href="product-default.html">
-                                        <img src="{{asset('assets/images/products/default/7-1.jpg')}}" alt="Product"
-                                            width="300" height="338" />
-                                        <img src="{{asset('assets/images/products/default/7-2.jpg')}}" alt="Product"
-                                            width="300" height="338" />
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Add to cart"></a>
-                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Add to wishlist"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Add to Compare"></a>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                            View</a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name"><a href="product-default.html">Phone Charge Pad</a>
-                                    </h4>
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width: 80%;"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <a href="product-default.html" class="rating-reviews">(8 reviews)</a>
-                                    </div>
-                                    <div class="product-pa-wrapper">
-                                        <div class="product-price">$23.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide product">
-                                <figure class="product-media">
-                                    <a href="product-default.html">
-                                        <img src="{{asset('assets/images/products/default/8.jpg')}}" alt="Product" width="300"
-                                            height="338" />
-                                    </a>
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                            title="Add to cart"></a>
-                                        <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
-                                            title="Add to wishlist"></a>
-                                        <a href="#" class="btn-product-icon btn-compare w-icon-compare"
-                                            title="Add to Compare"></a>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-quickview" title="Quick View">Quick
-                                            View</a>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <h4 class="product-name"><a href="product-default.html">Fashionalble
-                                            Pencil</a></h4>
-                                    <div class="ratings-container">
-                                        <div class="ratings-full">
-                                            <span class="ratings" style="width: 100%;"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <a href="product-default.html" class="rating-reviews">(9 reviews)</a>
-                                    </div>
-                                    <div class="product-pa-wrapper">
-                                        <div class="product-price">$50.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> --}}
-
-                <!-- End of Main Content -->
-                {{-- <aside class="sidebar product-sidebar sidebar-fixed right-sidebar sticky-sidebar-wrapper">
-                    <div class="sidebar-overlay"></div>
-                    <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
-                    <a href="#" class="sidebar-toggle d-flex d-lg-none"><i
-                            class="fas fa-chevron-left"></i></a>
-                    <div class="sidebar-content scrollable">
-                        <div class="sticky-sidebar">
-                            <div class="widget widget-icon-box mb-6">
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-truck"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Free Shipping & Returns</h4>
-                                        <p>For all orders over $99</p>
-                                    </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-bag"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Secure Payment</h4>
-                                        <p>We ensure secure payment</p>
-                                    </div>
-                                </div>
-                                <div class="icon-box icon-box-side">
-                                    <span class="icon-box-icon text-dark">
-                                        <i class="w-icon-money"></i>
-                                    </span>
-                                    <div class="icon-box-content">
-                                        <h4 class="icon-box-title">Money Back Guarantee</h4>
-                                        <p>Any back within 30 days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Widget Icon Box -->
-
-                            <div class="widget widget-banner mb-9">
-                                <div class="banner banner-fixed br-sm">
-                                    <figure>
-                                        <img src="{{asset('assets/images/shop/banner3.jpg')}}" alt="Banner" width="266"
-                                            height="220" style="background-color: #1D2D44;" />
-                                    </figure>
-                                    <div class="banner-content">
-                                        <div class="banner-price-info font-weight-bolder text-white lh-1 ls-25">
-                                            40<sup class="font-weight-bold">%</sup><sub
-                                                class="font-weight-bold text-uppercase ls-25">Off</sub>
-                                        </div>
-                                        <h4 class="banner-subtitle text-white font-weight-bolder text-uppercase mb-0">
-                                            Ultimate Sale</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Widget Banner -->
-
-                            <div class="widget widget-products">
-                                <div class="title-link-wrapper mb-2">
-                                    <h4 class="title title-link font-weight-bold">More Products</h4>
-                                </div>
-
-                                <div class="swiper nav-top">
-                                    <div class="swiper-container swiper-theme nav-top"
-                                        data-swiper-options = "{
-                                        'slidesPerView': 1,
-                                        'spaceBetween': 20,
-                                        'navigation': {
-                                            'prevEl': '.swiper-button-prev',
-                                            'nextEl': '.swiper-button-next'
-                                        }
-                                    }">
-                                        <div class="swiper-wrapper">
-                                            <div class="widget-col swiper-slide">
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{asset('assets/images/shop/13.jpg')}}" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Smart Watch</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 100%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$80.00 - $90.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{asset('assets/images/shop/14.jpg')}}" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Sky Medical Facility</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 80%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$58.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{asset('assets/images/shop/15.jpg')}}" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Black Stunt Motor</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 60%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$374.00</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-col swiper-slide">
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{asset('assets/images/shop/16.jpg')}}" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Skate Pan</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 100%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$278.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{asset('assets/images/shop/17.jpg')}}" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">Modern Cooker</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 80%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$324.00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="product product-widget">
-                                                    <figure class="product-media">
-                                                        <a href="#">
-                                                            <img src="{{asset('assets/images/shop/18.jpg')}}" alt="Product"
-                                                                width="100" height="113" />
-                                                        </a>
-                                                    </figure>
-                                                    <div class="product-details">
-                                                        <h4 class="product-name">
-                                                            <a href="#">CT Machine</a>
-                                                        </h4>
-                                                        <div class="ratings-container">
-                                                            <div class="ratings-full">
-                                                                <span class="ratings" style="width: 100%;"></span>
-                                                                <span class="tooltiptext tooltip-top"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-price">$236.00</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button class="swiper-button-next"></button>
-                                        <button class="swiper-button-prev"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside> --}}
-                <!-- End of Sidebar -->
+             
             </div>
         </div>
     </div>
+ 
+@push('script')
+    <script>
+        var products = {!! $product->subproductsuser->toJson() !!};
 
+
+        function change_variable() {
+
+            variations = {
+                @foreach ($product->attributes as $attribute)
+                    @foreach ($attribute->value as $value)
+                        '{{ $attribute->name }}': $('input[name="variable_attribute[Size]"]:checked').val(),
+                    @endforeach
+                @endforeach
+            }
+            console.log(variations);
+            var product = products.filter(function(product) {
+                return Object.keys(variations).every(function(variation) {
+
+                    return product.variations[variation] === variations[variation];
+                });
+            });
+           
+            //$('.preview-slider').slick('slickGoTo', 1);
+            // console.log(product[0].image);
+
+            if (product.length > 0) {
+                if (product[0].quantity == 0) {
+                    $('#cart_button').prop("disabled", true);
+                    $('#notice').text('This variation is not available please try different variation');
+                } else {
+                    $('#cart_button').prop("disabled", false);
+                    $('#notice').text('');
+                }
+                if (product[0].image) {
+                    var element = $(`.preview-slider img[data-image='${product[0].image}']`);
+                    //console.log(element.attr('data-slick-index'));
+                    $('.preview-slider').slick('slickGoTo', element.attr('data-slick-index'))
+                }
+                let text = '';
+                if (product[0].saleprice) {
+                    text = "<del class='mr-2'>NOK" + product[0].price + "</del><span id='sale'>NOK" + product[0]
+                        .saleprice + "</span>";
+                } else {
+                    text = "NOK " + product[0].price;
+                }
+                console.log(text)
+                $("#amount").html(text);
+                if (product[0].image) {
+                    $("#showcase").attr("src", "/storage/" + product[0].image);
+                }
+            } else {
+                $("#amount").text("No variation found. Please select other variation");
+            }
+        };
+
+        change_variable();
+    </script>
+@endpush
 </x-app>

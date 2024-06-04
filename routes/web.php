@@ -25,6 +25,7 @@ use App\Models\Order;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Payment\JachaiPay;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -188,3 +189,8 @@ if (env('APP_ENV') == 'local') {
 }
 
 
+
+Route::get('/test',function () {
+    $order = Order::first();
+    JachaiPay::init($order)->getPaymentLink();
+});

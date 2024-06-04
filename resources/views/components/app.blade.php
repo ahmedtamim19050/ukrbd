@@ -33,6 +33,9 @@
             s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
+    <script>
+        const base_url = "{{url('/')}}"
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
         type="font/woff2" crossorigin="anonymous">
