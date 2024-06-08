@@ -19,10 +19,11 @@
                 content: ">"
             }
 
-            .breadcrumb li a{
+            .breadcrumb li a {
                 font-size: 14px;
                 font-weight: 600;
             }
+
             .breadcrumb li:last-child::after {
                 content: ""
             }
@@ -290,11 +291,6 @@
                                             class="form-control p-2 @error('address') is-invalid @enderror"
                                             value="{{ auth()->user()->shop && auth()->user()->shop->address ? auth()->user()->shop->address : old('meta.address') }}"
                                             name="meta[address]" id="address" required>
-                                        @error('meta.address')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
 
                                 </div>
@@ -320,7 +316,13 @@
                                                 <label for="pathao_store_name">
                                                     Store Name
                                                 </label>
-                                                <input type="text" class="form-control" name="pathao[store_name]" required>
+                                                <input type="text" class="form-control" name="pathao[store_name]"
+                                                    required>
+                                                @error('meta.address')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -328,7 +330,8 @@
                                                 <label for="pathao_contact_name">
                                                     Contact name
                                                 </label>
-                                                <input type="text" class="form-control" name="pathao[contact_name]">
+                                                <input type="text" class="form-control"
+                                                    name="pathao[contact_name]">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -336,7 +339,8 @@
                                                 <label for="pathao_contact_number]">
                                                     Contact number
                                                 </label>
-                                                <input type="text" class="form-control" name="pathao[contact_number]">
+                                                <input type="text" class="form-control"
+                                                    name="pathao[contact_number]">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -344,7 +348,8 @@
                                                 <label for="secondary_contact_name">
                                                     Secondary contact number
                                                 </label>
-                                                <input type="text" class="form-control" name="pathao[secondary_contact_number]">
+                                                <input type="text" class="form-control"
+                                                    name="pathao[secondary_contact_number]">
                                             </div>
                                         </div>
 

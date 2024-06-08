@@ -69,7 +69,7 @@ class SellerPagesController extends Controller
     }
     public function ordersIndex()
     {
-         $latest_orders =  Order::where('shop_id', auth()->user()->shop->id)->latest()->get();
+        $latest_orders =  Order::where('shop_id', auth()->user()->shop->id)->latest()->get();
 
         return view('auth.seller.order.index', compact('latest_orders'));
     }
@@ -79,7 +79,8 @@ class SellerPagesController extends Controller
 
         return view('auth.seller.order.view', compact('order'));
     }
-    public function returned_product_received(Order $order){
+    public function returned_product_received(Order $order)
+    {
         $order->returned_product_received = 1;
         $order->save();
         return back()->with('success_msg', 'Order update successfully');
@@ -109,7 +110,7 @@ class SellerPagesController extends Controller
     }
     public function shopStore(Request $request)
     {
-     
+
         // dd($request->all());
         $request->validate([
             'name' => ['required', 'max:40'],
@@ -124,22 +125,17 @@ class SellerPagesController extends Controller
             'company_registration' => ['required', 'max:100'],
             'city' => ['required', 'max:50'],
             'post_code' => ['required', 'max:10'],
-            
+            // 'pathao.*.store_name' => ['required'],
+            // 'pathao.*.contact_name' => ['required'],
+            // 'pathao.*.contact_number' => ['required'],
+            // 'pathao.*.address' => ['required'],
+            // 'pathao.*.secondary_contact_number' => ['required'],
+            // 'pathao.*.city' => ['required'],
+            // 'pathao.*.zone' => ['required'],
+            // 'pathao.*.area' => ['required'],
+
 
         ]);
-
-        // if ($request->file('logo')) {
-        //     $logo = $request->logo->store("logos");
-        // } else {
-        //     $logo = auth()->user()->shop ? auth()->user()->shop->logo : null;
-        // }
-        // if ($request->file('banner')) {
-        //     $banner = $request->banner->store("banners");
-        // } else {
-        //     $banner = auth()->user()->shop ? auth()->user()->shop->banner : null;
-        // }
-
-
         $shop = Shop::updateOrCreate([
 
             'user_id' => auth()->user()->id,
@@ -157,30 +153,25 @@ class SellerPagesController extends Controller
             'post_code' => $request->post_code,
             'country' => $request->country,
             'status' => 1,
+            'pickup_address' => json_encode($request->pathao),
+
 
         ]);
 
-        
+
         $slug = Str::slug($shop->name);
         if (shop::where('slug', $slug)->first()) {
             $slug = $slug . '-' . $shop->id;
         }
+
+        $shop->createMetas($request->meta);
+        $pathao = $this->pathao($request);
         $shop->update([
             'slug' =>  $slug,
+            'shipping_method' => $pathao->store_id,
+            'is_shipping_enabled' => 1,
         ]);
-        $shop->createMetas($request->meta);
 
-        $qurieer=PathaoCourier::store()->create([
-                            "name"              => $request->pathao['store_name'], 
-                            "contact_name"      => $request->pathao['contact_name'], 
-                            "contact_number"    => $request->pathao['contact_number'], 
-                            "address"           => $request->pathao['address'], 
-                            "secondary_contact" => $request->pathao['secondary_contact_number'], 
-                            "city_id"           => $request->pathao['city'], 
-                            "zone_id"           => $request->pathao['zone'], 
-                            "area_id"           => $request->pathao['area'], 
-                        ]);
-        dd($qurieer);
 
         return back()->with('success_msg', 'Success! Your shop has been updated/created');
     }
@@ -273,7 +264,7 @@ class SellerPagesController extends Controller
         $offers = Offer::where('shop_id', auth()->user()->shop->id)->latest()->get();
         return view('auth.seller.offers');
     }
-  
+
     public function orderSeen()
     {
 
@@ -311,7 +302,7 @@ class SellerPagesController extends Controller
     {
         // Update the order status
         if ($order->status !== 3 && $order->shop_id == auth()->user()->shop->id) {
-            if($order->cancel_request==1){
+            if ($order->cancel_request == 1) {
                 $order->update([
                     'cancel_request' => 2,
                 ]);
@@ -330,7 +321,7 @@ class SellerPagesController extends Controller
         if ($order->status == 0 && $order->shop_id == auth()->user()->shop->id) {
             $order->update([
                 'status' => 1,
-                'cancel_request'=>0,
+                'cancel_request' => 0,
             ]);
         }
         $this->notification($order->user_id, auth()->user()->shop->id, 'Order Canceled', '/user/dashboard/orders/index');
@@ -340,7 +331,7 @@ class SellerPagesController extends Controller
 
     public function logoCover(Request $request)
     {
-        $uniqueId =substr(Str::uuid()->toString(8), 0, 10);
+        $uniqueId = substr(Str::uuid()->toString(8), 0, 10);
         if ($request->file('logo')) {
             if (auth()->user()->shop) {
                 $oldLogo = auth()->user()->shop->logo; // get the old logo file name
@@ -350,8 +341,8 @@ class SellerPagesController extends Controller
             }
             Shop::updateOrCreate(['user_id' => auth()->user()->id], [
                 'logo' => $request->logo->store("logos"),
-                'slug'=>$uniqueId,
-                
+                'slug' => $uniqueId,
+
             ]);
             return back()->with('success_msg', 'Logo upload successfully');
         }
@@ -365,7 +356,7 @@ class SellerPagesController extends Controller
             }
             Shop::updateOrCreate(['user_id' => auth()->user()->id], [
                 'banner' => $request->banner->store("banners"),
-                'slug'=>$uniqueId,
+                'slug' => $uniqueId,
             ]);
             return back()->with('success_msg', 'Banner upload successfully');
         }
@@ -397,7 +388,7 @@ class SellerPagesController extends Controller
         $data = $request->validate(
             [
                 "paypal_email" => "required",
-              
+
             ]
         );
         auth()->user()->verification()->update([
@@ -422,8 +413,8 @@ class SellerPagesController extends Controller
     public function charges()
     {
         $charges = Auth()->user()->invoices();
-    
-      
+
+
         return view('auth.seller.charges', compact('charges'));
     }
     public function charge($charge)
@@ -517,7 +508,8 @@ class SellerPagesController extends Controller
     //     return $status;
     // }
 
-    public function cardAdd(Request $request) {
+    public function cardAdd(Request $request)
+    {
 
         $request->validate([
             'payment_method' => 'required'
@@ -526,19 +518,36 @@ class SellerPagesController extends Controller
         auth()->user()->addPaymentMethod($request->payment_method);
         return back()->with('success_msg', 'Subscription has been add Sucesss');
     }
-    public function cards() {
+    public function cards()
+    {
         $status = $this->subscriptionStatus();
         $intent = auth()->user()->createSetupIntent();
-        return view('auth.seller.cards',compact('intent','status'));
+        return view('auth.seller.cards', compact('intent', 'status'));
     }
-    public function refundRequestAccept(Order $order) {
-        if($order->status==5){
+    public function refundRequestAccept(Order $order)
+    {
+        if ($order->status == 5) {
             $order->update([
-                'refund_request_accpet'=>1,
+                'refund_request_accpet' => 1,
             ]);
             return back()->with('success_msg', 'Refund request accepted');
-        }else{
+        } else {
             return redirect()->back()->withErrors('Please make sure user refund request send');
         }
+    }
+
+    private function pathao($request)
+    {
+        $pathao = PathaoCourier::store()->create([
+            "name"              => $request->pathao['store_name'],
+            "contact_name"      => $request->pathao['contact_name'],
+            "contact_number"    => $request->pathao['contact_number'],
+            "address"           => $request->pathao['address'],
+            "secondary_contact" => $request->pathao['secondary_contact_number'],
+            "city_id"           => $request->pathao['city'],
+            "zone_id"           => $request->pathao['zone'],
+            "area_id"           => $request->pathao['area'],
+        ]);
+        return $pathao;
     }
 }
