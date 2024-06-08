@@ -109,6 +109,7 @@ class SellerPagesController extends Controller
     public function shopStore(Request $request)
     {
      
+        
         $request->validate([
             'name' => ['required', 'max:40'],
             'logo' => ['nullable'],
@@ -122,6 +123,7 @@ class SellerPagesController extends Controller
             'company_registration' => ['required', 'max:100'],
             'city' => ['required', 'max:50'],
             'post_code' => ['required', 'max:10'],
+            
 
         ]);
 
@@ -157,6 +159,7 @@ class SellerPagesController extends Controller
 
         ]);
 
+        
         $slug = Str::slug($shop->name);
         if (shop::where('slug', $slug)->first()) {
             $slug = $slug . '-' . $shop->id;

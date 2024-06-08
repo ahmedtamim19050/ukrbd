@@ -67,35 +67,35 @@ class Shop extends Model
             $postcode = Session::get('location.postcode');
             $q->whereIn('post_code', $postcode);
         })
-        // ->when(auth()->check(), function ($q) {
-        //     $q->where('post_code', Auth()->user()->shopAddress->post_code);
-        // })
-        ->with(['products' => function ($query) {
-            $query->when(request()->filled('category'), function ($q) {
-                $q->whereHas('prodcats', function ($query) {
-                    $query->where('slug', request()->category);
-                });
-            })->when(request()->has('search'), function ($q) {
-                return $q->where(function ($query) {
-                    $query->where('name', 'LIKE', '%' . request()->search . '%')
-                        ->orWhere('short_description', 'LIKE', '%' . request()->search . '%');
-                });
-            })
-                ->when(request()->has('search'), function ($q) {
-                    $q->orWhereHas('shop', function ($query) {
-                        $query->where('name', request()->search);
+            // ->when(auth()->check(), function ($q) {
+            //     $q->where('post_code', Auth()->user()->shopAddress->post_code);
+            // })
+            ->with(['products' => function ($query) {
+                $query->when(request()->filled('category'), function ($q) {
+                    $q->whereHas('prodcats', function ($query) {
+                        $query->where('slug', request()->category);
+                    });
+                })->when(request()->has('search'), function ($q) {
+                    return $q->where(function ($query) {
+                        $query->where('name', 'LIKE', '%' . request()->search . '%')
+                            ->orWhere('short_description', 'LIKE', '%' . request()->search . '%');
                     });
                 })
-                ->when(request()->has('shop_products') && request()->shop_products == 'price-low-hight', function ($q) {
-                    $q->orderBy('price', 'asc');
-                })
-                ->when(request()->has('shop_products') && request()->shop_products == 'price-high-low', function ($q) {
-                    $q->orderBy('price', 'desc');
-                })
-                ->when(request()->has('shop_products') && request()->shop_products == 'most-popular', function ($q) {
-                    $q->orderBy('total_sale', 'desc');
-                });
-        }])
+                    ->when(request()->has('search'), function ($q) {
+                        $q->orWhereHas('shop', function ($query) {
+                            $query->where('name', request()->search);
+                        });
+                    })
+                    ->when(request()->has('shop_products') && request()->shop_products == 'price-low-hight', function ($q) {
+                        $q->orderBy('price', 'asc');
+                    })
+                    ->when(request()->has('shop_products') && request()->shop_products == 'price-high-low', function ($q) {
+                        $q->orderBy('price', 'desc');
+                    })
+                    ->when(request()->has('shop_products') && request()->shop_products == 'most-popular', function ($q) {
+                        $q->orderBy('total_sale', 'desc');
+                    });
+            }])
             ->has('products');
     }
     public function scopeShop($query)
@@ -145,5 +145,14 @@ class Shop extends Model
     public function notifications()
     {
         return $this->hasmany(Notification::class, 'shop_id');
+    }
+    public function scopeComplete($query)
+    {
+        return $query->where('status', 1)->where('is_shipping_enabled', true);
+    }
+
+    public function isComplete(): bool
+    {
+        return $this->status && $this->is_shipping_enabled;
     }
 }

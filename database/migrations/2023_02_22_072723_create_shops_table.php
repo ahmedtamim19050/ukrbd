@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('post_code')->nullable();
             $table->string('country');
             $table->boolean('status')->default(false);
+
             $table->timestamps();
         });
     }

@@ -111,6 +111,7 @@
         }
     </style>
     {{ $css ?? null }}
+    @stack('css')
 </head>
 
 <body class="home">

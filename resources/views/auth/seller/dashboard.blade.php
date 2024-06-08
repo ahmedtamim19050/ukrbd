@@ -1,6 +1,7 @@
 <x-seller>
     <div class="ec-shop-rightside col-lg-9 col-md-12">
-
+        
+        <x-vendor.notifications :shop="auth()->user()->shop" />
         <div class="row mb-4">
             <div class="col-md-10">
                 <div class="row">

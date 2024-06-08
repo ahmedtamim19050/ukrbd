@@ -5,6 +5,7 @@ namespace App\Widgets;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\Traits\Chargeable;
 use Arrilot\Widgets\AbstractWidget;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -12,6 +13,7 @@ use TCG\Voyager\Facades\Voyager;
 
 class Orders extends AbstractWidget
 {
+    use Chargeable;
     /**
      * The configuration array.
      *

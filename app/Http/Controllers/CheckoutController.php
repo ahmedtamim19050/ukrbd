@@ -27,12 +27,12 @@ class CheckoutController extends Controller
     {
 
         $request->validate([
-
             'first_name' => ['required', 'max:40'],
             'last_name' => ['nullable', 'max:40'],
             'email' => ['required', 'max:40', 'email'],
             'address_1' => ['required'],
         ]);
+
 
         // $address = Address::find($request->prevoius_address);
 
@@ -56,94 +56,98 @@ class CheckoutController extends Controller
 
             return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
         }
-        // try {
-        DB::beginTransaction();
-        $platform_fee = Sohoj::flatCommision(Cart::getSubTotal());
-        $total = (Sohoj::newSubtotal() + $platform_fee);
+        try {
+            DB::beginTransaction();
+            $platform_fee = Sohoj::flatCommision(Cart::getSubTotal());
+            $total = (Sohoj::newSubtotal() + $platform_fee);
 
-        $order = Order::create([
-            'user_id' => auth()->user() ? auth()->user()->id : null,
-            'shop_id' => null,
-            'product_id' => null,
-            'shipping' => json_encode($shipping),
-            'subtotal' => Cart::getSubTotal(),
-            'discount' => Sohoj::round_num(Sohoj::discount()),
-            'discount_code' => Sohoj::discount_code(),
-            'tax' => null,
-            'shipping_total' => Sohoj::round_num(Sohoj::shipping()),
-            'platform_fee' => $platform_fee,
-            'total' => Sohoj::round_num($total),
-            'quantity' => null,
-            'vendor_total' => null,
-            // 'payment_method' => $request->payment_method[0],
-        ]);
-
-        foreach (Cart::getContent() as $item) {
-            OrderProduct::create([
-                'quantity' => $item->quantity,
-                'order_id' => $order->id,
-                'product_id' => $item->model->id,
-                'price' => $item->price,
-                'total_price' => $item->price * $item->quantity,
-                'variation' => $item->model->variations,
-                'shop_id' => $item->model->shop_id,
-            ]);
-            $childOrder = Order::create([
+            $order = Order::create([
                 'user_id' => auth()->user() ? auth()->user()->id : null,
-                'parent_id' => $order->id,
-                'shop_id' => $item->model->shop_id,
-                'product_id' => $item->id,
+                'shop_id' => null,
+                'product_id' => null,
                 'shipping' => json_encode($shipping),
-                'aptment' => $request->aptment,
-                'subtotal' => $item->price * $item->quantity,
-                'discount' => null,
-                'discount_code' => null,
+                'subtotal' => Cart::getSubTotal(),
+                'discount' => Sohoj::round_num(Sohoj::discount()),
+                'discount_code' => Sohoj::discount_code(),
                 'tax' => null,
-                'shipping_total' => $item->model->shipping_cost,
-                'platform_fee' => Sohoj::flatCommision($item->price),
-                'total' => Sohoj::round_num(($item->price * $item->quantity) + $item->model->shipping_cost),
-                'quantity' => $item->quantity,
-                'vendor_total' => $item->model->vendor_price * $item->quantity,
+                'shipping_total' => Sohoj::round_num(Sohoj::shipping()),
+                'platform_fee' => $platform_fee,
+                'total' => Sohoj::round_num($total),
+                'quantity' => null,
+                'vendor_total' => null,
                 // 'payment_method' => $request->payment_method[0],
-                'product_price' => $item->price,
             ]);
-            OrderProduct::create([
-                'quantity' => $item->quantity,
-                'order_id' => $childOrder->id,
-                'product_id' => $item->model->id,
-                'price' => $item->price,
-                'total_price' => $item->price * $item->quantity,
-                'variation' => $item->model->variations,
-                'shop_id' => $item->model->shop_id,
-            ]);
-        }
-        $childOrders = $order->childs;
-        foreach ($childOrders as $childOrder) {
-            $childOrder->update(['status' => 1]);
-            if ($childOrder->shop->email) {
 
-                Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+            foreach (Cart::getContent() as $item) {
+                OrderProduct::create([
+                    'quantity' => $item->quantity,
+                    'order_id' => $order->id,
+                    'product_id' => $item->model->id,
+                    'price' => $item->price,
+                    'total_price' => $item->price * $item->quantity,
+                    'variation' => $item->model->variations,
+                    'shop_id' => $item->model->shop_id,
+                ]);
+                $childOrder = Order::create([
+                    'user_id' => auth()->user() ? auth()->user()->id : null,
+                    'parent_id' => $order->id,
+                    'shop_id' => $item->model->shop_id,
+                    'product_id' => $item->id,
+                    'shipping' => json_encode($shipping),
+                    'aptment' => $request->aptment,
+                    'subtotal' => $item->price * $item->quantity,
+                    'discount' => null,
+                    'discount_code' => null,
+                    'tax' => null,
+                    'shipping_total' => $item->model->shipping_cost,
+                    'platform_fee' => Sohoj::flatCommision($item->price),
+                    'total' => Sohoj::round_num(($item->price * $item->quantity) + $item->model->shipping_cost),
+                    'quantity' => $item->quantity,
+                    'vendor_total' => $item->model->vendor_price * $item->quantity,
+                    // 'payment_method' => $request->payment_method[0],
+                    'product_price' => $item->price,
+                ]);
+                OrderProduct::create([
+                    'quantity' => $item->quantity,
+                    'order_id' => $childOrder->id,
+                    'product_id' => $item->model->id,
+                    'price' => $item->price,
+                    'total_price' => $item->price * $item->quantity,
+                    'variation' => $item->model->variations,
+                    'shop_id' => $item->model->shop_id,
+                ]);
             }
+            $childOrders = $order->childs;
+            foreach ($childOrders as $childOrder) {
+                $childOrder->update(['status' => 1]);
+                if ($childOrder->shop->email) {
+
+                    Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+                }
+            }
+
+
+            Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
+            $this->decreaseQuantities();
+
+            Cart::clear();
+
+            if (session()->has('discount_code')) {
+                Coupon::where('code', session('discount_code'))->first()->used();
+            }
+            session()->forget('discount');
+            session()->forget('discount_code');
+            $charge = $order->initializePayment();
+            DB::commit();
+            return redirect($charge->url);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($e->getMessage());
+        } catch (Error $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($e->getMessage());
         }
-        Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
-        $this->decreaseQuantities();
-        DB::commit();
-        Cart::clear();
 
-        Coupon::where('code', session('discount_code'))->first()->used();
-        session()->forget('discount');
-        session()->forget('discount_code');
-        return redirect('/thankyou')->with('thank', 'Order Created successfully!');
-
-        // } catch (Exception $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->withErrors($e->getMessage());
-        // } catch (Error $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->withErrors($e->getMessage());
-        // }
-
-        // return back();
     }
 
     protected function decreaseQuantities()

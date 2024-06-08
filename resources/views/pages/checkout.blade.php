@@ -13,8 +13,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
-
-
+        @livewireStyles
     </x-slot>
     <main class="main checkout container">
         <!-- Start of Breadcrumb -->
@@ -33,20 +32,21 @@
         <!-- Start of PageContent -->
         <div class="page-content">
             <div class="container">
-                @if(!Auth()->check())
-                <div class="">
-                    Returning customer? <a href="{{ route('login') }}"
-                        class=" font-weight-bold text-uppercase text-dark">Login</a>
-                </div>
+                @if (!Auth()->check())
+                    <div class="">
+                        Returning customer? <a href="{{ route('login') }}"
+                            class=" font-weight-bold text-uppercase text-dark">Login</a>
+                    </div>
                 @endif
 
                 @if (!session()->has('discount'))
-                <div class="coupon-toggle"> Have a coupon?
-                    <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter your code</a>
-                </div>
+                    <div class="coupon-toggle"> Have a coupon?
+                        <a href="#" class="show-coupon font-weight-bold text-uppercase text-dark">Enter your
+                            code</a>
+                    </div>
 
-                <div class="coupon-content mb-4">
-                    <p>If you have a coupon code, please apply it below.</p>
+                    <div class="coupon-content mb-4">
+                        <p>If you have a coupon code, please apply it below.</p>
 
                         <form action="{{ route('coupon') }}" method="POST">
                             @csrf
@@ -57,8 +57,8 @@
                                     Coupon</button>
                             </div>
                         </form>
-                
-                </div>
+
+                    </div>
                 @endif
 
                 <form class="form checkout-form" action="{{ route('checkout.store') }}" method="POST">
@@ -74,7 +74,8 @@
                                         <label>First name *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('first_name') is-invalid @enderror"
-                                            name="first_name" required value="{{ Auth()->user() ? auth()->user()->name : old('first_name') }}"
+                                            name="first_name" required
+                                            value="{{ Auth()->user() ? auth()->user()->name : old('first_name') }}"
                                             autocomplete="first_name" autofocus>
                                         @error('first_name')
                                             <span class="invalid-feedback" role="alert">
@@ -88,7 +89,8 @@
                                         <label>Last name *</label>
                                         <input type="text"
                                             class="form-control form-control-md @error('last_name') is-invalid @enderror"
-                                            name="last_name" required value="{{Auth()->user() ? auth()->user()->l_name :  old('last_name') }}"
+                                            name="last_name" required
+                                            value="{{ Auth()->user() ? auth()->user()->l_name : old('last_name') }}"
                                             autocomplete="last_name" autofocus>
                                         @error('last_name')
                                             <span class="invalid-feedback" role="alert">
@@ -112,143 +114,7 @@
                                 @enderror
 
                             </div>
-                            <div class="row gutter-sm">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Town / City *</label>
-                                        <select id="city" class="form-control"@error('city')is invalid @enderror
-                                            name="city" placeholder="city">
-                                            @error('city')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            {{-- <option selected>Open this select menu</option> --}}
-                                            <option value="Dhaka" selected>Dhaka</option>
-                                            <option value="Barguna">Barguna</option>
-                                            <option value="Barishal">Barishal</option>
-                                            <option value="Bhola">Bhola</option>
-                                            <option value="Jhalokati">Jhalokati</option>
-                                            <option value="Patuakhali">Patuakhali</option>
-                                            <option value="Pirojpur">Pirojpur</option>
-                                            <option value="Bandarban">Bandarban</option>
-                                            <option value="Brahmanbaria">Brahmanbaria</option>
-                                            <option value="Chandpur">Chandpur</option>
-                                            <option value="Chittagong">Chittagong</option>
-                                            <option value="Comilla">Comilla</option>
-                                            <option value="Cox's Bazar">Cox's Bazar</option>
-                                            <option value="Feni">Feni</option>
-                                            <option value="Khagrachhari">Khagrachhari</option>
-                                            <option value="Lakshmipur">Lakshmipur</option>
-                                            <option value="Noakhali">Noakhali</option>
-                                            <option value="Rangamati">Rangamati</option>
-
-                                            <option value="Faridpur">Faridpur</option>
-                                            <option value="Gazipur">Gazipur</option>
-                                            <option value="Gopalganj">Gopalganj</option>
-                                            <option value="Kishoreganj">Kishoreganj</option>
-                                            <option value="Madaripur">Madaripur</option>
-                                            <option value="Manikganj">Manikganj</option>
-                                            <option value="Munshiganj">Munshiganj</option>
-                                            <option value="Narayanganj">Narayanganj</option>
-                                            <option value="Narsingdi">Narsingdi</option>
-                                            <option value="Rajbari">Rajbari</option>
-                                            <option value="Shariatpur">Shariatpur</option>
-                                            <option value="Tangail">Tangail</option>
-                                            <option value="Bagerhat">Bagerhat</option>
-                                            <option value="Chuadanga">Chuadanga</option>
-                                            <option value="Jashore">Jashore</option>
-                                            <option value="Jhenaidah">Jhenaidah</option>
-                                            <option value="Khulna">Khulna</option>
-                                            <option value="Kushtia">Kushtia</option>
-                                            <option value="Magura">Magura</option>
-                                            <option value="Meherpur">Meherpur</option>
-                                            <option value="Narail">Narail</option>
-                                            <option value="Satkhira">Satkhira</option>
-                                            <option value="Jamalpur">Jamalpur</option>
-                                            <option value="Mymensingh">Mymensingh</option>
-                                            <option value="Netrokona">Netrokona</option>
-                                            <option value="Sherpur">Sherpur</option>
-                                            <option value="Bogura">Bogura</option>
-                                            <option value="Joypurhat">Joypurhat</option>
-                                            <option value="Naogaon">Naogaon</option>
-                                            <option value="Natore">Natore</option>
-                                            <option value="Chapai Nawabganj">Chapai Nawabganj</option>
-                                            <option value="Pabna">Pabna</option>
-                                            <option value="Rajshahi">Rajshahi</option>
-                                            <option value="Sirajganj">Sirajganj</option>
-                                            <option value="Dinajpur">Dinajpur</option>
-                                            <option value="Gaibandha">Gaibandha</option>
-                                            <option value="Kurigram">Kurigram</option>
-                                            <option value="Lalmonirhat">Lalmonirhat</option>
-                                            <option value="Nilphamari">Nilphamari</option>
-                                            <option value="Panchagarh">Panchagarh</option>
-                                            <option value="Rangpur">Rangpur</option>
-                                            <option value="Thakurgaon">Thakurgaon</option>
-                                            <option value="Habiganj">Habiganj</option>
-                                            <option value="Moulvibazar">Moulvibazar</option>
-                                            <option value="Sunamganj">Sunamganj</option>
-                                            <option value="Sylhet">Sylhet</option>
-                                        </select>
-                                    </div>
-                                   
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>ZIP (optional)*</label>
-                                        <input type="text"
-                                            class="form-control form-control-md @error('post_code') is-invalid @enderror"
-                                            name="post_code" value="{{ old('post_code') }}" autocomplete="post_code"
-                                            autofocus>
-                                        @error('post_code')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group mb-7">
-                                        <label>Email address *</label>
-                                        <input type="email"
-                                            class="form-control form-control-md @error('email') is-invalid @enderror"
-                                            name="email" required value="{{ Auth()->user() ? auth()->user()->email :  old('email') }}" autocomplete="email"
-                                            autofocus>
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                 </div>
-                                <div class="col-md-6">
-                                    {{-- <div class="form-group">
-                                        <label>State *</label>
-                                        <input type="text"
-                                            class="form-control form-control-md @error('state') is-invalid @enderror"
-                                            name="state" value="{{ old('state') }}" autocomplete="state"
-                                            autofocus>
-                                        @error('state')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div> --}}
-                                    <div class="form-group">
-                                        <label>Phone *</label>
-                                        <input type="text"
-                                            class="form-control form-control-md @error('phone') is-invalid @enderror"
-                                            name="phone" required value="{{ old('phone') }}" autocomplete="phone"
-                                            autofocus>
-                                        @error('phone')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
+                            <livewire:pathao-form />
 
 
                             <div class="form-group mt-3">
@@ -271,34 +137,35 @@
                                         </thead>
                                         <tbody>
                                             @foreach (Cart::getContent() as $item)
-                                                
-                                            <tr class="bb-no">
-                                                <td class="product-name">{{$item->name}}<i
-                                                        class="fas fa-times"></i> <span
-                                                        class="product-quantity">{{$item->quantity}}</span></td>
-                                                <td class="product-total">{{Sohoj::price($item->price)}}</td>
-                                            </tr>
+                                                <tr class="bb-no">
+                                                    <td class="product-name">{{ $item->name }}<i
+                                                            class="fas fa-times"></i> <span
+                                                            class="product-quantity">{{ $item->quantity }}</span></td>
+                                                    <td class="product-total">{{ Sohoj::price($item->price) }}</td>
+                                                </tr>
                                             @endforeach
-                                        
+
                                             <tr class="cart-subtotal">
                                                 <td>
                                                     Subtotal
                                                 </td>
                                                 <td>
-                                                   {{ Sohoj::price(Cart::getSubTotal()) }}
+                                                    {{ Sohoj::price(Cart::getSubTotal()) }}
                                                 </td>
                                             </tr>
                                             @if (session()->has('discount'))
-                                            <tr class="cart-subtotal">
-                                                <td>
-                                                    Discount <a href="{{route('coupon.destroy')}}" class="text-danger ml-2" style="text-decoration: underline;font-size:12px;color:red">Delete</a>
-                                                </td>
-                                                <td>
-                                                    {{ Sohoj::price(Sohoj::discount()) }}
-                                                </td>
-                                            </tr>
+                                                <tr class="cart-subtotal">
+                                                    <td>
+                                                        Discount <a href="{{ route('coupon.destroy') }}"
+                                                            class="text-danger ml-2"
+                                                            style="text-decoration: underline;font-size:12px;color:red">Delete</a>
+                                                    </td>
+                                                    <td>
+                                                        {{ Sohoj::price(Sohoj::discount()) }}
+                                                    </td>
+                                                </tr>
                                             @endif
-                                              
+
                                             <tr class="cart-subtotal bb-no">
                                                 <td>
                                                     <b>Total</b>
@@ -415,7 +282,8 @@
                                     </div> --}}
 
                                     <div class="form-group place-order pt-6">
-                                        <button type="submit" class="btn btn-dark btn-primary btn-rounded" style="width:100%">Place
+                                        <button type="submit" class="btn btn-dark btn-primary btn-rounded"
+                                            style="width:100%">Place
                                             Order</button>
                                     </div>
                                 </div>
@@ -480,5 +348,11 @@
                 }
             });
         </script>
+
     </x-slot>
+    @push('script')
+        @livewireScripts
+
+      
+    @endpush
 </x-app>

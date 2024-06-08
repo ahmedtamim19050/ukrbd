@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('seller-assets/css/style.css') }}" />
 <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 {{ $css ?? null }}
+@stack('css')
 <style>
     .vendor-block-bg {
         width: 100%;
@@ -116,7 +117,9 @@
             $('.toast').toast('hide');
         })
     </script>
+
     {{ $js ?? null }}
+    @stack('script')
 </body>
 
 

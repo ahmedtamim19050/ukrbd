@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9286bb7a0a84afe5e438f3187e042ebd",
+    "content-hash": "acb0ef7262e15350096ed1854b7effae",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -126,6 +126,53 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "codeboxr/pathao-courier",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kazi-Rayhan/pathao-courier.git",
+                "reference": "5fbaf3cf1d4c14fbac56f2e9728361bbe8d29562"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kazi-Rayhan/pathao-courier/zipball/5fbaf3cf1d4c14fbac56f2e9728361bbe8d29562",
+                "reference": "5fbaf3cf1d4c14fbac56f2e9728361bbe8d29562",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0.1",
+                "illuminate/support": "~6|~7|~8|~9",
+                "php": "^7.2|^7.3|^8.0|^8.1|^8.2|^8.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codeboxr\\PathaoCourier\\PathaoCourierServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codeboxr\\PathaoCourier\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Codeboxr"
+                }
+            ],
+            "description": "Bangladeshi Pathao courier service API package",
+            "support": {
+                "source": "https://github.com/Kazi-Rayhan/pathao-courier/tree/main"
+            },
+            "time": "2024-06-08T07:22:46+00:00"
         },
         {
             "name": "darryldecode/cart",
@@ -9297,12 +9344,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "codeboxr/pathao-courier": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

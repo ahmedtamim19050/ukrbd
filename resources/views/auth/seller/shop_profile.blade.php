@@ -1,5 +1,34 @@
 <x-seller>
 
+    <x-slot name="css">
+
+        @livewireStyles
+
+        <style>
+            .breadcrumb {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .breadcrumb li::after {
+
+                font-size: 14px;
+                font-weight: 600;
+                color: rgb(255, 51, 0);
+                content: ">"
+            }
+
+            .breadcrumb li a{
+                font-size: 14px;
+                font-weight: 600;
+            }
+            .breadcrumb li:last-child::after {
+                content: ""
+            }
+        </style>
+    </x-slot>
+
     <div class="ec-shop-rightside col-lg-9 col-md-12" style="position: relative;">
         <div class="ec-vendor-dashboard-card ec-vendor-profile-card">
             @if (auth()->user()->shop)
@@ -40,164 +69,309 @@
                                         )</p>
                                 </div>
                             </div>
-                            <form class="row g-3 " action="{{ route('vendor.store') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="col-md-12 mb-3">
-                                    <label for="name" class="form-label">Shop Name<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="name"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->name ? auth()->user()->shop->name : old('name') }}"
-                                        class="form-control @error('name') is-invalid @enderror" id="name"
-                                        required>
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="{{ route('vendor.shop') }}#generalInfo">General Informations</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('vendor.shop') }}#contactInfo">Contact Informations</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('vendor.shop') }}#addressInfo">Address Informations</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('vendor.shop') }}#courierInfo">Courier Section</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('vendor.shop') }}#socialInfo">Social Links</a>
+                        </li>
+                    </ul>
+
+                    <form class="g-3 " action="{{ route('vendor.store') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="card mb-4" id="generalInfo">
+                            <div class="card-header bg-transparent">
+                                <h5 class="my-3">
+                                    General Informations :
+                                </h5>
+                            </div>
+                            <div class="card-body">
 
 
-                                <div class="col-12 mb-3">
-                                    <div class="form-floating">
-                                        <textarea required maxlength="300" class="form-control @error('short_description') is-invalid @enderror"
-                                            placeholder="Short Description" name="short_description" id="short_description" style="height: 100px" required>{{ auth()->user()->shop && auth()->user()->shop->short_description ? auth()->user()->shop->short_description : old('short_description') }}</textarea>
-                                        <label for="floatingTextarea2">Short Description<span
+                                <div class="row">
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name" class="form-label">Shop Name<span
                                                 class="text-danger">*</span></label>
-                                        <span id="charCount">Characters left: 300</span>
-                                        @error('short_description')
+                                        <input type="text" name="name"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->name ? auth()->user()->shop->name : old('name') }}"
+                                            class="form-control @error('name') is-invalid @enderror" id="name"
+                                            required>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="inputEmail4" class="form-label">Company Name<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text"
+                                            class="form-control @error('company_name') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->company_name && auth()->user()->shop->company_name ? auth()->user()->shop->company_name : old('company_name') }}"
+                                            name="company_name" id="company_name" required>
+                                        @error('company_name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="inputEmail4" class="form-label">Shop Registration<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text"
+                                            class="form-control @error('company_registration') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->company_registration ? auth()->user()->shop->company_registration : old('company_registration') }}"
+                                            name="company_registration" id="company_registration" required>
+                                        @error('company_registration')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <div class="form-floating">
+                                            <textarea required maxlength="300" class="form-control @error('short_description') is-invalid @enderror"
+                                                placeholder="Short Description" name="short_description" id="short_description" style="height: 150px" required>{{ auth()->user()->shop && auth()->user()->shop->short_description ? auth()->user()->shop->short_description : old('short_description') }}</textarea>
+                                            <label for="floatingTextarea2">Short Description<span
+                                                    class="text-danger">*</span></label>
+                                            <span id="charCount">Characters left: 300</span>
+                                            @error('short_description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <div class="form-floating">
+
+                                            <textarea id="description" class="form-control" style="height: 200px" required maxlength="1000" name="description"
+                                                cols="20" rows="10" required>{{ auth()->user()->shop && auth()->user()->shop->description ? auth()->user()->shop->description : old('description') }}</textarea>
+                                            <label for="inputAddress2" class="form-label">About Shop<span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <span id="descriptionCharCount">Characters left: 1000</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card  mb-4" id="contactInfo">
+                            <div class="card-header bg-transparent">
+                                <h5 class="my-3">
+                                    Contact Informations :
+                                </h5>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="inputEmail4" class="form-label">Email<span
+                                                class="text-danger">*</span></label>
+                                        <input type="email"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            value="{{ auth()->user() ? auth()->user()->email : ' ' }}" name="email"
+                                            id="inputEmail4" required>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="inputEmail4" class="form-label">Phone Number<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text"
+                                            class="form-control @error('phone') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->phone ? auth()->user()->shop->phone : old('phone') }}"
+                                            name="phone" id="phone" required>
+                                        @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="inputEmail4" class="form-label">Email<span
-                                            class="text-danger">*</span></label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        value="{{ auth()->user() ? auth()->user()->email : ' ' }}" name="email"
-                                        id="inputEmail4" required>
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="inputEmail4" class="form-label">Phone Number<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->phone ? auth()->user()->shop->phone : old('phone') }}"
-                                        name="phone" id="phone" required>
-                                    @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- <div class="col-md-6 mb-2">
-                                    <label for="inputEmail4" class="form-label">Shop Tags <span>( Type and
-                                            make comma to separate tags And Use Three word to describe your shop
-                                            )</span><span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('tags') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop ? auth()->user()->shop->tags : old('tags') }}"
-                                        data-role="tagsinput" name="tags" id="group_tag">
-                                    @error('tags')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-                                <div class="col-md-6 mb-3">
-                                    <label for="inputEmail4" class="form-label">Company Name<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text"
-                                        class="form-control @error('company_name') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_name && auth()->user()->shop->company_name ? auth()->user()->shop->company_name : old('company_name') }}"
-                                        name="company_name" id="company_name" required>
-                                    @error('company_name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="inputEmail4" class="form-label">Shop Registration<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text"
-                                        class="form-control @error('company_registration') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->company_registration ? auth()->user()->shop->company_registration : old('company_registration') }}"
-                                        name="company_registration" id="company_registration" required>
-                                    @error('company_registration')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                {{-- <div class="col-md-6 mb-3">
-                                    <label for="inputCity" class="form-label">Country<span
-                                            class="text-danger">*</span></label>
-                                    <x-country />
-                                </div> --}}
-
-                                {{-- <div class="col-md-5 mb-3">
-                                    <label for="inputState" class="form-label">State<span
-                                            class="text-danger">*</span></label>
-                                    <x-state />
-                                    @error('state')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> --}}
-                                <div class="col-md-4 mb-3">
-                                    <label for="inputCity" class="form-label">City<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('city') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->city ? auth()->user()->shop->city : old('city') }}"
-                                        name="city" id="city" required>
-                                    @error('city')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="inputZip" class="form-label">Zip</label>
-                                    <input type="text"
-                                        class="form-control p-2 @error('post_code') is-invalid @enderror"
-                                        value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('post_code') }}"
-                                        name="post_code" id="post_code" required>
-                                    @error('post_code')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-12 mb-3">
-                                    <label for="inputAddress2" class="form-label">About Shop<span
-                                            class="text-danger">*</span></label>
-                                    <textarea id="description" required maxlength="1000" name="description" cols="20" rows="10" required>{{ auth()->user()->shop && auth()->user()->shop->description ? auth()->user()->shop->description : old('description') }}</textarea>
-                                    <span id="descriptionCharCount">Characters left: 1000</span>
-                                </div>
-                                <div class="col-12 mt-3 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="ec-vendor-block-profile">
-                            <h4 class="mb-3">Shop Social Links</h4>
-                            <form action="{{ route('vendor.shopSocialLinksStore.store') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
+
+                        <div class="card mb-4" id="addressInfo">
+                            <div class="card-header bg-transparent">
+                                <h5 class="my-3">
+                                    Address Informations :
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="division" class="form-label">Division</label>
+                                        <input type="text"
+                                            class="form-control p-2 @error('division') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
+                                            name="division" id="division" required>
+                                        @error('division')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="division" class="form-label">Zilla</label>
+                                        <input type="text"
+                                            class="form-control p-2 @error('division') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
+                                            name="division" id="division" required>
+                                        @error('division')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="division" class="form-label">Upzilla</label>
+                                        <input type="text"
+                                            class="form-control p-2 @error('division') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
+                                            name="division" id="division" required>
+                                        @error('division')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="division" class="form-label">City / Village</label>
+                                        <input type="text"
+                                            class="form-control p-2 @error('division') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
+                                            name="division" id="division" required>
+                                        @error('division')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="inputZip" class="form-label">Zip</label>
+                                        <input type="text"
+                                            class="form-control p-2 @error('post_code') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('post_code') }}"
+                                            name="post_code" id="post_code" required>
+                                        @error('post_code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputZip" class="form-label">Address</label>
+                                        <input type="text"
+                                            class="form-control p-2 @error('post_code') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('post_code') }}"
+                                            name="post_code" id="post_code" required>
+                                        @error('post_code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (auth()->user()->shop->is_shipping_enabled == false)
+                            <div class="card mb-4" id="courierInfo">
+                                <div class="card-header bg-transparent py-3">
+                                    <h5 class="">
+                                        Courier's Section
+                                    </h5>
+                                    <p class="">
+                                        Please note that this section will be removed after you have provided your
+                                        information. Therefore, ensure that all details are accurate and complete before
+                                        submission.
+                                    </p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-3">
+                                                <label for="pathao_store_name">
+                                                    Store Name
+                                                </label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group mb-3">
+                                                <label for="pathao_store_name">
+                                                    Contact name
+                                                </label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group mb-3">
+                                                <label for="pathao_store_name">
+                                                    Contact number
+                                                </label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group mb-3">
+                                                <label for="pathao_store_name">
+                                                    Secondary contact number
+                                                </label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <livewire:pathao-form />
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-3">
+                                                <label for="pathao_store_name">
+                                                    Address
+                                                </label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="card mb-4" id="socialInfo">
+                            <div class="card-header bg-transparent">
+                                <h5 class="my-3">
+                                    Social Links :
+                                </h5>
+                            </div>
+                            <div class="card-body">
                                 <div class="row ">
                                     <div class="col-md-6">
                                         <label for="title" class="form-label">Facebook</label>
@@ -245,43 +419,47 @@
                                     </div>
 
                                 </div>
-
-                                <button type="submit" class="btn btn-dark mt-3">Save</button>
-
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+
+
+
+
+                        <button type="submit" class="btn btn-primary ">Save <i class="fa fa-save"></i></button>
+
+                    </form>
+
+
                 </div>
+
+
             </div>
         </div>
     </div>
-    <script>
-        const textarea = document.getElementById('short_description');
-        const charCount = document.getElementById('charCount');
 
-        textarea.addEventListener('input', function() {
-            const maxLength = 300;
-            const currentLength = textarea.value.length;
+    <x-slot name="js">
 
-            if (currentLength > maxLength) {
-                textarea.value = textarea.value.slice(0, maxLength);
+        <script>
+            const showInputFiledValueLength = (inputFieldID, messageBoxID) => {
+                const el = document.getElementById(inputFieldID);
+                const messageBox = document.getElementById(messageBoxID);
+                const maxLength = el.maxLength;
+                const currentLength = el.value.length;
+                messageBox.textContent = `Characters left: ${maxLength - currentLength}`
             }
+            document.addEventListener('DOMContentLoaded', function() {
+                showInputFiledValueLength('short_description', 'charCount');
+                showInputFiledValueLength('description', 'descriptionCharCount');
 
-            charCount.textContent = `Characters left: ${maxLength - currentLength}`;
-        });
+            })
+            document.getElementById('short_description').addEventListener('input', () => showInputFiledValueLength(
+                'short_description', 'charCount'))
+            document.getElementById('description').addEventListener('input', () => showInputFiledValueLength('description',
+                'descriptionCharCount'))
+        </script>
 
-        const description = document.getElementById('description');
-        const descriptionCharCount = document.getElementById('descriptionCharCount');
+        @livewireScripts
+    </x-slot>
 
-        description.addEventListener('input', function() {
-            const maxLength = 1000;
-            const currentLength = description.value.length;
-
-            if (currentLength > maxLength) {
-                description.value = descriptionCharCount.value.slice(0, maxLength);
-            }
-
-            descriptionCharCount.textContent = `Characters left: ${maxLength - currentLength}`;
-        });
-    </script>
 </x-seller>

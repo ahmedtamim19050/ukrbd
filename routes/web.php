@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ChargeStatusHasBeenUpdated;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\PayoutsController;
 use App\Http\Controllers\Seller\ProductController;
@@ -20,14 +22,18 @@ use App\Mail\OfferEmail;
 use App\Mail\OrderPlaced;
 use App\Mail\TicketPlaced;
 use App\Mail\VerifyEmail;
+use App\Models\Charge;
 use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Payment\JachaiPay;
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use GuzzleHttp\Middleware;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Stripe\Price;
@@ -133,7 +139,7 @@ Route::get('/vendor-register', [RegisterController::class, 'vendorCreate'])->nam
 Route::get('/vendor-register-2nd-step', [HomeController::class, 'vendorSecondStep'])->name('vendor.second.step');
 Route::post('/2nd-step-store', [HomeController::class, 'vendorSecondStepStore'])->name('vendor.second.step.store');
 
-Route::get('/shop', [SellerPagesController::class, 'shop'])->name('vendor.shop')->middleware(['auth', 'verifiedEmail', 'second']);
+Route::get('vendor/shop', [SellerPagesController::class, 'shop'])->name('vendor.shop')->middleware(['auth', 'verifiedEmail', 'second']);
 Route::post('/store-shop', [SellerPagesController::class, 'shopStore'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.store');
 
 Route::get('/shop/set-up-payment-method', [PaymentsController::class, 'setUpPaymentMethod'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.setUpPaymentMethod');
@@ -173,8 +179,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.user'], function () {
     Route::get('/shop/{shop}/freeforlife', [HomeController::class, 'freeforlife'])->name('admin.shop.freeforlife');
 });
 
+
+Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
+    Route::group(['prefix' => 'payment', 'as' => 'payment.', 'controller' => PaymentCallbackController::class], function () {
+        Route::get('success', 'success')->name('success');
+        Route::get('canceled', 'canceled')->name('canceled');
+        Route::get('failed', 'failed')->name('failed');
+        Route::get('refund', 'refund')->name('refund');
+        Route::post('ipn', 'ipn')->name('ipn');
+    });
+});
+
+
 Route::get('hello/{user}', function (User $user) {
-   
+
     $verify_token = Str::random(20);
     return new VerifyEmail($user, $verify_token);
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
@@ -190,7 +208,7 @@ if (env('APP_ENV') == 'local') {
 
 
 
-Route::get('/test',function () {
-    $order = Order::first();
-    JachaiPay::init($order)->getPaymentLink();
+Route::get('/test', function () {
+   
+    return ;
 });
