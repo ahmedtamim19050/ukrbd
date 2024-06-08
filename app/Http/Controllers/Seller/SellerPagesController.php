@@ -30,6 +30,7 @@ use Stripe\Charge;
 use Stripe\Price;
 use Stripe\Product as StripeProduct;
 use Stripe\Stripe;
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 
 class SellerPagesController extends Controller
 {
@@ -109,7 +110,7 @@ class SellerPagesController extends Controller
     public function shopStore(Request $request)
     {
      
-        
+        // dd($request->all());
         $request->validate([
             'name' => ['required', 'max:40'],
             'logo' => ['nullable'],
@@ -167,8 +168,19 @@ class SellerPagesController extends Controller
         $shop->update([
             'slug' =>  $slug,
         ]);
+        $shop->createMetas($request->meta);
 
-
+        $qurieer=PathaoCourier::store()->create([
+                            "name"              => $request->pathao['store_name'], 
+                            "contact_name"      => $request->pathao['contact_name'], 
+                            "contact_number"    => $request->pathao['contact_number'], 
+                            "address"           => $request->pathao['address'], 
+                            "secondary_contact" => $request->pathao['secondary_contact_number'], 
+                            "city_id"           => $request->pathao['city'], 
+                            "zone_id"           => $request->pathao['zone'], 
+                            "area_id"           => $request->pathao['area'], 
+                        ]);
+        dd($qurieer);
 
         return back()->with('success_msg', 'Success! Your shop has been updated/created');
     }

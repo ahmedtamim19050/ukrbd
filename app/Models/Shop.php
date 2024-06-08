@@ -31,6 +31,10 @@ class Shop extends Model
         "menuLink1",
         "menuTitle2",
         "menuLink2",
+        'division',
+        'zilla',
+        'upzilla',
+        'address',
     ];
 
     public function user()

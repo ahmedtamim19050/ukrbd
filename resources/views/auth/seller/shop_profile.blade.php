@@ -228,8 +228,8 @@
                                         <label for="division" class="form-label">Division</label>
                                         <input type="text"
                                             class="form-control p-2 @error('division') is-invalid @enderror"
-                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
-                                            name="division" id="division" required>
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->division ? auth()->user()->shop->division : old('meta.division') }}"
+                                            name="meta[division]" id="division" required>
                                         @error('division')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -237,36 +237,36 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="division" class="form-label">Zilla</label>
+                                        <label for="zilla" class="form-label">Zilla</label>
                                         <input type="text"
-                                            class="form-control p-2 @error('division') is-invalid @enderror"
-                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
-                                            name="division" id="division" required>
-                                        @error('division')
+                                            class="form-control p-2 @error('meta.zila') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->zilla ? auth()->user()->shop->zilla : old('meta.zilla') }}"
+                                            name="meta[zilla]" id="zilla" required>
+                                        @error('meta.zilla')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="division" class="form-label">Upzilla</label>
+                                        <label for="upzilla" class="form-label">Upzilla</label>
                                         <input type="text"
-                                            class="form-control p-2 @error('division') is-invalid @enderror"
-                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
-                                            name="division" id="division" required>
-                                        @error('division')
+                                            class="form-control p-2 @error('meta.upzilla') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->upzilla ? auth()->user()->shop->upzilla : old('meta.upzilla') }}"
+                                            name="meta[upzilla]" id="upzilla" required>
+                                        @error('meta.upzilla')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="division" class="form-label">City / Village</label>
+                                        <label for="city" class="form-label">City / Village</label>
                                         <input type="text"
-                                            class="form-control p-2 @error('division') is-invalid @enderror"
-                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('division') }}"
-                                            name="division" id="division" required>
-                                        @error('division')
+                                            class="form-control p-2 @error('city') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->city ? auth()->user()->shop->city : old('city') }}"
+                                            name="city" id="city" required>
+                                        @error('city')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -287,10 +287,10 @@
                                     <div class="col-md-12">
                                         <label for="inputZip" class="form-label">Address</label>
                                         <input type="text"
-                                            class="form-control p-2 @error('post_code') is-invalid @enderror"
-                                            value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('post_code') }}"
-                                            name="post_code" id="post_code" required>
-                                        @error('post_code')
+                                            class="form-control p-2 @error('address') is-invalid @enderror"
+                                            value="{{ auth()->user()->shop && auth()->user()->shop->address ? auth()->user()->shop->address : old('meta.address') }}"
+                                            name="meta[address]" id="address" required>
+                                        @error('meta.address')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -320,31 +320,31 @@
                                                 <label for="pathao_store_name">
                                                     Store Name
                                                 </label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="pathao[store_name]" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="pathao_store_name">
+                                                <label for="pathao_contact_name">
                                                     Contact name
                                                 </label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="pathao[contact_name]">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="pathao_store_name">
+                                                <label for="pathao_contact_number]">
                                                     Contact number
                                                 </label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="pathao[contact_number]">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="pathao_store_name">
+                                                <label for="secondary_contact_name">
                                                     Secondary contact number
                                                 </label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="pathao[secondary_contact_number]">
                                             </div>
                                         </div>
 
@@ -353,10 +353,10 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label for="pathao_store_name">
+                                                <label for="pathao_address">
                                                     Address
                                                 </label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="pathao[address]">
                                             </div>
                                         </div>
 
