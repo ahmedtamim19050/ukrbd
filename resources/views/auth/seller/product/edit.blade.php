@@ -182,7 +182,7 @@
                                             <label class="form-label">Product weight</label>
                                             <input type="text" value="{{ $product->weight }}"
                                                 class="form-control @error('weight') is-invalid @enderror"
-                                                placeholder="179 grams" name="weight" />
+                                                placeholder="179 grams" name="weight" required/>
                                             @error('weight')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -200,12 +200,12 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-6 mt-2">
+                                        {{-- <div class="col-md-6 mt-2">
                                             <label class="form-label">Shipping Cost</label>
                                             <input type="text" class="form-control"
                                                 value="{{ $product->shipping_cost }}" placeholder=""
                                                 name="shipping_cost" />
-                                        </div>
+                                        </div> --}}
 
 
                                         <!-- <div class="col-md-6 mt-3">
@@ -228,13 +228,13 @@
 
 
 
-                                        <div class="d-flex">
+                                        {{-- <div class="d-flex">
                                             <input {{ $product->is_offer == true ? 'checked' : '' }} type="checkbox"
                                                 id="offer" style="width: 25px;" value="1" name="offer">
                                             <label for="offer" class="mt-3 ms-3">
                                                 Allow make offer
                                             </label>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-12 mt-2">
                                             <button type="submit" class="btn btn-primary">Submit</button>

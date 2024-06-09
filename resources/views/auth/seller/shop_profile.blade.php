@@ -313,12 +313,12 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label for="pathao_store_name">
+                                                <label for="store_name">
                                                     Store Name
                                                 </label>
-                                                <input type="text" class="form-control" name="pathao[store_name]"
-                                                    required>
-                                                @error('meta.address')
+                                                <input type="text" class="form-control @error('post_code') is-invalid @enderror" name="store_name"
+                                                    required id="store_name" value="{{old('store_name')}}" required>
+                                                @error('store_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -331,16 +331,16 @@
                                                     Contact name
                                                 </label>
                                                 <input type="text" class="form-control"
-                                                    name="pathao[contact_name]">
+                                                    name="pathao[contact_name]" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="pathao_contact_number]">
+                                                <label for="pathao_contact_number]" >
                                                     Contact number
                                                 </label>
                                                 <input type="text" class="form-control"
-                                                    name="pathao[contact_number]">
+                                                    name="pathao[contact_number]" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -349,7 +349,7 @@
                                                     Secondary contact number
                                                 </label>
                                                 <input type="text" class="form-control"
-                                                    name="pathao[secondary_contact_number]">
+                                                    name="pathao[secondary_contact_number]" required>
                                             </div>
                                         </div>
 
@@ -361,7 +361,7 @@
                                                 <label for="pathao_address">
                                                     Address
                                                 </label>
-                                                <input type="text" class="form-control" name="pathao[address]">
+                                                <input type="text" class="form-control" name="pathao[address]" required>
                                             </div>
                                         </div>
 
