@@ -183,10 +183,10 @@
                                         <input class="form-check-input" type="radio" name="payment_method" value="card" id="payment_method_card" checked />
                                         <label class="form-check-label" for="payment_method_card"> Card / Mobile Banking / Wallet </label>
                                      </div>
-                                     <div class="form-check">
+                                     {{-- <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" />
                                         <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
-                                     </div>
+                                     </div> --}}
                                      
                                     </div>
                                 </div>
