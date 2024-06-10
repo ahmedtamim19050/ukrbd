@@ -38,7 +38,6 @@ class SellerPagesController extends Controller
     {
         $shop = auth()->user()->shop;
         $customer = User::filter()->get();
-
         $totalSell = Order::where('shop_id', $shop->id)->filter()->sum('total');
         $products = Product::whereNull('parent_id')->where('shop_id', $shop->id)
             ->when(request('product_search'), function ($query) {

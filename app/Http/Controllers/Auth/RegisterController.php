@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\VerifyEmail;
+use App\Models\Order;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Verification;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
+
 class RegisterController extends Controller
 {
     /*
@@ -30,6 +32,20 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+
+    protected function registered(Request $request, $user)
+    {
+        if (session()->has('guest_order_id')) {
+            $order = Order::find(session('guest_order_id'));
+            if ($order && is_null($order->user_id)) {
+                $order->update(['user_id' => $user->id]);
+                foreach ($order->childs as $child) {
+                    $child->update(['user_id' => $user->id]);
+                }
+                session()->forget('guest_order_id');
+            }
+        }
+    }
     /**
      * Where to redirect users after registration.
      *
@@ -49,10 +65,10 @@ class RegisterController extends Controller
                 break;
 
             case 3:
-            
-                if(auth()->user()->email==null && auth()->user()->phone==!null){
+
+                if (auth()->user()->email == null && auth()->user()->phone == !null) {
                     return '/vendor-register-2nd-step';
-                }else{
+                } else {
 
                     return '/verify-email';
                 }
@@ -83,7 +99,7 @@ class RegisterController extends Controller
 
     // protected function validator(array $data)
     // {
-        
+
     //     return Validator::make($data, [
     //         'name' => ['required', 'string', 'max:255'],
     //         'email' => ['required', 'string', 'max:255'],
@@ -101,49 +117,48 @@ class RegisterController extends Controller
         ]);
 
         $username = $request->email;
-        $email=null;
-        $phone=null;
-        $message=null;
-        $email_verified=null;
+        $email = null;
+        $phone = null;
+        $message = null;
+        $email_verified = null;
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-           $email=$username;
-           $message="Email";
-        } elseif (preg_match('/^\+?\d+$/',$username)) {
-            $phone=$username;
-            $email_verified=now();
-            $message="Phone";
+            $email = $username;
+            $message = "Email";
+        } elseif (preg_match('/^\+?\d+$/', $username)) {
+            $phone = $username;
+            $email_verified = now();
+            $message = "Phone";
         } else {
-            return back()->with('error',"Your input is neither an email address or a phone number");
-          
-        }
-       
-        if(User::where('username', $username)->exists()){
-            return back()->with('error',"Your $message is already taken");
+            return back()->with('error', "Your input is neither an email address or a phone number");
         }
 
-        if($request->role=='vendor'){
-            $role_id=3;
-        }else{
-            $role_id=2;
+        if (User::where('username', $username)->exists()) {
+            return back()->with('error', "Your $message is already taken");
         }
-        
 
-        $array=[
+        if ($request->role == 'vendor') {
+            $role_id = 3;
+        } else {
+            $role_id = 2;
+        }
+
+
+        $array = [
             'name' => $request->name,
             'email' => $email,
             'phone' => $phone,
             'username' => $username,
             'password' => Hash::make($request->password),
             'role_id' => $role_id,
-            'email_verified_at'=>$email_verified,
+            'email_verified_at' => $email_verified,
 
         ];
-        $user= User::create($array);
-        $verify_token=Str::random(20);
+        $user = User::create($array);
+        $verify_token = Str::random(20);
 
-        if($role_id==3 && $message=="Email"){
+        if ($role_id == 3 && $message == "Email") {
             // Mail::to(setting('site.email'))->send(new NotifyEmail($user));
-            Mail::to($user->email)->send(new VerifyEmail($user,$verify_token));
+            Mail::to($user->email)->send(new VerifyEmail($user, $verify_token));
         }
 
         $this->guard()->login($user);
@@ -153,8 +168,8 @@ class RegisterController extends Controller
         }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
     }
 
 
@@ -178,9 +193,9 @@ class RegisterController extends Controller
     //         $message="Phone";
     //     } else {
     //         return back()->withErrors("Your $message is already taken");
-          
+
     //     }
-       
+
     //     if(User::where('username', $username)->exists()){
     //         return $username;
     //     }
@@ -190,7 +205,7 @@ class RegisterController extends Controller
     //     }else{
     //         $role_id=2;
     //     }
-        
+
 
     //     $array=[
     //         'name' => $data['name'],
@@ -216,7 +231,4 @@ class RegisterController extends Controller
 
         return view('auth.seller.register');
     }
-
- 
-
 }

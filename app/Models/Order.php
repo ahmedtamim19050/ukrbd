@@ -80,6 +80,8 @@ class Order extends Model
     {
         $currentWeekStart = Carbon::now()->startOfWeek();
         $currentWeekEnd = Carbon::now()->endOfWeek();
+        $startMonth = Carbon::now()->startOfMonth();
+        $EndMonth = Carbon::now()->endOfMonth();
 
         return $query
             ->when(request('sales') == 2, function ($query) {
@@ -90,12 +92,17 @@ class Order extends Model
             })
             ->when(request('sales') == 1, function ($query) use ($currentWeekStart, $currentWeekEnd) {
                 $query->whereBetween('created_at', [$currentWeekStart, $currentWeekEnd]);
+            })
+            ->when(request('sales') == 4, function ($query) use ($startMonth, $EndMonth) {
+                $query->whereBetween('created_at', [$startMonth, $EndMonth]);
             });
     }
     public function scopeCountFilter($query)
     {
         $currentWeekStart = Carbon::now()->startOfWeek();
         $currentWeekEnd = Carbon::now()->endOfWeek();
+        $startMonth = Carbon::now()->startOfMonth();
+        $EndMonth = Carbon::now()->endOfMonth();
 
         return $query
             ->when(request('orders') == 2, function ($query) {
@@ -106,6 +113,9 @@ class Order extends Model
             })
             ->when(request('orders') == 1, function ($query) use ($currentWeekStart, $currentWeekEnd) {
                 $query->whereBetween('created_at', [$currentWeekStart, $currentWeekEnd]);
+            })
+            ->when(request('orders') == 4, function ($query) use ($startMonth, $EndMonth) {
+                $query->whereBetween('created_at', [$startMonth, $EndMonth]);
             });
     }
     public function scopeChildren($query)
@@ -116,6 +126,4 @@ class Order extends Model
     {
         return $query->whereNull('parent_id');
     }
-
-
 }

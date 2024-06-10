@@ -112,7 +112,9 @@
                                     <tbody>
                                         @foreach (Cart::getContent() as $item)
                                             <tr class="bb-no">
-                                                <td class="product-name">{{ $item->name }}<i class="fas fa-times"></i>
+                                                <td class="product-name" style="
+                                                white-space: normal;
+                                            ">{{ $item->name }}<i class="fas fa-times"></i>
                                                     <span class="product-quantity">{{ $item->quantity }}</span>
                                                 </td>
                                                 <td class="product-total">{{ Sohoj::price($item->price) }}</td>
