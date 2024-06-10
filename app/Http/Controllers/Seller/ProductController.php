@@ -54,7 +54,7 @@ class ProductController extends Controller
                 "images.*"      => "mimes:jpg,jpeg,png",
 
                 "dimensions"    => "nullable",
-                "weight"        => "nullable",
+                "weight"        => "required|integer",
                 "options" => "nullable",
                 "sizes" => "nullable",
                 "color" => "nullable",
@@ -138,7 +138,7 @@ class ProductController extends Controller
                 // "image"         => "required|mimes:jpg,jpeg,png",
                 "images.*"      => "mimes:jpg,jpeg,png",
                 "dimensions"    => "nullable",
-                "weight"        => "nullable",
+                "weight"        => "required|integer",
         
 
             ]

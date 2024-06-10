@@ -125,7 +125,7 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" value="{{ old('name') }}"
                                                 class="form-control @error('name') is-invalid @enderror"
-                                                name="name" id="inputEmail4">
+                                                name="name" id="inputEmail4" required>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -219,9 +219,9 @@
                                             @enderror
                                         </div>
                                         <div class="col-md-6 mt-2">
-                                            <label class="form-label">Product weight (optinal)</label>
+                                            <label class="form-label">Product weight</label>
                                             <input type="text" class="form-control" value="{{ old('weight') }}"
-                                                placeholder="179 grams" name="weight" />
+                                                placeholder="Provide your gram or ml" name="weight" required/>
                                         </div>
 
 
@@ -233,12 +233,12 @@
                                                 value="{{ old('dimensions') }}"
                                                 placeholder=" Length x Width x Height" name="dimensions" />
                                         </div>
-                                        <div class="col-md-6 mt-2">
+                                        {{-- <div class="col-md-6 mt-2">
                                             <label class="form-label">Shipping Cost (optinal)</label>
                                             <input type="text" class="form-control"
                                                 value="{{ old('shipping_cost') }}" placeholder=""
                                                 name="shipping_cost" />
-                                        </div>
+                                        </div> --}}
 
 
                                         <div class="col-md-6 d-flex mt-4">
@@ -248,13 +248,13 @@
                                                 Variable Product (optinal)
                                             </label>
                                         </div>
-                                        <div class="d-flex">
+                                        {{-- <div class="d-flex">
                                             <input type="checkbox" id="offer" style="width: 25px;"
                                                 value="1" name="offer">
                                             <label for="offer" class="mt-3 ms-3">
                                                 Allow make offer (optinal)
                                             </label>
-                                        </div>
+                                        </div> --}}
                                 
 
                                         <div class="col-md-12 mt-2">

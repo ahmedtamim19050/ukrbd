@@ -125,14 +125,14 @@ class SellerPagesController extends Controller
             'company_registration' => ['required', 'max:100'],
             'city' => ['required', 'max:50'],
             'post_code' => ['required', 'max:10'],
-            // 'pathao.*.store_name' => ['required'],
-            // 'pathao.*.contact_name' => ['required'],
-            // 'pathao.*.contact_number' => ['required'],
-            // 'pathao.*.address' => ['required'],
-            // 'pathao.*.secondary_contact_number' => ['required'],
-            // 'pathao.*.city' => ['required'],
-            // 'pathao.*.zone' => ['required'],
-            // 'pathao.*.area' => ['required'],
+            'store_name' => ['required','string','unique:shops'],
+            'pathao.contact_name' => ['required',],
+            'pathao.contact_number' => ['required','regex:/^01[3-9]\d{8}$/'],
+            'pathao.address' => ['required'],
+            'pathao.secondary_contact_number' => ['required','regex:/^01[3-9]\d{8}$/'],
+            'pathao.city' => ['required'],
+            'pathao.zone' => ['required'],
+            'pathao.area' => ['required'],
 
 
         ]);
@@ -539,7 +539,7 @@ class SellerPagesController extends Controller
     private function pathao($request)
     {
         $pathao = PathaoCourier::store()->create([
-            "name"              => $request->pathao['store_name'],
+            "name"              => $request->store_name,
             "contact_name"      => $request->pathao['contact_name'],
             "contact_number"    => $request->pathao['contact_number'],
             "address"           => $request->pathao['address'],
