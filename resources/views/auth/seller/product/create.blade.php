@@ -120,7 +120,7 @@
                             <div class="col-lg-8">
                                 <div class="ec-vendor-upload-detail">
                                     <div class="row g-3">
-                                        <div class="col-md-6 mt-2">
+                                        <div class="col-md-12 mt-2">
                                             <label for="inputEmail4" class="form-label">Product name<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" value="{{ old('name') }}"
@@ -133,7 +133,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-6 mt-2">
+                                        <div class="col-md-12 mt-2">
                                             <label class="form-label">Select Categories (optinal)</label>
                                             <select class=" @error('categories') is-invalid @enderror " multiple
                                                 data-placeholder="Select Categories" name="categories[]">

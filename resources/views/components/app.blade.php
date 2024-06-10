@@ -975,7 +975,7 @@
     <script>
         toastr.options = {
             "newestOnTop": true,
-            "positionClass": "toast-top-right",
+            "positionClass": "toast-bottom-left",
             "preventDuplicates": true,
             "showDuration": "150",
             "hideDuration": "200",

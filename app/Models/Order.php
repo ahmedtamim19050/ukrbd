@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Models\Traits\Chargeable;
 use Carbon\Carbon;
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory,Chargeable;
+    use HasFactory, Chargeable;
 
     protected $guarded = [];
     public function shop()
@@ -20,18 +21,19 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
     public function products()
     {
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
 
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
+
     public function childs()
     {
-        return $this->hasMany(Order::class,'parent_id');
+        return $this->hasMany(Order::class, 'parent_id');
     }
     public function feedback()
     {
@@ -39,7 +41,7 @@ class Order extends Model
     }
     public function getFirstNameAttribute()
     {
-        return json_decode($this->shipping)->first_name;
+        return @explode(' ', json_decode($this->shipping)->name)[0] ?? '';
     }
     public function getEmailAttribute()
     {
@@ -59,15 +61,15 @@ class Order extends Model
     }
     public function getAddressAttribute()
     {
-        return json_decode($this->shipping)->address_1;
+        return json_decode($this->shipping)->address;
     }
     public function getLastNameAttribute()
     {
-        return json_decode($this->shipping)->last_name;
+        return @explode(' ', json_decode($this->shipping)->name)[1] ?? '';
     }
     public function getFullNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return json_decode($this->shipping)->name;
     }
 
     public function orderProduct()
@@ -114,4 +116,6 @@ class Order extends Model
     {
         return $query->whereNull('parent_id');
     }
+
+
 }

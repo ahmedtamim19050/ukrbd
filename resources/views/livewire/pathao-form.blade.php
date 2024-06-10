@@ -16,7 +16,6 @@
 
             transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
-
         .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
             padding-left: 0;
             padding-right: 0;
@@ -25,18 +24,14 @@
         .select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
             height: calc(1.5em + 0.75rem + 2px);
             right: 0.75rem;
-        }
-
-        /* Customize the dropdown menu */
+        } /* Customize the dropdown menu */ 
         .select2-container--bootstrap-5 .select2-dropdown {
             border: 1px solid #ced4da;
             border-radius: 0.25rem;
         }
-
         .select2-container--bootstrap-5 .select2-results__option {
             padding: 0.375rem 0.75rem;
         }
-
         .select2-container--bootstrap-5 .select2-results__option--highlighted[aria-selected] {
             background-color: #e9ecef;
             color: #495057;
@@ -65,7 +60,7 @@
     </div>
     <div class="form-group col-4">
         <label for="area">Area</label>
-    <select id="area-select" wire:model="selectedArea" name="pathao[area]" class="form-control">
+        <select id="area-select" wire:model="selectedArea" name="pathao[area]" class="form-control">
             <option value="">Select Area</option>
             @foreach ($areas as $id => $area)
                 <option value="{{ $id }}">{{ $area }}</option>

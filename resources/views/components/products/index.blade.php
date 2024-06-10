@@ -33,7 +33,7 @@
                             <th scope="col">Quantity</th>
                             <th scope="col">Status</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Shipping Cost</th>
+                       
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -43,26 +43,33 @@
                                 <th scope="row"><span>{{ $loop->index + 1 }}</span></th>
                                 <td> <a href="{{ $product->path() }}"><img class="prod-img"
                                             src="{{ Voyager::image($product->image) }}" alt="product image"></a></td>
-                                <td><a
-                                        href="{{ $product->path() }}"><span>{{ $product->name }}</span></a>
+                                <td><a href="{{ $product->path() }}"><span>{{ $product->name }}</span></a>
                                 </td>
                                 <td>
-                                    @foreach ($product->prodcats as $prodcat)
-                                        <span class="d-inline p-0">
-                                            {{ $prodcat->name }}({{ $prodcat->parent ? $prodcat->parent->name : '' }})
-                                            ,</span>
-                                    @endforeach
+                                    <ul>
+                                        @foreach ($product->prodcats as $prodcat)
+                                            <li>
+                                                {{ $prodcat->name }}
+                                                {{ $prodcat->parent ? '- ' . $prodcat->parent->name : '' }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
 
                                 </td>
-                                <td>{{$product->quantity}}</td>
+                                <td>{{ $product->quantity }}</td>
                                 <td><span>{{ $product->status == 0 ? 'Pending' : 'Active' }}</span></td>
                                 <td><span>{{ Sohoj::price($product->sale_price ?? $product->price) }}</span></td>
-                                <td><span>{{ Sohoj::price($product->shipping_cost) }}</span></td>
+                              
                                 <td>
-                                    <a class="btn btn-primary"
-                                        href="{{ route('vendor.product.edit', $product->slug) }}">  <i class="fas fa-edit"></i></a>
-                                    {{-- <button type="submit" class="btn btn-warning"><i class="fa-solid fa-trash"></i></button> --}}
-                                    <x-delete route="{{ route('vendor.products.delete', $product->id) }}" />
+                                    <div class="d-flex gap-2">
+
+
+                                        <a class="btn btn-primary"
+                                            href="{{ route('vendor.product.edit', $product->slug) }}"> <i
+                                                class="fas fa-edit"></i></a>
+
+                                        <x-delete route="{{ route('vendor.products.delete', $product->id) }}" />
+                                    </div>
 
                                 </td>
                             </tr>

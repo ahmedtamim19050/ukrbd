@@ -47,6 +47,7 @@
                 </tr>
                 @if($order->childs->count() > 0)
                 @foreach ($order->childs as $item)
+                
                 <tr>
                     <td>
                         <img src="{{ Storage::url($item->product->image) }}" alt="" width="100">

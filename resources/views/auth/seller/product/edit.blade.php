@@ -80,7 +80,7 @@
                             <div class="col-lg-8">
                                 <div class="ec-vendor-upload-detail">
                                     <div class="row g-3">
-                                        <div class="col-md-6 mt-2">
+                                        <div class="col-md-12 mt-2">
                                             <label for="inputEmail4" class="form-label">Product name</label>
                                             <input type="text"
                                                 class="form-control @error('name') is-invalid @enderror"
@@ -91,10 +91,10 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-6 mt-2">
+                                        <div class="col-md-12 mt-2">
                                             <label class="form-label">Select Categories</label>
-                                            <select multiple data-placeholder="Select Categories"
-                                                class="@error('categories') is-invalid @enderror" name="categories[]">
+                                            <select multiple " data-placeholder="Select Categories"
+                                                class="@error('categories') is-invalid @enderror" name="categories[]" data-filter="true">
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}"
                                                         {{ $product->prodcats->contains($prodcat->id) ? 'selected' : '' }}>

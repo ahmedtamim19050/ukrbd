@@ -1,5 +1,5 @@
 .selectMultiple {
-    width: 245px;
+    width: 100%;
     position: relative;
 }
 .selectMultiple select {

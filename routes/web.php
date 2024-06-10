@@ -28,17 +28,11 @@ use App\Models\Order;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
-use App\Payment\JachaiPay;
-use Codeboxr\PathaoCourier\Facade\PathaoCourier;
-use GuzzleHttp\Middleware;
-use Illuminate\Support\Collection;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Support\Facades\Route;
-use Stripe\Price;
-use Stripe\Product;
-use Stripe\Stripe;
+
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Str;
 
@@ -209,6 +203,8 @@ if (env('APP_ENV') == 'local') {
 
 
 Route::get('/test', function () {
-   
-    return ;
+
+    $order = Charge::latest()->first();
+    ChargeStatusHasBeenUpdated::dispatch($order);
+
 });

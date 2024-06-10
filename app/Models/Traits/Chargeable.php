@@ -24,6 +24,7 @@ trait Chargeable
         ]);
 
         $payment = Payment::create($charge);
+        
 
         $charge->update([
             'uniqid' => $payment->id,

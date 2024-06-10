@@ -13,6 +13,7 @@ use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\User;
 use Cart;
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,32 +24,173 @@ use Voyager;
 
 class CheckoutController extends Controller
 {
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|max:60|string',
+    //         'email' => 'nullable|max:40|email',
+    //         'phone' => 'required|regex:/^(?:\+?88)?01[3-9]\d{8}$/',
+    //         'address' => 'required',
+    //         'city' => 'required',
+    //         'zone' => 'required',
+    //         'area' => 'required',
+    //         'order-notes' => 'nullable',
+    //         'shipping' => 'required',
+    //         'payment_method' => 'required',
+    //         'order.shipping' => 'required',
+    //         'order.subtotal' => 'required',
+    //         'order.total' => 'required',
+    //     ]);
+
+    //     if (
+    //         $request->order['shipping'] != session('order_payment_info')['shipping'] ||
+    //         $request->order['subtotal'] != session('order_payment_info')['subtotal'] ||
+    //         $request->order['total'] != session('order_payment_info')['total']
+    //     ) {
+    //         abort(403, 'Serverside calculation is not same');
+    //     }
+
+    //     $shipping = [
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'phone' => $request->phone,
+    //         'address' => $request->address,
+    //         'city' => ['id' => (int) explode('-', $request->city)[0], 'name' => explode('-', $request->city)[1]],
+    //         'zone' => ['id' => (int) explode('-', $request->zone)[0], 'name' => explode('-', $request->zone)[1]],
+    //         'area' => ['id' => (int) explode('-', $request->area)[0], 'name' => explode('-', $request->area)[1]]
+    //     ];
+
+    //     $cartContent = Cart::getContent();
+
+    //     $groupedByStore = [];
+    //     foreach ($cartContent as $item) {
+    //         $storeId = $item->attributes->store_id;
+    //         $groupedByStore[$storeId][] = $item;
+    //     }
+
+    //     if ($this->productsAreNoLongerAvailable()) {
+    //         return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
+    //     }
+
+    //     $total = $request->order['total'];
+
+    //     $order = Order::create([
+    //         'user_id' => auth()->user() ? auth()->user()->id : null,
+    //         'shop_id' => null,
+    //         'product_id' => null,
+    //         'shipping' => json_encode($shipping),
+    //         'subtotal' => $request->order['subtotal'],
+    //         'discount' => Sohoj::round_num(Sohoj::discount()),
+    //         'discount_code' => Sohoj::discount_code(),
+    //         'shipping_total' => $request->order['shipping'],
+    //         'total' => $request->order['total'],
+    //         'quantity' => null,
+    //         'vendor_total' => null,
+    //     ]);
+
+    //     $childOrders = [];
+    //     foreach ($groupedByStore as $store => $products) {
+    //         $childOrder = Order::create([
+    //             'user_id' => auth()->user() ? auth()->user()->id : null,
+    //             'parent_id' => $order->id,
+    //             'shop_id' => $products[0]->model->shop_id,
+    //             'shipping' => json_encode($shipping),
+    //             'subtotal' => 0,
+    //             'shipping_total' => 0,
+    //             'total' => 0,
+    //         ]);
+
+    //         foreach ($products as $product) {
+    //             $price = $product->price * $product->quantity;
+    //             $childOrder->subtotal += $price;
+
+    //             $response = PathaoCourier::order()->priceCalculation([
+    //                 "store_id" => $product->attributes['store_id'],
+    //                 "item_type" => 2,
+    //                 "delivery_type" => 48,
+    //                 "item_weight" => $product->attributes['weight'] * $product->quantity,
+    //                 "recipient_city" => $shipping['city']['id'],
+    //                 "recipient_zone" => $shipping['zone']['id']
+    //             ]);
+
+    //             $childOrder->shipping_total += (float) $response->final_price;
+    //             $childOrder->total += $price + $childOrder->shipping_total;
+
+    //             OrderProduct::create([
+    //                 'quantity' => $product->quantity,
+    //                 'order_id' => $childOrder->id,
+    //                 'product_id' => $product->model->id,
+    //                 'price' => $product->price,
+    //                 'total_price' => $price,
+    //                 'variation' => $product->model->variations,
+    //                 'shop_id' => $product->model->shop_id,
+    //             ]);
+    //         }
+
+    //         $childOrder->save();
+    //         $childOrders[] = $childOrder;
+    //     }
+
+    //     foreach ($childOrders as $childOrder) {
+    //         $childOrder->update(['status' => 1]);
+    //         if ($childOrder->shop->email) {
+    //             Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+    //         }
+    //     }
+
+    //     Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
+    //     $this->decreaseQuantities();
+    //     Cart::clear();
+    //     session()->forget('order_payment_info');
+    //     if (session()->has('discount_code')) {
+    //         Coupon::where('code', session('discount_code'))->first()->used();
+    //     }
+    //     session()->forget('discount');
+    //     session()->forget('discount_code');
+
+    //     $charge = $order->initializePayment();
+    //     return redirect($charge->url);
+    // }
+
     public function store(Request $request)
     {
 
         $request->validate([
-            'first_name' => ['required', 'max:40'],
-            'last_name' => ['nullable', 'max:40'],
-            'email' => ['required', 'max:40', 'email'],
-            'address_1' => ['required'],
+            'name' => 'required|max:60|string',
+            'email' => 'nullable|max:40|email',
+            'phone' => 'required|regex:/^(?:\+?88)?01[3-9]\d{8}$/',
+            'address' => 'required',
+            'city' => 'required',
+            'zone' => 'required',
+            'area' => 'required',
+            'order-notes' => 'nullable',
+            'shipping' => 'required',
+            'payment_method' => 'required',
+            'order.shipping' => 'required',
+            'order.subtotal' => 'required',
+            'order.total' => 'required',
         ]);
+
+        if (
+            $request->order['shipping'] != session('order_payment_info')['shipping'] ||
+            $request->order['subtotal'] != session('order_payment_info')['subtotal'] ||
+            $request->order['total'] != session('order_payment_info')['total']
+        ) {
+            abort(403, 'Serverside calculation is not same');
+        }
 
 
         // $address = Address::find($request->prevoius_address);
 
         $shipping = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
-            'address_1' => $request->address_1,
-            // 'address_2' => $address->address_2,
-            'city' => $request->city,
-            'post_code' => $request->post_code,
-            // 'country' => $address->country,
-            'state' => $request->state,
             'phone' => $request->phone,
-            'shipping_method' => null,
-            'shipping_url' => null,
+            'address' => $request->address,
+            'post_code' => $request->post_code,
+            'city' => ['id' => (int) explode('-', $request->city)[0], 'name' => explode('-', $request->city)[1]],
+            'zone' => ['id' => (int) explode('-', $request->zone)[0], 'name' => explode('-', $request->zone)[1]],
+            'area' => ['id' => (int) explode('-', $request->area)[0], 'name' => explode('-', $request->area)[1]]
         ];
         // dd($shipping);
 
@@ -56,9 +198,9 @@ class CheckoutController extends Controller
 
             return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
         }
-        try {
-            DB::beginTransaction();
-            $platform_fee = Sohoj::flatCommision(Cart::getSubTotal());
+        // try {
+        //     DB::beginTransaction();
+            $platform_fee = 0;
             $total = (Sohoj::newSubtotal() + $platform_fee);
 
             $order = Order::create([
@@ -70,7 +212,7 @@ class CheckoutController extends Controller
                 'discount' => Sohoj::round_num(Sohoj::discount()),
                 'discount_code' => Sohoj::discount_code(),
                 'tax' => null,
-                'shipping_total' => Sohoj::round_num(Sohoj::shipping()),
+                'shipping_total' => Sohoj::round_num($request->order['shipping']),
                 'platform_fee' => $platform_fee,
                 'total' => Sohoj::round_num($total),
                 'quantity' => null,
@@ -88,20 +230,29 @@ class CheckoutController extends Controller
                     'variation' => $item->model->variations,
                     'shop_id' => $item->model->shop_id,
                 ]);
+
+                $response = PathaoCourier::order()->priceCalculation([
+                    "store_id" => $item->attributes['store_id'],
+                    "item_type" => 2,
+                    "delivery_type" => 48,
+                    "item_weight" => $item->attributes['weight'] * $item->quantity,
+                    "recipient_city" => $shipping['city']['id'],
+                    "recipient_zone" => $shipping['zone']['id']
+                ]);
                 $childOrder = Order::create([
                     'user_id' => auth()->user() ? auth()->user()->id : null,
                     'parent_id' => $order->id,
                     'shop_id' => $item->model->shop_id,
                     'product_id' => $item->id,
                     'shipping' => json_encode($shipping),
-                    'aptment' => $request->aptment,
+
                     'subtotal' => $item->price * $item->quantity,
                     'discount' => null,
                     'discount_code' => null,
                     'tax' => null,
-                    'shipping_total' => $item->model->shipping_cost,
-                    'platform_fee' => Sohoj::flatCommision($item->price),
-                    'total' => Sohoj::round_num(($item->price * $item->quantity) + $item->model->shipping_cost),
+                    'shipping_total' => $response->final_price,
+                    'platform_fee' => 0,
+                    'total' => Sohoj::round_num(($item->price * $item->quantity) + $response->final_price),
                     'quantity' => $item->quantity,
                     'vendor_total' => $item->model->vendor_price * $item->quantity,
                     // 'payment_method' => $request->payment_method[0],
@@ -118,6 +269,7 @@ class CheckoutController extends Controller
                 ]);
             }
             $childOrders = $order->childs;
+
             foreach ($childOrders as $childOrder) {
                 $childOrder->update(['status' => 1]);
                 if ($childOrder->shop->email) {
@@ -132,22 +284,23 @@ class CheckoutController extends Controller
 
             Cart::clear();
 
+            session()->forget('order_payment_info');
+
             if (session()->has('discount_code')) {
                 Coupon::where('code', session('discount_code'))->first()->used();
             }
             session()->forget('discount');
             session()->forget('discount_code');
             $charge = $order->initializePayment();
-            DB::commit();
+            // DB::commit();
             return redirect($charge->url);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($e->getMessage());
-        } catch (Error $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($e->getMessage());
-        }
-
+        // } catch (Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // } catch (Error $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // }
     }
 
     protected function decreaseQuantities()

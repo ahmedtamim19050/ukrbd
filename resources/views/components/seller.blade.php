@@ -24,6 +24,14 @@
         background-color: rgba(0, 0, 0, 0.6);
         border-radius: 5px;
     }
+
+    .taglist {
+        display: flex;
+    }
+
+    .taglist li::after {
+        content: ","
+    }
 </style>
 </head>
 

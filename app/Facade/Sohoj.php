@@ -5,7 +5,7 @@ namespace App\Facade;
 use Cart;
 use Voyager;
 use App\Models\Shipping;
-
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 
 class Sohoj
 {
@@ -56,14 +56,13 @@ class Sohoj
         $cart = Cart::getContent();
 
         $totalShippingCost = 0;
-    
+
         foreach ($cart as $item) {
             $shippingCost = $item->model->shipping_cost;
             $totalShippingCost += $shippingCost;
         }
-    
+
         return $totalShippingCost;
-        
     }
     public function newItemTotal()
     {
@@ -71,7 +70,7 @@ class Sohoj
     }
     public function newSubtotal()
     {
-        return (Cart::getSubTotal() )- $this->discount();
+        return (Cart::getSubTotal()) - $this->discount();
     }
     public function newTotal()
     {
@@ -92,29 +91,46 @@ class Sohoj
 
     public function flatCommision($price)
     {
-        if($price < 30){
+        if ($price < 30) {
             return  1.95;
-        }elseif($price > 30 && $price < 300){
+        } elseif ($price > 30 && $price < 300) {
             return  3.75;
-        }elseif($price > 300 && $price < 1000){
+        } elseif ($price > 300 && $price < 1000) {
             return  7.95;
-        }else{
+        } else {
             return  20;
         }
-        
     }
     public function vendorprice($price)
     {
         // return $price;
 
-        $tenPercent=$price * .06;
-        $sixPercent=$price * .06;
-        if($price < 1000){
+        $tenPercent = $price * .06;
+        $sixPercent = $price * .06;
+        if ($price < 1000) {
             return ($price - $tenPercent);
-        }else{
+        } else {
             return ($price - $sixPercent);
         }
     }
-  
-  
+
+    public function shippingCost()
+    {
+        $total = 0;
+
+        foreach (Cart::getContent() as $product) {
+
+
+         $response =   PathaoCourier::order()->priceCalculation([
+                "store_id" => $product->attributes['store_id'],
+                "item_type" => 2,
+                "delivery_type" => 48,
+                "item_weight" => $product->attributes['weight'] * $product->quantity,
+                "recipient_city" => 1,
+                "recipient_zone" => 2
+            ]);
+
+            $total += $response->final_price;
+        }
+    }
 }

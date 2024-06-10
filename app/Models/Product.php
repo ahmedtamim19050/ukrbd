@@ -12,6 +12,9 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $casts = [
+        'variations' => 'array',
+    ];
     public function shop()
     {
         return $this->belongsTo(Shop::class);
@@ -136,6 +139,11 @@ class Product extends Model
         if ($value) {
             return json_decode($value);
         }
+    }
+
+    public function getWeight()
+    {
+        return sprintf('%.3f', $this->weight / 1000);
     }
     // protected static function boot()
     // {

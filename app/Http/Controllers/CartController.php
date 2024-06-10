@@ -78,8 +78,10 @@ class CartController extends Controller
 	{
 
 		if ($request->variable_attribute) {
-		    $variation = json_encode($request->variable_attribute);
+			$variation = json_encode($request->variable_attribute);
 			$product = DB::table('products')->where('parent_id', $request->product_id)->whereRaw("JSON_CONTAINS(variations, ?)", [$variation])->first();
+
+			$product = Product::find($product->id);
 
 			if (!$product) {
 				return response()->json(['error' => 'Sorry! This variation is no longer available'], 404);
@@ -87,7 +89,7 @@ class CartController extends Controller
 		} else {
 			$product = Product::find($request->product_id);
 		}
-		
+
 
 		if ($product->sale_price) {
 			$price = $product->sale_price;
@@ -96,6 +98,6 @@ class CartController extends Controller
 		}
 
 
-		Cart::add($product->id, $product->name, $price, $request->quantity, 'no_offer')->associate('App\Models\Product');
+		Cart::add($product->id, $product->name, $price, $request->quantity, ['weight' => $product->getWeight(), 'store_id' => $product->shop->payment_method])->associate('App\Models\Product');
 	}
 }
