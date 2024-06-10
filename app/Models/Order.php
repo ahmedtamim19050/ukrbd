@@ -69,7 +69,7 @@ class Order extends Model
     }
     public function getFullNameAttribute()
     {
-        return json_decode($this->shipping)->name;
+        return @json_decode($this->shipping)->name;
     }
 
     public function orderProduct()

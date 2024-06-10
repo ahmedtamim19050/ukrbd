@@ -98,6 +98,6 @@ class CartController extends Controller
 		}
 
 
-		Cart::add($product->id, $product->name, $price, $request->quantity, ['weight' => $product->getWeight(), 'store_id' => $product->shop->payment_method])->associate('App\Models\Product');
+		Cart::add($product->id, $product->name, $price, $request->quantity, ['weight' => $product->getWeight(), 'store_id' => $product->shop->shipping_method])->associate('App\Models\Product');
 	}
 }

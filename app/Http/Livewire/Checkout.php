@@ -44,6 +44,7 @@ class Checkout extends Component
 
     public function updatedSelectedArea()
     {
+        
         $this->getShippingCost();
     }
 
@@ -80,7 +81,9 @@ class Checkout extends Component
     public function getShippingCost()
     {
 
+        
         $total = 0;
+
 
         foreach (Cart::getContent() as $product) {
 
