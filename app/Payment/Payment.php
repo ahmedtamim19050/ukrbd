@@ -23,6 +23,8 @@ class Payment
         switch ($this->charge->method) {
             case 'dgpay':
                 return JachaiPay::init($this->charge)->createPaymentLink();
+            case 'cod':
+                return $this;
             default:
                 return JachaiPay::init($this->charge)->createPaymentLink();
         }
@@ -32,6 +34,8 @@ class Payment
         switch ($this->charge->method) {
             case 'dgpay':
                 return JachaiPay::init($this->charge)->getPaymentDetails();
+            case 'cod':
+                return $this;
             default:
                 return JachaiPay::init($this->charge)->getPaymentDetails();
         }

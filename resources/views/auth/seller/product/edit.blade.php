@@ -178,6 +178,13 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        <div class="col-md-6 d-flex mt-4">
+                                            <input type="checkbox" id="is_variable_product" style="width: 25px;"
+                                                value="1" name="is_variable_product">
+                                            <label for="offer" class="mt-3 ms-3">
+                                                Variable Product (optinal)
+                                            </label>
+                                        </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product weight</label>
                                             <input type="text" value="{{ $product->weight }}"
@@ -200,41 +207,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        {{-- <div class="col-md-6 mt-2">
-                                            <label class="form-label">Shipping Cost</label>
-                                            <input type="text" class="form-control"
-                                                value="{{ $product->shipping_cost }}" placeholder=""
-                                                name="shipping_cost" />
-                                        </div> --}}
-
-
-                                        <!-- <div class="col-md-6 mt-3">
-
-                                                    <label class="form-label">Color <span>( Type Color name and
-                                                            make comma to separate sizes )</span></label>
-                                                    <input type="text" class="form-control" id="group_tag" name="color" value="{{ $product->color }}" placeholder="" data-role="tagsinput" />
-
-                                                </div> -->
-
-
-
-                                        <!-- <div class="col-md-6 mt-3">
-
-                                                    <label class="form-label">Sizes <span>( Type and
-                                                            make comma to separate sizes )</span></label>
-                                                    <input type="text" class="form-control" id="group_tag" name="sizes" value="{{ $product->sizes }}" placeholder="" data-role="tagsinput" />
-
-                                                </div> -->
-
-
-
-                                        {{-- <div class="d-flex">
-                                            <input {{ $product->is_offer == true ? 'checked' : '' }} type="checkbox"
-                                                id="offer" style="width: 25px;" value="1" name="offer">
-                                            <label for="offer" class="mt-3 ms-3">
-                                                Allow make offer
-                                            </label>
-                                        </div> --}}
+                                 
 
                                         <div class="col-md-12 mt-2">
                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -385,6 +358,7 @@
                                                                             placeholder="stock" id="variable_stock"
                                                                             value="{{ $variable_product->quantity }}">
                                                                     </div>
+                                                                    
                                                                     <div class="form-group  col-md-4 ">
                                                                         <label class="control-label"
                                                                             for="variable_sku">Sku</label>
