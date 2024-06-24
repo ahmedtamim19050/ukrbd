@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "livewire/livewire": "*",
+        "maatwebsite/excel": "^3.1",
         "tcg/voyager": "^1.6"
     },
     "require-dev": {

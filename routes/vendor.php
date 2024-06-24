@@ -4,6 +4,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
 use App\Http\Controllers\ProductVariationController;
+use App\Http\Controllers\Seller\ExportImportController;
 use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
@@ -81,5 +82,7 @@ Route::group(
   
         Route::get('cards', [SellerPagesController::class, 'cards'])->name('cards');
         Route::get('refund-request/accept/{order}',[SellerPagesController::class,'refundRequestAccept'])->name('refund.request.accept');
+        Route::post('products/import',[ExportImportController::class,'import'])->name('products.import');
+
     }
 );
