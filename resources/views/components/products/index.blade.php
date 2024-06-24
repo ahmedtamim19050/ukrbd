@@ -2,6 +2,7 @@
     <div class="ec-vendor-card-header">
         <h5>Latest Products</h5>
         <div class="ec-header-btn">
+            <a href="{{route('vendor.products.export')}}" class="btn btn-primary">Export Products</a>
             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-primary">Import</a>
             <a class="btn btn-lg btn-primary" href="{{ route('vendor.create.product') }}">Create Product</a>
         </div>

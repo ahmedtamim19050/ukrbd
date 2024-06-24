@@ -87,11 +87,11 @@ class ProductImportService
         $category_ids=$this->data['category_id'];
         if(isset($category_ids)){
             $categoriesArray = explode(',', $category_ids);
-            if ($isProductNew) {
-                return $product->prodcats()->attach($categoriesArray);
-            } else {
+            // if ($isProductNew) {
+            //     return $product->prodcats()->attach($categoriesArray);
+            // } else {
                 return $product->prodcats()->sync($categoriesArray);
-            }
+            // }
            
         }
     }

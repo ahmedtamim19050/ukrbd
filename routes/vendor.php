@@ -83,6 +83,7 @@ Route::group(
         Route::get('cards', [SellerPagesController::class, 'cards'])->name('cards');
         Route::get('refund-request/accept/{order}',[SellerPagesController::class,'refundRequestAccept'])->name('refund.request.accept');
         Route::post('products/import',[ExportImportController::class,'import'])->name('products.import');
+        Route::get('products/export',[ExportImportController::class,'export'])->name('products.export');
 
     }
 );
