@@ -88,8 +88,16 @@
                         </div>
 
 
-                        <x-forms.input type="text" label="Address *" wire:ignore
-                            placeholder="eg: Commerce College Rd, Savar, Dhaka" name="address" :value="old('address')" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <x-forms.input type="text" label="Post Code *" wire:ignore name="post_code" :value="old('post_code')" placeholder="eg: 1000"/>
+                            </div>
+                            <div class="col-md-8">
+                                <x-forms.input type="text" label="Address *" wire:ignore
+                                placeholder="eg: Commerce College Rd, Savar, Dhaka" name="address" :value="old('address')" />
+                            </div>
+                        </div>
+                      
                         <div class="form-group mt-3">
                             <label for="order-notes">Order notes (optional)</label>
                             <textarea wire:ignore class="form-control mb-0" id="order-notes" name="order-notes" cols="30" rows="4"
@@ -112,7 +120,9 @@
                                     <tbody>
                                         @foreach (Cart::getContent() as $item)
                                             <tr class="bb-no">
-                                                <td class="product-name">{{ $item->name }}<i class="fas fa-times"></i>
+                                                <td class="product-name" style="
+                                                white-space: normal;
+                                            ">{{ $item->name }}<i class="fas fa-times"></i>
                                                     <span class="product-quantity">{{ $item->quantity }}</span>
                                                 </td>
                                                 <td class="product-total">{{ Sohoj::price($item->price) }}</td>

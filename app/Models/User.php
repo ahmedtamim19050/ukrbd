@@ -91,7 +91,7 @@ class User extends \TCG\Voyager\Models\User
     }
     public function massages()
     {
-        return $this->hasMany(Massage::class,'reciver_id');
+        return $this->hasMany(Massage::class, 'reciver_id');
     }
 
     public function followedShops()
@@ -162,10 +162,12 @@ class User extends \TCG\Voyager\Models\User
     {
         $currentWeekStart = Carbon::now()->startOfWeek();
         $currentWeekEnd = Carbon::now()->endOfWeek();
-        
+        $startMonth = Carbon::now()->startOfMonth();
+        $EndMonth = Carbon::now()->endOfMonth();
+
         return $query->whereHas('orders', function ($query) {
-                $query->where('shop_id', auth()->user()->shop->id);
-            })
+            $query->where('shop_id', auth()->user()->shop->id);
+        })
             ->when(request('customers') == 2, function ($query) {
                 $query->whereYear('created_at', '=', Carbon::now()->year);
             })
@@ -174,6 +176,9 @@ class User extends \TCG\Voyager\Models\User
             })
             ->when(request('customers') == 1, function ($query) use ($currentWeekStart, $currentWeekEnd) {
                 $query->whereBetween('created_at', [$currentWeekStart, $currentWeekEnd]);
+            })
+            ->when(request('customers') == 4, function ($query) use ($startMonth, $EndMonth) {
+                $query->whereBetween('created_at', [$startMonth, $EndMonth]);
             });
     }
 }

@@ -18,6 +18,87 @@
 
             </div>
             <div class="ec-vendor-card-body">
+                <div class="row row-cols-1">
+                    @foreach ($latest_orders as $order)
+                        <div class="card my-2 border-dark ">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
+                                        <img src="{{ Voyager::image($order->product->getImage()) }}" height="200px"
+                                            style="object-fit: cover" alt="">
+                                    </div>
+                                    <div class="col-md-5 d-flex justify-content-between flex-column">
+                                        <h6 class=" pb-2 mb-2 border-bottom border-dark">Order Details: </h6>
+                                        <div>
+                                            <p class="text-secondary">#{{ $order->id }}</p>
+                                            <p class="mt-2 h6">{{ $order->product->name }} X {{ $order->quantity }}
+                                            </p>
+                                            <p>
+                                            <ul>
+                                                @foreach ($order->product->variations as $varition => $value)
+                                                    <li>
+                                                        {{ $varition }} : {{ $value }}
+                                                    </li>
+                                                @endforeach
+                                                <li>
+                                                    SKU : {{ $order->product->sku }}
+                                                </li>
+                                            </ul>
+                                            </p>
+                                            <p class="h4 mt-3">
+                                                {{ Sohoj::price($order->total + $order->platform_fee) }}
+                                            </p>
+                                        </div>
+
+                                        <p class="mt-3">Order Date : {{ $order->created_at->format('d M, Y h:i A') }}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-5 d-flex justify-content-between flex-column">
+                                        <h6 class=" pb-2 mb-2 border-bottom border-dark">Delivery Details: </h6>
+
+                                        <p>
+                                            <strong>{{ $order->full_name }}</strong>
+                                            <br>
+                                            <a href="mailto:{{ $order->email }}">{{ $order->email }}</a>
+                                            <br>
+                                            <a href="tel:{{ $order->phone }}">{{ $order->phone }}</a>
+                                            <br>
+                                            <br>
+                                            {{ $order->zone }}, {{ $order->area }}, {{ $order->city }}
+                                            {{ $order->post_code }}
+                                            <br>
+                                            {{ $order->address }}
+                                        </p>
+                                        <p>
+                                            Delivered At : N/A
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                @if ($order->status == 1)
+                                    <a href="{{ route('vendor.order.pickup', $order) }}" class="btn btn-link"
+                                        style="float:right;"> Ready for pickup <i class="fa fa-truck"></i> </a>
+                                @endif
+                                <a href="{{ route('vendor.invoice', $order->id) }}" class="btn btn-link"
+                                    style="float:right;">Invoice</a>
+                                @if ($order->status == 1)
+                                    <a href="{{ route('vendor.invoice', $order->id) }}" class="btn btn-link"
+                                        style="float:right;">Cancel Order</a>
+                                @endif
+                            </div>
+                            <span class="badge"
+                                style="background-color: {{ $order->getStatus()['color'] }};position:absolute;top:-8px;right:-5px">
+                                {{ $order->getStatus()['label'] }}
+                            </span>
+
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- <div class="ec-vendor-card-body">
                 <div class="ec-vendor-card-table">
                     <table class="table ec-table table table-hover">
                         <thead>
@@ -31,107 +112,51 @@
 
 
 
-                                <!-- <th scope="col">Action</th> -->
-
-                                <!-- <th scope="col">Invoice</th> -->
+                                <th scope="col">Invoice</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($latest_orders as $order)
                                 <tr>
                                     <td><span> <a href="{{ route('vendor.orderView', $order) }}"
-                                                style="text-decoration: underline;">{{ $order->id }}</a> </span></td>
+                                                style="text-decoration: underline;">{{ $order->id }}</a> </span>
+                                    </td>
                                     <th scope="row"><span>{{ $order->full_name }} </span></th>
-                                    <td><a href="{{ route('vendor.orderView', $order) }}">{{ $order->product->name }}</a>
+                                    <td><a
+                                            href="{{ route('vendor.orderView', $order) }}">{{ $order->product->name }}</a>
                                     </td>
 
                                     <td>
-                                        @if ($order->status == 1)
-                                            <span
-                                                style="
-                                font-size: 13px;color: white;background-color: orange;padding: 0;margin-top: 15px;
-                            ">Processing</span>
-                                        @elseif($order->status == 2)
-                                            <span
-                                                style="
-                                font-size: 11px;color: white;background-color: blue;padding: 0;margin-top: 15px;
-                            ">On
-                                                it's way</span>
-                                        @elseif($order->status == 3)
-                                            <span
-                                                style="
-                                font-size: 13px;color: white;background-color: red;padding: 0;margin-top: 15px;
-                            ">Canceled</span>
-                                        @elseif($order->status == 4)
-                                            <span
-                                                style="
-                                font-size: 13px;color: white;background-color: green;padding: 0;margin-top: 15px;
-                            ">Delivered</span>
-                                        @elseif($order->status == 5)
-                                            <span
-                                                style="
-                                font-size: 13px;color: white;background-color: rgb(192, 97, 14);padding: 0;margin-top: 15px;
-                            ">Refund
-                                                Request</span>
-                                        @else
-                                            <span
-                                                style="
-                                font-size: 13px;color: white;background-color: indianred;padding: 0;margin-top: 15px;
-                            ">Pending</span>
-                                        @endif
+
                                     </td>
                                     <td><span>{{ Sohoj::price($order->total + $order->platform_fee) }}</span></td>
                                     <td><span>{{ $order->created_at->format('M-d-Y') }}</span></td>
-                                    {{-- <th scope="row">
-                                        @if ($order->shipping_url == !null)
-                                            <a href="{{ $order->shipping_url }}" target="_blank"><span class="text-success"
-                                                    title="{{ $order->shipping_url }}">
-                                                    {{ Str::limit($order->shipping_url, $limit = 15, $end = '...') }}
-                                                </span></a>
-                                        @else
-                                            <span class="text-danger">
-                                                no url found
-                                            </span>
-                                        @endif
-                                        <button type="button" class="btn btn-danger" data-bs-id="{{ $order->id }}"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Add Url
-                                        </button>
-
-                                    </th> --}}
-
 
                                     <td class="">
                                         <div class="d-flex align-items-center">
 
 
-                                            {{-- @unless ($order->status == 3 || $order->status == 4)
-                                    <span class="me-3">
-                                        <a href="{{ route('vendor.order.action', ['order' => $order->id]) }}" class="btn btn-outline-dark border">Deliver
-                                            <i class="fa-solid fa-truck-ramp-box"></i></a>
-                                    </span>
-                                    @endunless --}}
 
-                                            <!-- <div class="dropdown me-2">
-                                                                    <button class="btn btn-dark dropdown-toggle" type="button"
-                                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                                        Action
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">
-                                                                        <li class="d-flex justify-content-center mb-2"><a
-                                                                                href="{{ route('vendor.order.action', ['order' => $order->id]) }}"
-                                                                                class="btn btn-outline-dark border">Deliver
-                                                                                <i class="fa-solid fa-truck-ramp-box"></i></a></li>
-                                                                        <li class="d-flex justify-content-center mb-2"><a
-                                                                                href="{{ route('vendor.order.cancel', ['order' => $order->id]) }}"
-                                                                                class="btn btn-outline-dark border">Cancel
-                                                                                <i class="fa-solid fa-ban"></i></a></li>
-                                                                        <li class="d-flex justify-content-center"><span class="pt-0"><a
-                                                                                    href="{{ route('vendor.invoice', $order->id) }}"
-                                                                                    class="btn btn-dark">Invoice <i
-                                                                                        class="fa-solid fa-receipt"></i></a> </span></li>
-                                                                    </ul>
-                                                                </div> -->
+                                            <div class="dropdown me-2">
+                                                <button class="btn btn-dark dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown{{ $order->id }}" aria-expanded="false">
+                                                    Action
+                                                </button>
+                                                <ul class="dropdown-menu" id="dropdown{{ $order->id }}">
+                                                    <li class="d-flex justify-content-center mb-2"><a
+                                                            href="{{ route('vendor.order.action', ['order' => $order->id]) }}"
+                                                            class="btn btn-outline-dark border">Deliver
+                                                            <i class="fa-solid fa-truck-ramp-box"></i></a></li>
+                                                    <li class="d-flex justify-content-center mb-2"><a
+                                                            href="{{ route('vendor.order.cancel', ['order' => $order->id]) }}"
+                                                            class="btn btn-outline-dark border">Cancel
+                                                            <i class="fa-solid fa-ban"></i></a></li>
+                                                    <li class="d-flex justify-content-center"><span class="pt-0"><a
+                                                                href="{{ route('vendor.invoice', $order->id) }}"
+                                                                class="btn btn-dark">Invoice <i
+                                                                    class="fa-solid fa-receipt"></i></a> </span></li>
+                                                </ul>
+                                            </div>
 
                                         </div>
                                     </td>
@@ -151,36 +176,10 @@
                     </table>
 
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
-    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Shipping Url</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
 
-                    <form action="{{ route('vendor.order.shipping') }}" method="post">
-                        @csrf
-                        <input id="orderId" type="hidden" name="order_id" value="">
-                        <div class="col-md-12 mt-2">
-
-                            <input type="text" placeholder="Shipping url" name="shipping_url" class="form-control"
-                                id="price1">
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     <x-slot name="js">
         <script>
@@ -189,10 +188,9 @@
                 var button = event.relatedTarget
                 var recipient = button.getAttribute('data-bs-id')
                 var modalBodyInput = exampleModal.querySelector('#orderId')
-    
+
                 modalBodyInput.value = recipient
             })
         </script>
     </x-slot>
 </x-seller>
-

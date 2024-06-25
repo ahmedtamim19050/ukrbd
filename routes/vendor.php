@@ -7,7 +7,9 @@ use App\Http\Controllers\ProductVariationController;
 use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
+use App\Models\Order;
 use App\Models\Product;
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Invoice;
 
@@ -78,8 +80,34 @@ Route::group(
         Route::get('copy-product/{product}', [ProductVariationController::class, 'CopyProduct'])->name('copy.product');
         Route::get('create-all-variation-from-attribute/{product}', [ProductVariationController::class, 'create_all_variation'])->name('create.all.variation');
         Route::get('delete-all-child/{product}', [ProductVariationController::class, 'delete_all_child'])->name('delete.all.child');
-  
+
         Route::get('cards', [SellerPagesController::class, 'cards'])->name('cards');
-        Route::get('refund-request/accept/{order}',[SellerPagesController::class,'refundRequestAccept'])->name('refund.request.accept');
+        Route::get('refund-request/accept/{order}', [SellerPagesController::class, 'refundRequestAccept'])->name('refund.request.accept');
+
+        Route::get('order/{order}/ready-for-pickup', function (Order $order) {
+
+            $response = PathaoCourier::order()
+                ->create([
+                    "store_id"            => $order->shop->shipping_method, // Find in store list,
+                    "merchant_order_id"   => $order->id, // Unique order id
+                    "recipient_name"      => $order->full_name, // Customer name
+                    "recipient_phone"     => $order->phone, // Customer phone
+                    "recipient_address"   => $order->address, // Customer address
+                    "recipient_city"      => json_decode($order->shipping)->city->id, // Find in city method
+                    "recipient_zone"      => json_decode($order->shipping)->zone->id, // Find in zone method
+                    "recipient_area"      => json_decode($order->shipping)->area->id, // Find in Area method
+                    "delivery_type"       => 48, // 48 for normal delivery or 12 for on demand delivery
+                    "item_type"           => 2, // 1 for document,2 for parcel
+                    "special_instruction" => $order->customer_note,
+                    "item_quantity"       => $order->quantity, // item quantity
+                    "item_weight"         => ($order->product->weight * $order->quantity) / 1000, // parcel weight
+                    "amount_to_collect"   => "0", // amount to collect
+                    "item_description"    => "" // product details
+                ]);
+            $order->shipping_url = $response->consignment_id;
+            $order->status = 2;
+            $order->save();
+            return redirect()->back()->with('success');
+        })->name('order.pickup');
     }
 );

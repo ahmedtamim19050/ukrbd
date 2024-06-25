@@ -28,7 +28,7 @@ use App\Models\Order;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
-
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
@@ -204,7 +204,5 @@ if (env('APP_ENV') == 'local') {
 
 Route::get('/test', function () {
 
-    $order = Charge::latest()->first();
-    ChargeStatusHasBeenUpdated::dispatch($order);
-
+    dd(PathaoCourier::store()->list());
 });

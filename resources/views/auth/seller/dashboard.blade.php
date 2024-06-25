@@ -1,6 +1,6 @@
 <x-seller>
     <div class="ec-shop-rightside col-lg-9 col-md-12">
-        
+
         <x-vendor.notifications :shop="auth()->user()->shop" />
         <div class="row mb-4">
             <div class="col-md-10">
@@ -13,13 +13,16 @@
                                     <select onchange="filterSecond(this.value,'sales')" class="p-0 form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
 
-                                        <option value="">Choose..</option>
+                                        <option value="">All Time</option>
+                                        <option {{ request('sales') == 3 ? 'selected' : '' }} value="3">This Day
+                                        </option>
                                         <option {{ request('sales') == 1 ? 'selected' : '' }} value="1">This Week
+                                        </option>
+                                        <option {{ request('sales') == 4 ? 'selected' : '' }} value="4">This Month
                                         </option>
                                         <option {{ request('sales') == 2 ? 'selected' : '' }} value="2">This Year
                                         </option>
-                                        <option {{ request('sales') == 3 ? 'selected' : '' }} value="3">This Day
-                                        </option>
+
 
                                     </select>
                                 </div>
@@ -38,16 +41,20 @@
                                     <select onchange="filterSecond(this.value,'customers')" class="p-0 form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
 
-                                        <option value="">Choose..</option>
+                                        <option value="">All Time</option>
+                                        <option {{ request('customers') == 3 ? 'selected' : '' }} value="3">This
+                                            Day
+                                        </option>
                                         <option {{ request('customers') == 1 ? 'selected' : '' }} value="1">This
                                             Week
+                                        </option>
+                                        <option {{ request('customers') == 4 ? 'selected' : '' }} value="4">This
+                                            Month
                                         </option>
                                         <option {{ request('customers') == 2 ? 'selected' : '' }} value="2">This
                                             Year
                                         </option>
-                                        <option {{ request('customers') == 3 ? 'selected' : '' }} value="3">This
-                                            Day
-                                        </option>
+
 
                                     </select>
                                 </div>
@@ -66,13 +73,17 @@
                                 <div class="ec-select-inner dashboard-short-card-dropdown w-100">
                                     <select onchange="filterSecond(this.value,'orders')" class="p-0 form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
-                                        <option value="">Choose..</option>
+                                        <option value="">All Time</option>
+                                        <option {{ request('orders') == 3 ? 'selected' : '' }} value="3">This Day
+                                        </option>
                                         <option {{ request('orders') == 1 ? 'selected' : '' }} value="1">This Week
+                                        </option>
+                                        <option {{ request('orders') == 4 ? 'selected' : '' }} value="4">This
+                                            Month
                                         </option>
                                         <option {{ request('orders') == 2 ? 'selected' : '' }} value="2">This Year
                                         </option>
-                                        <option {{ request('orders') == 3 ? 'selected' : '' }} value="3">This Day
-                                        </option>
+
 
                                     </select>
                                 </div>
@@ -265,33 +276,33 @@
                                         @if ($order->status == 1)
                                             <span
                                                 style="
-                            font-size: 13px;color: white;background-color: orange;padding: 0;margin-top: 15px;
+                            font-size: 13px;color: white;background-color: orange;padding: 0 !important;margin-top: 15px; text-align: center;
                         ">Paid</span>
                                         @elseif($order->status == 2)
                                             <span
                                                 style="
-                            font-size: 11px;color: white;background-color: blue;padding: 0;margin-top: 15px;
+                            font-size: 11px;color: white;background-color: blue;padding: 0 !important;margin-top: 15px; text-align: center;
                         ">On
                                                 it's way</span>
                                         @elseif($order->status == 3)
                                             <span
                                                 style="
-                            font-size: 13px;color: white;background-color: red;padding: 0;margin-top: 15px;
+                            font-size: 13px;color: white;background-color: red;padding: 0 !important;margin-top: 15px; text-align: center;
                         ">Canceled</span>
                                         @elseif($order->status == 4)
                                             <span
                                                 style="
-                            font-size: 13px;color: white;background-color: green;padding: 0;margin-top: 15px;
+                            font-size: 13px;color: white;background-color: green;padding: 0 !important;margin-top: 15px; text-align: center;
                         ">Delivered</span>
                                         @else
                                             <span
                                                 style="
-                            font-size: 13px;color: white;background-color: indianred;padding: 0;margin-top: 15px;
+                            font-size: 13px;color: white;background-color: indianred;padding: 0 !important;margin-top: 15px; text-align: center;
                         ">Pending</span>
                                         @endif
                                     </td>
-                                    <td><span><a href="{{ route('vendor.invoice', $order) }}"><i
-                                                    class="fa-regular fa-eye"></i></a> </span>
+                                    <td class="text-center"><span><a href="{{ route('vendor.invoice', $order) }}"><i
+                                                    class="fas fa-eye"></i></a> </span>
                                     </td>
                                 </tr>
                             @endforeach

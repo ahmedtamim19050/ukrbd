@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -22,6 +23,22 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (session()->has('guest_order_id')) {
+            $order = Order::find(session('guest_order_id'));
+            if ($order && is_null($order->user_id)) {
+                // dd($order);
+                $order->update(['user_id' => $user->id]);
+
+                foreach ($order->childs as $child) {
+                    $child->update(['user_id' => $user->id]);
+                }
+                session()->forget('guest_order_id');
+            }
+        }
+    }
     /**
      * Where to redirect users after login.
      *
@@ -68,10 +85,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-      
+
         $this->validateLogin($request);
-        
-       
+
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
