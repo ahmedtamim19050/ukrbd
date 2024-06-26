@@ -35,11 +35,13 @@
                                             </p>
                                             <p>
                                             <ul>
+                                                @if($order->product->variations)
                                                 @foreach ($order->product->variations as $varition => $value)
                                                     <li>
                                                         {{ $varition }} : {{ $value }}
                                                     </li>
                                                 @endforeach
+                                                @endif
                                                 <li>
                                                     SKU : {{ $order->product->sku }}
                                                 </li>
