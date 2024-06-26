@@ -4,6 +4,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
 use App\Http\Controllers\ProductVariationController;
+use App\Http\Controllers\Seller\ExportImportController;
 use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
@@ -109,5 +110,8 @@ Route::group(
             $order->save();
             return redirect()->back()->with('success');
         })->name('order.pickup');
+        Route::post('products/import',[ExportImportController::class,'import'])->name('products.import');
+        Route::get('products/export',[ExportImportController::class,'export'])->name('products.export');
+
     }
 );
