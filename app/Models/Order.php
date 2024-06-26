@@ -55,27 +55,27 @@ class Order extends Model
     }
     public function getPhoneAttribute()
     {
-        return json_decode($this->shipping)->phone;
+        return @json_decode($this->shipping)->phone;
     }
     public function getPostCodeAttribute()
     {
-        return json_decode($this->shipping)->post_code;
+        return @json_decode($this->shipping)->post_code;
     }
     public function getCityAttribute()
     {       
-        return json_decode($this->shipping)->city->name;
+        return @json_decode($this->shipping)->city->name;
     }
     public function getZoneAttribute()
     {
-        return json_decode($this->shipping)->zone->name;
+        return @json_decode($this->shipping)->zone->name;
     }
     public function getAreaAttribute()
     {
-        return json_decode($this->shipping)->area->name;
+        return @json_decode($this->shipping)->area->name;
     }
     public function getAddressAttribute()
     {
-        return json_decode($this->shipping)->address;
+        return @json_decode($this->shipping)->address;
     }
     public function getLastNameAttribute()
     {
