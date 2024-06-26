@@ -87,25 +87,25 @@ Route::group(
 
         Route::get('order/{order}/ready-for-pickup', function (Order $order) {
 
-            $response = PathaoCourier::order()
-                ->create([
-                    "store_id"            => $order->shop->shipping_method, // Find in store list,
-                    "merchant_order_id"   => $order->id, // Unique order id
-                    "recipient_name"      => $order->full_name, // Customer name
-                    "recipient_phone"     => $order->phone, // Customer phone
-                    "recipient_address"   => $order->address, // Customer address
-                    "recipient_city"      => json_decode($order->shipping)->city->id, // Find in city method
-                    "recipient_zone"      => json_decode($order->shipping)->zone->id, // Find in zone method
-                    "recipient_area"      => json_decode($order->shipping)->area->id, // Find in Area method
-                    "delivery_type"       => 48, // 48 for normal delivery or 12 for on demand delivery
-                    "item_type"           => 2, // 1 for document,2 for parcel
-                    "special_instruction" => $order->customer_note,
-                    "item_quantity"       => $order->quantity, // item quantity
-                    "item_weight"         => ($order->product->weight * $order->quantity) / 1000, // parcel weight
-                    "amount_to_collect"   => "0", // amount to collect
-                    "item_description"    => "" // product details
-                ]);
-            $order->shipping_url = $response->consignment_id;
+            // $response = PathaoCourier::order()
+            //     ->create([
+            //         "store_id"            => $order->shop->shipping_method, // Find in store list,
+            //         "merchant_order_id"   => $order->id, // Unique order id
+            //         "recipient_name"      => $order->full_name, // Customer name
+            //         "recipient_phone"     => $order->phone, // Customer phone
+            //         "recipient_address"   => $order->address, // Customer address
+            //         "recipient_city"      => json_decode($order->shipping)->city->id, // Find in city method
+            //         "recipient_zone"      => json_decode($order->shipping)->zone->id, // Find in zone method
+            //         "recipient_area"      => json_decode($order->shipping)->area->id, // Find in Area method
+            //         "delivery_type"       => 48, // 48 for normal delivery or 12 for on demand delivery
+            //         "item_type"           => 2, // 1 for document,2 for parcel
+            //         "special_instruction" => $order->customer_note,
+            //         "item_quantity"       => $order->quantity, // item quantity
+            //         "item_weight"         => ($order->product->weight * $order->quantity) / 1000, // parcel weight
+            //         "amount_to_collect"   => "0", // amount to collect
+            //         "item_description"    => "" // product details
+            //     ]);
+            // $order->shipping_url = $response->consignment_id;
             $order->status = 2;
             $order->save();
             return redirect()->back()->with('success');
