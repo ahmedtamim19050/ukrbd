@@ -233,8 +233,7 @@
                                                                                         title="Click the button to let us know you received the order."
                                                                                         onclick="return confirm('Are you sure you want to confirm receipt of the order?')">Received
                                                                                         the order?</button>
-                                                                                    @elseif
-                                                                                    ($order->order_accept == 1)
+                                                                                    @elseif($order->order_accept == 1)
                                                                                     <div class="text-center mb-3">
                                                                                         <span
                                                                                             style="background-color: gray; color: #fff"
