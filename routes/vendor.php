@@ -9,10 +9,12 @@ use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
 use App\Models\Order;
+use App\Models\Prodcat;
 use App\Models\Product;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Route;
 use Laravel\Cashier\Invoice;
+use TCG\Voyager\Models\Category;
 
 Route::group(
     [
@@ -110,8 +112,13 @@ Route::group(
             $order->save();
             return redirect()->back()->with('success');
         })->name('order.pickup');
-        Route::post('products/import',[ExportImportController::class,'import'])->name('products.import');
-        Route::get('products/export',[ExportImportController::class,'export'])->name('products.export');
+        Route::post('products/import', [ExportImportController::class, 'import'])->name('products.import');
+        Route::get('products/export', [ExportImportController::class, 'export'])->name('products.export');
 
+
+        Route::get('/category-list', function () {
+            $categories =  Prodcat::select('id','name')->get();
+            return view('auth.seller.categorylist',compact('categories'));
+        })->name('category_list');
     }
 );

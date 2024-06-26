@@ -202,7 +202,3 @@ if (env('APP_ENV') == 'local') {
 
 
 
-Route::get('/test', function () {
-
-    dd(PathaoCourier::store()->list());
-});
