@@ -18,6 +18,7 @@ use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\EmailVerified;
+use App\Imports\ProductDataImport;
 use App\Mail\OfferEmail;
 use App\Mail\OrderPlaced;
 use App\Mail\TicketPlaced;
@@ -35,6 +36,7 @@ use Illuminate\Support\Facades\Route;
 
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -201,4 +203,7 @@ if (env('APP_ENV') == 'local') {
 }
 
 
+Route::get('data-import', function () {
 
+    Excel::import(new ProductDataImport, 'import.xlsx');
+});
