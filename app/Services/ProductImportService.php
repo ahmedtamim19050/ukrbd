@@ -38,7 +38,6 @@ class ProductImportService
                 'price' => $this->data['price'],
                 'sale_price' => $this->data['saleprice'],
                 'status' => $this->data['status'],
-                'quantity' => $this->data['quantity'],
                 'short_description' => $this->data['short_description'],
                 'weight' => $this->data['weight'],
                 'dimensions' => $this->data['dimension'],
