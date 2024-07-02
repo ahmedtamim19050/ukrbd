@@ -88,8 +88,16 @@
                         </div>
 
 
-                        <x-forms.input type="text" label="Address *" wire:ignore
-                            placeholder="eg: Commerce College Rd, Savar, Dhaka" name="address" :value="old('address')" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <x-forms.input type="text" label="Post Code *" wire:ignore name="post_code" :value="old('post_code')" placeholder="eg: 1000"/>
+                            </div>
+                            <div class="col-md-8">
+                                <x-forms.input type="text" label="Address *" wire:ignore
+                                placeholder="eg: Commerce College Rd, Savar, Dhaka" name="address" :value="old('address')" />
+                            </div>
+                        </div>
+                      
                         <div class="form-group mt-3">
                             <label for="order-notes">Order notes (optional)</label>
                             <textarea wire:ignore class="form-control mb-0" id="order-notes" name="order-notes" cols="30" rows="4"
@@ -185,10 +193,10 @@
                                         <input class="form-check-input" type="radio" name="payment_method" value="card" id="payment_method_card" checked />
                                         <label class="form-check-label" for="payment_method_card"> Card / Mobile Banking / Wallet </label>
                                      </div>
-                                     {{-- <div class="form-check">
+                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" />
                                         <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
-                                     </div> --}}
+                                     </div>
                                      
                                     </div>
                                 </div>

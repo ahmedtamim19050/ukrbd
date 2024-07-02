@@ -18,6 +18,7 @@ use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\EmailVerified;
+use App\Imports\ProductDataImport;
 use App\Mail\OfferEmail;
 use App\Mail\OrderPlaced;
 use App\Mail\TicketPlaced;
@@ -28,13 +29,14 @@ use App\Models\Order;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
-
+use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -207,12 +209,11 @@ if (env('APP_ENV') == 'local') {
 }
 
 
+Route::get('data-import', function () {
 
-Route::get('/test', function () {
-
-    $order = Charge::latest()->first();
-    ChargeStatusHasBeenUpdated::dispatch($order);
-
+    $shop = Shop::first();
+    
+    Excel::import(new ProductDataImport($shop), 'import.xlsx');
 });
 
 

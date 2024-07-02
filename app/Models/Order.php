@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Chargeable;
 use Carbon\Carbon;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,10 +36,15 @@ class Order extends Model
     {
         return $this->hasMany(Order::class, 'parent_id');
     }
+    public function parent()
+    {
+        return $this->belongsTo(Order::class, 'parent_id');
+    }
     public function feedback()
     {
         return $this->hasOne(Feedback::class, 'order_id');
     }
+    
     public function getFirstNameAttribute()
     {
         return @explode(' ', json_decode($this->shipping)->name)[0] ?? '';
@@ -49,19 +55,27 @@ class Order extends Model
     }
     public function getPhoneAttribute()
     {
-        return json_decode($this->shipping)->phone;
+        return @json_decode($this->shipping)->phone;
     }
     public function getPostCodeAttribute()
     {
-        return json_decode($this->shipping)->post_code;
+        return @json_decode($this->shipping)->post_code;
     }
     public function getCityAttribute()
+    {       
+        return @json_decode($this->shipping)->city->name;
+    }
+    public function getZoneAttribute()
     {
-        return json_decode($this->shipping)->city;
+        return @json_decode($this->shipping)->zone->name;
+    }
+    public function getAreaAttribute()
+    {
+        return @json_decode($this->shipping)->area->name;
     }
     public function getAddressAttribute()
     {
-        return json_decode($this->shipping)->address;
+        return @json_decode($this->shipping)->address;
     }
     public function getLastNameAttribute()
     {
@@ -71,6 +85,8 @@ class Order extends Model
     {
         return @json_decode($this->shipping)->name;
     }
+
+
 
     public function orderProduct()
     {
@@ -125,5 +141,41 @@ class Order extends Model
     public function scopeParent($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    public function getStatus()
+    {
+        switch ($this->status) {
+            case 1:
+                return [
+                    'label' => 'Processing',
+                    'color' => "#ffa500",
+                ];
+            case 2:
+                return [
+                    'label' => "On it's way",
+                    'color' => "#0000ff",
+                ];
+            case 3:
+                return [
+                    'label' => 'Canceled',
+                    'color' => "#ff0000",
+                ];
+            case 4:
+                return [
+                    'label' => 'Delivered',
+                    'color' => "#008000",
+                ];
+            case 5:
+                return [
+                    'label' => 'Refund Request',
+                    'color' => "#c0610e",
+                ];
+            default:
+                return [
+                    'label' => 'Pending',
+                    'color' => "#cd5c5c",
+                ];
+        }
     }
 }

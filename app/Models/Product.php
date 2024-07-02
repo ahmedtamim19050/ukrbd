@@ -141,6 +141,31 @@ class Product extends Model
         }
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Product::class, 'parent_id');
+    }
+
+
+    public function getImage()
+    {
+        if ($this->image) {
+            return $this->image;
+        }
+        if ($this->parent_id) {
+            return $this->parent->getImage();
+        }
+    }
+    public function getName()
+    {
+        if ($this->image) {
+            return $this->name;
+        }
+        if ($this->parent_id) {
+            return $this->parent->getName();
+        }
+    }
+
     public function getWeight()
     {
         return sprintf('%.3f', $this->weight / 1000);

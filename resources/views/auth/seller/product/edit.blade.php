@@ -178,6 +178,13 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                        <div class="col-md-6 d-flex mt-4">
+                                            <input type="checkbox" id="is_variable_product" style="width: 25px;"
+                                                value="1" name="is_variable_product">
+                                            <label for="offer" class="mt-3 ms-3">
+                                                Variable Product (optinal)
+                                            </label>
+                                        </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product weight</label>
                                             <input type="text" value="{{ $product->weight }}"
@@ -394,6 +401,7 @@
                                                                             placeholder="stock" id="variable_stock"
                                                                             value="{{ $variable_product->quantity }}">
                                                                     </div>
+                                                                    
                                                                     <div class="form-group  col-md-4 ">
                                                                         <label class="control-label"
                                                                             for="variable_sku">Sku</label>

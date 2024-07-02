@@ -124,11 +124,11 @@ class SellerPagesController extends Controller
             'company_registration' => ['required', 'max:100'],
             'city' => ['required', 'max:50'],
             'post_code' => ['required', 'max:10'],
-            'store_name' => ['required','string','unique:shops'],
+            'store_name' => ['required', 'string', 'unique:shops'],
             'pathao.contact_name' => ['required',],
-            'pathao.contact_number' => ['required','regex:/^01[3-9]\d{8}$/'],
+            'pathao.contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
             'pathao.address' => ['required'],
-            'pathao.secondary_contact_number' => ['required','regex:/^01[3-9]\d{8}$/'],
+            'pathao.secondary_contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
             'pathao.city' => ['required'],
             'pathao.zone' => ['required'],
             'pathao.area' => ['required'],
@@ -165,10 +165,12 @@ class SellerPagesController extends Controller
 
         $shop->createMetas($request->meta);
         $pathao = $this->pathao($request);
+        
         $shop->update([
             'slug' =>  $slug,
-            'shipping_method' => $pathao->store_id,
+            'shipping_method' => null,
             'is_shipping_enabled' => 1,
+            'store_name' => $pathao->store_name
         ]);
 
 
@@ -547,6 +549,7 @@ class SellerPagesController extends Controller
             "zone_id"           => $request->pathao['zone'],
             "area_id"           => $request->pathao['area'],
         ]);
+        
         return $pathao;
     }
 }

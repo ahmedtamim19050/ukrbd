@@ -24,136 +24,10 @@ use Voyager;
 
 class CheckoutController extends Controller
 {
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|max:60|string',
-    //         'email' => 'nullable|max:40|email',
-    //         'phone' => 'required|regex:/^(?:\+?88)?01[3-9]\d{8}$/',
-    //         'address' => 'required',
-    //         'city' => 'required',
-    //         'zone' => 'required',
-    //         'area' => 'required',
-    //         'order-notes' => 'nullable',
-    //         'shipping' => 'required',
-    //         'payment_method' => 'required',
-    //         'order.shipping' => 'required',
-    //         'order.subtotal' => 'required',
-    //         'order.total' => 'required',
-    //     ]);
-
-    //     if (
-    //         $request->order['shipping'] != session('order_payment_info')['shipping'] ||
-    //         $request->order['subtotal'] != session('order_payment_info')['subtotal'] ||
-    //         $request->order['total'] != session('order_payment_info')['total']
-    //     ) {
-    //         abort(403, 'Serverside calculation is not same');
-    //     }
-
-    //     $shipping = [
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'phone' => $request->phone,
-    //         'address' => $request->address,
-    //         'city' => ['id' => (int) explode('-', $request->city)[0], 'name' => explode('-', $request->city)[1]],
-    //         'zone' => ['id' => (int) explode('-', $request->zone)[0], 'name' => explode('-', $request->zone)[1]],
-    //         'area' => ['id' => (int) explode('-', $request->area)[0], 'name' => explode('-', $request->area)[1]]
-    //     ];
-
-    //     $cartContent = Cart::getContent();
-
-    //     $groupedByStore = [];
-    //     foreach ($cartContent as $item) {
-    //         $storeId = $item->attributes->store_id;
-    //         $groupedByStore[$storeId][] = $item;
-    //     }
-
-    //     if ($this->productsAreNoLongerAvailable()) {
-    //         return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
-    //     }
-
-    //     $total = $request->order['total'];
-
-    //     $order = Order::create([
-    //         'user_id' => auth()->user() ? auth()->user()->id : null,
-    //         'shop_id' => null,
-    //         'product_id' => null,
-    //         'shipping' => json_encode($shipping),
-    //         'subtotal' => $request->order['subtotal'],
-    //         'discount' => Sohoj::round_num(Sohoj::discount()),
-    //         'discount_code' => Sohoj::discount_code(),
-    //         'shipping_total' => $request->order['shipping'],
-    //         'total' => $request->order['total'],
-    //         'quantity' => null,
-    //         'vendor_total' => null,
-    //     ]);
-
-    //     $childOrders = [];
-    //     foreach ($groupedByStore as $store => $products) {
-    //         $childOrder = Order::create([
-    //             'user_id' => auth()->user() ? auth()->user()->id : null,
-    //             'parent_id' => $order->id,
-    //             'shop_id' => $products[0]->model->shop_id,
-    //             'shipping' => json_encode($shipping),
-    //             'subtotal' => 0,
-    //             'shipping_total' => 0,
-    //             'total' => 0,
-    //         ]);
-
-    //         foreach ($products as $product) {
-    //             $price = $product->price * $product->quantity;
-    //             $childOrder->subtotal += $price;
-
-    //             $response = PathaoCourier::order()->priceCalculation([
-    //                 "store_id" => $product->attributes['store_id'],
-    //                 "item_type" => 2,
-    //                 "delivery_type" => 48,
-    //                 "item_weight" => $product->attributes['weight'] * $product->quantity,
-    //                 "recipient_city" => $shipping['city']['id'],
-    //                 "recipient_zone" => $shipping['zone']['id']
-    //             ]);
-
-    //             $childOrder->shipping_total += (float) $response->final_price;
-    //             $childOrder->total += $price + $childOrder->shipping_total;
-
-    //             OrderProduct::create([
-    //                 'quantity' => $product->quantity,
-    //                 'order_id' => $childOrder->id,
-    //                 'product_id' => $product->model->id,
-    //                 'price' => $product->price,
-    //                 'total_price' => $price,
-    //                 'variation' => $product->model->variations,
-    //                 'shop_id' => $product->model->shop_id,
-    //             ]);
-    //         }
-
-    //         $childOrder->save();
-    //         $childOrders[] = $childOrder;
-    //     }
-
-    //     foreach ($childOrders as $childOrder) {
-    //         $childOrder->update(['status' => 1]);
-    //         if ($childOrder->shop->email) {
-    //             Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
-    //         }
-    //     }
-
-    //     Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
-    //     $this->decreaseQuantities();
-    //     Cart::clear();
-    //     session()->forget('order_payment_info');
-    //     if (session()->has('discount_code')) {
-    //         Coupon::where('code', session('discount_code'))->first()->used();
-    //     }
-    //     session()->forget('discount');
-    //     session()->forget('discount_code');
-
-    //     $charge = $order->initializePayment();
-    //     return redirect($charge->url);
-    // }
 
     public function store(Request $request)
     {
+
 
         $request->validate([
             'name' => 'required|max:60|string',
@@ -192,16 +66,15 @@ class CheckoutController extends Controller
             'zone' => ['id' => (int) explode('-', $request->zone)[0], 'name' => explode('-', $request->zone)[1]],
             'area' => ['id' => (int) explode('-', $request->area)[0], 'name' => explode('-', $request->area)[1]]
         ];
-        // dd($shipping);
 
         if ($this->productsAreNoLongerAvailable()) {
 
             return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
         }
-        // try {
-        //     DB::beginTransaction();
-        $platform_fee = 0;
-        $total = (Sohoj::newSubtotal() + $platform_fee);
+        try {
+            DB::beginTransaction();
+            $platform_fee = 0;
+            $total = (Sohoj::newSubtotal() + $platform_fee);
 
         $order = Order::create([
             'user_id' => auth()->user() ? auth()->user()->id : null,
@@ -287,22 +160,26 @@ class CheckoutController extends Controller
 
         session()->forget('order_payment_info');
 
-        if (session()->has('discount_code')) {
-            Coupon::where('code', session('discount_code'))->first()->used();
-        }
-        session()->forget('discount');
-        session()->forget('discount_code');
-        $charge = $order->initializePayment();
+            if (session()->has('discount_code')) {
+                Coupon::where('code', session('discount_code'))->first()->used();
+            }
+            session()->forget('discount');
+            session()->forget('discount_code');
+            $charge = $order->initializePayment($request->payment_method);
         
-        // DB::commit();
-        return redirect($charge->url);
-        // } catch (Exception $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->withErrors($e->getMessage());
-        // } catch (Error $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->withErrors($e->getMessage());
-        // }
+            DB::commit();
+            if ($charge->method != 'cod') {
+                return redirect($charge->url);
+            } else {
+                return redirect()->route('thankyou');
+            }
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($e->getMessage());
+        } catch (Error $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 
     protected function decreaseQuantities()

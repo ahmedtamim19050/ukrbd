@@ -24,12 +24,15 @@ trait Chargeable
         ]);
 
         $payment = Payment::create($charge);
-        
 
-        $charge->update([
-            'uniqid' => $payment->id,
-            'url' => $payment->url,
-        ]);
+
+
+        if ($charge->method != 'cod') {
+            $charge->update([
+                'uniqid' => $payment->id,
+                'url' => $payment->url,
+            ]);
+        }
 
         return $charge;
     }
