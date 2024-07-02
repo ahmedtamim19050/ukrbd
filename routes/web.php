@@ -56,6 +56,12 @@ Route::get('/test/{ticket}', function (Ticket $ticket) {
 //     dd(Shop::find(1)->monthlyCharge());
 // });
 //Vendors
+Route::get('/hello', function () {
+
+
+   return view('test_image');
+
+});
 
 
 Route::get('/vendors', [PageController::class, 'vendors'])->name('vendors');

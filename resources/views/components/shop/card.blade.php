@@ -1,3 +1,4 @@
+
 <div class="swiper-slide vendor-widget">
     <div class="vendor-widget-banner" style="height: 350px;">
         <figure class="vendor-banner">

@@ -225,7 +225,7 @@
                                                                     name="variable_attribute[{{ $attribute->name }}]"
                                                                     id="{{ str_replace(' ', '_', $value) }}"
                                                                     value="{{ $value }}" required
-                                                                    onclick="change_variable()">
+                                                                    onclick="change_variable()" {{$loop->first ? 'checked' : ''}}>
                                                                 <label class="btn btn-info p-2"
                                                                     style="padding: 5px 12px;"
                                                                     for="{{ str_replace(' ', '_', $value) }}">{{ str_replace('_', ' ', $value) }}</label>
@@ -570,7 +570,8 @@
             variations = {
                 @foreach ($product->attributes as $attribute)
                     @foreach ($attribute->value as $value)
-                        '{{ $attribute->name }}': $('input[name="variable_attribute[Size]"]:checked').val(),
+              
+                        '{{ $attribute->name }}': $('input[name="variable_attribute[{{$attribute->name}}]"]:checked').val(),
                     @endforeach
                 @endforeach
             }
@@ -596,14 +597,14 @@
                 if (product[0].image) {
                     var element = $(`.preview-slider img[data-image='${product[0].image}']`);
                     //console.log(element.attr('data-slick-index'));
-                    $('.preview-slider').slick('slickGoTo', element.attr('data-slick-index'))
+                    // $('.preview-slider').slick('slickGoTo', element.attr('data-slick-index'))
                 }
                 let text = '';
                 if (product[0].saleprice) {
-                    text = "<del class='mr-2'>NOK" + product[0].price + "</del><span id='sale'>NOK" + product[0]
-                        .saleprice + "</span>";
+                    text = "<del class='mr-2'>" + product[0].price + "Tk </del><span id='sale'>" + product[0]
+                        .saleprice + "Tk </span>";
                 } else {
-                    text = "NOK " + product[0].price;
+                    text = product[0].price + " Tk";
                 }
                 console.log(text)
                 $("#amount").html(text);
@@ -611,7 +612,7 @@
                     $("#showcase").attr("src", "/storage/" + product[0].image);
                 }
             } else {
-                $("#amount").text("No variation found. Please select other variation");
+                // $("#amount").text("No variation found. Please select other variation");
             }
         };
 
