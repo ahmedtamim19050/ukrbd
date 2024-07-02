@@ -59,8 +59,7 @@ Route::get('/test/{ticket}', function (Ticket $ticket) {
 Route::get('/hello', function () {
 
 
-   return view('test_image');
-
+    return view('test_image');
 });
 
 
@@ -199,22 +198,3 @@ Route::get('hello/{user}', function (User $user) {
     return new VerifyEmail($user, $verify_token);
     // return  Mail::to($order->email)->send(new OrderPlaced($order));
 });
-
-if (env('APP_ENV') == 'local') {
-    Route::get('/test/login-as-user/{user}', function (User $user) {
-        Auth::logout();
-        Auth::login($user);
-        return redirect('/');
-    });
-}
-
-
-Route::get('data-import', function () {
-
-    $shop = Shop::first();
-    
-    Excel::import(new ProductDataImport($shop), 'import.xlsx');
-});
-
-
-
