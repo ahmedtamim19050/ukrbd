@@ -205,5 +205,7 @@ if (env('APP_ENV') == 'local') {
 
 Route::get('data-import', function () {
 
-    Excel::import(new ProductDataImport, 'import.xlsx');
+    $shop = Shop::first();
+    
+    Excel::import(new ProductDataImport($shop), 'import.xlsx');
 });

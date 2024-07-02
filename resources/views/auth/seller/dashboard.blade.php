@@ -336,7 +336,7 @@
                 </div>
 
             </div> --}}
-            <x-products.index :products="$products" />
+            <x-products.index :products="$products" :pagination="false" />
         </div>
 
 

@@ -712,9 +712,9 @@
                     }}}">
                     <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
 
-                        @foreach ($category->products as $product)
-                            @if($product->shop->status==1)
-                            <x-products.card :product="$product" />
+                        @foreach ($category->products()->limit(11)->get() as $product)
+                            @if ($product->shop->status == 1)
+                                <x-products.card :product="$product" />
                             @endif
                         @endforeach
                         <!-- End of Product Wrap -->

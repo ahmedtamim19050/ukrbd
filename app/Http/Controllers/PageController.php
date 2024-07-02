@@ -30,7 +30,7 @@ class PageController extends Controller
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
-                })->latest()->limit(24)->whereNull('parent_id')->get();
+                })->latest()->limit(24)->whereNull('parent_id')->limit(11)->get();
         });
 
         $bestsaleproducts = Cache::remember('best_sale_products', 3600, function () {
