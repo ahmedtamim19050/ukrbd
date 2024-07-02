@@ -123,7 +123,7 @@ class ProductController extends Controller
     }
     public function update(Product $product, Request $request)
     {
-
+    
         $images = json_decode($product->images) ?? [];
 
         $newImage = $product->image;
@@ -190,18 +190,9 @@ class ProductController extends Controller
             'dimensions' => $request->dimensions,
             'is_offer' => $request->offer,
             'shipping_cost'=>$request->shipping_cost,
+            'is_variable_product'=>$request->is_variable_product,
 
         ]);
-
-
-        $slug = Str::slug($product->name);
-        if (Product::where('slug', $slug)->first()) {
-            $slug = $slug . '-' . $product->id;
-        }
-        $product->update([
-            'slug' =>  $slug,
-        ]);
-
 
         $product->prodcats()->sync($request->categories);
         return redirect()->route('vendor.products')->with('success_msg', 'Product has been Updated!');
