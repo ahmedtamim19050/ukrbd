@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Illuminate\Support\Str;     
 
 class ProductImportService
 {
@@ -23,7 +23,7 @@ class ProductImportService
 
    
         $uniqueId = substr(Str::uuid()->toString(8), 0, 10);
-        $slug = Str::slug($this->data['name']) . '-' . $uniqueId;
+        $slug = Str::slug($this->data['product_name']) . '-' . $uniqueId;
         $product= Product::updateOrCreate(
             [
                 'sku' => $this->data['sku']
@@ -31,6 +31,7 @@ class ProductImportService
             [
                 'shop_id' => auth()->user()->shop->id,
                 'name' => $this->data['name'],
+                
                 'quantity' => $this->data['quantity'],
                 'sku' => $this->data['sku'],
                 'description' => $this->data['description'],
