@@ -36,12 +36,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $uniqueId = Str::uuid()->toString(8);
+        $slug = Str::slug($request->name);
         $sku = substr($uniqueId, 0, 10);
         $data = $request->validate(
             [
                 "name"          => "required|max:200",
-                "categories"  => "nullable",
-
                 "price"         => "required|regex:/^\\d*(\\.\\d{1,2})?$/",
                 "sale_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
 
@@ -83,11 +82,7 @@ class ProductController extends Controller
 
             $data['images'] = json_encode($imgs);
         }
-
-
-        unset($data['categories']);
-
-        // dd($product->prodcats());
+        $data['slug']=$slug.'-'.$uniqueId;
 
         $data['shop_id'] = auth()->user()->shop ? auth()->user()->shop->id : null;
         $data['is_offer'] = $request->offer;
@@ -96,14 +91,6 @@ class ProductController extends Controller
         $data['sku'] = $sku;
         $product = Product::create($data);
         $product->prodcats()->attach($request->categories);
-
-        $slug = Str::slug($product->name);
-        if (Product::where('slug', $slug)->first()) {
-            $slug = $slug . '-' . $product->id;
-        }
-        $product->update([
-            'slug' =>  $slug,
-        ]);
 
         foreach (Auth()->user()->shop->followers as $follower) {
             $this->notification($follower->id, null, $slug);
