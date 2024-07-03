@@ -13,6 +13,15 @@
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
           <!-- Default CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+          <style>
+              .rating-input {
+                  margin-right: 8px;
+                  transform: scale(1.5);
+                  height: 13px;
+                  width: 13px;
+                  accent-color: #f93;
+              }
+          </style>
       </x-slot>
 
       <nav class="breadcrumb-nav">
@@ -23,246 +32,11 @@
               </ul>
           </div>
       </nav>
-      <!-- End of Breadcrumb -->
 
-      <!-- Start of Page Content -->
       <div class="page-content mt-5">
           <div class="container">
-              <!-- Start of Shop Banner -->
-              {{-- <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
-                style="background-image: url(assets/images/shop/banner1.jpg); background-color: #FFC74E;">
-                <div class="banner-content">
-                    <h4 class="banner-subtitle font-weight-bold">Accessories Collection</h4>
-                    <h3 class="banner-title text-white text-uppercase font-weight-bolder ls-normal">Smart Wrist
-                        Watches</h3>
-                    <a href="shop-banner-sidebar.html" class="btn btn-dark btn-rounded btn-icon-right">Discover
-                        Now<i class="w-icon-long-arrow-right"></i></a>
-                </div>
-            </div> --}}
-              <!-- End of Shop Banner -->
-
-              {{-- <div class="shop-default-brands mb-5">
-                <div class="brands-swiper swiper-container swiper-theme "
-                    data-swiper-options="{
-                        'slidesPerView': 2,
-                        'breakpoints': {
-                            '576': {
-                                'slidesPerView': 3
-                            },
-                            '768': {
-                                'slidesPerView': 4
-                            },
-                            '992': {
-                                'slidesPerView': 6
-                            },
-                            '1200': {
-                                'slidesPerView': 7
-                            }
-                        },
-                        'autoplay': {
-                            'delay': 4000,
-                            'disableOnInteraction': false
-                        }
-                    }">
-                    <div class="swiper-wrapper row gutter-no cols-xl-7 cols-lg-6 cols-md-4 cols-sm-3 cols-2">
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/1.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/2.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/3.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/4.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/5.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/6.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                        <div class="swiper-slide">
-                            <figure>
-                                <img src="assets/images/brands/category/7.png" alt="Brand" width="160" height="90" />
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div> --}}
-              <!-- End of Shop Brands-->
-
-              <!-- Start of Shop Category -->
-              {{-- <div class="shop-default-category category-ellipse-section mb-6">
-                <div class="swiper-container swiper-theme shadow-swiper"
-                    data-swiper-options="{
-                    'spaceBetween': 20,
-                    'slidesPerView': 2,
-                    'breakpoints': {
-                        '480': {
-                            'slidesPerView': 3
-                        },
-                        '576': {
-                            'slidesPerView': 4
-                        },
-                        '768': {
-                            'slidesPerView': 6
-                        },
-                        '992': {
-                            'slidesPerView': 7
-                        },
-                        '1200': {
-                            'slidesPerView': 8,
-                            'spaceBetween': 30
-                        }
-                    }
-                }">
-                    <div class="swiper-wrapper row gutter-lg cols-xl-8 cols-lg-7 cols-md-6 cols-sm-4 cols-xs-3 cols-2">
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-4.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #5C92C0;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Sports</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-5.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #B8BDC1;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Babies</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-6.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #99C4CA;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Sneakers</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-7.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #4E5B63;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Cameras</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-8.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #D3E5EF;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Games</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-9.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #65737C;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Kitchen</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-20.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #E4E4E4;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Watches</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide category-wrap">
-                            <div class="category category-ellipse">
-                                <figure class="category-media">
-                                    <a href="shop-banner-sidebar.html">
-                                        <img src="assets/images/categories/category-21.jpg" alt="Categroy"
-                                            width="190" height="190" style="background-color: #D3D8DE;" />
-                                    </a>
-                                </figure>
-                                <div class="category-content">
-                                    <h4 class="category-name">
-                                        <a href="shop-banner-sidebar.html">Clothes</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div> --}}
-              <!-- End of Shop Category -->
-
-              <!-- Start of Shop Content -->
               <div class="shop-content row gutter-lg mb-10">
-                  <!-- Start of Sidebar, Shop Sidebar -->
                   <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
-                      <!-- Start of Sidebar Overlay -->
                       <div class="sidebar-overlay"></div>
                       <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
 
@@ -309,13 +83,7 @@
                                                   onclick='updateSearchParams("","","{{ $route }}","10000","")'>10000.00
                                                   Tk +</a></li>
                                       </ul>
-                                      {{-- <form class="price-range">
-                                        <input type="number" name="min_price" class="min_price text-center"
-                                            placeholder="$min"><span class="delimiter">-</span><input
-                                            type="number" name="max_price" class="max_price text-center"
-                                            placeholder="$max"><a href="#"
-                                            class="btn btn-primary btn-rounded">Go</a>
-                                    </form> --}}
+                                      
                                   </div>
                               </div>
                               <!-- End of Collapsible Widget -->
@@ -323,59 +91,28 @@
                               <!-- Start of Collapsible Widget -->
                               <div class="widget widget-collapsible">
                                   <h3 class="widget-title"><label>Rating</label></h3>
-                                  <ul class="widget-body filter-items item-check mt-1">
-                                      <li class="{{ request()->ratings == 5 ? 'active' : '' }}">
-                                          <a href="javascript::void(0)"
-                                              onclick='updateSearchParams("ratings","5","{{ $route }}")'>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                          </a>
-                                      </li>
-                                      <li class="{{ request()->ratings == 4 ? 'active' : '' }}">
-                                          <a href="javascript::void(0)"
-                                              onclick='updateSearchParams("ratings","4","{{ $route }}")'>
 
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                          </a>
-                                      </li>
-                                      <li class="{{ request()->ratings == 3 ? 'active' : '' }}">
-                                          <a href="javascript::void(0)"
-                                              onclick='updateSearchParams("ratings","3","{{ $route }}")'>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color:  #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                          </a>
-                                      </li>
-                                      <li class="{{ request()->ratings == 2 ? 'active' : '' }}">
-                                          <a href="javascript::void(0)"
-                                              onclick='updateSearchParams("ratings","2","{{ $route }}")'>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                          </a>
-                                      </li>
-                                      <li class="{{ request()->ratings == 1 ? 'active' : '' }}">
-                                          <a href="javascript::void(0)"
-                                              onclick='updateSearchParams("ratings","1","{{ $route }}")'>
-                                              <i class="fas fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                              <i class="far fa-star" style="color: #f93"></i>
-                                          </a>
-                                      </li>
-                                  </ul>
+                                  
+                                  <form id="ratingForm" action="{{ $route }}" method="GET">
+                                      <ul class="widget-body filter-items item-check mt-1">
+                                          @foreach ([5, 4, 3, 2, 1] as $rating)
+                                              <li class="{{ request()->ratings == $rating ? 'active' : '' }}"
+                                                  style="margin:10px 0;">
+                                                  <label>
+                                                      <input class="rating-input" type="checkbox" name="ratings" value="{{ $rating }}"
+                                                          {{ request()->ratings == $rating ? 'checked' : '' }}>
+                                                      @for ($i = 0; $i < 5; $i++)
+                                                          @if ($i < $rating)
+                                                              <i class="fas fa-star" style="color: #f93"></i>
+                                                          @else
+                                                              <i class="far fa-star" style="color: #f93"></i>
+                                                          @endif
+                                                      @endfor
+                                                  </label>
+                                              </li>
+                                          @endforeach
+                                      </ul>
+                                  </form>
                               </div>
                               <!-- End of Collapsible Widget -->
 
@@ -441,8 +178,8 @@
 
                       </div>
 
-                     
-                      {{$products->links()}}
+
+                      {{ $products->links() }}
                   </div>
                   <!-- End of Shop Main Content -->
               </div>

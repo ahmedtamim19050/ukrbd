@@ -109,6 +109,7 @@
             background-color: #f8f9fa;
             color: #007cc;
         }
+        
     </style>
     {{ $css ?? null }}
     @stack('css')
@@ -885,6 +886,7 @@
                 if ($(this).is(':checked')) {
                     updateSearchParams("ratings", $(this).val(), shopUrl);
                 } else {
+              
                     removeSearchParam("ratings", shopUrl);
                 }
             });
@@ -910,7 +912,6 @@
 
         function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax) {
             var url;
-            console.log(searchValue);
 
             if (window.location.pathname !== "/shops" || (new URL(route)).pathname == '/vendors') {
                 url = new URL(route);
