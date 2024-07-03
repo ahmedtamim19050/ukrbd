@@ -52,10 +52,7 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/test/{ticket}', function (Ticket $ticket) {
     return new TicketPlaced($ticket, 'This message is for test purpose');
 });
-// Route::get('/hello', function () {
-//     dd(Shop::find(1)->monthlyCharge());
-// });
-//Vendors
+
 Route::get('/hello', function () {
 
 
@@ -191,10 +188,3 @@ Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
     });
 });
 
-
-Route::get('hello/{user}', function (User $user) {
-
-    $verify_token = Str::random(20);
-    return new VerifyEmail($user, $verify_token);
-    // return  Mail::to($order->email)->send(new OrderPlaced($order));
-});
