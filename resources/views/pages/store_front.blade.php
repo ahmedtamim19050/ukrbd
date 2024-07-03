@@ -128,14 +128,14 @@
                                     @endforeach
 
                                 </div>
-                            
+
                             </div>
                         </div>
                 </aside>
-           
+
                 <div class="main-content">
                     <div class="store store-wcmp-banner">
-                      
+
                         <figure class="store-media">
                             <img src="{{ $shop->banner ? Voyager::image($shop->banner) : asset('assets/images/defult.png') }}"
                                 alt="Vendor" width="930" height="390"
@@ -237,12 +237,13 @@
                                 </nav>
                                 <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
                                     @foreach ($shop->products as $product)
-                                    
-                                        <div class="product-wrap">
-                                            <div class="product text-center">
-                                                <x-products.card :product="$product" />
+                                        @if ($product->slug)
+                                            <div class="product-wrap">
+                                                <div class="product text-center">
+                                                    <x-products.card :product="$product" />
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endforeach
 
                                 </div>
