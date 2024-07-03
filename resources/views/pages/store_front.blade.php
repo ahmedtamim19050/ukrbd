@@ -237,7 +237,7 @@
                                 </nav>
                                 <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
                                     @foreach ($shop->products as $product)
-                                    @dd($product)
+                                    
                                         <div class="product-wrap">
                                             <div class="product text-center">
                                                 <x-products.card :product="$product" />

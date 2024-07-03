@@ -40,7 +40,7 @@ class Product extends Model
     }
     public function path()
     {
-        return route('product_details', $this);
+        return @route('product_details', $this);
     }
     public function attributes()
     {
