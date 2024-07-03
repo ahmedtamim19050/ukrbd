@@ -128,76 +128,14 @@
                                     @endforeach
 
                                 </div>
-                                {{-- @else --}}
-                                {{-- <samp>Note Found</samp> --}}
-                                {{-- @endif --}}
-                                <!-- End of Widget -->
+                            
                             </div>
                         </div>
                 </aside>
-                <!-- End of Sidebar -->
-
-                {{-- <div class="main-content">
-                    <div class="store store-banner mb-4">
-                        <figure class="store-media">
-                            <img src="{{ asset($shop->banner) }}" alt="Vendor" width="930" height="446" style="background-color: #414960;" />
-                        </figure>
-                        <div class="store-content">
-                            <figure class="seller-brand">
-                                <img src="{{ $shop->logo }}" alt="Brand" width="80" height="80" />
-                            </figure>
-                            <h4 class="store-title">{{$shop->name}}</h4>
-                            <ul class="seller-info-list list-style-none mb-6">
-                                <li class="store-address">
-                                    <i class="w-icon-map-marker"></i>
-                                    {{$shop->city}}, {{$shop->state}}, {{$shop->country}}
-                                </li>
-                                <li class="store-phone">
-                                    <a href="tel:1234567890">
-                                        <i class="w-icon-phone"></i>
-                                        {{$shop->phone}}
-                                    </a>
-                                </li>
-                                <li class="store-rating">
-                                    <i class="w-icon-star-full"></i>
-                                    4.33 rating from 3 reviews
-                                </li>
-                                <li class="store-open">
-                                    <i class="w-icon-cart"></i>
-                                    {{$shop->status === 1? 'Store Open': 'Store Closed'}}
-                                </li>
-                            </ul>
-                            <div class="social-icons social-no-color border-thin">
-                                <a href="{{$shop->facebook}}" class="social-icon social-facebook w-icon-facebook"></a>
-                                <!-- <a href="#" class="social-icon social-google w-icon-google"></a> -->
-                                <a href="{{$shop->twitter}}" class="social-icon social-twitter w-icon-twitter"></a>
-                                <!-- <a href="#" class="social-icon social-pinterest w-icon-pinterest"></a> -->
-                                <!-- <a href="#" class="social-icon social-youtube w-icon-youtube"></a> -->
-                                <a href="{{$shop->instagram}}" class="social-icon social-instagram w-icon-instagram"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of Store Banner -->
-
-                    <h2 class="title vendor-product-title mb-4"><a href="#">Products</a></h2>
-
-                    <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-
-                        @foreach ($shop->products as $product)
-                        <x-products.card :product="$product" />
-                        @endforeach
-                    </div>
-                </div> --}}
+           
                 <div class="main-content">
                     <div class="store store-wcmp-banner">
-                        {{-- @foreach ($shops as $shop)
-                            <div class="product-wrap">
-                                <div class="product text-center">
-                                    <x-shop.card :shop="$shop" />
-                                </div>
-                            </div>
-                        @endforeach --}}
-                        {{-- @dd($shop) --}}
+                      
                         <figure class="store-media">
                             <img src="{{ $shop->banner ? Voyager::image($shop->banner) : asset('assets/images/defult.png') }}"
                                 alt="Vendor" width="930" height="390"
@@ -299,6 +237,7 @@
                                 </nav>
                                 <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
                                     @foreach ($shop->products as $product)
+                                    @dd($product)
                                         <div class="product-wrap">
                                             <div class="product text-center">
                                                 <x-products.card :product="$product" />
