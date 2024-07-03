@@ -40,7 +40,11 @@ class Product extends Model
     }
     public function path()
     {
-        return @route('product_details', $this);
+        if($this){
+            return route('product_details', $this);
+        }else{
+            return '';
+        }
     }
     public function attributes()
     {
