@@ -58,6 +58,8 @@
                             <li><a href="{{ route('vendor.banner') }}">Offer Banner</a></li>
                             {{-- <li><a href="{{ route('vendor.offers') }}">Offer Request</a></li>   --}}
                             <li><a href="{{ route('vendor.shopPolicy') }}">Shop Policy</a></li>
+                            <li><a href="{{ route('vendor.earnings') }}">Earnings</a></li>
+                            <li><a href="{{ route('vendor.transictions') }}">Transactions</a></li>
                         @endif
                     @endif
 

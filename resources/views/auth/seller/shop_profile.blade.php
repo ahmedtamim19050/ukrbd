@@ -297,7 +297,7 @@
                             </div>
                         </div>
 
-                        @if (auth()->user()->shop->is_shipping_enabled == false)
+                        @if (auth()->user()->shop && auth()->user()->shop->is_shipping_enabled == false)
                             <div class="card mb-4" id="courierInfo">
                                 <div class="card-header bg-transparent py-3">
                                     <h5 class="">

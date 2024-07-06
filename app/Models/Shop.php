@@ -159,4 +159,12 @@ class Shop extends Model
     {
         return $this->status && $this->is_shipping_enabled;
     }
+    public function transactions()
+    {
+        return $this->morphMany(Transaction::class, 'transactionable');
+    }
+    public function earnings()
+    {
+        return $this->hasMany(Earning::class, 'shop_id');
+    }
 }

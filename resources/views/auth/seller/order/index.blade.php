@@ -19,8 +19,8 @@
             </div>
             <div class="ec-vendor-card-body">
                 <div class="row row-cols-1">
-                    @foreach ($latest_orders as $order)
-                        <div class="card my-2 border-dark ">
+
+                    {{-- <div class="card my-2 border-dark ">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
@@ -35,7 +35,7 @@
                                             </p>
                                             <p>
                                             <ul>
-                                                @if($order->product->variations)
+                                                @if ($order->product->variations)
                                                 @foreach ($order->product->variations as $varition => $value)
                                                     <li>
                                                         {{ $varition }} : {{ $value }}
@@ -96,8 +96,64 @@
                                 {{ $order->getStatus()['label'] }}
                             </span>
 
-                        </div>
-                    @endforeach
+                        </div> --}}
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Adress</th>
+                                <th scope="col">Items</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($latest_orders as $order)
+                                <tr>
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    <td>{{ $order->first()->full_name }}</td>
+                                    <td>{{ $order->first()->email }}</td>
+                                    <td>{{ $order->first()->phone }}</td>
+                                    <td>
+
+                                        {{ $order->first()->zone }}, {{ $order->first()->area }},
+                                        {{ $order->first()->city }}
+                                        {{ $order->first()->post_code }}
+                                    </td>
+                                    <td>{{ $order->count() }}</td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm p-2 pt-0 m-1"
+                                            href="{{ route('vendor.order.products', ['data' => urlencode(json_encode($order))]) }}">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                        @php
+                                            $allOrdersStatusOne = $order->every(function ($item) {
+                                                return $item->status == 1;
+                                            });
+                                        @endphp
+                                        @if ($allOrdersStatusOne)
+                                            <a href="{{ route('vendor.order.pickup', $order->first()->id) }}"
+                                                class="btn btn-warning btn-sm p-2 pt-0 m-1">
+                                                Ready for pickup <i class="fa fa-truck"></i>
+                                            </a>
+                                        @endif
+
+                                        <a href="{{ route('vendor.invoice', ['data' => urlencode(json_encode($order))]) }}"
+                                            class="btn btn-info btn-sm p-2 m-1 pt-0">
+                                            Invoice
+                                        </a>
+                                    </td>
+
+
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
             {{-- <div class="ec-vendor-card-body">

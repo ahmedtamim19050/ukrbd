@@ -137,6 +137,16 @@
 
         </div>
         <div class="row mb-4">
+            <div class="col-md-3">
+                <div class=" shadow bg-white p-2 text-center" style="border-radius: 12px;">
+
+                    <span class="" style="color:#8B8D97;font-size:14px; ">Total Earning</span>
+                    <p style="color: #45464E;font-size: 20px;font-weight: 500;margin-top: 16px">
+                        {{ Sohoj::price(Sohoj::shopTotalEarn(auth()->user()->shop)) }}</p>
+                    <span class="" style="color:#8B8D97;font-size:14px; "></span>
+
+                </div>
+            </div>
             <div class="col-md-7 ">
                 <div class="container">
                     <canvas id="ordersChart"></canvas>
@@ -195,30 +205,7 @@
                     </tbody>
                 </table> -->
             </div>
-            <div class="col-md-5 border rounded-3 ">
-                <div class="d-flex justify-content-between pt-3 border-bottom">
-                    <h4>Offers</h4>
-                    <a href="{{ route('vendor.offers') }}"><span>view<i class="ecicon eci-angle-double-right"
-                                aria-hidden="true"></i></span></a>
-                </div>
-                <div class="scrollbar ">
-                    @foreach ($offers as $offer)
-                        <div class="row border-bottom ">
-                            <div class="col-md-8 d-flex  align-items-center">
-                                <img src="{{ Voyager::image($offer->product->image) }}" width="65"
-                                    height="70" alt="">
-                                <div class="p-1">
-                                    <p>{{ $offer->user->name }}</p>
-                                    <span>{{ $offer->product->name }}</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4 d-flex align-items-end">
-                                <span>{{ Sohoj::price($offer->price) }}</span>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+         
         </div>
         <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm" style="border-radius: 12px !important;">
             <div class="ec-vendor-card-header">

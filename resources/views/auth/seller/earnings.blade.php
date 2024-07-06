@@ -1,14 +1,15 @@
-@extends('layouts.seller-dashboard')
-@section('dashboard-content')
+<x-seller>
+
+
     <div class="ec-shop-rightside col-lg-9 col-md-12">
         <div class="ec-vendor-dashboard-card space-bottom-30">
             <div class="ec-vendor-card-header">
-                <h5>Feedbacks</h5>
+                <h5>Earnings</h5>
 
 
             </div>
 
-            @if (count($feedbacks) == !0)
+            @if ($earnings->count() > 0)
                 <div class="ec-vendor-card-body">
 
                     <div class="ec-vendor-card-table">
@@ -19,24 +20,20 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Feedback</th>
+                                    <th scope="col">Earning</th>
                                     <th scope="col">Created at</th>
-                              
+                           
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($feedbacks as $feedback)
-                              
+                                @foreach ($earnings as $earning)
+                            
                                     <tr>
                                         <th scope="row"><span>{{ $loop->index + 1 }}</span></th>
-                                        <td><span>{{ $feedback->order->user->name }}</span></td>
-                                        <td><span>{{ $feedback->order->user->email }}</span></td>
-                                        <td><span>{{ $feedback->feedback }}</span></td>
-                                        <td><span>{{ $feedback->created_at->format('M-d-Y') }}</span></td>
-
+                                        <td><span>{{ Sohoj::price($earning->shop_earn) }}</span></td>
+                                        <td><span>{{ $earning->created_at->format('d M, Y') }}</span></td>
+                                       
 
                                     </tr>
                                 @endforeach
@@ -54,4 +51,4 @@
         </div>
     </div>
 
-@endsection
+</x-seller>

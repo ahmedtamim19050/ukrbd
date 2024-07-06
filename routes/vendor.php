@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EarningController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MassageController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Seller\ExportImportController;
 use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Order;
 use App\Models\Prodcat;
 use App\Models\Product;
@@ -34,10 +36,11 @@ Route::group(
         Route::post('/products-delete{product}', [ProductController::class, 'productRemove'])->name('products.delete');
 
         Route::get('/orders/index', [SellerPagesController::class, 'ordersIndex'])->name('ordersIndex');
+        Route::get('/order/products', [SellerPagesController::class, 'orderProducts'])->name('order.products');
         Route::get('/order/view/{order}', [SellerPagesController::class, 'orderView'])->name('orderView');
         Route::get('/order/{order}/returned-product-received', [SellerPagesController::class, 'returned_product_received'])->name('returned.product.received');
         Route::post('/shipping', [SellerPagesController::class, 'shippingUrl'])->name('order.shipping');
-        Route::get('/invoice/{order}', [SellerPagesController::class, 'invoice'])->name('invoice');
+        Route::get('/invoice', [SellerPagesController::class, 'invoice'])->name('invoice');
 
 
         Route::post('/ChangePassword', [SellerPagesController::class, 'ChangePassword'])->name('ChangePassword');
@@ -86,7 +89,9 @@ Route::group(
 
         Route::get('cards', [SellerPagesController::class, 'cards'])->name('cards');
         Route::get('refund-request/accept/{order}', [SellerPagesController::class, 'refundRequestAccept'])->name('refund.request.accept');
-
+        Route::get('/earnings', [EarningController::class, 'earnings'])->name('earnings');
+        Route::get('/transactions', [TransactionController::class, 'transactions'])->name('transictions');
+        Route::post('/widthraw-request', [TransactionController::class, 'widthrawRequest'])->name('widthraw.request');
         Route::get('order/{order}/ready-for-pickup', function (Order $order) {
 
             // $response = PathaoCourier::order()
@@ -108,8 +113,12 @@ Route::group(
             //         "item_description"    => "" // product details
             //     ]);
             // $order->shipping_url = $response->consignment_id;
-            $order->status = 2;
-            $order->save();
+           $orders=$order->parent->childs;
+             foreach ($orders as $key => $order) {
+                 $order->status = 2;
+                 $order->save();
+                
+             }
             return redirect()->back()->with('success');
         })->name('order.pickup');
         Route::post('products/import', [ExportImportController::class, 'import'])->name('products.import');

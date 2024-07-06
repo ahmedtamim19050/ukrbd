@@ -1,18 +1,26 @@
+
+@php
+$shipping=json_decode($orders->first()->shipping);
+$shop=App\Models\Shop::find($orders->first()->shop_id);
+$parentOrder=App\Models\Order::where('parent_id',$orders->first()->parent_id)->first();
+@endphp
+
+
+
 <div class="d-flex justify-content-start mb-2">
     <button onclick="printDiv('printableArea')" class="btn btn-primary">Print this page</button>
    
 </div>
 
+
 <div id="printableArea">
     <div class="invoice-container">
-
-
         <div class="invoice-info row">
             <div class="shop-info col-md-6">
                 <h4>Invoice</h4>
-                <h6> {{ $order->first_name }} {{ $order->last_name }}</h6>
-                <p>{{ $order->created_at->format('M-d-Y') }}</p>
-                <p> Order No: {{ $order->id }}</p>
+                <h6> {{ $shipping->name }}</h6>
+                <p>{{ Carbon\Carbon::parse($orders->first()->created_at)->format('d-m-Y') }}</p>
+                <p> Order No: {{ $orders->first()->id }}</p>
             </div>
             <div class="customer-info col-md-6">
                 <h5>UKRBD</h5>
@@ -35,13 +43,21 @@
             </thead>
             <tbody>
 
+                 @foreach($orders as $order)
+                 @php
+                     $product=App\Models\Product::find($order->product_id);
+                     $orderProduct=App\Models\OrderProduct::where('order_id',$order->id)->first();
+                     if($orderProduct){
 
+                         $variation = $orderProduct->variation ? json_decode($orderProduct->variation) : null;
+                     }else{
+                        $variation=null;
+                     }
+                 @endphp
                 <tr>
 
-                    <td>{{ $order->quantity }} x {{ $order->product->name }},
-                        @php
-                            $variation = $order->orderproduct->variation ? json_decode($order->orderproduct->variation) : null;
-                        @endphp
+                    <td>{{ $order->quantity }} x {{ $product->name }},
+        
                         @if($variation)
                         @foreach ($variation as $key=> $item)
                             {{$key}} : {{$item}}
@@ -53,33 +69,30 @@
 
                     <td>{{ Sohoj::price($order->subtotal) }}</td>
                 </tr>
-
-                <tr>
-
-                    <td> Platform Fee</td>
-               
-                    <td>{{ Sohoj::price($order->platform_fee) }}</td>
-                </tr>
-                {{-- <tr>
-
-                    <td>Shipping</td>
-
-                    <td>{{ Sohoj::price($order->shipping_total) }}</td>
-                </tr> --}}
-                <tr>
-
-                    <td>Shipping Cost</td>
-
-                    <td>{{ Sohoj::price($order->shipping_total) }}</td>
-                </tr>
+                @endforeach
 
             </tbody>
             <tfoot>
 
                 <tr style="border-top: 2px solid black">
-                    <td colspan="2"></td>
+                    <td colspan="1"></td>
+                    <td colspan="">Subtotal</td>
                     <td class="text-center">
-                        {{ Sohoj::price($order->total + $order->platform_fee) }}
+                        {{ Sohoj::price($parentOrder->total) }}
+                    </td>
+                </tr>
+                <tr style="border-top: 2px solid black">
+                    <td colspan="1"></td>
+                    <td colspan="">Shipping Cost</td>
+                    <td class="text-center">
+                        {{ Sohoj::price($parentOrder->shipping_total) }}
+                    </td>
+                </tr>
+                <tr style="border-top: 2px solid black">
+                    <td colspan="1"></td>
+                    <td colspan="">Total</td>
+                    <td class="text-center">
+                        {{ Sohoj::price($parentOrder->total + $parentOrder->shipping_total) }}
                     </td>
                 </tr>
 
@@ -88,40 +101,19 @@
             </tfoot>
         </table>
 
-        {{-- <div class="invoice-total">
-            <p class="total-amount">Total Amount: {{ Sohoj::price($order->vendor_total) }}</p>
-        </div> --}}
-        {{-- <table class="invoice-table">
-            <thead>
-                <tr>
-
-                    <th class="text-start">Shop</th>
-                    <th class="text-start">Id</th>
-                    <th class="text-start">Address</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td> {{ $order->shop->name }}</td>
-                    <td>{{ $order->shop->id }}</td>
-                    <td>{{ $order->shop->city }}, {{ $order->shop->state }}</td>
-                </tr>
-            </tbody>
-        </table> --}}
         <div class="row shop" style="
         margin-top: 120px;">
             <div class="col-md-6">
                 <h6>Shop</h6>
-                <p>{{ $order->shop->name }}</p>
+                <p>{{ $shop->name }}</p>
             </div>
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                 <h6>Id</h6>
-                <p>{{ $order->shop->id }}</p>
-            </div>
+                <p>{{ $shop->id }}</p>
+            </div> --}}
             <div class="col-md-3">
                 <h6>Address</h6>
-                <p>{{ $order->shop->city }}, {{ $order->shop->state }}</p>
+                <p>{{ $shop->city }}, {{ $shop->state }}</p>
             </div>
         </div>
         <div class=" mt-5 p-3" style="border: 1px solid black">
@@ -133,15 +125,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-
-                            Transaction Number:{{ $order->transaction_id }}
-                        </td>
-                        <td class="text-end">
-                            <h1> {{ Sohoj::price($order->total + $order->platform_fee) }}</h1>
-                        </td>
-                    </tr>
+                    
                     <tr style="border-top: 2px solid black">
                         <td class="p-1 d-flex align-items-center">
                             <div class="cricle">
@@ -150,7 +134,7 @@
                             </div>
                             <span class="ms-1">Thank You! -UKRBD</span>
                         </td>
-                        <td class="text-end " style="text-transform:uppercase">usd</td>
+                        <td class="text-end " style="text-transform:uppercase">{{ Sohoj::price($parentOrder->total + $parentOrder->shipping_total) }}</td>
                     </tr>
                 </tbody>
             </table>

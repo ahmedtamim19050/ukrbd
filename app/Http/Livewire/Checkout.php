@@ -26,6 +26,7 @@ class Checkout extends Component
 
     public function mount()
     {
+        
         $this->cities = $this->getCities();
     }
 
@@ -44,7 +45,7 @@ class Checkout extends Component
 
     public function updatedSelectedArea()
     {
-        
+  
         $this->getShippingCost();
     }
 

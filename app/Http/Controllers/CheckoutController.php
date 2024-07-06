@@ -6,11 +6,13 @@ use App\Http\Requests\OrderRequest;
 use App\Mail\OrderPlaced;
 use App\Models\Address;
 use App\Models\Coupon;
+use App\Models\Earning;
 use App\Models\Notification;
 use Sohoj;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Models\Shop;
 use App\Models\User;
 use Cart;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
@@ -93,6 +95,7 @@ class CheckoutController extends Controller
             // 'payment_method' => $request->payment_method[0],
         ]);
         session(['guest_order_id' => $order->id]);
+      
 
         foreach (Cart::getContent() as $item) {
             OrderProduct::create([
@@ -132,25 +135,29 @@ class CheckoutController extends Controller
                 // 'payment_method' => $request->payment_method[0],
                 'product_price' => $item->price,
             ]);
-            OrderProduct::create([
-                'quantity' => $item->quantity,
-                'order_id' => $childOrder->id,
-                'product_id' => $item->model->id,
-                'price' => $item->price,
-                'total_price' => $item->price * $item->quantity,
-                'variation' => $item->model->variations,
-                'shop_id' => $item->model->shop_id,
-            ]);
+       
         }
         $childOrders = $order->childs;
 
         foreach ($childOrders as $childOrder) {
             $childOrder->update(['status' => 1]);
+            Earning::create([
+                'order_id'=>$childOrder->id,
+                'shop_id'=>$childOrder->shop->id,
+                'shop_earn'=>Sohoj::shopWoned($childOrder),
+                'admin_earn'=>Sohoj::adminOwned($childOrder),
+            ]);
+            $childOrder->shop->update([
+                'total_own'=>$childOrder->shop->total_own + Sohoj::shopWoned($childOrder),
+            ]);
+
             if ($childOrder->shop->email) {
 
                 Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
             }
         }
+
+      
 
 
         Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));

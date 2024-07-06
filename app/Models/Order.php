@@ -88,9 +88,9 @@ class Order extends Model
 
 
 
-    public function orderProduct()
+    public function orderProducts()
     {
-        return $this->hasOne(OrderProduct::class, 'order_id');
+        return $this->hasMany(OrderProduct::class, 'order_id');
     }
     public function scopeFilter($query)
     {

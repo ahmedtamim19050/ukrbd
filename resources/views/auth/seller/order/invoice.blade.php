@@ -112,6 +112,6 @@
 
 
     <div class="ec-shop-rightside col-lg-9 col-md-12">
-        <x-invoice :order="$order" />
+        <x-invoice :orders="$orders" />
     </div>
 </x-seller>

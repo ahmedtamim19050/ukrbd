@@ -16,6 +16,7 @@ use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\EmailVerified;
 use App\Imports\ProductDataImport;
@@ -175,6 +176,7 @@ Route::post('card/add', [SellerPagesController::class, 'cardAdd'])->name('user.c
 Route::group(['prefix' => 'admin', 'middleware' => 'admin.user'], function () {
     Route::get('/shop/{shop}/active', [HomeController::class, 'shopActive'])->name('admin.shop.active');
     Route::get('/shop/{shop}/freeforlife', [HomeController::class, 'freeforlife'])->name('admin.shop.freeforlife');
+    Route::post('/admin/transaction/action/{transaction}',[TransactionController::class, 'action'])->name('admin.transaction.action');
 });
 
 

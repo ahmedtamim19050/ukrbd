@@ -133,4 +133,16 @@ class Sohoj
             $total += $response->final_price;
         }
     }
+
+    public function shopWoned($order) {
+         $cost_percentage=  $order->subtotal *  ( $order->shop->percentage_cost / 100);
+        return $order->subtotal - $cost_percentage;
+    }
+    public function adminOwned($order) {
+        return $order->subtotal *  ( $order->shop->percentage_cost / 100);;
+    }
+    public function shopTotalEarn($shop) {
+       return $shop->earnings->sum('shop_earn');
+    }
+   
 }

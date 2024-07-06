@@ -68,7 +68,12 @@ class SellerPagesController extends Controller
     }
     public function ordersIndex()
     {
-        $latest_orders =  Order::where('shop_id', auth()->user()->shop->id)->latest()->get();
+        $orders = Order::whereNotNull('parent_id')
+            ->where('shop_id', auth()->user()->shop->id)
+            ->latest()
+            ->get();
+
+        $latest_orders = $orders->groupBy('parent_id');
 
         return view('auth.seller.order.index', compact('latest_orders'));
     }
@@ -84,10 +89,14 @@ class SellerPagesController extends Controller
         $order->save();
         return back()->with('success_msg', 'Order update successfully');
     }
-    public function invoice(Order $order)
-    {
-
-        return view('auth.seller.order.invoice', compact('order'));
+    public function invoice(Request $request)
+    { 
+         
+        $orders = json_decode(urldecode($request->input('data')), true);
+        $orders = collect($orders)->map(function ($order) {
+            return (object) $order;
+        });
+        return view('auth.seller.order.invoice', compact('orders'));
     }
     public function setting()
     {
@@ -153,6 +162,7 @@ class SellerPagesController extends Controller
             'country' => $request->country,
             'status' => 1,
             'pickup_address' => json_encode($request->pathao),
+            'percentage_cost' => setting('site.product_percentage_cost'),
 
 
         ]);
@@ -165,7 +175,7 @@ class SellerPagesController extends Controller
 
         $shop->createMetas($request->meta);
         $pathao = $this->pathao($request);
-        
+
         $shop->update([
             'slug' =>  $slug,
             'shipping_method' => null,
@@ -549,7 +559,15 @@ class SellerPagesController extends Controller
             "zone_id"           => $request->pathao['zone'],
             "area_id"           => $request->pathao['area'],
         ]);
-        
+
         return $pathao;
+    }
+    public function orderProducts( Request $request)
+    {
+        $orders = json_decode(urldecode($request->input('data')), true);
+        $orders = collect($orders)->map(function ($order) {
+            return (object) $order;
+        });
+        return view('auth.seller.order.product_list', compact('orders'));
     }
 }
