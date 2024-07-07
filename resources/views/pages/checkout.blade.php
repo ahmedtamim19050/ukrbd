@@ -116,10 +116,11 @@
         @if($groupedByShopItems > 1)
         <script>
             var groupedByShopItems ="{{$groupedByShopItems}}"
+            var imgUrl="{{asset('assets/img/2706962.png')}}"
            
             Swal.fire({
-                title: "Alert",
-                icon: "info",
+                title: `<img height="70" src="${imgUrl}">`,
+                icon: "",
                 html: `
    Your orders from <b>${groupedByShopItems}</b> different shops will arrive soon!
   `,
