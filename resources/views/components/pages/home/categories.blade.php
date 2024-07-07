@@ -3,7 +3,7 @@
     <div class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
 
     </div>
-    <a href="#" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
+    <a href="{{route('shops')}}" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
 </div>
 <div class="swiper-container swiper-theme shadow-swiper icon-category-wrapper appear-animate mb-10 pb-2"
     data-swiper-options="{

@@ -1,7 +1,7 @@
 <div class="swiper-slide product-wrap">
     <div class="product text-center">
         <figure class="product-media">
-            <a href="{{ $product->path() }}">
+            <a href="{{ route('product_details',$product->slug) }}">
                 <img src="{{ Voyager::image($product->image) }}" alt="Product" width="300" height="338">
                 <img src="{{ Voyager::image($product->image) }}" alt="Product" width="300" height="338">
             </a>
@@ -22,7 +22,7 @@
             </div>
         </figure>
         <div class="product-details">
-            <h4 class="product-name"><a href="{{ $product->path() }}">{{ $product->name }}</a>
+            <h4 class="product-name"><a href="{{ route('product_details',$product->slug) }}">{{ $product->name }}</a>
             </h4>
             {{-- <div class="ratings-container">
                 <div class="ratings-full">
@@ -37,7 +37,7 @@
                     data-size="sm">
             </div>
             <div class="product-price">
-                <a href="{{ $product->path() }}">
+                <a href="{{ route('product_details',$product->slug) }}">
                     <ins class="new-price">{{ Sohoj::price($product->price) }}</ins>
                     @if ($product->sale_price)
                         <del class="old-price">{{ Sohoj::price($product->sale_price) }}</del>

@@ -21,6 +21,35 @@
                   width: 13px;
                   accent-color: #f93;
               }
+
+              .category-height {
+                  height: 70vh;
+                  overflow-y: scroll;
+              }
+
+              .category-height::-webkit-scrollbar {
+                  width: 12px;
+              }
+
+              .category-height::-webkit-scrollbar-track {
+                  background: #f1f1f1;
+              }
+
+              .category-height::-webkit-scrollbar-thumb {
+                  background: #888;
+                  border-radius: 6px;
+              }
+
+              .category-height::-webkit-scrollbar-thumb:hover {
+                  background: #555;
+              }
+              .category-height {
+                  scrollbar-width: thin;
+                  scrollbar-color: #eca09a #f1f1f1;
+              }
+              .category-height {
+                  -ms-overflow-style: -ms-autohiding-scrollbar;
+              }
           </style>
       </x-slot>
 
@@ -49,7 +78,7 @@
                                   <a href="{{ route('shops') }}" class="btn btn-dark btn-link ">Clean All</a>
                               </div>
                               <!-- Start of Collapsible widget -->
-                              <div class="widget widget-collapsible">
+                              <div class="widget widget-collapsible category-height">
                                   <h3 class="widget-title"><label>All Categories</label></h3>
                                   <ul class="widget-body filter-items search-ul">
                                       @foreach ($categories as $category)
@@ -83,7 +112,7 @@
                                                   onclick='updateSearchParams("","","{{ $route }}","10000","")'>10000.00
                                                   Tk +</a></li>
                                       </ul>
-                                      
+
                                   </div>
                               </div>
                               <!-- End of Collapsible Widget -->
@@ -92,14 +121,15 @@
                               <div class="widget widget-collapsible">
                                   <h3 class="widget-title"><label>Rating</label></h3>
 
-                                  
+
                                   <form id="ratingForm" action="{{ $route }}" method="GET">
                                       <ul class="widget-body filter-items item-check mt-1">
                                           @foreach ([5, 4, 3, 2, 1] as $rating)
                                               <li class="{{ request()->ratings == $rating ? 'active' : '' }}"
                                                   style="margin:10px 0;">
                                                   <label>
-                                                      <input class="rating-input" type="checkbox" name="ratings" value="{{ $rating }}"
+                                                      <input class="rating-input" type="checkbox" name="ratings"
+                                                          value="{{ $rating }}"
                                                           {{ request()->ratings == $rating ? 'checked' : '' }}>
                                                       @for ($i = 0; $i < 5; $i++)
                                                           @if ($i < $rating)

@@ -146,6 +146,9 @@ class PageController extends Controller
 
     {
         $shop = Shop::where('slug', $slug)->with('products')->firstOrFail();
+        $products = $shop->products()->paginate(9);
+
+
 
         // Initialize arrays to ensure they are not null even if no products are present
         $bestSellingProducts = [];
@@ -171,7 +174,7 @@ class PageController extends Controller
         }
 
 
-        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews'));
+        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews','products'));
     }
 
 

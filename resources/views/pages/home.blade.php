@@ -401,7 +401,7 @@
 
         <div class="title-link-wrapper appear-animate mb-4">
             <h2 class="title title-link pt-1">Featured Products</h2>
-            <a href="{{ Route('shops') }}">More Products<i class="w-icon-long-arrow-right"></i></a>
+            <a href="{{ route('shops') }}">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
         <div class="swiper-container swiper-theme products-apparel appear-animate mb-7"
             data-swiper-options="{

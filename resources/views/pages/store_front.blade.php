@@ -236,7 +236,7 @@
                                     </div> --}}
                                 </nav>
                                 <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-                                    @foreach ($shop->products as $product)
+                                    @foreach ($products as $product)
                                         @if ($product->slug)
                                             <div class="product-wrap">
                                                 <div class="product text-center">
@@ -274,12 +274,14 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                 
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{$products->links()}}
                 <!-- End of Main Content -->
             </div>
         </div>

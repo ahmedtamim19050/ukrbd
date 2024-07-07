@@ -16,16 +16,18 @@
                         <span>Browse Categories</span>
                     </a>
 
+
                     <div class="dropdown-box">
                         <ul class="menu vertical-menu category-menu">
                             @foreach ($categories as $category)
-                                @if ($category->childrens->count() > 0)
+                           
                                     <li>
                                         <!-- Update the link here for parent categories -->
                                         <a id="categoryId" class="nav-link menu-item-line" href="javascript:void(0)"
                                             onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
                                             <i class=""></i>{{ $category->name }}
                                         </a>
+                                        @if ($category->childrens->count() > 0)
                                         <ul class="megamenu">
                                             @foreach ($category->childrens as $item)
                                                 <li>
@@ -44,8 +46,9 @@
                                               
                                             @endforeach
                                         </ul>
+                                        @endif
                                     </li>
-                                @endif
+                               
                             @endforeach
                             {{-- <li>
                                 <a href="#" class="font-weight-bold text-uppercase ls-25">
