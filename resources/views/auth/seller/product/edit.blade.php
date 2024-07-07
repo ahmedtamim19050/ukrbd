@@ -1,7 +1,7 @@
 <x-seller>
     <x-slot name="css">
-        <link rel="stylesheet" href="{{ asset('seller-assets/css/multiple-select.css') }}">
     </x-slot>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @php
         $images = json_decode($product->images);
         $variatImg = json_decode($product->image);
@@ -93,20 +93,14 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Select Categories</label>
-                                            <select multiple " data-placeholder="Select Categories"
-                                                class="@error('categories') is-invalid @enderror" name="categories[]" data-filter="true">
+                                            <select 
+                                                class="form-control category @error('categories') is-invalid @enderror" name="categories[]" multiple>
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}"
                                                         {{ $product->prodcats->contains($prodcat->id) ? 'selected' : '' }}>
                                                         {{ $prodcat->name }}
                                                     </option>
-                                                    @foreach ($prodcat->childrens as $child)
-                                                        <option value="{{ $child->id }}"
-                                                            {{ $product->prodcats->contains($child->id) ? 'selected' : '' }}>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $prodcat->name }} -
-                                                            {{ $child->name }}
-                                                        </option>
-                                                    @endforeach
+                                                  
                                                 @endforeach
                                             </select>
 
@@ -464,12 +458,11 @@
             <script src="{{ asset('seller-assets/js/plugins/infiniteslidev2.js') }}"></script>
             <script src="{{ asset('seller-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
             <script src="{{ asset('seller-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
-            <script src="{{ asset('seller-assets/js/multiple-select.js') }}"></script>
             <script src="{{ asset('seller-assets/js/vendor/bootstrap-tagsinput.js') }}"></script>
         @endpush
 
         <!-- End Vendor upload section -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
         <script>
             $(document).ready(function() {
                 document.getElementById('price')
@@ -562,6 +555,12 @@
             });
             $('#short_description').summernote({
                 height: 200
+            });
+        </script>
+                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.category').select2();
             });
         </script>
     </x-slot>

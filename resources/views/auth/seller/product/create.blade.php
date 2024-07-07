@@ -1,6 +1,7 @@
 <x-seller>
     <x-slot name="css">
-        <link rel="stylesheet" href="{{ asset('seller-assets/css/multiple-select.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('seller-assets/css/multiple-select.css') }}"> --}}
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     </x-slot>
     <div class="ec-shop-rightside col-lg-9 col-md-12">
         <div class="ec-page-content ec-vendor-uploads section-space-p">
@@ -18,7 +19,7 @@
                                             <div class="avatar-edit">
                                                 <input type='file' id="imageUpload" name="image"
                                                     class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                <label for="imageUpload">    <i class="fas fa-edit"></i></label>
+                                                <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                             </div>
                                             <div class="avatar-preview ec-preview">
                                                 <div class="imagePreview ec-div-preview">
@@ -33,7 +34,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload01" name="images[0]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -47,7 +48,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload02" name="images[1]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -61,7 +62,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload03" name="images[2]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -75,7 +76,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload04" name="images[3]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -89,7 +90,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload05" name="images[4]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -103,7 +104,7 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload06" name="images[5]"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
@@ -135,17 +136,10 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Select Categories (optinal)</label>
-                                            <select class=" @error('categories') is-invalid @enderror " multiple
+                                            <select class="form-control category @error('categories') is-invalid @enderror " multiple
                                                 data-placeholder="Select Categories" name="categories[]">
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}">{{ $prodcat->name }}</option>
-                                                    @foreach ($prodcat->childrens as $child)
-                                                        <option value="{{ $child->id }}"
-                                                            @if (request('category') == $child->slug) selected @endif
-                                                            style="font-weight:300">
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $child->name }}
-                                                        </option>
-                                                    @endforeach
                                                 @endforeach
                                             </select>
                                             @error('categories')
@@ -179,7 +173,7 @@
                                             <input type="text" name="price" value="{{ old('price') }}"
                                                 class="form-control @error('price') is-invalid @enderror"
                                                 id="price">
-                                            <p class="text-danger" > </p>
+                                            <p class="text-danger"> </p>
                                             @error('price')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -192,7 +186,7 @@
                                             <input type="hidden" name="vendor_price" value=""
                                                 class="form-control" id="vendorPrice">
                                         </div>
-                                       
+
 
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Quantity <span
@@ -221,12 +215,12 @@
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product weight</label>
                                             <input type="text" class="form-control" value="{{ old('weight') }}"
-                                                placeholder="Provide your gram or ml" name="weight" required/>
+                                                placeholder="Provide your gram or ml" name="weight" required />
                                         </div>
 
 
 
-                                 
+
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product Dimensions (optinal)</label>
                                             <input type="text" class="form-control"
@@ -255,7 +249,7 @@
                                                 Allow make offer (optinal)
                                             </label>
                                         </div> --}}
-                                
+
 
                                         <div class="col-md-12 mt-2">
                                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -270,25 +264,25 @@
         </div>
     </div>
     <x-slot name="js">
-         @push('js')
+        @push('js')
+            <script src="{{ asset('seller-assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/vendor/popper.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/vendor/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
 
-         <script src="{{asset('seller-assets/js/vendor/jquery-3.5.1.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/vendor/popper.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/vendor/bootstrap.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/vendor/jquery-migrate-3.3.0.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/vendor/modernizr-3.11.2.min.js')}}"></script>
-     
-         <script src="{{asset('seller-assets/js/plugins/swiper-bundle.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/plugins/countdownTimer.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/plugins/scrollup.js')}}"></script>
-         <script src="{{asset('seller-assets/js/plugins/jquery.zoom.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/plugins/slick.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/plugins/infiniteslidev2.js')}}"></script>
-         <script src="{{asset('seller-assets/js/vendor/jquery.magnific-popup.min.js')}}"></script>
-         <script src="{{asset('seller-assets/js/plugins/jquery.sticky-sidebar.js')}}"></script>
-         <script src="{{ asset('seller-assets/js/multiple-select.js') }}"></script>
-         <script src="{{ asset('seller-assets/js/vendor/bootstrap-tagsinput.js') }}"></script>
-         @endpush
+            <script src="{{ asset('seller-assets/js/plugins/swiper-bundle.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/plugins/countdownTimer.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/plugins/scrollup.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/plugins/jquery.zoom.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/plugins/slick.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/plugins/infiniteslidev2.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
+            <script src="{{ asset('seller-assets/js/vendor/bootstrap-tagsinput.js') }}"></script>
+
+        @endpush
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
         <script>
             $(document).ready(function() {
@@ -380,6 +374,12 @@
             });
             $('#short_description').summernote({
                 height: 200
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('.category').select2();
             });
         </script>
 
