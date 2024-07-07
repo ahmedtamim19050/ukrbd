@@ -2,6 +2,7 @@
       @php
           $route = route('shops');
       @endphp
+    
       <x-slot name="css">
           <!-- Vendor CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">

@@ -17,8 +17,18 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
         @livewireStyles
     </x-slot>
+
+    @php
+        $cartItems = Cart::getContent();
+        $groupedByShopItems = $cartItems->groupBy(function ($item) {
+            return $item->model->shop->id;
+        })->count();
+
+
+    @endphp
     <livewire:checkout />
     <x-slot name="js">
+       
         <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
         <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/vendor/sticky/sticky.js') }}"></script>
@@ -100,5 +110,28 @@
             @endforeach
         @endif
         @livewireScripts
+
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @if($groupedByShopItems > 1)
+        <script>
+            var groupedByShopItems ="{{$groupedByShopItems}}"
+           
+            Swal.fire({
+                title: "Alert",
+                icon: "info",
+                html: `
+   Your orders from <b>${groupedByShopItems}</b> different shops will arrive soon!
+  `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: `
+    <i class="fa fa-thumbs-up"></i> Great!
+  `,
+       
+            });
+        </script>
+        @endif
     @endpush
 </x-app>
