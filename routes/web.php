@@ -135,6 +135,7 @@ Route::get('admin/order/refund', [PayoutsController::class, 'refund'])->name('re
 Route::post('/refund/store', [PayoutsController::class, 'refund_store'])->name('refund.store');
 
 Route::get('/vendor-register', [RegisterController::class, 'vendorCreate'])->name('vendor.create');
+
 Route::get('/vendor-register-2nd-step', [HomeController::class, 'vendorSecondStep'])->name('vendor.second.step');
 Route::post('/2nd-step-store', [HomeController::class, 'vendorSecondStepStore'])->name('vendor.second.step.store');
 
@@ -179,6 +180,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.user'], function () {
     Route::post('/admin/transaction/action/{transaction}',[TransactionController::class, 'action'])->name('admin.transaction.action');
 });
 
+Route::get('/marchentiger-register', [RegisterController::class, 'marchentiger'])->name('marchentiger.create');
+
 
 Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
     Route::group(['prefix' => 'payment', 'as' => 'payment.', 'controller' => PaymentCallbackController::class], function () {
@@ -189,4 +192,5 @@ Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
         Route::post('ipn', 'ipn')->name('ipn');
     });
 });
+
 

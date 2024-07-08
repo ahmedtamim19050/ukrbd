@@ -73,6 +73,9 @@ class RegisterController extends Controller
                     return '/verify-email';
                 }
                 break;
+            case 4:
+                return RouteServiceProvider::MARCHENTIGER;
+                break;
 
             default:
                 return RouteServiceProvider::HOME;
@@ -109,6 +112,7 @@ class RegisterController extends Controller
     // }
     public function register(Request $request)
     {
+     
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255'],
@@ -138,8 +142,8 @@ class RegisterController extends Controller
 
         if ($request->role == 'vendor') {
             $role_id = 3;
-        } else {
-            $role_id = 2;
+        } else if($request->role == 'marchentiger'){
+            $role_id = 4;
         }
 
 
@@ -230,5 +234,8 @@ class RegisterController extends Controller
     {
 
         return view('auth.seller.register');
+    }
+    public function marchentiger() {
+        return view('auth.marchentiger.register');
     }
 }

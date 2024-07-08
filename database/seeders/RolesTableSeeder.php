@@ -31,5 +31,11 @@ class RolesTableSeeder extends Seeder
                 'display_name' => 'Vendor',
             ])->save();
         }
+        $role = Role::firstOrNew(['name' => 'marchentiger']);
+        if (!$role->exists) {
+            $role->fill([
+                'display_name' => 'Marchentiger',
+            ])->save();
+        }
     }
 }

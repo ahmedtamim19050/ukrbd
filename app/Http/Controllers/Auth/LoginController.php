@@ -71,6 +71,10 @@ class LoginController extends Controller
                 return RouteServiceProvider::VENDOR;
                 break;
 
+            case 4:
+                return RouteServiceProvider::MARCHENTIGER;
+                break;
+
             default:
                 return RouteServiceProvider::HOME;
                 break;
