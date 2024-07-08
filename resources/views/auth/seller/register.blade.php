@@ -163,7 +163,11 @@
 
                           <div class="tab-pane active">
                               <form method="POST" action="{{ route('register') }}">
+
                                   @csrf
+                                  @if (request()->has('referral'))
+                                      <input type="hidden" name="referral" value="{{ request()->query('referral') }}">
+                                  @endif
                                   <div class="form-group mb-5">
                                       <label>Name *</label>
                                       <input type="text" class="form-control @error('name') is-invalid @enderror"

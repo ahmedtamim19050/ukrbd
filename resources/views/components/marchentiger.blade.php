@@ -17,7 +17,7 @@
     .vendor-block-bg {
         width: 100%;
         height: 200px;
-        background-image: url("{{ auth()->user()->shop && auth()->user()->shop->banner ? Voyager::image(auth()->user()->shop->banner) : asset('seller-assets/images/7.jpg') }}");
+        background-image: url("{{ auth()->user()->retailer && auth()->user()->retailer->banner ? Voyager::image(auth()->user()->retailer->banner) : asset('seller-assets/images/7.jpg') }}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -33,8 +33,6 @@
     .taglist li::after {
         content: ","
     }
-
-    
 </style>
 </head>
 
@@ -61,13 +59,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('vendor.logo.cover') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('marchentiger.create_or_update') }}"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="email">Logo</label>
                             <input type="file" class="form-control" required name="logo" id="logo"
                                 aria-describedby="emailHelp">
-                    </div>
+                        </div>
 
 
 
@@ -89,7 +88,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('vendor.logo.cover') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('marchentiger.create_or_update') }}"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="email">Cover</label>

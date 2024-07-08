@@ -2,7 +2,8 @@
     <!-- Sidebar Category Block -->
     <div class="ec-sidebar-block">
         <div class="ec-vendor-block " style="position:relative">
-            @if (auth()->user()->shop)
+            {{-- @dd(auth()->user()->retailer) --}}
+            {{-- @if (auth()->user()->retailer)
                 <div class="vendor-block-bg"></div>
                 <a href="javascript:void(0)" class="shadow-lg"
                     style="position: absolute; top:-11px; right:-11px; background-color: #fff; border-radius:50%;padding:10px 0"
@@ -13,13 +14,17 @@
                     style="height: 190px;
                                 width: 100%;
                                 object-fit: cover;">
-            @endif
+                <a href="javascript:void(0)" class="shadow-lg"
+                    style="position: absolute; top:-11px; right:-11px; background-color: #fff; border-radius:50%;padding:10px 0"
+                    data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3">
+                        <i class="fas fa-edit"></i></span></a>
+            @endif --}}
 
             <div class="ec-vendor-block-detail" style="background-color: snow; position:relative">
-                @if (auth()->user()->shop)
+                {{-- @if (auth()->user()->retailer)
                     <div style="position: relative;">
                         <img class="v-img img-fluid"
-                            src="{{ auth()->user()->shop && auth()->user()->shop->logo ? Voyager::image(auth()->user()->shop->logo) : asset('seller-assets/images/2.jpg') }}"
+                            src="{{ auth()->user()->retailer && auth()->user()->retailer->logo ? Voyager::image(auth()->user()->retailer->logo) : asset('seller-assets/images/2.jpg') }}"
                             alt="vendor image">
                         <a href="javascript:void(0)" class="shadow-lg"
                             style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
@@ -36,16 +41,17 @@
                             data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
                                     class="fas fa-edit"></i></span></a>
                     </div>
-                @endif
+                @endif --}}
                 <h5>{{ auth()->user()->name }}</h5>
-                <p>( {{ auth()->user()->shop ? auth()->user()->shop->name : 'no shop has been created' }} )</p>
+                <p>( {{ auth()->user()->retailer ? auth()->user()->retailer->name : 'no shop has been created' }} )</p>
             </div>
             <div class="ec-vendor-block-items">
                 <ul>
                     <li><a href="{{ route('homepage') }}">Home</a></li>
                     <li><a href="{{ route('marchentiger.dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('marchentiger.password.change') }}">Settings</a></li>
 
-                   
+
 
                     <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

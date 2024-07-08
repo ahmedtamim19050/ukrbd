@@ -14,6 +14,9 @@ Route::group(
         // });
 
         Route::get('/',[PageController::class,'dashboard'])->name('dashboard');
+        Route::get('/settings',[PageController::class,'changePassword'])->name('password.change');
+        Route::post('/update_password', [PageController::class, 'update_password'])->name('update_password');
+
         Route::post('/create-or-update',[PageController::class,'createOrUpdate'])->name('create_or_update');
     },
 );

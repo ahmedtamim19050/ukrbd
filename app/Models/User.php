@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\HasMeta;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
@@ -40,6 +41,7 @@ class User extends \TCG\Voyager\Models\User
         'ffl',
         'username',
         'phone',
+        'referral',
     ];
     // protected $guarded = [];
 
@@ -68,6 +70,10 @@ class User extends \TCG\Voyager\Models\User
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function retailer(): HasOne
+    {
+        return $this->hasOne(Retailer::class);
     }
     public function addresses()
     {

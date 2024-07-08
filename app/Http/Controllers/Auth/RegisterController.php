@@ -112,12 +112,13 @@ class RegisterController extends Controller
     // }
     public function register(Request $request)
     {
-     
+        // dd($request->all()); 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required'],
+            'referral' => 'nullable'
         ]);
 
         $username = $request->email;
@@ -142,13 +143,14 @@ class RegisterController extends Controller
 
         if ($request->role == 'vendor') {
             $role_id = 3;
-        } else if($request->role == 'marchentiger'){
+        } else if ($request->role == 'marchentiger') {
             $role_id = 4;
         }
 
-
+        // dd($request->referral);
         $array = [
             'name' => $request->name,
+            'referral' => $request->referral,
             'email' => $email,
             'phone' => $phone,
             'username' => $username,
@@ -235,7 +237,8 @@ class RegisterController extends Controller
 
         return view('auth.seller.register');
     }
-    public function marchentiger() {
+    public function marchentiger()
+    {
         return view('auth.marchentiger.register');
     }
 }
