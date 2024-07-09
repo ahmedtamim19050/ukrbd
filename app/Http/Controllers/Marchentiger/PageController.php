@@ -60,6 +60,7 @@ class PageController extends Controller
             $user->retailer->update($data);
         } else {
             $data['unique_id'] = Str::random(10);
+            $data['percentage_cost'] = setting('site.marchentiger_share');
             $user->retailer()->create($data);
         }
 
@@ -81,5 +82,32 @@ class PageController extends Controller
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
 
         return back()->with('success_msg', 'Password changed successfully');
+    }
+    public function transactions()
+    {
+
+        $transactions = auth()->user()->retailer->transactions;
+        return view('auth.marchentiger.transaction', compact('transactions'));
+    }
+    public function widthrawRequest(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required',
+        ]);
+        $retailer = Auth()->user()->retailer;
+        if ($request->amount > setting('site.minmum_widthraw_request') && $retailer->total_own > $request->amount) {
+            $retailer->transactions()->create([
+                'amount' => $request->amount,
+                'status' => 'Pending',
+            ]);
+            $retailer->update([
+                'total_own' => $retailer->total_own - $request->amount,
+                'total_withdraw' => $retailer->total_withdraw + $request->amount
+            ]);
+            return back()->with('success_msg', 'Your transiction create successfull please wait admin response');
+        } else {
+
+            return back()->withErrors('Your request is not valid');
+        }
     }
 }

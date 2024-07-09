@@ -121,7 +121,7 @@ class Sohoj
         foreach (Cart::getContent() as $product) {
 
 
-         $response =   PathaoCourier::order()->priceCalculation([
+            $response =   PathaoCourier::order()->priceCalculation([
                 "store_id" => $product->attributes['store_id'],
                 "item_type" => 2,
                 "delivery_type" => 48,
@@ -134,15 +134,27 @@ class Sohoj
         }
     }
 
-    public function shopWoned($order) {
-         $cost_percentage=  $order->subtotal *  ( $order->shop->percentage_cost / 100);
+    public function shopWoned($order)
+    {
+        $cost_percentage =  $order->subtotal *  ($order->shop->percentage_cost / 100);
         return $order->subtotal - $cost_percentage;
     }
-    public function adminOwned($order) {
-        return $order->subtotal *  ( $order->shop->percentage_cost / 100);;
+    public function adminOwned($order)
+    {
+        return $order->subtotal *  ($order->shop->percentage_cost / 100);
     }
-    public function shopTotalEarn($shop) {
-       return $shop->earnings->sum('shop_earn');
+    public function marchentigerOwned($order)
+    {
+        $adminOwned = $order->subtotal *  ($order->shop->percentage_cost / 100);
+        $marchentiger = $adminOwned *  ($order->shop->retailer->percentage_cost / 100);
+        return $adminOwned - $marchentiger;
     }
-   
+    public function shopTotalEarn($shop)
+    {
+        return $shop->earnings->sum('shop_earn');
+    }
+    public function retailTotalEarn($retailer)
+    {
+        return $retailer->earnings->sum('retailer_earn');
+    }
 }

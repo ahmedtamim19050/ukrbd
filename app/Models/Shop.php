@@ -49,6 +49,10 @@ class Shop extends Model
     {
         return $this->hasMany(Order::class);
     }
+    public function retailer()
+    {
+        return $this->belongsTo(Retailer::class);
+    }
     public function massages()
     {
         return $this->hasMany(Massage::class, 'reciver_id');

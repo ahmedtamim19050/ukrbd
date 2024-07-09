@@ -78,94 +78,98 @@ class CheckoutController extends Controller
             $platform_fee = 0;
             $total = (Sohoj::newSubtotal() + $platform_fee);
 
-        $order = Order::create([
-            'user_id' => auth()->user() ? auth()->user()->id : null,
-            'shop_id' => null,
-            'product_id' => null,
-            'shipping' => json_encode($shipping),
-            'subtotal' => Cart::getSubTotal(),
-            'discount' => Sohoj::round_num(Sohoj::discount()),
-            'discount_code' => Sohoj::discount_code(),
-            'tax' => null,
-            'shipping_total' => Sohoj::round_num($request->order['shipping']),
-            'platform_fee' => $platform_fee,
-            'total' => Sohoj::round_num($total),
-            'quantity' => null,
-            'vendor_total' => null,
-            // 'payment_method' => $request->payment_method[0],
-        ]);
-        session(['guest_order_id' => $order->id]);
-      
-
-        foreach (Cart::getContent() as $item) {
-            OrderProduct::create([
-                'quantity' => $item->quantity,
-                'order_id' => $order->id,
-                'product_id' => $item->model->id,
-                'price' => $item->price,
-                'total_price' => $item->price * $item->quantity,
-                'variation' => $item->model->variations,
-                'shop_id' => $item->model->shop_id,
-            ]);
-
-            $response = PathaoCourier::order()->priceCalculation([
-                "store_id" => $item->attributes['store_id'],
-                "item_type" => 2,
-                "delivery_type" => 48,
-                "item_weight" => $item->attributes['weight'] * $item->quantity,
-                "recipient_city" => $shipping['city']['id'],
-                "recipient_zone" => $shipping['zone']['id']
-            ]);
-            $childOrder = Order::create([
+            $order = Order::create([
                 'user_id' => auth()->user() ? auth()->user()->id : null,
-                'parent_id' => $order->id,
-                'shop_id' => $item->model->shop_id,
-                'product_id' => $item->id,
+                'shop_id' => null,
+                'product_id' => null,
                 'shipping' => json_encode($shipping),
-
-                'subtotal' => $item->price * $item->quantity,
-                'discount' => null,
-                'discount_code' => null,
+                'subtotal' => Cart::getSubTotal(),
+                'discount' => Sohoj::round_num(Sohoj::discount()),
+                'discount_code' => Sohoj::discount_code(),
                 'tax' => null,
-                'shipping_total' => $response->final_price,
-                'platform_fee' => 0,
-                'total' => Sohoj::round_num(($item->price * $item->quantity) + $response->final_price),
-                'quantity' => $item->quantity,
-                'vendor_total' => $item->model->vendor_price * $item->quantity,
+                'shipping_total' => Sohoj::round_num($request->order['shipping']),
+                'platform_fee' => $platform_fee,
+                'total' => Sohoj::round_num($total),
+                'quantity' => null,
+                'vendor_total' => null,
                 // 'payment_method' => $request->payment_method[0],
-                'product_price' => $item->price,
             ]);
-       
-        }
-        $childOrders = $order->childs;
+            session(['guest_order_id' => $order->id]);
 
-        foreach ($childOrders as $childOrder) {
-            $childOrder->update(['status' => 1]);
-            Earning::create([
-                'order_id'=>$childOrder->id,
-                'shop_id'=>$childOrder->shop->id,
-                'shop_earn'=>Sohoj::shopWoned($childOrder),
-                'admin_earn'=>Sohoj::adminOwned($childOrder),
-            ]);
-            $childOrder->shop->update([
-                'total_own'=>$childOrder->shop->total_own + Sohoj::shopWoned($childOrder),
-            ]);
 
-            if ($childOrder->shop->email) {
+            foreach (Cart::getContent() as $item) {
+                OrderProduct::create([
+                    'quantity' => $item->quantity,
+                    'order_id' => $order->id,
+                    'product_id' => $item->model->id,
+                    'price' => $item->price,
+                    'total_price' => $item->price * $item->quantity,
+                    'variation' => $item->model->variations,
+                    'shop_id' => $item->model->shop_id,
+                ]);
 
-                Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+                $response = PathaoCourier::order()->priceCalculation([
+                    "store_id" => $item->attributes['store_id'],
+                    "item_type" => 2,
+                    "delivery_type" => 48,
+                    "item_weight" => $item->attributes['weight'] * $item->quantity,
+                    "recipient_city" => $shipping['city']['id'],
+                    "recipient_zone" => $shipping['zone']['id']
+                ]);
+                $childOrder = Order::create([
+                    'user_id' => auth()->user() ? auth()->user()->id : null,
+                    'parent_id' => $order->id,
+                    'shop_id' => $item->model->shop_id,
+                    'product_id' => $item->id,
+                    'shipping' => json_encode($shipping),
+
+                    'subtotal' => $item->price * $item->quantity,
+                    'discount' => null,
+                    'discount_code' => null,
+                    'tax' => null,
+                    'shipping_total' => $response->final_price,
+                    'platform_fee' => 0,
+                    'total' => Sohoj::round_num(($item->price * $item->quantity) + $response->final_price),
+                    'quantity' => $item->quantity,
+                    'vendor_total' => $item->model->vendor_price * $item->quantity,
+                    // 'payment_method' => $request->payment_method[0],
+                    'product_price' => $item->price,
+                ]);
             }
-        }
+            $childOrders = $order->childs;
 
-      
+            foreach ($childOrders as $childOrder) {
+                $childOrder->update(['status' => 1]);
+                Earning::create([
+                    'order_id' => $childOrder->id,
+                    'shop_id' => $childOrder->shop->id,
+                    'retailer_id' => $childOrder->shop->retailer->id,
+                    'shop_earn' => Sohoj::shopWoned($childOrder),
+                    'admin_earn' => Sohoj::adminOwned($childOrder),
+                    'retailer_earn' => Sohoj::marchentigerOwned($childOrder),
+                ]);
+                $childOrder->shop->update([
+                    'total_own' => $childOrder->shop->total_own + Sohoj::shopWoned($childOrder),
+                ]);
+                $childOrder->shop->retailer->update([
+                    'total_own' => $childOrder->shop->retailer->total_own + Sohoj::marchentigerOwned($childOrder),
+                ]);
+
+                if ($childOrder->shop->email) {
+
+                    Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+                }
+            }
 
 
-        Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
-        $this->decreaseQuantities();
 
-        Cart::clear();
 
-        session()->forget('order_payment_info');
+            Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
+            $this->decreaseQuantities();
+
+            Cart::clear();
+
+            session()->forget('order_payment_info');
 
             if (session()->has('discount_code')) {
                 Coupon::where('code', session('discount_code'))->first()->used();
@@ -173,7 +177,7 @@ class CheckoutController extends Controller
             session()->forget('discount');
             session()->forget('discount_code');
             $charge = $order->initializePayment($request->payment_method);
-        
+
             DB::commit();
             if ($charge->method != 'cod') {
                 return redirect($charge->url);

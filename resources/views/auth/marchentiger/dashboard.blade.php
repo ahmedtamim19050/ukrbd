@@ -41,7 +41,7 @@
 
                                     <span class="" style="color:#8B8D97;font-size:14px; ">Total Earning</span>
                                     <p style="color: #45464E;font-size: 20px;font-weight: 500;margin-top: 16px">
-                                        300 Tk</p>
+                                        {{ Sohoj::price(Sohoj::retailTotalEarn(auth()->user()->retailer)) }}</p>
                                     <span class="" style="color:#8B8D97;font-size:14px; "></span>
 
                                 </div>
@@ -52,7 +52,7 @@
 
                                     <span class="" style="color:#8B8D97;font-size:14px; ">Total Widthraw</span>
                                     <p style="color: #45464E;font-size: 20px;font-weight: 500;margin-top: 16px">
-                                        500 Tk</p>
+                                        {{ Sohoj::price(auth()->user()->retailer->total_withdraw) }}</p>
                                     <span class="" style="color:#8B8D97;font-size:14px; "></span>
 
                                 </div>
@@ -63,7 +63,7 @@
 
                                     <span class="" style="color:#8B8D97;font-size:14px; ">Total Due</span>
                                     <p style="color: #45464E;font-size: 20px;font-weight: 500;margin-top: 16px">
-                                        200 tk</p>
+                                        {{ Sohoj::price(auth()->user()->retailer->total_own) }}</p>
                                     <span class="" style="color:#8B8D97;font-size:14px; "></span>
 
                                 </div>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-9">
-                               
+
                                 <input type="text" id="inputURL" class="form-control urlinput"
                                     value="{{ route('vendor.create') }}?referral={{ auth()->user()->retailer->unique_id }}"
                                     readonly>

@@ -30,7 +30,7 @@ class TransactionController extends Controller
             return back()->with('success_msg', 'Your transiction create successfull please wait admin response');
         } else {
 
-            return back()->withErrors('Your request is not leagul');
+            return back()->withErrors('Your request is not valid');
         }
     }
     public function action(Request $request, Transaction $transaction)

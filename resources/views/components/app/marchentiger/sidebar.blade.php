@@ -43,7 +43,7 @@
                     </div>
                 @endif --}}
                 <h5>{{ auth()->user()->name }}</h5>
-                <p>( {{ auth()->user()->retailer ? auth()->user()->retailer->name : 'no shop has been created' }} )</p>
+               
             </div>
             <div class="ec-vendor-block-items">
                 <ul>
@@ -51,7 +51,7 @@
                     <li><a href="{{ route('marchentiger.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('marchentiger.password.change') }}">Settings</a></li>
 
-
+                    <li><a href="{{ route('marchentiger.transictions') }}">Transactions</a></li>
 
                     <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
