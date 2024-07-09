@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifyEmail;
 use App\Models\Order;
+use App\Models\Retailer;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Verification;
@@ -146,11 +147,11 @@ class RegisterController extends Controller
         } else if ($request->role == 'marchentiger') {
             $role_id = 4;
         }
-
+        $referral = Retailer::where('unique_id', $request->referral)->first();
         // dd($request->referral);
         $array = [
             'name' => $request->name,
-            'referral' => $request->referral,
+            'referral' => $referral->id,
             'email' => $email,
             'phone' => $phone,
             'username' => $username,

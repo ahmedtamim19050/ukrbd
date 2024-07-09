@@ -145,8 +145,8 @@ class SellerPagesController extends Controller
 
 
         ]);
-        $referralKey = auth()->user()->referral;
-        $referral = Retailer::where('unique_id', $referralKey)->first();
+       
+ 
         // dd($referral);
         $shop = Shop::updateOrCreate([
 
@@ -167,7 +167,7 @@ class SellerPagesController extends Controller
             'status' => 1,
             'pickup_address' => json_encode($request->pathao),
             'percentage_cost' => setting('site.product_percentage_cost'),
-            'referral_id' => $referral->id,
+            'referral_id' => auth()->user()->referral,
 
         ]);
 
@@ -357,7 +357,7 @@ class SellerPagesController extends Controller
             Shop::updateOrCreate(['user_id' => auth()->user()->id], [
                 'logo' => $request->logo->store("logos"),
                 'slug' => $uniqueId,
-
+                'referral_id' => auth()->user()->referral,
             ]);
             return back()->with('success_msg', 'Logo upload successfully');
         }
@@ -372,6 +372,7 @@ class SellerPagesController extends Controller
             Shop::updateOrCreate(['user_id' => auth()->user()->id], [
                 'banner' => $request->banner->store("banners"),
                 'slug' => $uniqueId,
+                'referral_id' => auth()->user()->referral,
             ]);
             return back()->with('success_msg', 'Banner upload successfully');
         }
