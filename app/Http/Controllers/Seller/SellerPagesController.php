@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Prodcat;
 use App\Models\Product;
+use App\Models\Retailer;
 use App\Models\Shop;
 use App\Models\ShopPolicy;
 use App\Models\User;
@@ -90,8 +91,8 @@ class SellerPagesController extends Controller
         return back()->with('success_msg', 'Order update successfully');
     }
     public function invoice(Request $request)
-    { 
-         
+    {
+
         $orders = json_decode(urldecode($request->input('data')), true);
         $orders = collect($orders)->map(function ($order) {
             return (object) $order;
@@ -144,6 +145,9 @@ class SellerPagesController extends Controller
 
 
         ]);
+        $referralKey = auth()->user()->referral;
+        $referral = Retailer::where('unique_id', $referralKey)->first();
+        // dd($referral);
         $shop = Shop::updateOrCreate([
 
             'user_id' => auth()->user()->id,
@@ -163,7 +167,7 @@ class SellerPagesController extends Controller
             'status' => 1,
             'pickup_address' => json_encode($request->pathao),
             'percentage_cost' => setting('site.product_percentage_cost'),
-
+            'referral_id' => $referral->id,
 
         ]);
 
@@ -562,7 +566,7 @@ class SellerPagesController extends Controller
 
         return $pathao;
     }
-    public function orderProducts( Request $request)
+    public function orderProducts(Request $request)
     {
         $orders = json_decode(urldecode($request->input('data')), true);
         $orders = collect($orders)->map(function ($order) {
