@@ -146,6 +146,8 @@ class RegisterController extends Controller
             $role_id = 3;
         } else if ($request->role == 'marchentiger') {
             $role_id = 4;
+        } else {
+            $role_id = 2;
         }
         $referral = Retailer::where('unique_id', $request->referral)->first();
         // dd($request->referral);
