@@ -51,7 +51,7 @@ class Shop extends Model
     }
     public function retailer()
     {
-        return $this->belongsTo(Retailer::class);
+        return $this->belongsTo(Retailer::class,'referral_id');
     }
     public function massages()
     {
