@@ -143,7 +143,7 @@ class CheckoutController extends Controller
                 Earning::create([
                     'order_id' => $childOrder->id,
                     'shop_id' => $childOrder->shop->id,
-                    'retailer_id' => $childOrder->shop->retailer_id,
+                    'retailer_id' => $childOrder->shop->referral_id,
                     'shop_earn' => Sohoj::shopWoned($childOrder),
                     'admin_earn' => Sohoj::adminOwned($childOrder),
                     'retailer_earn' => Sohoj::marchentigerOwned($childOrder),
