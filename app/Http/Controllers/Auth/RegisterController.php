@@ -151,7 +151,7 @@ class RegisterController extends Controller
         // dd($request->referral);
         $array = [
             'name' => $request->name,
-            'referral' => $referral->id,
+            'referral' => $referral->id ?? '',
             'email' => $email,
             'phone' => $phone,
             'username' => $username,
