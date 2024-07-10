@@ -17,7 +17,7 @@
 
                                             <input type="password"
                                                 class="form-control @error('current_password') is-invalid @enderror"
-                                                id="current_password" placeholder="current password"
+                                                id="current_password" placeholder="Current password"
                                                 name="current_password">
                                             @error('current_password')
                                                 <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
 
                                             <input type="password"
                                                 class="form-control @error('new_password') is-invalid @enderror"
-                                                id="new_password" placeholder="new password" name="new_password">
+                                                id="new_password" placeholder="New password" name="new_password">
                                             @error('new_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

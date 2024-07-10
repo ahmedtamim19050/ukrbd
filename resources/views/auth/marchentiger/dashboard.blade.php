@@ -25,6 +25,10 @@
             .copy-input-active {
                 border: 1px solid rgb(109, 184, 109) !important;
             }
+
+            .shadow {
+                box-shadow: 0 4px 6px rgba(0, 0, 255, 0.2) !important;
+            }
         </style>
     </x-slot>
 
@@ -71,14 +75,24 @@
 
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-9">
+                            <div class="col-md-7">
 
                                 <input type="text" id="inputURL" class="form-control urlinput"
                                     value="{{ route('vendor.create') }}?referral={{ auth()->user()->retailer->unique_id }}"
                                     readonly>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <button id="copyButton" class="btn copy-btn w-100">Copy</button>
+                            </div>
+                            <div class="col-md-3">
+
+                                <button type="button"
+                                    class="btn btn-warning rounded-pill"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Scan QR Code
+                                </button>
+
+
                             </div>
                         </div>
                     @endif
@@ -107,7 +121,7 @@
                                             </span>
                                         @enderror
                                     </div> --}}
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <label for="inputEmail4" class="form-label">Phone Number<span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control @error('phone') is-invalid @enderror"
@@ -208,6 +222,23 @@
 
                 </div>
 
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Scan With QR Code</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ route('vendor.create') }}?referral={{ auth()->user()->retailer->unique_id }}"
+                        alt="">
+                </div>
 
             </div>
         </div>
