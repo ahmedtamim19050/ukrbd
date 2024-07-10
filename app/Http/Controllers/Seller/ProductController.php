@@ -53,24 +53,24 @@ class ProductController extends Controller
                 "images.*"      => "mimes:jpg,jpeg,png",
 
                 "dimensions"    => "nullable",
-                "weight"        => "required|integer",
+                "weight"        => "required|integer|min:100",
                 "options" => "nullable",
                 "sizes" => "nullable",
                 "color" => "nullable",
-                "is_variable_product"=>"nullable",
-                "shipping_cost"=>"nullable",
+                "is_variable_product" => "nullable",
+                "shipping_cost" => "nullable",
 
 
             ]
         );
-        if($request->sale_price){
-            if($request->price > $request->sale_price){
-                $data['sale_price']=$request->sale_price;
-            }else{
+        if ($request->sale_price) {
+            if ($request->price > $request->sale_price) {
+                $data['sale_price'] = $request->sale_price;
+            } else {
                 return redirect()->back()->withErrors('sale-price greater than price');
             }
         }
-    
+
         if ($request->file('image')) {
             $data['image'] = $request->image->store("products");
         }
@@ -82,7 +82,7 @@ class ProductController extends Controller
 
             $data['images'] = json_encode($imgs);
         }
-        $data['slug']=$slug.'-'.$uniqueId;
+        $data['slug'] = $slug . '-' . $uniqueId;
 
         $data['shop_id'] = auth()->user()->shop ? auth()->user()->shop->id : null;
         $data['is_offer'] = $request->offer;
@@ -101,16 +101,16 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->firstOrFail();
         $prodcats = Prodcat::with('childrens')->where('parent_id', null)->get();
-        $product_attributes = Attribute::where('product_id',$product->id)->get();
-        if(!session()->has('target')){
-			session()->flash('target','attribute');
-		}
+        $product_attributes = Attribute::where('product_id', $product->id)->get();
+        if (!session()->has('target')) {
+            session()->flash('target', 'attribute');
+        }
 
-        return view('auth.seller.product.edit', compact('product', 'prodcats','product_attributes'));
+        return view('auth.seller.product.edit', compact('product', 'prodcats', 'product_attributes'));
     }
     public function update(Product $product, Request $request)
     {
-    
+
         $images = json_decode($product->images) ?? [];
 
         $newImage = $product->image;
@@ -126,14 +126,14 @@ class ProductController extends Controller
                 "images.*"      => "mimes:jpg,jpeg,png",
                 "dimensions"    => "nullable",
                 "weight"        => "required|integer",
-        
+
 
             ]
         );
-        if($request->sale_price){
-            if($request->price > $request->sale_price){
-                $data['sale_price']=$request->sale_price;
-            }else{
+        if ($request->sale_price) {
+            if ($request->price > $request->sale_price) {
+                $data['sale_price'] = $request->sale_price;
+            } else {
                 return redirect()->back()->withErrors('sale-price greater than price');
             }
         }
@@ -162,7 +162,7 @@ class ProductController extends Controller
             }
             $images = json_encode($images);
         }
-      
+
         $data = $product->update([
             'image' => $newImage,
             'images' => $images,
@@ -176,8 +176,8 @@ class ProductController extends Controller
             'weight' => $request->weight,
             'dimensions' => $request->dimensions,
             'is_offer' => $request->offer,
-            'shipping_cost'=>$request->shipping_cost,
-            'is_variable_product'=>$request->is_variable_product,
+            'shipping_cost' => $request->shipping_cost,
+            'is_variable_product' => $request->is_variable_product,
 
         ]);
 
