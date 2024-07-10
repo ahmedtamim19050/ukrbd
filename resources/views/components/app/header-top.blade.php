@@ -6,7 +6,7 @@
             <a href="{{ route('homepage') }}" class="logo ml-lg-0">
                 <img src="{{ Voyager::image(setting('site.logo')) }}" alt="logo" width="145" height="45" />
             </a>
-            <form method="get" action="{{route('shops')}}"
+            <form method="get" action="{{ route('shops') }}"
                 class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
                 <div class="select-box">
                     <select id="category" name="category">
@@ -30,7 +30,8 @@
                     <h4 class="chat font-weight-normal font-size-md text-normal ls-normal  mb-0">
                         Call Us Now :
                     </h4>
-                    <a href="tel:{{setting('site.phone')}}" class="phone-number font-weight-bolder ls-50">{{setting('site.phone')}}</a>
+                    <a href="tel:{{ setting('site.phone') }}"
+                        class="phone-number font-weight-bolder ls-50">{{ setting('site.phone') }}</a>
                 </div>
             </div>
             <div class="dropdown">
@@ -78,6 +79,8 @@
                             style="font-size: small">Register as user</a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
+                        <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('marchentiger.create') }}"
+                            style="font-size: small">Register as Marchentiger </a>
 
                     @endif
                 </div>
