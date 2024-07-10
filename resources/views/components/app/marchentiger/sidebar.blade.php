@@ -43,15 +43,16 @@
                     </div>
                 @endif --}}
                 <h5>{{ auth()->user()->name }}</h5>
-               
+
             </div>
             <div class="ec-vendor-block-items">
                 <ul>
                     <li><a href="{{ route('homepage') }}">Home</a></li>
                     <li><a href="{{ route('marchentiger.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('marchentiger.password.change') }}">Settings</a></li>
-
-                    <li><a href="{{ route('marchentiger.transictions') }}">Transactions</a></li>
+                    @if (Auth()->user()->retailer)
+                        <li><a href="{{ route('marchentiger.transictions') }}">Transactions</a></li>
+                    @endif
 
                     <li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
