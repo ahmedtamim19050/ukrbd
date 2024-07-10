@@ -73,7 +73,7 @@ class CheckoutController extends Controller
 
             return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
         }
-        try {
+        // try {
             DB::beginTransaction();
             $platform_fee = 0;
             $total = (Sohoj::newSubtotal() + $platform_fee);
@@ -184,13 +184,13 @@ class CheckoutController extends Controller
             } else {
                 return redirect()->route('thankyou');
             }
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($e->getMessage());
-        } catch (Error $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($e->getMessage());
-        }
+        // } catch (Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // } catch (Error $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // }
     }
 
     protected function decreaseQuantities()
