@@ -80,7 +80,7 @@
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('marchentiger.create') }}"
-                            style="font-size: small">Register as Marchentiger </a>
+                            style="font-size: small">Register as merchandiser </a>
 
                     @endif
                 </div>
