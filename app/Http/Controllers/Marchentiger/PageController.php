@@ -35,6 +35,7 @@ class PageController extends Controller
             'total_own' => 'nullable|numeric',
             'total_withdraw' => 'nullable|numeric',
             'status' => 'nullable|integer',
+            'name' => 'nullable',
         ]);
 
         $user = auth()->user();
@@ -61,6 +62,7 @@ class PageController extends Controller
         } else {
             $data['unique_id'] = Str::random(10);
             $data['percentage_cost'] = setting('site.marchentiger_share');
+            $data['name'] = auth()->user()->name;
             $user->retailer()->create($data);
         }
 
