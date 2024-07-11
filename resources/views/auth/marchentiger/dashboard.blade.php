@@ -86,13 +86,30 @@
                             </div>
                             <div class="col-md-3">
 
-                                <button type="button"
-                                    class="btn btn-warning rounded-pill"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" class="btn btn-warning rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
                                     Scan QR Code
                                 </button>
 
 
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Scan With QR Code</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ route('vendor.create') }}?referral={{ auth()->user()->retailer->unique_id }}"
+                                            alt="">
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -226,23 +243,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Scan With QR Code</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ route('vendor.create') }}?referral={{ auth()->user()->retailer->unique_id }}"
-                        alt="">
-                </div>
 
-            </div>
-        </div>
-    </div>
     <x-slot name="js">
         <script>
             document.getElementById('copyButton').addEventListener('click', function() {
