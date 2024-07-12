@@ -71,6 +71,16 @@
                                     Logout</button>
 
                             </form>
+                        @elseif(auth()->user()->role_id == 4)
+                            <a class="dropdown-item wishlist-label d-lg-show pt-2"
+                                href="{{ route('marchentiger.dashboard') }}" style="font-size: small">My Account</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="logout-button"
+                                    style="font-size: small;background:none;border:none">
+                                    Logout</button>
+
+                            </form>
                         @endif
                     @else
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('login') }}"
@@ -80,7 +90,7 @@
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('marchentiger.create') }}"
-                            style="font-size: small">Register as Marchentiger </a>
+                            style="font-size: small">Register as merchandiser </a>
 
                     @endif
                 </div>

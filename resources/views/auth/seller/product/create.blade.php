@@ -215,7 +215,7 @@
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product weight</label>
                                             <input type="text" class="form-control" value="{{ old('weight') }}"
-                                                placeholder="Provide your gram or ml" name="weight" required />
+                                                placeholder="Provide in gram or ml" name="weight" required />
                                         </div>
 
 

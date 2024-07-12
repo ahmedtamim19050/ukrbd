@@ -144,7 +144,7 @@
           </style>
       </x-slot>
 
-      <x-app.breadcrumb name="Marchentiger as Register " />
+      <x-app.breadcrumb name="merchandiser as Register " />
       <!-- End of Breadcrumb -->
       <div class="page-content">
           <div class="container">
