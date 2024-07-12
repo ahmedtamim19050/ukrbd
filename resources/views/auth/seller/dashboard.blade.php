@@ -209,8 +209,8 @@
         </div>
         <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm" style="border-radius: 12px !important;">
             <div class="ec-vendor-card-header">
-                <h5>Customer Orders</h5>
-                <div class="d-flex align-items-baseline">
+                <h5>Latest 5 Orders</h5>
+                {{-- <div class="d-flex align-items-baseline">
                     <form action="" method="get">
                         <div class="row mt-2  me-1 justify-content-end">
                             <div class="input-group  col-md-12 d-flex">
@@ -229,7 +229,7 @@
                             All</a>
                     </div>
 
-                </div>
+                </div> --}}
 
             </div>
             <div class="ec-vendor-card-body">
@@ -240,55 +240,29 @@
                                 <th scope="col">Customer Name</th>
                                 <th scope="col">Contact</th>
 
-                                <th scope="col">Tracking Number</th>
-                                <th scope="col">Order Total</th>
-                                <th scope="col">Order Date</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Total Items</th>
 
-                                <th scope="col">Status</th>
-                                <th scope="col">Invoice</th>
+                                
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($latest_orders as $order)
                                 <tr>
-                                    <th scope="row"><span>{{ $order->full_name }}</span></th>
-                                    <th scope="row"><span>{{ $order->email }}</span></th>
-
-
-                                    <td><span>{{ $order->transaction_id }}</span></td>
-                                    <td><span>{{ Sohoj::price($order->total + $order->platform_fee) }}</span></td>
-                                    <td><span>{{ $order->created_at }}</span></td>
-
+                                    <th scope="row"><span>{{ $order->first()->full_name }}</span></th>
+                                    <th scope="row"><span>{{ $order->first()->email }}</span></th>
+                                    <td>{{ $order->first()->phone }}</td>
                                     <td>
-                                        @if ($order->status == 1)
-                                            <span
-                                                style="
-                            font-size: 13px;color: white;background-color: orange;padding: 0 !important;margin-top: 15px; text-align: center;
-                        ">Paid</span>
-                                        @elseif($order->status == 2)
-                                            <span
-                                                style="
-                            font-size: 11px;color: white;background-color: blue;padding: 0 !important;margin-top: 15px; text-align: center;
-                        ">On
-                                                it's way</span>
-                                        @elseif($order->status == 3)
-                                            <span
-                                                style="
-                            font-size: 13px;color: white;background-color: red;padding: 0 !important;margin-top: 15px; text-align: center;
-                        ">Canceled</span>
-                                        @elseif($order->status == 4)
-                                            <span
-                                                style="
-                            font-size: 13px;color: white;background-color: green;padding: 0 !important;margin-top: 15px; text-align: center;
-                        ">Delivered</span>
-                                        @else
-                                            <span
-                                                style="
-                            font-size: 13px;color: white;background-color: indianred;padding: 0 !important;margin-top: 15px; text-align: center;
-                        ">Pending</span>
-                                        @endif
+
+                                        {{ $order->first()->zone }}, {{ $order->first()->area }},
+                                        {{ $order->first()->city }}
+                                        {{ $order->first()->post_code }}
                                     </td>
-                                    <td class="text-center"><span><a href="{{ route('vendor.invoice', $order) }}"><i
+                                    <td>{{ $order->count() }}</td>
+                                   
+                                    <td class="text-center"><span><a href="{{ route('vendor.order.products', ['data' => urlencode(json_encode($order))]) }}"><i
                                                     class="fas fa-eye"></i></a> </span>
                                     </td>
                                 </tr>

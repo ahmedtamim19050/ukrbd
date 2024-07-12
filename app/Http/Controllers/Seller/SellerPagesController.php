@@ -45,10 +45,18 @@ class SellerPagesController extends Controller
                 $query->where('name', 'LIKE', "%" . request('product_search') . "%");
             })->latest()->limit(5)->get();
 
-        $latest_orders =  Order::where('shop_id', $shop ? $shop->id : ' ')
-            ->when(request('order_search'), function ($query) {
-                $query->where('name', 'LIKE', "%" . request('order_search') . "%");
-            })->limit(5)->get();
+
+
+        $orders = Order::whereNotNull('parent_id')
+            ->where('shop_id', auth()->user()->shop->id)
+            ->latest()
+            ->limit(5)
+            ->get();
+
+        $latest_orders = $orders->groupBy('parent_id');
+      
+
+
         $offers = Offer::where('shop_id', $shop->id)->latest()->get();
         $last15daysorders = Order::where('shop_id', $shop->id)
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%d-%m-%Y")'))
@@ -145,8 +153,8 @@ class SellerPagesController extends Controller
 
 
         ]);
-       
- 
+
+
         // dd($referral);
         $shop = Shop::updateOrCreate([
 
@@ -182,7 +190,7 @@ class SellerPagesController extends Controller
 
         $shop->update([
             'slug' =>  $slug,
-            'shipping_method' => null,
+            'shipping_method' => 131193,
             'is_shipping_enabled' => 1,
             'store_name' => $pathao->store_name
         ]);
