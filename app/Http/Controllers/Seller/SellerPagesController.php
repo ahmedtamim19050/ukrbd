@@ -54,7 +54,7 @@ class SellerPagesController extends Controller
             ->get();
 
         $latest_orders = $orders->groupBy('parent_id');
-      
+
 
 
         $offers = Offer::where('shop_id', $shop->id)->latest()->get();
@@ -145,7 +145,7 @@ class SellerPagesController extends Controller
             'store_name' => ['required', 'string', 'unique:shops'],
             'pathao.contact_name' => ['required',],
             'pathao.contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
-            'pathao.address' => ['required'],
+            'pathao.address' => ['required', 'min:15', 'max:120'],
             'pathao.secondary_contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
             'pathao.city' => ['required'],
             'pathao.zone' => ['required'],
@@ -155,7 +155,7 @@ class SellerPagesController extends Controller
         ]);
 
 
-        // dd($referral);
+
         $shop = Shop::updateOrCreate([
 
             'user_id' => auth()->user()->id,
@@ -194,7 +194,11 @@ class SellerPagesController extends Controller
             'is_shipping_enabled' => 1,
             'store_name' => $pathao->store_name
         ]);
+        Mail::send('emails.pathaoToAdmin', ['datas' => $request->pathao], function ($message) {
+            $email = setting('site.email');
 
+            $message->to($email)->subject('New Shop Pathao Account Request');
+        });
 
         return back()->with('success_msg', 'Success! Your shop has been updated/created');
     }
