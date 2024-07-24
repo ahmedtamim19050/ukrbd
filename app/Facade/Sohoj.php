@@ -2,6 +2,7 @@
 
 namespace App\Facade;
 
+use App\Models\Earning;
 use Cart;
 use Voyager;
 use App\Models\Shipping;
@@ -156,5 +157,11 @@ class Sohoj
     public function retailTotalEarn($retailer)
     {
         return $retailer->earnings->sum('retailer_earn');
+    }
+
+    public function adminTotalEarn()
+    {
+
+        return Earning::sum('admin_earn');
     }
 }

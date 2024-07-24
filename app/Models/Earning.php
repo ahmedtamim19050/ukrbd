@@ -9,4 +9,11 @@ class Earning extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function shop()  {
+        return $this->belongsTo(Shop::class);
+    }
+    public function order()  {
+        return $this->belongsTo(Order::class);
+    }
 }
