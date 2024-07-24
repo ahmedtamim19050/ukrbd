@@ -297,78 +297,81 @@
                             </div>
                         </div>
 
-                        @if (auth()->user()->shop && auth()->user()->shop->is_shipping_enabled == false)
-                            <div class="card mb-4" id="courierInfo">
-                                <div class="card-header bg-transparent py-3">
-                                    <h5 class="">
-                                        Courier's Section
-                                    </h5>
-                                    <p class="">
-                                        Please note that this section will be removed after you have provided your
-                                        information. Therefore, ensure that all details are accurate and complete before
-                                        submission.
-                                    </p>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group mb-3">
-                                                <label for="store_name">
-                                                    Store Name
-                                                </label>
-                                                <input type="text" class="form-control @error('post_code') is-invalid @enderror" name="store_name"
-                                                    required id="store_name" value="{{old('store_name')}}" required>
-                                                @error('store_name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
+                        {{-- @if (auth()->user()->shop && auth()->user()->shop->is_shipping_enabled == false) --}}
+                        <div class="card mb-4" id="courierInfo">
+                            <div class="card-header bg-transparent py-3">
+                                <h5 class="">
+                                    Courier's Section
+                                </h5>
+                                <p class="">
+                                    Please note that this section will be removed after you have provided your
+                                    information. Therefore, ensure that all details are accurate and complete before
+                                    submission.
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-3">
+                                            <label for="store_name">
+                                                Store Name
+                                            </label>
+                                            <input type="text"
+                                                class="form-control @error('post_code') is-invalid @enderror"
+                                                name="store_name" required id="store_name"
+                                                value="{{ old('store_name') }}" required>
+                                            @error('store_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group mb-3">
-                                                <label for="pathao_contact_name">
-                                                    Contact name
-                                                </label>
-                                                <input type="text" class="form-control"
-                                                    name="pathao[contact_name]" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group mb-3">
-                                                <label for="pathao_contact_number]" >
-                                                    Contact number
-                                                </label>
-                                                <input type="text" class="form-control"
-                                                    name="pathao[contact_number]" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group mb-3">
-                                                <label for="secondary_contact_name">
-                                                    Secondary contact number
-                                                </label>
-                                                <input type="text" class="form-control"
-                                                    name="pathao[secondary_contact_number]" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <livewire:pathao-form />
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group mb-3">
-                                                <label for="pathao_address">
-                                                    Address
-                                                </label>
-                                                <input type="text" class="form-control" name="pathao[address]" required>
-                                            </div>
-                                        </div>
-
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label for="pathao_contact_name">
+                                                Contact name
+                                            </label>
+                                            <input type="text" class="form-control" name="pathao[contact_name]"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label for="pathao_contact_number]">
+                                                Contact number
+                                            </label>
+                                            <input type="text" class="form-control" name="pathao[contact_number]"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label for="secondary_contact_name">
+                                                Secondary contact number
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                name="pathao[secondary_contact_number]" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <livewire:pathao-form />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-3">
+                                            <label for="pathao_address">
+                                                Address
+                                            </label>
+                                            <input type="text" class="form-control" name="pathao[address]"
+                                                required>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                        @endif
+                        </div>
+                        {{-- @endif --}}
 
                         <div class="card mb-4" id="socialInfo">
                             <div class="card-header bg-transparent">

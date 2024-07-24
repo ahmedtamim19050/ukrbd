@@ -178,7 +178,7 @@ Route::post('card/add', [SellerPagesController::class, 'cardAdd'])->name('user.c
 Route::group(['prefix' => 'admin', 'middleware' => 'admin.user'], function () {
     Route::get('/shop/{shop}/active', [HomeController::class, 'shopActive'])->name('admin.shop.active');
     Route::get('/shop/{shop}/freeforlife', [HomeController::class, 'freeforlife'])->name('admin.shop.freeforlife');
-    Route::post('/admin/transaction/action/{transaction}',[TransactionController::class, 'action'])->name('admin.transaction.action');
+    Route::post('/admin/transaction/action/{transaction}', [TransactionController::class, 'action'])->name('admin.transaction.action');
 });
 
 Route::get('/marchentiger-register', [RegisterController::class, 'marchentiger'])->name('marchentiger.create');
@@ -194,4 +194,20 @@ Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
     });
 });
 
+// Route::get('/test-email', function () {
+//     $pathaoData = [
+//         'contact_name' => 'John Doe',
+//         'contact_number' => '01712345678',
+//         'address' => '123 Main St, Dhaka',
+//         'secondary_contact_number' => '01912345678',
+//         'city' => 'Dhaka',
+//         'zone' => 'Zone 1',
+//         'area' => 'Area A',
+//     ];
 
+//     Mail::send('emails.pathaoToAdmin', ['datas' => $pathaoData], function ($message) {
+//         $message->to('admin@example.com')->subject('Test Email: Need a courier account for new shop');
+//     });
+
+//     return 'Test email sent!';
+// });
