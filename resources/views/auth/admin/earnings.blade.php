@@ -52,7 +52,7 @@
 
         .total {
             text-align: end;
-            font-size: 16px;
+            font-size: 14px;
             border-bottom: 1px solid #ddd;
             padding-bottom: 10px;
             padding-top: 5px;
@@ -61,7 +61,7 @@
 
         .total span {
 
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .table th {
@@ -76,6 +76,18 @@
         }
         .border-left{
             border-left: 1px solid #ddd;
+        }
+        .border-right{
+            border-right: 1px solid #ddd;
+        }
+        .shop-info h4 a{
+           text-decoration: none;
+        }
+        .shop-info p{
+            margin: 0 0 3px 0;
+        }
+        .shop-info p span{
+            font-weight: 500;
         }
     </style>
 
@@ -99,36 +111,67 @@
                             </thead>
                             <tbody>
                                 @foreach ($earningsGrouped as $key => $earnings)
-                                    {{-- @dd($earnings) --}}
+              
                                     <tr>
                                         <td scope="row" class="text-center"> {{ $key }}</td>
                                         <td>
-                                            @foreach ($earnings as $key2 => $items)
-                                                <div class="{{ count($earnings) > 1 ? 'shop-sec-border' : '' }}">
-                                                    <div class="row ">
-                                                        <div class="col-md-6">
-                                                            <h4>{{ $key2 }}</h4>
+                                            <div class="row">
+                                                <div class="col-md-10 border-right">
+                                                    @foreach ($earnings as $key2 => $items)
+                                                    @php
+                                                        $shop=App\Models\Shop::find($key2);
+                                                  
+                                                    @endphp
+                                                  
+                                                        <div class="{{ count($earnings) > 1 ? 'shop-sec-border' : '' }}">
+                                                            <div class="row ">
+                                                                <div class="col-md-4 shop-info">
+                                                                    <img src="{{Voyager::image($shop->logo)}}" alt="">
+                                                                    <h4><a target="_blank" href="{{route('store_front',$shop->slug)}}">{{ $shop->name }}</a></h4>
+                                                                    <p> <span >Phone</span> : {{$shop->phone}}</p>
+                                                                    <p> <span >Email</span> : {{$shop->email}}</p>
+                                                                    
+                                                                </div>
+                                                                <div class="col-md-8 border-left ">
+                                                                    <ul class="list-group">
+                                                                        @foreach ($items as $data)
+                                                                            <li class="list-group-item"><a
+                                                                                    href="">{{ $data->order->product->name }}</a>
+                                                                                <span> = {{ $data->order->quantity }} X
+                                                                                    {{ Sohoj::price($data->order->product_price) }}</span>
+                                                                            </li>
+                                                                        @endforeach
+                                                                        @php
+                                                                        $shop_earn=collect($items)->flatten()->sum('shop_earn');
+                                                                        $admin_earn=collect($items)->flatten()->sum('admin_earn');
+                                                                        $retailer_earn=collect($items)->flatten()->sum('retailer_earn');
+                                                                        $total=$shop_earn+$admin_earn+$retailer_earn
+
+                                                                        @endphp
+        
+        
+                                                         
+
+                                                                        <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
+                                                                        <p class="total"><span>Shop Earn :</span> {{Sohoj::price($shop_earn)}}</p>
+                                                                        <p class="total"><span>Admin Earn :</span> {{Sohoj::price($admin_earn)}}</p>
+                                                                        <p class="total"><span>Retailer Earn :</span> {{Sohoj::price($retailer_earn)}}</p>
+                                                                    </ul>
+                                                                </div>
+                                                            
+                                                                
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6 border-left">
-                                                            <ul class="list-group">
-                                                                @foreach ($items as $data)
-                                                                    <li class="list-group-item"><a
-                                                                            href="">{{ $data->order->product->name }}</a>
-                                                                        <span> = {{ $data->order->quantity }} X
-                                                                            {{ Sohoj::price($data->order->product_price) }}</span>
-                                                                    </li>
-                                                                @endforeach
-
-
-
-                                                                <p class="total"><span>Shop Earn :</span> 1200 Tk</p>
-                                                                <p class="total"><span>Admin Earn :</span> 1200 Tk</p>
-                                                                <p class="total"><span>Retailer Earn :</span> 1200 Tk</p>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
+                                               
+                                                     
+                                                   
                                                 </div>
-                                            @endforeach
+                                                <div class="col-md-2 ">
+                                                    <p style="font-size: 16px"> <span style="font-weight:600">Total Own</span> : {{Sohoj::price(collect($earnings)->flatten()->sum('admin_earn'))}}</p>
+                                                </div>
+                                            </div>
+                                       
 
 
 

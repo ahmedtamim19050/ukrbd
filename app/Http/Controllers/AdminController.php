@@ -21,7 +21,7 @@ class AdminController extends Controller
 
         foreach ($earnings as $earning) {
             $date = Carbon::parse($earning->created_at)->format('d M, d');
-            $shop = $earning->shop->name;
+            $shop = $earning->shop->id;
         
             if (!isset($earningsGrouped[$date])) {
                 $earningsGrouped[$date] = [];
