@@ -154,7 +154,7 @@
 
                                                                         <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
                                                                         <p class="total"><span>Shop Earn :</span> {{Sohoj::price($shop_earn)}}</p>
-                                                                        <p class="total"><span>Admin Earn :</span> {{Sohoj::price($admin_earn)}}</p>
+                                                                        <p class="total"><span>Admin Earn :</span> {{Sohoj::price($admin_earn - $retailer_earn)}}</p>
                                                                         <p class="total"><span>Retailer Earn :</span> {{Sohoj::price($retailer_earn)}}</p>
                                                                     </ul>
                                                                 </div>
@@ -163,12 +163,16 @@
                                                             </div>
                                                         </div>
                                                     @endforeach
-                                               
+                                                   @php
+                                                   $admin_total_own=collect($earnings)->flatten()->sum('admin_earn');
+                                                   $retailer_total_own=collect($earnings)->flatten()->sum('retailer_earn')
+
+                                                   @endphp
                                                      
                                                    
                                                 </div>
                                                 <div class="col-md-2 ">
-                                                    <p style="font-size: 16px"> <span style="font-weight:600">Total Own</span> : {{Sohoj::price(collect($earnings)->flatten()->sum('admin_earn'))}}</p>
+                                                    <p style="font-size: 16px"> <span style="font-weight:600">Total Own</span> : {{Sohoj::price($admin_total_own - $retailer_total_own)}}</p>
                                                 </div>
                                             </div>
                                        
