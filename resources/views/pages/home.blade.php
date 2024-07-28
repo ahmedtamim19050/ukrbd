@@ -371,10 +371,9 @@
     <!-- End of Grey Section -->
 
     <div class="container mt-10 pt-2">
-        <div class="banner banner-simple appear-animate br-sm mb-10"
-            style="background-image: url(assets/images/demos/demo5/banners/1.jpg);
-            background-color: #414548;">
-            <div class="banner-content align-items-center">
+        <div class=" br-sm mb-10"
+            style="background-color: #414548;height:200px">
+            {{-- <div class="banner-content align-items-center">
                 <div class="banner-price-info">
                     <div class="discount text-secondary font-weight-bolder ls-25 lh-1">
                         40<sup class="font-weight-bold p-relative">%</sup>
@@ -391,10 +390,9 @@
                     <a href="shop-banner-sidebar.html" class="btn btn-success btn-link btn-underline btn-icon-right">
                         Discover Now<i class="w-icon-long-arrow-right"></i></a>
                 </div>
-            </div>
-            <figure class="skrollable">
-                <img src="assets/images/demos/demo5/banners/ski.png" alt="Banner"
-                    data-bottom-top="transform: translateY(5vh);" data-top-bottom="transform: translateY(-5vh);">
+            </div> --}}
+            <figure class="">
+                <img src="{{voyager::image(setting('banner.home_banner'))}}" alt="Banner" >
             </figure>
         </div>
         <!-- End of Banner Simple -->
@@ -749,55 +747,15 @@
             }
         }">
             <div class="swiper-wrapper row cols-xl-8 cols-lg-6 cols-md-4 cols-sm-3 cols-2">
-
+               @foreach($clients as $client)
                 <div class="swiper-slide">
                     <figure>
-                        <img src="assets/images/demos/demo5/brands/1.png" alt="Brand" width="310"
+                        <img src="{{Voyager::image($client)}}" alt="Brand" width="310"
                             height="180" />
                     </figure>
                 </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/2.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/3.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/4.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/5.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/6.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/7.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="assets/images/demos/demo5/brands/8.png" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
+                @endforeach
+                
             </div>
         </div>
         <!-- End of Brands Wrapper -->

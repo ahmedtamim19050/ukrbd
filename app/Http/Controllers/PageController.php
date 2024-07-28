@@ -50,6 +50,9 @@ class PageController extends Controller
         $latest_shops = Cache::remember('latest_shops', 100, function () {
             return Shop::where("status", 1)->latest()->limit(8)->get();
         });
+        $clients = Cache::remember('clients', 100, function () {
+            return Shop::where("status", 1)->pluck('logo','id')->toArray();
+        });
 
         $prodcats = Cache::remember('product_categories', 100, function () {
             return Prodcat::with('childrens')->has('products')->where('parent_id', null)->limit(11)->get();
@@ -67,6 +70,7 @@ class PageController extends Controller
             'sliders',
             'featuredproducts',
             'bestSellingCategories',
+            'clients',
         ));
     }
     public function shops()
