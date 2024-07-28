@@ -128,7 +128,7 @@
                                                             <div class="row ">
                                                                 <div class="col-md-4 shop-info">
                                                                     <img src="{{Voyager::image($shop->logo)}}" alt="">
-                                                                    <h4><a target="_blank" href="{{route('store_front',$shop->slug)}}">{{ $shop->name }}</a></h4>
+                                                                    <h4><a target="_blank" href="{{url('admin/shops',$shop->id)}}">{{ $shop->name }}</a></h4>
                                                                     <p> <span >Phone</span> : {{$shop->phone}}</p>
                                                                     <p> <span >Email</span> : {{$shop->email}}</p>
                                                                     
