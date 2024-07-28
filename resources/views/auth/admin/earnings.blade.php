@@ -94,6 +94,7 @@
 @stop
 @section('content')
     <div class="page-content browse container-fluid mt-section">
+        <h2 style="margin-bottom: 25px" style=""> <i class="icon voyager-dollar"></i> Earnings</h2>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-bordered">
@@ -135,8 +136,8 @@
                                                                 <div class="col-md-8 border-left ">
                                                                     <ul class="list-group">
                                                                         @foreach ($items as $data)
-                                                                            <li class="list-group-item"><a
-                                                                                    href="">{{ $data->order->product->name }}</a>
+                                                                            <li class="list-group-item"><a target="_blank"
+                                                                                    href="{{route('product_details', $data->order->product->slug)}}">{{ $data->order->product->name }}</a>
                                                                                 <span> = {{ $data->order->quantity }} X
                                                                                     {{ Sohoj::price($data->order->product_price) }}</span>
                                                                             </li>
@@ -153,9 +154,9 @@
                                                          
 
                                                                         <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
-                                                                        <p class="total"><span>Shop Earn :</span> {{Sohoj::price($shop_earn)}}</p>
-                                                                        <p class="total"><span>Admin Earn :</span> {{Sohoj::price($admin_earn - $retailer_earn)}}</p>
-                                                                        <p class="total"><span>Retailer Earn :</span> {{Sohoj::price($retailer_earn)}}</p>
+                                                                        <p class="total"><span>Shop Profit :</span> {{Sohoj::price($shop_earn)}}</p>
+                                                                        <p class="total"><span>Admin Profit :</span> {{Sohoj::price($admin_earn - $retailer_earn)}}</p>
+                                                                        <p class="total"><span>Retailer Profit :</span> {{Sohoj::price($retailer_earn)}}</p>
                                                                     </ul>
                                                                 </div>
                                                             
@@ -172,7 +173,8 @@
                                                    
                                                 </div>
                                                 <div class="col-md-2 ">
-                                                    <p style="font-size: 16px"> <span style="font-weight:600">Total Own</span> : {{Sohoj::price($admin_total_own - $retailer_total_own)}}</p>
+                                                    <p style="font-size: 16px" class="text-center"> <span style="font-weight:600">Your Total Profit  :</span> </p>
+                                                    <p style="font-size: 16px" class="text-center"><span style="font-weight:600"> {{Sohoj::price($admin_total_own - $retailer_total_own)}} </span> </p>
                                                 </div>
                                             </div>
                                        
