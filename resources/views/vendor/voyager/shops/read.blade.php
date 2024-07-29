@@ -248,7 +248,7 @@
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
 
-                                                    {{ json_decode($dataTypeContent->pickup_address)->address }}
+                                                    {{ json_decode($dataTypeContent->pickup_address)->address ?? null }}
                                                 </div>
                                             </div>
                                             <hr>
@@ -324,103 +324,105 @@
                         </div>
 
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center custom-table">Date</th>
-                                <th scope="col" class="text-center custom-table">Information</th>
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($earnings as $key => $earning)
-          
+                    <div class="panel">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td scope="row" class="text-center"> {{ $key }}</td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-md-12 ">
-                                                @foreach ($earning as $key2 => $data)
-                                             
-                                              
-                                                    <div >
-                                                        <div class="row ">
-                                                       
-                                                            <div class="col-md-6 border-left border-right">
-                                                                <ul class="list-group">
-                                                                   
-                                                                        <li class="list-group-item"><a target="_blank"
-                                                                                href="{{route('product_details', $data->order->product->slug)}}">{{ $data->order->product->name }}</a>
-                                                                            <span> = {{ $data->order->quantity }} X
-                                                                                {{ Sohoj::price($data->order->product_price) }}</span>
-                                                                        </li>
-                                                                   
-                                                                    @php
-                                                                    $shop_earn=collect($earning)->flatten()->sum('shop_earn');
-                                                                    $admin_earn=collect($earning)->flatten()->sum('admin_earn');
-                                                                    $retailer_earn=collect($earning)->flatten()->sum('retailer_earn');
-                                                                    $total=$shop_earn+$admin_earn+$retailer_earn
-
-                                                                    @endphp
+                                    <th scope="col" class="text-center custom-table">Date</th>
+                                    <th scope="col" class="text-center custom-table">Information</th>
     
     
-                                                     
-
-                                                                    <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
-                                                                    
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <table class="table">
-                                                                    <thead>
-                                                                      <tr>
-                                                                        
-                                                                        <th scope="col">Shop Profit</th>
-                                                                        <th scope="col">Admin Profit</th>
-                                                                        <th scope="col">Retailer Profit</th>
-                                                                      </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                      <tr>
-                                                                       
-                                                                        <td>{{Sohoj::price($shop_earn)}}</td>
-                                                                        <td>{{Sohoj::price($admin_earn - $retailer_earn)}}</td>
-                                                                        <td>{{Sohoj::price($retailer_earn)}}</td>
-                                                                      </tr>
-                                                                  
-                                                                    </tbody>
-                                                                  </table>
-                                                            </div>
-                                                        
-                                                            
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                               @php
-                                               $admin_total_own=collect($earnings)->flatten()->sum('admin_earn');
-                                               $retailer_total_own=collect($earnings)->flatten()->sum('retailer_earn')
-
-                                               @endphp
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($earnings as $key => $earning)
+              
+                                    <tr>
+                                        <td scope="row" class="text-center"> {{ $key }}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-12 ">
+                                                    @foreach ($earning as $key2 => $data)
                                                  
-                                               
+                                                  
+                                                        <div >
+                                                            <div class="row ">
+                                                           
+                                                                <div class="col-md-6 border-left border-right">
+                                                                    <ul class="list-group">
+                                                                       
+                                                                            <li class="list-group-item"><a target="_blank"
+                                                                                    href="{{route('product_details', $data->order->product->slug)}}">{{ $data->order->product->name }}</a>
+                                                                                <span> = {{ $data->order->quantity }} X
+                                                                                    {{ Sohoj::price($data->order->product_price) }}</span>
+                                                                            </li>
+                                                                       
+                                                                        @php
+                                                                        $shop_earn=collect($earning)->flatten()->sum('shop_earn');
+                                                                        $admin_earn=collect($earning)->flatten()->sum('admin_earn');
+                                                                        $retailer_earn=collect($earning)->flatten()->sum('retailer_earn');
+                                                                        $total=$shop_earn+$admin_earn+$retailer_earn
+    
+                                                                        @endphp
+        
+        
+                                                         
+    
+                                                                        <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
+                                                                        
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                          <tr>
+                                                                            
+                                                                            <th scope="col">Shop Profit</th>
+                                                                            <th scope="col">Admin Profit</th>
+                                                                            <th scope="col">Retailer Profit</th>
+                                                                          </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                          <tr>
+                                                                           
+                                                                            <td>{{Sohoj::price($shop_earn)}}</td>
+                                                                            <td>{{Sohoj::price($admin_earn - $retailer_earn)}}</td>
+                                                                            <td>{{Sohoj::price($retailer_earn)}}</td>
+                                                                          </tr>
+                                                                      
+                                                                        </tbody>
+                                                                      </table>
+                                                                </div>
+                                                            
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                   @php
+                                                   $admin_total_own=collect($earnings)->flatten()->sum('admin_earn');
+                                                   $retailer_total_own=collect($earnings)->flatten()->sum('retailer_earn')
+    
+                                                   @endphp
+                                                     
+                                                   
+                                                </div>
+                                           
                                             </div>
                                        
-                                        </div>
-                                   
-
-
-
-
-
-                                    </td>
-
-
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
+    
+    
+    
+    
+    
+                                        </td>
+    
+    
+                                    </tr>
+                                @endforeach
+    
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>
