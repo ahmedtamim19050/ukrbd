@@ -194,7 +194,7 @@
 @stop
 
 @section('content')
-    <div class="page-content read container-fluid">
+    <div class="page-content read container-fluid" style="margin-top: 35px;">
         <div class="row">
             <div class="col-md-12">
 
