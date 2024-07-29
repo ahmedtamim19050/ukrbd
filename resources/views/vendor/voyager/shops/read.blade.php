@@ -187,9 +187,9 @@
 
 @stop
 @section('page_header')
-    <h1 class="page-title">
+    {{-- <h1 class="page-title">
         <span class="icon voyager-company"></span> {{ $dataTypeContent->name }}
-    </h1>
+    </h1> --}}
     @include('voyager::multilingual.language-selector')
 @stop
 
