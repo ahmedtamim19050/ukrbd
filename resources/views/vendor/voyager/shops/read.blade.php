@@ -324,6 +324,7 @@
                         </div>
 
                     </div>
+                    @if($earnings->count() > 0)
                     <div class="panel">
                         <table class="table">
                             <thead>
@@ -423,6 +424,7 @@
                             </tbody>
                         </table>
                     </div>
+                    @endif
 
                 </div>
             </div>
