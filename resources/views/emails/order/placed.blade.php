@@ -50,7 +50,7 @@
                 
                 <tr>
                     <td>
-                        <img src="{{ Storage::url($item->product->image) }}" alt="" width="100">
+                        <img src="{{ Voyager::image($item->product->image) }}" alt="" width="100">
                     </td>
 
                     <td align="top">
@@ -77,7 +77,7 @@
                 @else
                 <tr>
                     <td>
-                        <img src="{{ Storage::url($order->product->image) }}" alt="" width="100">
+                        <img src="{{ Voyager::image($order->product->image) }}" alt="" width="100">
                     </td>
 
                     <td align="top">
