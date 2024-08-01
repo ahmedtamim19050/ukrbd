@@ -26,7 +26,7 @@
     @elseif ($type === 'select')
         <select class="{{ $classes }} @error($name) is-invalid @enderror"id="{{ $id }}"
             name="{{ $name }}" {{ $attributes }}>
-            <option value="">{{ __('words.chose_an_option') }}</option>
+            <option value="">Choose Option</option>
             @foreach ($options as $optionValue => $optionLabel)
                 <option value="{{ $optionValue }}" @if ($value == $optionValue) selected @endif>
                     {{ $optionLabel }}</option>
