@@ -67,7 +67,7 @@
                                     <tr>
                                         <td class="product-thumbnail">
                                             <div class="p-relative">
-                                                <a href="product-default.html">
+                                                <a href="{{route('product_details',$product->slug)}}">
                                                     <figure>
                                                         <img src="{{ Voyager::image($product->model->image) }}"
                                                             alt="product" width="300" height="118">
@@ -80,7 +80,7 @@
                                             </div>
                                         </td>
                                         <td class="product-name">
-                                            <a href="#">
+                                            <a href="{{route('product_details',$product->slug)}}">
                                                 {{ $product->name }}
                                             </a>
                                         </td>

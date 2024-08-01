@@ -142,12 +142,23 @@ class Sohoj
     }
     public function adminOwned($order)
     {
-        return $order->subtotal *  ($order->shop->percentage_cost / 100);
+
+        if ($order->shop->percentage_cost !== null) {
+            return $order->subtotal * ($order->shop->percentage_cost / 100);
+        }
+        return 0;
     }
     public function marchentigerOwned($order)
     {
-        $adminOwned = $order->subtotal *  ($order->shop->percentage_cost / 100);
-        $marchentiger = $adminOwned *  ($order->shop->retailer->percentage_cost / 100);
+        $adminOwned = 0;
+        $merchantTiger = 0;
+        if ($order->shop->percentage_cost !== null) {
+            $adminOwned = $order->subtotal *  ($order->shop->percentage_cost / 100);
+        }
+        if ($order->shop->retailer->percentage_cost !== null) {
+
+            $marchentiger = $adminOwned *  ($order->shop->retailer->percentage_cost / 100);
+        }
         return $adminOwned - $marchentiger;
     }
     public function shopTotalEarn($shop)

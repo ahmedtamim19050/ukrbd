@@ -392,7 +392,7 @@
                             <ul>
                                 @if (!auth()->check())
                                     <li><a href="{{ route('login') }}">Login</a></li>
-                                    <li><a href="{{ route('register') }}">Register as a user</a></li>
+                                    <li><a href="{{ route('register') }}">Register</a></li>
                                     <li><a href="{{ route('vendor.create') }}">Register as a vendor</a></li>
                                 @elseif(auth()->user()->role_id == 3)
                                     <li><a href="{{ route('vendor.dashboard') }}">My Account</a></li>

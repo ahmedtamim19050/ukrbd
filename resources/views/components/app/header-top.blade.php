@@ -86,11 +86,11 @@
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('login') }}"
                             style="font-size: small">Login</a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('register') }}"
-                            style="font-size: small">Register as user</a>
-                        <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
+                            style="font-size: small">Register</a>
+                        {{-- <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('vendor.create') }}"
                             style="font-size: small">Register as vendor </a>
                         <a class="dropdown-item wishlist-label d-lg-show" href="{{ route('marchentiger.create') }}"
-                            style="font-size: small">Register as merchandiser </a>
+                            style="font-size: small">Register as merchandiser </a> --}}
 
                     @endif
                 </div>

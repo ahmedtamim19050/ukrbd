@@ -210,7 +210,7 @@
                       </div>
 
 
-                      {{ $products->links() }}
+                      {{ $products->withQueryString()->links() }}
                   </div>
                   <!-- End of Shop Main Content -->
               </div>
