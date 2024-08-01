@@ -164,7 +164,7 @@ class CheckoutController extends Controller
 
 
 
-            Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
+            // Mail::to($order->user->email ?? $shipping['email'])->send(new OrderPlaced($order));
             $this->decreaseQuantities();
 
             Cart::clear();
