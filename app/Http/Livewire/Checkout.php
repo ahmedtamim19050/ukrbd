@@ -85,8 +85,8 @@ class Checkout extends Component
 
         $total = 0;
 
-        dd($total);
         foreach (Cart::getContent() as $product) {
+            dd($product);
 
             $response =   PathaoCourier::order()->priceCalculation([
                 "store_id" => $product->attributes['store_id'],
