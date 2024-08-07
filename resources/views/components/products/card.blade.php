@@ -2,8 +2,7 @@
     <div class="product text-center">
         <figure class="product-media">
             <a href="{{ route('product_details',$product->slug) }}">
-                <img src="{{ Voyager::image($product->image) }}" alt="Product" width="300" height="338">
-                <img src="{{ Voyager::image($product->image) }}" alt="Product" width="300" height="338">
+                <img src="{{asset('placeholder.jpg')}}" data-src="{{ Voyager::image($product->image) }}" alt="Product" width="300" height="338" loading="lazy">
             </a>
             <div class="product-action-vertical">
                 <form class="addToCartForm_{{ $product->id }}">

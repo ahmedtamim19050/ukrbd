@@ -34,7 +34,7 @@
         })(document);
     </script>
     <script>
-        const base_url = "{{url('/')}}"
+        const base_url = "{{ url('/') }}"
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preload" href="assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
@@ -109,7 +109,6 @@
             background-color: #f8f9fa;
             color: #007cc;
         }
-        
     </style>
     {{ $css ?? null }}
     @stack('css')
@@ -886,7 +885,7 @@
                 if ($(this).is(':checked')) {
                     updateSearchParams("ratings", $(this).val(), shopUrl);
                 } else {
-              
+
                     removeSearchParam("ratings", shopUrl);
                 }
             });
@@ -987,6 +986,28 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            const imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.onload = function() {
+                            lazyImage.removeAttribute("data-src");
+                            lazyImage.removeAttribute("loading");
+                        };
+                        observer.unobserve(lazyImage);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function(lazyImage) {
+                imageObserver.observe(lazyImage);
+            });
+        });
     </script>
     {{-- <x-alert/> --}}
     @stack('script')
