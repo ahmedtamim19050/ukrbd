@@ -87,24 +87,16 @@ class Checkout extends Component
         $data = [];
         foreach (Cart::getContent() as $product) {
 
-            dd(PathaoCourier::order()->priceCalculation([
+            $response =   PathaoCourier::order()->priceCalculation([
                 "store_id" => $product->attributes['store_id'],
                 "item_type" => 2,
                 "delivery_type" => 48,
-                "item_weight" => number_format($product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,2),
+                "item_weight" => $product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,
                 "recipient_city" => explode('-', $this->selectedCity)[0],
                 "recipient_zone" => explode('-', $this->selectedZone)[0]
-            ]));
-            // $response =   PathaoCourier::order()->priceCalculation([
-            //     "store_id" => $product->attributes['store_id'],
-            //     "item_type" => 2,
-            //     "delivery_type" => 48,
-            //     "item_weight" => $product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,
-            //     "recipient_city" => explode('-', $this->selectedCity)[0],
-            //     "recipient_zone" => explode('-', $this->selectedZone)[0]
-            // ]);
+            ]);
 
-            $total += $product->price;
+            $total += $response->final_price;
         }
         session()->put('order_payment_info', ['shipping' => $total, 'subtotal' => Sohoj::newSubtotal(), 'total' => Sohoj::newSubtotal() + $total]);
         $this->orderPaymentInfo = ['shipping' => $total, 'subtotal' => Sohoj::newSubtotal(), 'total' => Sohoj::newSubtotal() + $total];
