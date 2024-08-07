@@ -97,7 +97,7 @@ class Checkout extends Component
                 "recipient_city" => explode('-', $this->selectedCity)[0],
                 "recipient_zone" => explode('-', $this->selectedZone)[0]
             ]);
-
+dd($response);
             $total += $response->final_price;
         }
         session()->put('order_payment_info', ['shipping' => $total, 'subtotal' => Sohoj::newSubtotal(), 'total' => Sohoj::newSubtotal() + $total]);
