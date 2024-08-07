@@ -84,22 +84,31 @@ class Checkout extends Component
 
 
         $total = 0;
-
+$data = [];
         foreach (Cart::getContent() as $product) {
 
-
-            $response =   PathaoCourier::order()->priceCalculation([
-                "store_id" => $product->attributes['store_id'],
-                "item_type" => 2,
-                "delivery_type" => 48,
-                "item_weight" => $product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,
-                "recipient_city" => explode('-', $this->selectedCity)[0],
-                "recipient_zone" => explode('-', $this->selectedZone)[0]
-            ]);
-            dd($response);
-            $total += $response->final_price;
+array_push($data,[
+    "store_id" => $product->attributes['store_id'],
+    "item_type" => 2,
+    "delivery_type" => 48,
+    "item_weight" => $product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,
+    "recipient_city" => explode('-', $this->selectedCity)[0],
+    "recipient_zone" => explode('-', $this->selectedZone)[0]
+]);
+            
+            // $response =   PathaoCourier::order()->priceCalculation([
+            //     "store_id" => $product->attributes['store_id'],
+            //     "item_type" => 2,
+            //     "delivery_type" => 48,
+            //     "item_weight" => $product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,
+            //     "recipient_city" => explode('-', $this->selectedCity)[0],
+            //     "recipient_zone" => explode('-', $this->selectedZone)[0]
+            // ]);
+            
+            // $total += $response->final_price;
         
         }
+        dd($data);
         session()->put('order_payment_info', ['shipping' => $total, 'subtotal' => Sohoj::newSubtotal(), 'total' => Sohoj::newSubtotal() + $total]);
         $this->orderPaymentInfo = ['shipping' => $total, 'subtotal' => Sohoj::newSubtotal(), 'total' => Sohoj::newSubtotal() + $total];
         $this->shippingCost = $total;
