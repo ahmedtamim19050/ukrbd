@@ -58,7 +58,7 @@
                             <a href="{{ route('homepage') }}">Home</a>
                         </li>
                         <li class="{{ url()->current() == url('/shops') ? 'active' : '' }}">
-                            <a href="{{ route('shops') }}">Shop</a>
+                            <a href="{{ route('shops') }}">Products</a>
 
 
                         </li>
