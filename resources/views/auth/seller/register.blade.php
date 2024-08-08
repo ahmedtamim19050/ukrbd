@@ -144,7 +144,7 @@
           </style>
       </x-slot>
 
-      <x-app.breadcrumb name="Vendor as Register " />
+      <x-app.breadcrumb name="Register as E-shop" />
       <!-- End of Breadcrumb -->
       <div class="page-content">
           <div class="container">

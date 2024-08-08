@@ -21,89 +21,89 @@
     </x-slot>
 
     <x-app.breadcrumb name="Sign Up" />
-        <!-- End of Breadcrumb -->
-        <div class="page-content">
-            <div class="container">
-                <div class="login-popup">
-                    <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
-                        <ul class="nav nav-tabs text-uppercase" role="tablist">
-                            {{-- <li class="nav-item">
+    <!-- End of Breadcrumb -->
+    <div class="page-content">
+        <div class="container">
+            <div class="login-popup">
+                <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
+                    <ul class="nav nav-tabs text-uppercase" role="tablist">
+                        {{-- <li class="nav-item">
                                 <a href="#sign-in" class="nav-link active">Sign In</a>
                             </li> --}}
-                            <li class="nav-item">
-                                <a href="#sign-up" class="nav-link">Sign Up</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
+                        <li class="nav-item">
+                            <a href="#sign-up" class="nav-link">Sign Up</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
 
 
-                            <div class="tab-pane active">
-                                <form method="POST" action="{{ route('register') }}">
-                                    @csrf
-                                    <div class="form-group mb-5">
-                                        <label> Name *</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            name="name" id="name" value="{{ old('name') }}" required
-                                            autocomplete="name" autofocus>
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                        <div class="tab-pane active">
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+                                <div class="form-group mb-5">
+                                    <label> Name *</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" id="name" value="{{ old('name') }}" required
+                                        autocomplete="name" autofocus>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
 
-                                    <div class="form-group">
-                                        <label>Your email address Or Phone *</label>
-                                        <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                            name="email" id="email" value="{{ old('email') }}" required
-                                            autocomplete="email" autofocus>
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                <div class="form-group">
+                                    <label>Your email address Or Phone *</label>
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                        name="email" id="email" value="{{ old('email') }}" required
+                                        autocomplete="email" autofocus>
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                                    <div class="form-group mb-5">
-                                        <label>Password *</label>
-                                        <input type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="current-password" id="password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                <div class="form-group mb-5">
+                                    <label>Password *</label>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        name="password" required autocomplete="current-password" id="password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                                    <div class="form-group mb-5">
-                                        <label>Confirmation Password *</label>
-                                        <input type="password" class="form-control" name="password_confirmation"
-                                            required autocomplete="new-password" id="password_confirmation">
-                                    </div>
+                                <div class="form-group mb-5">
+                                    <label>Confirmation Password *</label>
+                                    <input type="password" class="form-control" name="password_confirmation" required
+                                        autocomplete="new-password" id="password_confirmation">
+                                </div>
 
-                                    <input type="hidden" name="role" value="user" id="">
+                                <input type="hidden" name="role" value="user" id="">
 
 
-                                    <a href="{{route('vendor.create')}}" class="d-block mb-5 text-primary">Signup as a vendor?</a>
-                                    <div class="form-checkbox d-flex align-items-center justify-content-between mb-5">
-                                        <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
-                                        <label for="remember" class="font-size-md">I agree to the <a href="#"
-                                                class="text-primary font-size-md">privacy policy</a></label>
-                                    </div>
-                                    <button class="btn btn-primary" style="width: 100%">Sign Up</button>
-                                </form>
-                            </div>
-
+                                <a href="{{ route('vendor.create') }}" class="d-block mb-5 text-primary">Signup as a
+                                    E-shop?</a>
+                                <div class="form-checkbox d-flex align-items-center justify-content-between mb-5">
+                                    <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
+                                    <label for="remember" class="font-size-md">I agree to the <a href="#"
+                                            class="text-primary font-size-md">privacy policy</a></label>
+                                </div>
+                                <button class="btn btn-primary" style="width: 100%">Sign Up</button>
+                            </form>
                         </div>
-                        <p class="text-center">Already have an account ? <a class="text-success"
-                                href="{{ route('login') }}"> Sign In</a></p>
-                       
+
                     </div>
+                    <p class="text-center">Already have an account ? <a class="text-success"
+                            href="{{ route('login') }}"> Sign In</a></p>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </x-app>
 

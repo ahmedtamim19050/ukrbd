@@ -157,12 +157,12 @@
         <table>
             <thead>
                 <tr>
-                    <th>User</th>
+                    <th>Customer</th>
                     <th>Shop</th>
                     <th>Product</th>
                     <th>Tax</th>
                     <th>Discount</th>
-                    <th>Vendor Total</th>
+                    <th>E-shop Total</th>
                     <th>Total</th>
                     <th>Transaction ID</th>
                     <th>Refund Amount</th>

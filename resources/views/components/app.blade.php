@@ -379,7 +379,7 @@
 
                         </li>
                         <li>
-                            <a href="{{ route('vendors') }}">Vendors</a>
+                            <a href="{{ route('vendors') }}">E-shops</a>
 
                         </li>
 

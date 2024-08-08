@@ -20,7 +20,7 @@
                     <div style="position: relative;">
                         <img class="v-img img-fluid"
                             src="{{ auth()->user()->shop && auth()->user()->shop->logo ? Voyager::image(auth()->user()->shop->logo) : asset('seller-assets/images/2.jpg') }}"
-                            alt="vendor image">
+                            alt="E-shop image">
                         <a href="javascript:void(0)" class="shadow-lg"
                             style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
                             data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
@@ -30,7 +30,7 @@
                 @else
                     <div style="position: relative;">
                         <img class="v-img" src="{{ asset('assets/img/heaer.jpg') }}" style="object-fit: cover;"
-                            alt="vendor image">
+                            alt="E-shop image">
                         <a href="javascript:void(0)" class="shadow-lg"
                             style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
                             data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
