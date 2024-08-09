@@ -144,7 +144,7 @@
           </style>
       </x-slot>
 
-      <x-app.breadcrumb name="merchandiser as Register " />
+      <x-app.breadcrumb name="Register as UKRBD Affiliate" />
       <!-- End of Breadcrumb -->
       <div class="page-content">
           <div class="container">

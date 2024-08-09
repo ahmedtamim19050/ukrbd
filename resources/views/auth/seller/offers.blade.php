@@ -22,7 +22,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
-                                    <th scope="col">User</th>
+                                    <th scope="col">Customer</th>
                                     <th scope="col">Product</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -31,7 +31,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($offers as $offer)
-                            
                                     <tr>
                                         <th scope="row"><span>{{ $loop->index + 1 }}</span></th>
                                         <td><span>{{ Sohoj::price($offer->price) }}</span></td>
@@ -40,15 +39,14 @@
                                         <td><span>{{ $offer->product->name }}</span></td>
 
                                         <td>
-                                            @if($offer->status==0)
-                                            <span
-                                                class="bg-warning p-1 d-inline text-white">Pending</span>
+                                            @if ($offer->status == 0)
+                                                <span class="bg-warning p-1 d-inline text-white">Pending</span>
                                             @else
-                                            <span
-                                                class="bg-warning p-1 d-inline text-white">{{ $offer->status == 2 ? 'Decline' : 'Accepted' }}</span>
+                                                <span
+                                                    class="bg-warning p-1 d-inline text-white">{{ $offer->status == 2 ? 'Decline' : 'Accepted' }}</span>
                                             @endif
 
-                                            
+
                                         </td>
 
                                         <td>

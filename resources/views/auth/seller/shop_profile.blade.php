@@ -58,7 +58,7 @@
 
                                         <img class="v-img img-fluid"
                                             src="{{ auth()->user()->shop && auth()->user()->shop->logo ? Voyager::image(auth()->user()->shop->logo) : asset('seller-assets/images/2.jpg') }}"
-                                            alt="vendor image">
+                                            alt="E-shop image">
 
                                         <a href="javascript:void(0)" class="shadow-lg"
                                             style="position: absolute; top:-59px; right:-21px; background-color: #fff; border-radius:50%;padding:10px 0"

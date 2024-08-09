@@ -20,35 +20,27 @@
                     <div class="dropdown-box">
                         <ul class="menu vertical-menu category-menu">
                             @foreach ($categories as $category)
-                           
-                                    <li>
-                                        <!-- Update the link here for parent categories -->
-                                        <a id="categoryId" class="nav-link menu-item-line" href="javascript:void(0)"
-                                            onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
-                                            <i class=""></i>{{ $category->name }}
-                                        </a>
-                                        @if ($category->childrens->count() > 0)
+                                <li>
+                                    <!-- Update the link here for parent categories -->
+                                    <a id="categoryId" class="nav-link menu-item-line" href="javascript:void(0)"
+                                        onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
+                                        <i class=""></i>{{ $category->name }}
+                                    </a>
+                                    @if ($category->childrens->count() > 0)
                                         <ul class="megamenu">
                                             @foreach ($category->childrens as $item)
                                                 <li>
-                                                   
-                                                            <a id="categoryId" class="menu-item-line" style="font-weight: 400"
-                                                            href="javascript:void(0)"
-                                                            onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
-                                                            {{ $item->name }}
-                                                        </a>
-                                                        </li>
-                                                   
-                                                
-                                                       
-                                               
-                                                
-                                              
+
+                                                    <a id="categoryId" class="menu-item-line" style="font-weight: 400"
+                                                        href="javascript:void(0)"
+                                                        onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
+                                                        {{ $item->name }}
+                                                    </a>
+                                                </li>
                                             @endforeach
                                         </ul>
-                                        @endif
-                                    </li>
-                               
+                                    @endif
+                                </li>
                             @endforeach
                             {{-- <li>
                                 <a href="#" class="font-weight-bold text-uppercase ls-25">
@@ -62,16 +54,16 @@
 
                 <nav class="main-nav">
                     <ul class="menu active-underline">
-                        <li class="{{url()->current() == url('/') ? 'active' : '' }}">
+                        <li class="{{ url()->current() == url('/') ? 'active' : '' }}">
                             <a href="{{ route('homepage') }}">Home</a>
                         </li>
                         <li class="{{ url()->current() == url('/shops') ? 'active' : '' }}">
-                            <a href="{{ route('shops') }}">Shop</a>
+                            <a href="{{ route('shops') }}">Products</a>
 
 
                         </li>
                         <li class="{{ url()->current() == url('/vendors') ? 'active' : '' }}">
-                            <a href="{{ route('vendors') }}">Vendors</a>
+                            <a href="{{ route('vendors') }}">E-shops</a>
 
 
                         </li>

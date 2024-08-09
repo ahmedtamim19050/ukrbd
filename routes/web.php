@@ -126,7 +126,7 @@ Route::get('/seller', [SellerPagesController::class, 'dashboard'])->middleware('
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
-    Route::get('earnings',[AdminController::class,'earnings'])->name('admin.earnings');
+    Route::get('earnings', [AdminController::class, 'earnings'])->name('admin.earnings');
 });
 Auth::routes();
 Route::get('admin/payout/{order}', [PayoutsController::class, 'payouts'])->name('payout')->middleware('auth', 'role:admin');
@@ -164,8 +164,8 @@ Route::get('ticket/close/{ticket}', [TicketsController::class, 'close'])->name('
 
 Route::get('/vendor/settings', [SellerPagesController::class, 'setting'])->name('vendor.settings');
 Route::get('/seen/{notification}', [MassageController::class, 'seen'])->name('massage.seen');
-Route::get('/massage/{id?}', [MassageController::class, 'create'])->name('massage.create')->middleware('auth');
-Route::get('/massage/store/{id}', [MassageController::class, 'store'])->name('massage.store')->middleware('auth');
+Route::get('/message/{id?}', [MassageController::class, 'create'])->name('massage.create')->middleware('auth');
+Route::get('/message/store/{id}', [MassageController::class, 'store'])->name('massage.store')->middleware('auth');
 Route::post('logo-or-cover/upload', [SellerPagesController::class, 'logoCover'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.logo.cover');
 
 

@@ -44,7 +44,7 @@
                 @endif --}}
                 <div style="position: relative;">
                     <img class="v-img" src="{{ asset('assets/images/marchent-logo.png') }}" style="object-fit: cover;"
-                        alt="vendor image">
+                        alt="E-shop image">
                     {{-- <a href="javascript:void(0)" class="shadow-lg"
                         style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
                         data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
