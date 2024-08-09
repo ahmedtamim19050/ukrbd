@@ -160,7 +160,7 @@ class CheckoutController extends Controller
 
             if ($childOrder->shop->email) {
 
-                Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
+                // Mail::to($childOrder->shop->email)->send(new OrderPlaced($childOrder));
             }
         }
 
