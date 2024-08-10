@@ -10,8 +10,13 @@
                     @csrf
                     <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
-                    <button type="submit" class="btn-product-icon btn-cart w-icon-cart cart-store"
-                        style="cursor: pointer" data-product-id="{{ $product->id }}" title="Add to cart"></button>
+                    <button class="btn-product-icon btn-cart w-icon-cart cart-store add-to-cart-btn"
+                    style="cursor: pointer" data-product-id="{{ $product->id }}" title="Add to cart"
+                    onclick="setTimeout(function() { location.reload(); }, 500);">
+            </button>
+            
+            
+            
                 </form>
                 <a href="javascript:void(0)" onclick="wishlist({{ $product->id }})"
                     class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
