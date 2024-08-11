@@ -26,7 +26,7 @@ class Checkout extends Component
 
     public function mount()
     {
-        
+
         $this->cities = $this->getCities();
     }
 
@@ -45,7 +45,7 @@ class Checkout extends Component
 
     public function updatedSelectedArea()
     {
-  
+
         $this->getShippingCost();
     }
 
@@ -82,18 +82,16 @@ class Checkout extends Component
     public function getShippingCost()
     {
 
-        
+
         $total = 0;
-
-
+        $data = [];
         foreach (Cart::getContent() as $product) {
-
 
             $response =   PathaoCourier::order()->priceCalculation([
                 "store_id" => $product->attributes['store_id'],
                 "item_type" => 2,
                 "delivery_type" => 48,
-                "item_weight" => $product->attributes['weight'] * $product->quantity,
+                "item_weight" => $product->attributes['weight'] > 0 ? $product->attributes['weight'] : 0.5,
                 "recipient_city" => explode('-', $this->selectedCity)[0],
                 "recipient_zone" => explode('-', $this->selectedZone)[0]
             ]);

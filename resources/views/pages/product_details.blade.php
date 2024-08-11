@@ -225,7 +225,8 @@
                                                                     name="variable_attribute[{{ $attribute->name }}]"
                                                                     id="{{ str_replace(' ', '_', $value) }}"
                                                                     value="{{ $value }}" required
-                                                                    onclick="change_variable()" {{$loop->first ? 'checked' : ''}}>
+                                                                    onclick="change_variable()"
+                                                                    {{ $loop->first ? 'checked' : '' }}>
                                                                 <label class="btn btn-info p-2"
                                                                     style="padding: 5px 12px;"
                                                                     for="{{ str_replace(' ', '_', $value) }}">{{ str_replace('_', ' ', $value) }}</label>
@@ -293,7 +294,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#product-tab-vendor" class="nav-link">Vendor Info</a>
+                            <a href="#product-tab-vendor" class="nav-link">E-shop Info</a>
                         </li>
                         <li class="nav-item">
                             <a href="#product-tab-reviews" class="nav-link">Customer Reviews
@@ -511,9 +512,9 @@
                                                 </div>
                                             </li>
 @endforeach
-                                        
+
                                     </div>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -555,11 +556,11 @@
                         <div class="swiper-pagination"></div>
                     </div>
                 </section>
-             
+
             </div>
         </div>
     </div>
- 
+
 @push('script')
     <script>
         var products = {!! $product->subproductsuser->toJson() !!};
@@ -570,8 +571,9 @@
             variations = {
                 @foreach ($product->attributes as $attribute)
                     @foreach ($attribute->value as $value)
-              
-                        '{{ $attribute->name }}': $('input[name="variable_attribute[{{$attribute->name}}]"]:checked').val(),
+
+                        '{{ $attribute->name }}': $(
+                            'input[name="variable_attribute[{{ $attribute->name }}]"]:checked').val(),
                     @endforeach
                 @endforeach
             }
@@ -582,7 +584,7 @@
                     return product.variations[variation] === variations[variation];
                 });
             });
-           
+
             //$('.preview-slider').slick('slickGoTo', 1);
             // console.log(product[0].image);
 

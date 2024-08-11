@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Facade\Sohoj;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use TCG\Voyager\Facades\Voyager;
 
@@ -30,5 +31,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Voyager::addAction(\App\Actions\ReplyAction::class);
+        
+        URL::forceScheme('https');
     }
 }

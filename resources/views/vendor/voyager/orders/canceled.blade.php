@@ -147,7 +147,7 @@
 
             .button-container {
                 text-align: right;
-             
+
             }
         </style>
     </head>
@@ -157,12 +157,12 @@
         <table>
             <thead>
                 <tr>
-                    <th>User</th>
+                    <th>Customer</th>
                     <th>Shop</th>
                     <th>Product</th>
                     <th>Tax</th>
                     <th>Discount</th>
-                    <th>Vendor Total</th>
+                    <th>E-shop Total</th>
                     <th>Total</th>
                     <th>Transaction ID</th>
                     <th>Action</th>
@@ -171,11 +171,11 @@
             <tbody>
                 @foreach ($canceledOrders as $canceledOrder)
                     <tr>
-                        
+
                         <td>
-                        <p>Name: {{ $canceledOrder->user->name }}</p>
-                        <p>Email: {{ $canceledOrder->user->email }}</p>
-                        <p>Phone: {{ $canceledOrder->user->phone }}</p>
+                            <p>Name: {{ $canceledOrder->user->name }}</p>
+                            <p>Email: {{ $canceledOrder->user->email }}</p>
+                            <p>Phone: {{ $canceledOrder->user->phone }}</p>
                         </td>
                         <td>
                             <p>Name: {{ $canceledOrder->shop->name }}</p>

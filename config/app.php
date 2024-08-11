@@ -213,7 +213,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'InterventionImage' => Intervention\Image\Facades\Image::class,
         'Voyager' => App\Facades\Voyager::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Sohoj' => SohojFacade::class,

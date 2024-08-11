@@ -63,11 +63,11 @@
                             </thead>
                             <tbody>
                                 @foreach (Cart::getContent() as $product)
-                            
+                        
                                     <tr>
                                         <td class="product-thumbnail">
                                             <div class="p-relative">
-                                                <a href="{{route('product_details',$product->slug)}}">
+                                                <a href="{{route('product_details',$product->model->slug)}}">
                                                     <figure>
                                                         <img src="{{ Voyager::image($product->model->image) }}"
                                                             alt="product" width="300" height="118">
@@ -80,7 +80,7 @@
                                             </div>
                                         </td>
                                         <td class="product-name">
-                                            <a href="{{route('product_details',$product->slug)}}">
+                                            <a href="{{route('product_details',$product->model->slug)}}">
                                                 {{ $product->name }}
                                             </a>
                                         </td>

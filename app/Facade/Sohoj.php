@@ -151,15 +151,15 @@ class Sohoj
     public function marchentigerOwned($order)
     {
         $adminOwned = 0;
-        $merchantTiger = 0;
-        if ($order->shop->percentage_cost !== null) {
+        $affilateIncome = 0;
+        if ($order->shop?->percentage_cost !== null) {
             $adminOwned = $order->subtotal *  ($order->shop->percentage_cost / 100);
         }
-        if ($order->shop->retailer->percentage_cost !== null) {
+        if ($order->shop?->retailer?->percentage_cost !== null) {
 
-            $marchentiger = $adminOwned *  ($order->shop->retailer->percentage_cost / 100);
+            $affilateIncome = $adminOwned *  ($order->shop->retailer->percentage_cost / 100);
         }
-        return $adminOwned - $marchentiger;
+        return $adminOwned - $affilateIncome;
     }
     public function shopTotalEarn($shop)
     {

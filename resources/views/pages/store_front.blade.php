@@ -19,7 +19,7 @@
                 <div class="container">
                     <ul class="breadcrumb bb-no bg-white">
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Vendor</a></li>
+                        <li><a href="#">E-shop</a></li>
                         <li><a href="#">WC Marketplace</a></li>
                         <li>Store</li>
                     </ul>
@@ -49,9 +49,9 @@
                             </div> --}}
                             <!-- End of Widget -->
                             <div class="widget widget-collapsible widget-contact">
-                                <h3 class="widget-title"><span>Contact Vendor</span></h3>
+                                <h3 class="widget-title"><span>Contact E-shop</span></h3>
                                 <div class="widget-body">
-                                    <p>Connect directly with the vendor here</p>
+                                    <p>Connect directly with the E-shop here</p>
                                     <a href="{{ route('massage.create', ['id' => $shop->id]) }}"
                                         class="btn btn-dark btn-rounded">Send Message</a>
                                 </div>
@@ -199,7 +199,7 @@
                                 <nav class="toolbox sticky-toolbox sticky-content fix-top">
                                     <div class="toolbox-left">
                                         <a href="#"
-                                            class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle 
+                                            class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle
                                             btn-icon-left d-block d-lg-none"><i
                                                 class="w-icon-category"></i><span>Filters</span></a>
                                         <div class="toolbox-item toolbox-sort select-box text-dark">
@@ -274,14 +274,14 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                 
+
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{$products->links()}}
+                {{ $products->links() }}
                 <!-- End of Main Content -->
             </div>
         </div>

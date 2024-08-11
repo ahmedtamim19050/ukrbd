@@ -392,7 +392,7 @@
                 </div>
             </div> --}}
             <figure class="">
-                <img src="{{voyager::image(setting('banner.home_banner'))}}" alt="Banner" >
+                <img src="{{Voyager::image(setting('banner.home_banner'))}}" alt="Banner" >
             </figure>
         </div>
         <!-- End of Banner Simple -->
