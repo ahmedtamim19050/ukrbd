@@ -254,10 +254,10 @@ button {
             <!-- Start of Page Content -->
             <div class="page-content mb-4">
                 <div class="container">
-                    <div class="row cols-xl-4 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+                    <div class="row cols-xl-5 cols-lg-5 cols-md-4 cols-sm-3 cols-2">
                         @foreach ($shops as $shop)
                             <div class="vendor-brand-wrap mb-8">
-                                <div class="vendor-brand">
+                                <div class="vendor-brand" >
                                     <x-shop.card :shop="$shop" />
                                 </div>
                             </div>

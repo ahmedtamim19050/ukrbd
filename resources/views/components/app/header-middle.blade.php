@@ -20,15 +20,15 @@
                     <div class="dropdown-box">
                         <ul class="menu vertical-menu category-menu">
                             @foreach ($categories as $category)
-                           
                                     <li>
                                         <!-- Update the link here for parent categories -->
-                                        <a id="categoryId" class="nav-link menu-item-line" href="javascript:void(0)"
+                                        <a id="categoryId" href="javascript:void(0)"
                                             onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
                                             <i class=""></i>{{ $category->name }}
                                         </a>
                                         @if ($category->childrens->count() > 0)
                                         <ul class="megamenu">
+                                            
                                             @foreach ($category->childrens as $item)
                                                 <li>
                                                    
@@ -37,13 +37,7 @@
                                                             onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
                                                             {{ $item->name }}
                                                         </a>
-                                                        </li>
-                                                   
-                                                
-                                                       
-                                               
-                                                
-                                              
+                                                        </li> 
                                             @endforeach
                                         </ul>
                                         @endif

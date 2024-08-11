@@ -128,7 +128,7 @@
                     <div>
                         <div class="d-flex justify-content-between">
                             <span style="font-size: 18px">Shopping Cart</span>
-                            <a href="#" class="" style="font-size: 15px">
+                            <a href="#" class="" style="font-size: 15px" onclick="toggleCart()">Close<i class="w-icon-long-arrow-right"></i></a>
                         </div>
 
                         <div class="products">
