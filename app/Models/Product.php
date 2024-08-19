@@ -15,6 +15,7 @@ class Product extends Model
     protected $casts = [
         'variations' => 'array',
     ];
+    protected $with =['ratings','shop'];
     public function shop()
     {
         return $this->belongsTo(Shop::class);
@@ -171,12 +172,12 @@ class Product extends Model
     {
         return sprintf('%.3f', $this->weight / 1000);
     }
-    // protected static function boot()
-    // {
-    //     parent::boot();
+    protected static function boot()
+    {
+        parent::boot();
 
-    //     static::addGlobalScope('age', function (Builder $builder) {
-    //         $builder->whereHas('shop', fn ($query) => $query->complete());
-    //     });
-    // }
+        static::addGlobalScope('age', function (Builder $builder) {
+            $builder->whereHas('shop', fn ($query) => $query->complete());
+        });
+    }
 }

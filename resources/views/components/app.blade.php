@@ -1,5 +1,8 @@
 @php
-    $categories = App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+
+    $categories = Cache::remember('main_categories', 100, function () {
+    return App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+});
 
 @endphp
 <!DOCTYPE html>

@@ -23,8 +23,22 @@ class PageController extends Controller
     public function home()
     {
         $bestSellingCategories = Cache::remember('best_selling_categories', 100, function () {
-            return Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+            // Step 1: Get the categories with all products
+            $categories = Prodcat::has('products')
+                ->where('parent_id', null)
+                ->with(['childrens', 'products:id,name,slug,image']) // Fetch all products first
+                ->take(11)
+                ->get();
+        
+            // Step 2: Manually limit products in memory
+            $categories->each(function($category) {
+                $category->setRelation('products', $category->products->take(11));
+            });
+        
+            return $categories;
         });
+
+        
 
         $latest_products = Cache::remember('latest_products', 100, function () {
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
@@ -48,10 +62,10 @@ class PageController extends Controller
         });
 
         $latest_shops = Cache::remember('latest_shops', 100, function () {
-            return Shop::where("status", 1)->latest()->limit(8)->get();
+            return Shop::where("status", 1)->latest()->limit(8)->select(['id', 'slug', 'banner', 'name', 'logo'])->withCount('products')->get();
         });
         $clients = Cache::remember('clients', 100, function () {
-            return Shop::where("status", 1)->pluck('logo','id')->toArray();
+            return Shop::where("status", 1)->pluck('logo', 'id')->toArray();
         });
 
         $prodcats = Cache::remember('product_categories', 100, function () {
@@ -80,7 +94,7 @@ class PageController extends Controller
         })->filter()->paginate(12);
 
 
-        $categories = Prodcat::has('products')->whereNull('parent_id')->latest()->get();
+        $categories = Prodcat::has('products')->with('products')->whereNull('parent_id')->latest()->get();
 
         $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
             $query->whereNull('parent_id');
@@ -178,7 +192,7 @@ class PageController extends Controller
         }
 
 
-        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews','products'));
+        return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews', 'products'));
     }
 
 

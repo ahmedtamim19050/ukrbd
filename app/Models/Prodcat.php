@@ -22,5 +22,6 @@ class Prodcat extends Model
     {
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
+   
     
 }
