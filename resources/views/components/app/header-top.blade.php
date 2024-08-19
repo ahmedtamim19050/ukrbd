@@ -1,3 +1,17 @@
+<style>
+    .w-icon-cart {
+    font-size: 24px; 
+    width: 24px;     
+    height: 24px;  
+    padding: 5px;   
+}
+.w-icon-cart .cart-count {
+    font-size: 14px;
+    padding: 2px; 
+}
+
+
+    </style>
 <div class="header-middle">
     <div class="container">
         <div class="header-left mr-md-4">
@@ -102,21 +116,19 @@
             </a>
 
             <div
-                class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2 {{ request()->cart == 'opened' ? 'opened' : '' }}">
+                class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                 <div class="cart-overlay"></div>
-
-                <a href="{{ url()->current() }}?cart=opened" class=" label-down link" style="text-decoration: none;">
-                    <i class="w-icon-cart">
+                <div class="label-down link" style="text-decoration:none; " onclick="toggleCart()">
+                    <i class="w-icon-cart" >
                         <span class="cart-count" id="cartQty2">0</span>
                     </i>
-                    <span class="cart-label">Cart</span>
-                </a>
+                    <span class="cart-label"style="margin-right:-9px; margin-top:8px;">Cart</span>
+                </div>
                 <div class="dropdown-box d-flex flex-column h-100 justify-content-between   ">
                     <div>
-                        <div class="d-flex justify-content-between ">
+                        <div class="d-flex justify-content-between">
                             <span style="font-size: 18px">Shopping Cart</span>
-                            <a href="{{ url()->current() }}" class="" style="font-size: 15px">Close<i
-                                    class="w-icon-long-arrow-right"></i></a>
+                            <a href="#" class="" style="font-size: 15px" onclick="toggleCart()">Close<i class="w-icon-long-arrow-right"></i></a>
                         </div>
 
                         <div class="products">
@@ -163,3 +175,11 @@
         </div>
     </div>
 </div>
+<script>
+function toggleCart() {
+    const cartDropdown = document.querySelector('.cart-dropdown');
+    cartDropdown.classList.toggle('opened');
+}
+
+</script>
+
