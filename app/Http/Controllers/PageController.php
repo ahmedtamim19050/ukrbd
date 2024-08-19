@@ -26,19 +26,19 @@ class PageController extends Controller
             // Step 1: Get the categories with all products
             $categories = Prodcat::has('products')
                 ->where('parent_id', null)
-                ->with(['childrens', 'products:id,name,slug,image']) // Fetch all products first
+                ->with(['childrens', 'products:id,name,slug,image,price']) // Fetch all products first
                 ->take(11)
                 ->get();
-        
+
             // Step 2: Manually limit products in memory
-            $categories->each(function($category) {
+            $categories->each(function ($category) {
                 $category->setRelation('products', $category->products->take(11));
             });
-        
+
             return $categories;
         });
 
-        
+
 
         $latest_products = Cache::remember('latest_products', 100, function () {
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
@@ -69,7 +69,7 @@ class PageController extends Controller
         });
 
         $prodcats = Cache::remember('product_categories', 100, function () {
-            return Prodcat::with('childrens')->has('products')->where('parent_id', null)->limit(11)->get();
+            return Prodcat::with(['childrens', 'products'])->has('products')->where('parent_id', null)->limit(11)->get();
         });
 
         $sliders = Cache::remember('sliders', 100, function () {
