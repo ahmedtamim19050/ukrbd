@@ -82,7 +82,7 @@
             style="background-color: #414548;height:200px">
           
             <figure class="">
-                <img src="{{Voyager::image(setting('banner.home_banner'))}}" alt="Banner" >
+                <img loading="lazy" src="{{asset('placeholder.jpg')}}"  data-src="{{Voyager::image(setting('banner.home_banner'))}}" alt="Banner" >
             </figure>
         </div>
         <!-- End of Banner Simple -->
