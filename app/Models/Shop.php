@@ -13,7 +13,7 @@ class Shop extends Model
 {
     use HasFactory, HasMeta;
     protected $guarded = [];
-
+    public $with = ['ratings'];
     protected $meta_attributes = [
         "image1",
         "title1",
