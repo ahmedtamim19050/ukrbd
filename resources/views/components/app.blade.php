@@ -112,6 +112,9 @@
             background-color: #f8f9fa;
             color: #007cc;
         }
+        .slider-image{
+            aspect-ratio: 4/2 !important;
+        }
     </style>
     {{ $css ?? null }}
     @stack('css')
@@ -588,23 +591,8 @@
                 }
             });
 
-            $("#price-slider").slider({
-                range: true,
-                min: {{ request()->has('priceMin') ? request('priceMin') : 0 }},
-                max: {{ request()->has('priceMax') ? request('priceMax') : 1000 }},
-                values: [0, 1000],
-                slide: function(event, ui) {
-                    $("#minPriceDisplay").text(ui.values[0]);
-                    $("#maxPriceDisplay").text(ui.values[1]);
-                },
-                stop: function(event, ui) {
-                    updateSearchParams('', '', shopUrl, ui.values[0], ui.values[1]);
-                }
-            });
+          
 
-            // Display initial price values
-            $("#minPriceDisplay").text($("#price-slider").slider("values", 0));
-            $("#maxPriceDisplay").text($("#price-slider").slider("values", 1));
         });
 
         function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax) {
