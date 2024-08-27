@@ -128,7 +128,7 @@ class SellerPagesController extends Controller
     public function shopStore(Request $request)
     {
 
-        // dd($request->all());
+     
         $request->validate([
             'name' => ['required', 'max:40'],
             'logo' => ['nullable'],
@@ -150,6 +150,8 @@ class SellerPagesController extends Controller
             'pathao.city' => ['required'],
             'pathao.zone' => ['required'],
             'pathao.area' => ['required'],
+            'division' => ['required'],
+            'district' => ['required'],
 
 
         ]);
@@ -176,6 +178,8 @@ class SellerPagesController extends Controller
             'pickup_address' => json_encode($request->pathao),
             'percentage_cost' => setting('site.product_percentage_cost'),
             'referral_id' => auth()->user()->referral,
+            'division' => $request->division,
+            'district' => $request->district,
 
         ]);
 

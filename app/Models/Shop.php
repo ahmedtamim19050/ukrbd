@@ -31,8 +31,6 @@ class Shop extends Model
         "menuLink1",
         "menuTitle2",
         "menuLink2",
-        'division',
-        'zilla',
         'upzilla',
         'address',
     ];
@@ -67,6 +65,7 @@ class Shop extends Model
     {
         return $query->where('status', 1);
     }
+
 
     public function scopeProducts($query)
     {
@@ -115,17 +114,28 @@ class Shop extends Model
                 });
             })
             ->when(request()->has('shop_products') && request()->shop_products == 'price-low-hight', function ($q) {
-                $q->orderBy('price', 'asc');
+                return $q->orderBy('price', 'asc');
             })
             ->when(request()->has('shop_products') && request()->shop_products == 'price-high-low', function ($q) {
-                $q->orderBy('price', 'desc');
+                return $q->orderBy('price', 'desc');
             })
             ->when(request()->has('shop_products') && request()->shop_products == 'most-popular', function ($q) {
-                $q->orderBy('total_sale', 'desc');
-            })->when(Session::has('location'), function ($q) {
-                $postcode = Session::get('location.postcode');
-                $q->whereIn('post_code', $postcode);
+                return $q->orderBy('total_sale', 'desc');
             })
+            ->when(request()->has('division'),function ($q) {
+                return $q->where('division',request()->division) ;
+            })
+            ->when(request()->has('district'),function ($q) {
+                return $q->where('district',request()->district) ;
+            })
+            ->when(
+                request()->has('reviews'),
+                function ($q) {
+                    return  $q->whereHas('ratings', function ($q) {
+                        $q->where('rating', request()->reviews);
+                    });
+                }
+            )
 
             ->orderBy('created_at', 'desc');
     }
@@ -171,4 +181,5 @@ class Shop extends Model
     {
         return $this->hasMany(Earning::class, 'shop_id');
     }
+
 }
