@@ -254,18 +254,18 @@
         </a>
         <a href="{{ route('shops') }}" class="sticky-link">
             <i class="w-icon-category"></i>
-            <p>Shop</p>
+            <p>E-Shops</p>
         </a>
-        <a href="#" class="sticky-link">
+        <a href="{{auth()->check() ? route('user.dashboard') : route('login')}}" class="sticky-link">
             <i class="w-icon-account"></i>
             <p>Account</p>
         </a>
-        <div class="cart-dropdown dir-up">
-            <a href="#" class="sticky-link">
+        {{-- <div class="cart-dropdown dir-up"> --}}
+            <a href="{{route('cart')}}" class="sticky-link">
                 <i class="w-icon-cart"></i>
                 <p>Cart</p>
             </a>
-            <div class="dropdown-box">
+            {{-- <div class="dropdown-box">
                 <div class="products">
                     <div class="product product-cart">
                         <div class="product-detail">
@@ -321,23 +321,23 @@
                     <a href="#" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
                     <a href="#" class="btn btn-primary  btn-rounded">Checkout</a>
                 </div>
-            </div>
+            </div> --}}
             <!-- End of Dropdown Box -->
-        </div>
+        {{-- </div> --}}
 
-        <div class="header-search hs-toggle dir-up">
+        {{-- <div class="header-search hs-toggle dir-up">
             <a href="#" class="search-toggle sticky-link">
                 <i class="w-icon-search"></i>
                 <p>Search</p>
             </a>
-            <form action="#" class="input-wrapper">
+            <form action="{{route('shops')}}" class="input-wrapper">
                 <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
                     required />
                 <button class="btn btn-search" type="submit">
                     <i class="w-icon-search"></i>
                 </button>
             </form>
-        </div>
+        </div> --}}
     </div>
     <!-- End of Sticky Footer -->
 
