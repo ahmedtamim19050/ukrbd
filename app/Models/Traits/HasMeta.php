@@ -84,7 +84,7 @@ trait HasMeta
                 return $this->metas()->where('column_name', $key)->value('column_value') ?? null;
             });
         }
-        return Cache::remember($this->getTable() . '_t_' . $key, 100, function () use ($key) {
+        return Cache::remember($this->getTable() . '_t_'.$this->id.'_id_'. $key, 100, function () use ($key) {
             return parent::__get($key);
         });
     }
