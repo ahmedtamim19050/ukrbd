@@ -267,7 +267,7 @@ class PageController extends Controller
         //         return $q->where('state', 'like', '%' . $state . '%');
         //     })
         //     ->get();
-        $shops = Shop::active()->latest()->get();
+        $shops = Shop::active()->shop()->latest()->get();
         return view('pages.vendors', compact('shops'));
     }
 

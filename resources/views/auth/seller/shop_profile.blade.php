@@ -225,7 +225,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    {{-- <div class="col-md-6 mb-3">
                                         <label for="division" class="form-label">Division</label>
                                         <input type="text"
                                             class="form-control p-2 @error('division') is-invalid @enderror"
@@ -236,14 +236,41 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
+                                   
                                     <div class="col-md-6 mb-3">
-                                        <label for="zilla" class="form-label">Zilla</label>
-                                        <input type="text"
-                                            class="form-control p-2 @error('meta.zila') is-invalid @enderror"
-                                            value="{{ auth()->user()->shop && auth()->user()->shop->zilla ? auth()->user()->shop->zilla : old('meta.zilla') }}"
-                                            name="meta[zilla]" id="zilla" required>
-                                        @error('meta.zilla')
+                                        <label for="division" class="form-label">Division <span
+                                            class="text-danger">*</span></label>
+                                        <select class="form-control border" name="division" onchange="updateDropdown(this.value)" required>
+                                            <option value="">Select a Division</option>
+                                            <option value="Barishal" {{ auth()->user()->shop?->division == 'Barishal' ? 'selected' : '' }}>Barishal</option>
+                                            <option value="Chattogram" {{ auth()->user()->shop?->division == 'Chattogram' ? 'selected' : '' }}>Chattogram</option>
+                                            <option value="Dhaka" {{ auth()->user()->shop?->division == 'Dhaka' ? 'selected' : '' }}>Dhaka</option>
+                                            <option value="Khulna" {{ auth()->user()->shop?->division == 'Khulna' ? 'selected' : '' }}>Khulna</option>
+                                            <option value="Rajshahi" {{ auth()->user()->shop?->division == 'Rajshahi' ? 'selected' : '' }}>Rajshahi</option>
+                                            <option value="Rangpur" {{ auth()->user()->shop?->division == 'Rangpur' ? 'selected' : '' }}>Rangpur</option>
+                                            <option value="Mymensingh" {{ auth()->user()->shop?->division == 'Mymensingh' ? 'selected' : '' }}>Mymensingh</option>
+                                            <option value="Sylhet" {{ auth()->user()->shop?->division == 'Sylhet' ? 'selected' : '' }}>Sylhet</option>
+                                            
+                                        </select>
+                                        
+                                        @error('division')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="district" class="form-label">District <span
+                                            class="text-danger">*</span></label>
+                                        <select class="form-control border" id="district" name="district" disabled required>
+                                            <option value="">Select a division first</option>
+                                            @if(auth()->user()->shop && auth()->user()->shop->district)
+                                            <option value="{{auth()->user()->shop->district}}" selected>{{auth()->user()->shop->district}}</option>
+                                            @endif
+                                        </select>
+                                        @error('district')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -467,6 +494,48 @@
                 'descriptionCharCount'))
         </script>
 
+       <script>
+           const districts = {
+            Barishal: ["Barguna", "Barishal", "Bhola", "Jhalokathi", "Patuakhali", "Pirojpur"],
+            Chattogram: ["Bandarban", "Brahmanbaria", "Chandpur", "Chattogram", "Cox's Bazar", "Cumilla", "Feni",
+                "Khagrachari", "Lakshmipur", "Noakhali", "Rangamati"
+            ],
+            Dhaka: ["Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj",
+                "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"
+            ],
+            Khulna: ["Bagerhat", "Chuadanga", "Jashore", "Jhenaidah", "Khulna", "Kushtia", "Magura", "Meherpur",
+                "Narail", "Satkhira"
+            ],
+            Rajshahi: ["Bogura", "Joypurhat", "Naogaon", "Natore", "Nawabganj", "Pabna", "Rajshahi", "Sirajganj"],
+            Rangpur: ["Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", "Panchagarh", "Rangpur",
+                "Thakurgaon"
+            ],
+            Mymensingh: ["Jamalpur", "Mymensingh", "Netrokona", "Sherpur"],
+            Sylhet: ["Habiganj", "Moulvibazar", "Sunamganj", "Sylhet"]
+        };
+
+        function updateDropdown(division) {
+            const districtSelect = document.getElementById("district");
+            districtSelect.innerHTML = "";
+
+            if (division) {
+                districtSelect.disabled = false;
+
+                districts[division].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            } else {
+                districtSelect.disabled = true;
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "Select a division first";
+                districtSelect.appendChild(defaultOption);
+            }
+        }
+       </script>
         @livewireScripts
     </x-slot>
 
