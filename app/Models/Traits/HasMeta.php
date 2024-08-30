@@ -26,7 +26,7 @@ trait HasMeta
         try {
             // Update or create the meta
             $this->metas()->updateOrCreate(['column_name' => $key], ['column_value' => $value]);
-
+            
             // Clear the cache for the specific meta key
             Cache::forget($this->getMetaCacheKey($key));
 
@@ -84,9 +84,8 @@ trait HasMeta
                 return $this->metas()->where('column_name', $key)->value('column_value') ?? null;
             });
         }
-        return Cache::remember($this->getTable() . '_t_'.$this->id.'_id_'. $key, 100, function () use ($key) {
-            return parent::__get($key);
-        });
+
+        return parent::__get($key);
     }
 
     /**
