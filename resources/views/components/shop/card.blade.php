@@ -17,7 +17,7 @@
                 <h3 class="vendor-name" style="font-size: 18px; word-wrap:wrap;">
                     <a href="{{ route('store_front', $shop->slug) }}">{{ $shop->name }}</a>
                 </h3>
-                <span class="vendor-product-count">{{ $shop->products->count() }} Products</span>
+                <span class="vendor-product-count">{{ $shop->products_count }} Products</span>
             </div>
         </div>
     </div>
