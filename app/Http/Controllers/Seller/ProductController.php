@@ -15,14 +15,9 @@ class ProductController extends Controller
 {
     public function products()
     {
-        $query = Product::where('shop_id', Auth()->user()->shop->id)->whereNull('parent_id');
+        $products = Product::where('shop_id', Auth()->user()->shop->id)->whereNull('parent_id')->filter()->paginate(10);
 
-        if (request()->filled('search')) {
-
-            $query->where('short_description', 'LIKE', '%' . request()->search . '%');
-        };
-
-        $products = $query->paginate(20);
+  
         return view('auth.seller.product.index', compact('products'));
     }
     public function create()

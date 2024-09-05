@@ -264,7 +264,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="district" class="form-label">District <span
                                             class="text-danger">*</span></label>
-                                        <select class="form-control border" id="district" name="district" disabled required>
+                                        <select class="form-control border" id="district" name="district" required>
                                             <option value="">Select a division first</option>
                                             @if(auth()->user()->shop && auth()->user()->shop->district)
                                             <option value="{{auth()->user()->shop->district}}" selected>{{auth()->user()->shop->district}}</option>

@@ -14,7 +14,7 @@
     <form action="" method="get">
         <div class="row mt-2 justify-content-end me-3">
             <div class="input-group mb-3 col-md-6">
-                <input type="text" name="product_search" class="form-control" placeholder="Search product">
+                <input type="text" name="search" class="form-control" placeholder="Search product">
                 <div class="input-group-append">
                     <button type="submit" class="input-group-text h-100" id="basic-addon2">Search</button>
                 </div>
