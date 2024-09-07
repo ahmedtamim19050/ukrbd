@@ -75,14 +75,14 @@
 
                         <div class="row ">
                             <div class="col-md-4 col-12">
-                                <x-forms.input type="select" label="City *" wire:model="selectedCity" name="city" :options="$cities" :value="old('city')" />
+                                <x-forms.input type="select" label="City *" :disabled="count($cities) ? false : true" wire:model="selectedCity" name="city" :options="$cities" :value="old('city')" />
                             </div>
                             <div class="col-md-4 col-12">
-                                <x-forms.input type="select" label="Zone *" wire:model="selectedZone" name="zone" :options="$zones"  :value="old('zone')"/>
+                                <x-forms.input type="select" label="Zone *" :disabled="count($zones) ? false : true" wire:model="selectedZone" name="zone" :options="$zones"  :value="old('zone')"/>
 
                             </div>
                             <div class="col-md-4 col-12">
-                                <x-forms.input type="select" label="Area *" wire:model="selectedArea" name="area" :options="$areas"  :value="old('area')"/>
+                                <x-forms.input type="select" label="Area *" :disabled="count($areas) ? false : true" wire:model="selectedArea" name="area" :options="$areas"  :value="old('area')"/>
 
                             </div>
                         </div>
