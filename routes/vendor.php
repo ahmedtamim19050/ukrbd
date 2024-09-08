@@ -119,6 +119,7 @@ Route::group(
                 $order->status = 2;
                 $order->save();
             }
+            dd($response);
             $order->createMetas((array)$response);
             return redirect()->back()->with('success');
         })->name('order.pickup');
