@@ -110,7 +110,7 @@ Route::group(
                     "special_instruction" => $order->customer_note,
                     "item_quantity"       => $order->quantity, // item quantity
                     "item_weight"         => ($order->product->weight * $order->quantity) / 1000, // parcel weight
-                    "amount_to_collect"   => (string) $order->parent->payment_method == 'cod' ? $order->total : 0, // amount to collect
+                    "amount_to_collect"   => $order->parent->payment_method == 'cod' ? $order->total : 0, // amount to collect
                     "item_description"    => "" // product details
                 ]);
             $order->shipping_url = $response->consignment_id;
