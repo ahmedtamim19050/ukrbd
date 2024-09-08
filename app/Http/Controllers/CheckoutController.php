@@ -93,9 +93,9 @@ class CheckoutController extends Controller
             'total' => Sohoj::round_num($total),
             'quantity' => null,
             'vendor_total' => null,
-            'shipping_method'=>$request->shipping,
+            'shipping_method' => $request->shipping,
             'payment_method' => $request->payment_method,
-            'customer_note'=>$request->order_notes
+            'customer_note' => $request->order_notes
         ]);
         session(['guest_order_id' => $order->id]);
 
@@ -115,7 +115,7 @@ class CheckoutController extends Controller
                 "store_id" => $item->attributes['store_id'],
                 "item_type" => 2,
                 "delivery_type" => 48,
-                "item_weight" => $item->attributes['weight'] * $item->quantity,
+                "item_weight" =>  minValue($item->attributes['weight'], 0.1) * $item->quantity,
                 "recipient_city" => $shipping['city']['id'],
                 "recipient_zone" => $shipping['zone']['id']
             ]);

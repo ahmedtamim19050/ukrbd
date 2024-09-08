@@ -63,6 +63,7 @@
                         <div class="row">
                             <div class="col-md-6 col-12" wire:ignore>
 
+                                
                                 <x-forms.input type="text" label="Phone *" placeholder="eg: 017XXXXX431"
                                     name="phone" :value="old('phone',@auth()->user()->phone)" />
                             </div>
@@ -95,6 +96,7 @@
                             <div class="col-md-8">
                                 <x-forms.input type="text" label="Address *" wire:ignore
                                 placeholder="eg: Commerce College Rd, Savar, Dhaka" name="address" :value="old('address')" />
+                                <small>Atleast 10 character long</small>
                             </div>
                         </div>
                       

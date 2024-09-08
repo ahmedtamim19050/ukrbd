@@ -94,10 +94,20 @@ Route::group(
         Route::post('/widthraw-request', [TransactionController::class, 'widthrawRequest'])->name('widthraw.request');
         Route::get('order/{order}/ready-for-pickup', function (Order $order) {
 
+            $childs = $order->childs->filter(fn($order) => $order->shop_id == auth()->user()->shop->id);
+            $description = '';
+            foreach ($childs as $child) {
+
+                $description .= $child->product->name . ' X ' . $child->quantity . ' | ';
+            }
+
+            $item_weight = number_format($order->childs->map(fn($order) => minValue($order->product->weight, 0.1) * $order->quantity)->sum(), 2);
+            $qty = $order->childs->map(fn($order) => $order->quantity)->sum();
+            $total = $order->childs->map(fn($order) => $order->total)->sum();
 
             $response = PathaoCourier::order()
                 ->create([
-                    "store_id"            => $order->shop->shipping_method, // Find in store list,
+                    "store_id"            => auth()->user()->shop->shipping_method, // Find in store list,
                     "merchant_order_id"   => $order->id, // Unique order id
                     "recipient_name"      => $order->full_name, // Customer name
                     "recipient_phone"     => $order->phone, // Customer phone
@@ -108,13 +118,13 @@ Route::group(
                     "delivery_type"       => 48, // 48 for normal delivery or 12 for on demand delivery
                     "item_type"           => 2, // 1 for document,2 for parcel
                     "special_instruction" => $order->customer_note,
-                    "item_quantity"       => $order->quantity, // item quantity
-                    "item_weight"         => ($order->product->weight * $order->quantity) / 1000, // parcel weight
-                    "amount_to_collect"   => (int) $order->parent->payment_method == 'cod' ? $order->total : 0, // amount to collect
-                    "item_description"    => "" // product details
+                    "item_quantity"       => $qty, // item quantity
+                    "item_weight"         => $item_weight / 1000, // parcel weight
+                    "amount_to_collect"   =>  $order->payment_method == 'cod' ? (int) $total : 0, // amount to collect
+                    "item_description"    => $description // product details
                 ]);
             $order->shipping_url = $response->consignment_id;
-            $orders = $order->parent->childs;
+            $orders = $order->childs->filter(fn($order) => $order->shop_id == auth()->user()->shop->id);
             foreach ($orders as $key => $order) {
                 $order->status = 2;
                 $order->save();

@@ -17,6 +17,7 @@ use App\Models\ShopPolicy;
 use App\Models\User;
 use App\Models\Verification;
 use App\Rules\MatchOldPassword;
+use App\Widgets\Orders;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -99,10 +100,11 @@ class SellerPagesController extends Controller
     public function invoice(Request $request)
     {
 
-        $orders = json_decode(urldecode($request->input('data')), true);
-        $orders = collect($orders)->map(function ($order) {
-            return Order::find($order['id']);
-        });
+
+
+        $orders = Order::whereIn('id', json_decode($request->ids))->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
+
+        if (!$orders->count()) abort(403);
         return view('auth.seller.order.invoice', compact('orders'));
     }
     public function setting()
@@ -583,10 +585,9 @@ class SellerPagesController extends Controller
     }
     public function orderProducts(Request $request)
     {
-        $orders = json_decode(urldecode($request->input('data')), true);
-        $orders = collect($orders)->map(function ($order) {
-            return (object) $order;
-        });
+        $orders = Order::whereIn('id', json_decode($request->ids))->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
+
+        if (!$orders->count()) abort(403);
         return view('auth.seller.order.product_list', compact('orders'));
     }
 }

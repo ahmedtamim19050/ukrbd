@@ -90,7 +90,7 @@ class Checkout extends Component
                 "store_id" => $product->attributes['store_id'],
                 "item_type" => 2,
                 "delivery_type" => 48,
-                "item_weight" => $product->attributes['weight']  ? minValue($product->attributes['weight'], 0.1) : 0.5,
+                "item_weight" => ($product->attributes['weight']  ? minValue($product->attributes['weight'], 0.1) : 0.5) * $product->quantity,
                 "recipient_city" => explode('-', $this->selectedCity)[0],
                 "recipient_zone" => explode('-', $this->selectedZone)[0]
             ]);
