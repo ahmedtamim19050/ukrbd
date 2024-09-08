@@ -108,6 +108,7 @@
                                 <th scope="col">Adress</th>
                                 <th scope="col">Items</th>
                                 <th scope="col">Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -125,6 +126,8 @@
                                     </td>
                                     <td>{{ $order->count() }}</td>
                                     <td>
+                                        <div class="d-flex">
+                                  
                                         <a class="btn btn-success btn-sm p-2 pt-0 m-1"
                                             href="{{ route('vendor.order.products', ['data' => urlencode(json_encode($order))]) }}">
                                             <i class="fas fa-eye"></i> View
@@ -134,17 +137,23 @@
                                                 return $item->status == 1;
                                             });
                                         @endphp
-                                        @if ($allOrdersStatusOne)
-                                            <a href="{{ route('vendor.order.pickup', $order->first()->id) }}"
-                                                class="btn btn-warning btn-sm p-2 pt-0 m-1">
-                                                Ready for pickup <i class="fa fa-truck"></i>
-                                            </a>
-                                        @endif
+
+
 
                                         <a href="{{ route('vendor.invoice', ['data' => urlencode(json_encode($order))]) }}"
                                             class="btn btn-info btn-sm p-2 m-1 pt-0">
                                             Invoice
                                         </a>
+
+                                     
+                                                  
+                                    </div>
+                                    @if ($allOrdersStatusOne)
+                                    <a style="font-size: 12px" href="{{ route('vendor.order.pickup', $order->where('shop_id', auth()->user()->shop->id)->first()->id) }}"
+                                        class="btn btn-warning btn-sm p-2 pt-0 m-1">
+                                        Ready for pickup 
+                                    </a>
+                                @endif
                                     </td>
 
 

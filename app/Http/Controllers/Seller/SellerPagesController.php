@@ -101,7 +101,7 @@ class SellerPagesController extends Controller
 
         $orders = json_decode(urldecode($request->input('data')), true);
         $orders = collect($orders)->map(function ($order) {
-            return (object) $order;
+            return Order::find($order['id']);
         });
         return view('auth.seller.order.invoice', compact('orders'));
     }
@@ -126,7 +126,7 @@ class SellerPagesController extends Controller
     public function shopStore(Request $request)
     {
 
-     
+
         $request->validate([
             'name' => ['required', 'max:40'],
             'logo' => ['nullable'],

@@ -3,7 +3,7 @@
         <div class="ec-pro-image-outer">
             <div class="ec-pro-image">
                 <a href="{{ $product->path() }}" class="image">
-                    <img class="main-image" src="{{ Storage::url($product->image) }}" alt="Product" />
+                    <img  class="main-image" src="{{ Storage::url($product->image) }}" alt="Product" />
                     <img class="hover-image" src="{{ Storage::url($product->image) }}" alt="Product" />
                 </a>
                 <div class="ec-pro-actions">
