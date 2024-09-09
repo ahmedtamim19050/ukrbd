@@ -22,7 +22,7 @@
         <!-- End of slider section -->
 
         <!-- Features section -->
-        <x-pages.home.features />
+        {{-- <x-pages.home.features /> --}}
         <!-- End of features section -->
 
         @if (false)
