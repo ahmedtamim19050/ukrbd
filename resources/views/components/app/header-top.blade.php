@@ -171,19 +171,31 @@
                 </div>
                 <!-- End of Dropdown Box -->
             </div>
+            <div style="position:relative">
 
-            <select class="form-control form-control-sm" id="division-select">
-                <option value="Bangladesh" >Bangladesh</option>
-                <option value="Barishal" {{ session()->get('division') == 'Barishal' ? 'selected' : '' }}>Barishal</option>
-                <option value="Chattogram" {{ session()->get('division') == 'Chattogram' ? 'selected' : '' }}>Chattogram</option>
-                <option value="Dhaka" {{ session()->get('division') == 'Dhaka' ? 'selected' : '' }}>Dhaka</option>
-                <option value="Khulna" {{ session()->get('division') == 'Khulna' ? 'selected' : '' }}>Khulna</option>
-                <option value="Rajshahi" {{ session()->get('division') == 'Rajshahi' ? 'selected' : '' }}>Rajshahi</option>
-                <option value="Rangpur" {{ session()->get('division') == 'Rangpur' ? 'selected' : '' }}>Rangpur</option>
-                <option value="Mymensingh" {{ session()->get('division') == 'Mymensingh' ? 'selected' : '' }}>Mymensingh</option>
-                <option value="Sylhet" {{ session()->get('division') == 'Sylhet' ? 'selected' : '' }}>Sylhet</option>
-            </select>
+                <select class="form-control form-control-sm" id="division-select">
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Barishal" {{ session()->get('division') == 'Barishal' ? 'selected' : '' }}>Barishal
+                    </option>
+                    <option value="Chattogram" {{ session()->get('division') == 'Chattogram' ? 'selected' : '' }}>
+                        Chattogram</option>
+                    <option value="Dhaka" {{ session()->get('division') == 'Dhaka' ? 'selected' : '' }}>Dhaka
+                    </option>
+                    <option value="Khulna" {{ session()->get('division') == 'Khulna' ? 'selected' : '' }}>Khulna
+                    </option>
+                    <option value="Rajshahi" {{ session()->get('division') == 'Rajshahi' ? 'selected' : '' }}>Rajshahi
+                    </option>
+                    <option value="Rangpur" {{ session()->get('division') == 'Rangpur' ? 'selected' : '' }}>Rangpur
+                    </option>
+                    <option value="Mymensingh" {{ session()->get('division') == 'Mymensingh' ? 'selected' : '' }}>
+                        Mymensingh</option>
+                    <option value="Sylhet" {{ session()->get('division') == 'Sylhet' ? 'selected' : '' }}>Sylhet
+                    </option>
+                </select>
+                <i style="font-size: 20px;position:absolute;top:10px;left:12px" class="w-icon-map-marker">
 
+                </i>
+            </div>
         </div>
     </div>
 </div>
@@ -192,6 +204,4 @@
         const cartDropdown = document.querySelector('.cart-dropdown');
         cartDropdown.classList.toggle('opened');
     }
-
-
 </script>

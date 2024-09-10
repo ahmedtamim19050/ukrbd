@@ -52,6 +52,13 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
+        #division-select{
+            border: none;
+            font-size: 16px;
+            color: #000;
+            font-weight: 600;
+            padding-left: 40px !important;
+        }
         /* Dropdown button */
         .dropdown .wishlist.label-down.link.d-xs-show {
             border: none;
