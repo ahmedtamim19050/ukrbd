@@ -725,7 +725,6 @@
                     },
                     success: function(response) {
                         // Handle the response if needed
-                        alert('Division selected: ' + selectedDivision);
                         window.location.reload(); 
                     },
                     error: function(xhr, status, error) {
