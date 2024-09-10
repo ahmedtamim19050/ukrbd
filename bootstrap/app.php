@@ -52,4 +52,13 @@ $app->singleton(
 |
 */
 
+function minValue($value, $min)
+{
+
+    if ((float) $value < $min) {
+        return $min;
+    }
+    return $value;
+}
+
 return $app;

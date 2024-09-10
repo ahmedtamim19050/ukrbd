@@ -1,8 +1,9 @@
 <div class="swiper-slide product-wrap">
     <div class="product text-center">
         <figure class="product-media">
-            <a href="{{ route('product_details',$product->slug) }}">
-                <img src="{{asset('placeholder.jpg')}}" data-src="{{ Voyager::image($product->image) }}" alt="Product" width="300" height="338" loading="lazy">
+            <a href="{{ route('product_details', $product->slug) }}">
+                <img src="{{ asset('placeholder.jpg') }}" data-src="{{ Voyager::image($product->image) }}" alt="Product"
+                    style="height: 280px;width:280px;object-fit:contain;" loading="lazy">
             </a>
             <div class="product-action-vertical">
                 <form class="addToCartForm_{{ $product->id }}">
@@ -10,12 +11,12 @@
                     <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
                     <button class="btn-product-icon btn-cart w-icon-cart cart-store add-to-cart-btn"
-                    style="cursor: pointer" data-product-id="{{ $product->id }}" title="Add to cart"
-                    onclick="setTimeout(function() { location.reload(); }, 500);">
-            </button>
-            
-            
-            
+                        style="cursor: pointer" data-product-id="{{ $product->id }}" title="Add to cart"
+                        onclick="setTimeout(function() { location.reload(); }, 500);">
+                    </button>
+
+
+
                 </form>
                 <a href="javascript:void(0)" onclick="wishlist({{ $product->id }})"
                     class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
@@ -26,7 +27,7 @@
             </div>
         </figure>
         <div class="product-details">
-            <h4 class="product-name"><a href="{{ route('product_details',$product->slug) }}">{{ $product->name }}</a>
+            <h4 class="product-name"><a href="{{ route('product_details', $product->slug) }}">{{ $product->name }}</a>
             </h4>
             {{-- <div class="ratings-container">
                 <div class="ratings-full">
@@ -41,8 +42,8 @@
                     data-size="sm">
             </div>
             <div class="product-price">
-                <a href="{{ route('product_details',$product->slug) }}">
-                    <ins class="new-price">{{ Sohoj::price( $product->sale_price ?? $product->price ) }}</ins>
+                <a href="{{ route('product_details', $product->slug) }}">
+                    <ins class="new-price">{{ Sohoj::price($product->sale_price ?? $product->price) }}</ins>
                     @if ($product->sale_price)
                         <del class="old-price">{{ Sohoj::price($product->sale_price) }}</del>
                     @endif

@@ -63,6 +63,7 @@
                         <div class="row">
                             <div class="col-md-6 col-12" wire:ignore>
 
+                                
                                 <x-forms.input type="text" label="Phone *" placeholder="eg: 017XXXXX431"
                                     name="phone" :value="old('phone',@auth()->user()->phone)" />
                             </div>
@@ -75,14 +76,14 @@
 
                         <div class="row ">
                             <div class="col-md-4 col-12">
-                                <x-forms.input type="select" label="City *" wire:model="selectedCity" name="city" :options="$cities" :value="old('city')" />
+                                <x-forms.input type="select" label="City *" :disabled="count($cities) ? false : true" wire:model="selectedCity" name="city" :options="$cities" :value="old('city')" />
                             </div>
                             <div class="col-md-4 col-12">
-                                <x-forms.input type="select" label="Zone *" wire:model="selectedZone" name="zone" :options="$zones"  :value="old('zone')"/>
+                                <x-forms.input type="select" label="Zone *" :disabled="count($zones) ? false : true" wire:model="selectedZone" name="zone" :options="$zones"  :value="old('zone')"/>
 
                             </div>
                             <div class="col-md-4 col-12">
-                                <x-forms.input type="select" label="Area *" wire:model="selectedArea" name="area" :options="$areas"  :value="old('area')"/>
+                                <x-forms.input type="select" label="Area *" :disabled="count($areas) ? false : true" wire:model="selectedArea" name="area" :options="$areas"  :value="old('area')"/>
 
                             </div>
                         </div>
@@ -95,12 +96,13 @@
                             <div class="col-md-8">
                                 <x-forms.input type="text" label="Address *" wire:ignore
                                 placeholder="eg: Commerce College Rd, Savar, Dhaka" name="address" :value="old('address')" />
+                                <small>Atleast 10 character long</small>
                             </div>
                         </div>
                       
                         <div class="form-group mt-3">
                             <label for="order-notes">Order notes (optional)</label>
-                            <textarea wire:ignore class="form-control mb-0" id="order-notes" name="order-notes" cols="30" rows="4"
+                            <textarea wire:ignore class="form-control mb-0" id="order-notes" name="order_notes" cols="30" rows="4"
                                 placeholder="Notes about your order, e.g special notes for delivery"></textarea>
                         </div>
                     </div>
@@ -189,12 +191,12 @@
 
                                 <div class="payment-methods" id="payment_method">
                                     <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
-                                     <div class="form-check">
+                                     {{-- <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_method" value="card" id="payment_method_card" checked />
                                         <label class="form-check-label" for="payment_method_card"> Card / Mobile Banking / Wallet </label>
-                                     </div>
+                                     </div> --}}
                                      <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" />
+                                        <input checked class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" />
                                         <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
                                      </div>
                                      

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Chargeable;
+use App\Models\Traits\HasMeta;
 use Carbon\Carbon;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -11,8 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory, Chargeable;
+    use HasFactory, Chargeable,HasMeta;
 
+
+    protected $meta_attributes = [
+        'consignment_id',
+        'merchant_order_id',
+        'order_status',
+        'delivery_fee',
+    ];
+    protected $casts = ['created_at'=>'datetime'];
     protected $guarded = [];
     public function shop()
     {
