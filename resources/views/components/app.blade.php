@@ -703,4 +703,30 @@
     @if (session()->has('error'))
         <x-alert.error />
     @endif
+
+    <script>
+            $(document).ready(function() {
+        $('#division-select').change(function() {
+            var selectedDivision = $(this).val();
+
+            if (selectedDivision) {
+                $.ajax({
+                    url: '{{ url('select/division') }}', // The route to hit
+                    method: 'GET', // You could also use POST if needed
+                    data: {
+                        division: selectedDivision,
+                    },
+                    success: function(response) {
+                        // Handle the response if needed
+                        alert('Division selected: ' + selectedDivision);
+                        window.location.reload(); 
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        });
+    });
+    </script>
 </body>

@@ -193,6 +193,7 @@ Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
         Route::post('ipn', 'ipn')->name('ipn');
     });
 });
+Route::get('select/division', [PageController::class, 'selectDivision'])->name('select.division');
 
 // Route::get('/test-email', function () {
 //     $pathaoData = [

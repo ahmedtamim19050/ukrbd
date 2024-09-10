@@ -179,5 +179,16 @@ class Product extends Model
         static::addGlobalScope('age', function (Builder $builder) {
             $builder->whereHas('shop', fn ($query) => $query->complete());
         });
+
+        static::addGlobalScope('division', function (Builder $builder) {
+            $division = session()->get('division');
+            if ($division && $division !=='Bangladesh') {
+                $builder->whereHas('shop', function ($q) use($division) {
+                    $q->where('division',$division);
+                });
+            }
+        });
     }
+
+
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use TCG\Voyager\Facades\Voyager;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class Shop extends Model
 {
@@ -180,6 +181,18 @@ class Shop extends Model
     public function earnings()
     {
         return $this->hasMany(Earning::class, 'shop_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('division', function (Builder $builder) {
+            $division = session()->get('division');
+            if ($division && $division !=='Bangladesh') {
+                $builder->where('division', $division);
+
+            }
+        });
     }
 
 }

@@ -1,4 +1,4 @@
-<div class="intro-wrapper">
+<div class="">
     <div class="row">
         <div class="col-md-12">
             <div class="swiper-container swiper-theme animation-slider pg-inner slider-image"

@@ -7,7 +7,7 @@
     <div class="container">
         <div class="inner-wrap">
             <div class="header-left">
-                <div class="dropdown category-dropdown @if (url('/') == url()->current()) show-dropdown @endif"
+                <div class="dropdown category-dropdown "
                     data-visible="false">
                     <a href="#" class="text-white category-toggle" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories"

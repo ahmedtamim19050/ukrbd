@@ -1,17 +1,16 @@
 <style>
     .w-icon-cart {
-    font-size: 24px; 
-    width: 24px;     
-    height: 24px;  
-    padding: 5px;   
-}
-.w-icon-cart .cart-count {
-    font-size: 14px;
-    padding: 2px; 
-}
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        padding: 5px;
+    }
 
-
-    </style>
+    .w-icon-cart .cart-count {
+        font-size: 14px;
+        padding: 2px;
+    }
+</style>
 <div class="header-middle">
     <div class="container">
         <div class="header-left mr-md-4">
@@ -115,11 +114,10 @@
                 <span class="wishlist-label d-lg-show">Wishlist</span>
             </a>
 
-            <div
-                class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
+            <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                 <div class="cart-overlay"></div>
                 <div class="label-down link" style="text-decoration:none; " onclick="toggleCart()">
-                    <i class="w-icon-cart" >
+                    <i class="w-icon-cart">
                         <span class="cart-count" id="cartQty2">0</span>
                     </i>
                     <span class="cart-label"style="margin-right:-9px; margin-top:8px;">Cart</span>
@@ -128,7 +126,8 @@
                     <div>
                         <div class="d-flex justify-content-between">
                             <span style="font-size: 18px">Shopping Cart</span>
-                            <a href="#" class="" style="font-size: 15px" onclick="toggleCart()">Close<i class="w-icon-long-arrow-right"></i></a>
+                            <a href="#" class="" style="font-size: 15px" onclick="toggleCart()">Close<i
+                                    class="w-icon-long-arrow-right"></i></a>
                         </div>
 
                         <div class="products">
@@ -172,14 +171,27 @@
                 </div>
                 <!-- End of Dropdown Box -->
             </div>
+
+            <select class="form-control form-control-sm" id="division-select">
+                <option value="Bangladesh" >Bangladesh</option>
+                <option value="Barishal" {{ session()->get('division') == 'Barishal' ? 'selected' : '' }}>Barishal</option>
+                <option value="Chattogram" {{ session()->get('division') == 'Chattogram' ? 'selected' : '' }}>Chattogram</option>
+                <option value="Dhaka" {{ session()->get('division') == 'Dhaka' ? 'selected' : '' }}>Dhaka</option>
+                <option value="Khulna" {{ session()->get('division') == 'Khulna' ? 'selected' : '' }}>Khulna</option>
+                <option value="Rajshahi" {{ session()->get('division') == 'Rajshahi' ? 'selected' : '' }}>Rajshahi</option>
+                <option value="Rangpur" {{ session()->get('division') == 'Rangpur' ? 'selected' : '' }}>Rangpur</option>
+                <option value="Mymensingh" {{ session()->get('division') == 'Mymensingh' ? 'selected' : '' }}>Mymensingh</option>
+                <option value="Sylhet" {{ session()->get('division') == 'Sylhet' ? 'selected' : '' }}>Sylhet</option>
+            </select>
+
         </div>
     </div>
 </div>
 <script>
-function toggleCart() {
-    const cartDropdown = document.querySelector('.cart-dropdown');
-    cartDropdown.classList.toggle('opened');
-}
+    function toggleCart() {
+        const cartDropdown = document.querySelector('.cart-dropdown');
+        cartDropdown.classList.toggle('opened');
+    }
+
 
 </script>
-
