@@ -190,7 +190,7 @@ class SellerPagesController extends Controller
         }
 
         $shop->createMetas($request->meta);
-        $pathao = $this->pathao($request);
+        // $pathao = $this->pathao($request);
 
         $shop->update([
             'slug' =>  $slug,
@@ -198,11 +198,11 @@ class SellerPagesController extends Controller
             'is_shipping_enabled' => 1,
             'store_name' => $pathao->store_name
         ]);
-        Mail::send('emails.pathaoToAdmin', ['datas' => $request->pathao], function ($message) {
-            $email = setting('site.email');
+        // Mail::send('emails.pathaoToAdmin', ['datas' => $request->pathao], function ($message) {
+        //     $email = setting('site.email');
 
-            $message->to($email)->subject('New Shop Pathao Account Request');
-        });
+        //     $message->to($email)->subject('New Shop Pathao Account Request');
+        // });
 
         return back()->with('success_msg', 'Success! Your shop has been updated/created');
     }
@@ -570,16 +570,16 @@ class SellerPagesController extends Controller
 
     private function pathao($request)
     {
-        $pathao = PathaoCourier::store()->create([
-            "name"              => $request->store_name,
-            "contact_name"      => $request->pathao['contact_name'],
-            "contact_number"    => $request->pathao['contact_number'],
-            "address"           => $request->pathao['address'],
-            "secondary_contact" => $request->pathao['secondary_contact_number'],
-            "city_id"           => $request->pathao['city'],
-            "zone_id"           => $request->pathao['zone'],
-            "area_id"           => $request->pathao['area'],
-        ]);
+        // $pathao = PathaoCourier::store()->create([
+        //     "name"              => $request->store_name,
+        //     "contact_name"      => $request->pathao['contact_name'],
+        //     "contact_number"    => $request->pathao['contact_number'],
+        //     "address"           => $request->pathao['address'],
+        //     "secondary_contact" => $request->pathao['secondary_contact_number'],
+        //     "city_id"           => $request->pathao['city'],
+        //     "zone_id"           => $request->pathao['zone'],
+        //     "area_id"           => $request->pathao['area'],
+        // ]);
 
         return $pathao;
     }
