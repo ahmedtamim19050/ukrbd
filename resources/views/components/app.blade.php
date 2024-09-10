@@ -120,7 +120,8 @@
             color: #007cc;
         }
         .slider-image{
-            aspect-ratio: 4/2 !important;
+            object-fit: cover;
+            aspect-ratio: 6/2 !important;
         }
     </style>
     {{ $css ?? null }}
