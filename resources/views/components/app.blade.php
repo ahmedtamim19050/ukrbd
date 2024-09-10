@@ -1,8 +1,8 @@
 @php
 
     $categories = Cache::remember('main_categories', 100, function () {
-    return App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
-});
+        return App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+    });
 
 @endphp
 <!DOCTYPE html>
@@ -52,13 +52,14 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
-        #division-select{
+        #division-select {
             border: none;
             font-size: 16px;
             color: #000;
             font-weight: 600;
             padding-left: 40px !important;
         }
+
         /* Dropdown button */
         .dropdown .wishlist.label-down.link.d-xs-show {
             border: none;
@@ -119,7 +120,8 @@
             background-color: #f8f9fa;
             color: #007cc;
         }
-        .slider-image{
+
+        .slider-image {
             object-fit: cover;
             aspect-ratio: 6/2 !important;
         }
@@ -264,16 +266,16 @@
             <i class="w-icon-category"></i>
             <p>E-Shops</p>
         </a>
-        <a href="{{auth()->check() ? route('user.dashboard') : route('login')}}" class="sticky-link">
+        <a href="{{ auth()->check() ? route('user.dashboard') : route('login') }}" class="sticky-link">
             <i class="w-icon-account"></i>
             <p>Account</p>
         </a>
         {{-- <div class="cart-dropdown dir-up"> --}}
-            <a href="{{route('cart')}}" class="sticky-link">
-                <i class="w-icon-cart"></i>
-                <p>Cart</p>
-            </a>
-            {{-- <div class="dropdown-box">
+        <a href="{{ route('cart') }}" class="sticky-link">
+            <i class="w-icon-cart"></i>
+            <p>Cart</p>
+        </a>
+        {{-- <div class="dropdown-box">
                 <div class="products">
                     <div class="product product-cart">
                         <div class="product-detail">
@@ -330,7 +332,7 @@
                     <a href="#" class="btn btn-primary  btn-rounded">Checkout</a>
                 </div>
             </div> --}}
-            <!-- End of Dropdown Box -->
+        <!-- End of Dropdown Box -->
         {{-- </div> --}}
 
         {{-- <div class="header-search hs-toggle dir-up">
@@ -442,16 +444,16 @@
                                 @endif
                             </ul>
                         </li>
-                        
+
                     </ul>
                 </div>
-             
+
             </div>
         </div>
     </div>
     <!-- End of Mobile Menu -->
 
-  
+
 
     <!-- Start of Quick View -->
     <div class="product product-single product-popup">
@@ -599,7 +601,7 @@
                 }
             });
 
-          
+
 
         });
 
@@ -713,27 +715,27 @@
     @endif
 
     <script>
-            $(document).ready(function() {
-        $('#division-select').change(function() {
-            var selectedDivision = $(this).val();
+        $(document).ready(function() {
+            $('#division-select').change(function() {
+                var selectedDivision = $(this).val();
 
-            if (selectedDivision) {
-                $.ajax({
-                    url: '{{ url('select/division') }}', // The route to hit
-                    method: 'GET', // You could also use POST if needed
-                    data: {
-                        division: selectedDivision,
-                    },
-                    success: function(response) {
-                        // Handle the response if needed
-                        window.location.reload(); 
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error:', error);
-                    }
-                });
-            }
+                if (selectedDivision) {
+                    $.ajax({
+                        url: '{{ url('select/division') }}', // The route to hit
+                        method: 'GET', // You could also use POST if needed
+                        data: {
+                            division: selectedDivision,
+                        },
+                        success: function(response) {
+                            // Handle the response if needed
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error:', error);
+                        }
+                    });
+                }
+            });
         });
-    });
     </script>
 </body>
