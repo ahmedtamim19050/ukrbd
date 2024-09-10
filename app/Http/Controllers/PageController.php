@@ -23,7 +23,7 @@ class PageController extends Controller
     public function home()
     {
         $division = session()->get('division', 'Bangladesh');
-        $bestSellingCategories = Cache::remember($division.'_best_selling_categories', 100, function () {
+        $bestSellingCategories = Cache::remember($division . '_best_selling_categories', 100, function () {
             // Step 1: Get the categories with all products
             $categories = Prodcat::has('products')
                 ->where('parent_id', null)
@@ -37,43 +37,41 @@ class PageController extends Controller
             });
 
             return $categories;
-        });
+        });;
 
-      ;
-
-        $latest_products = Cache::remember($division.'_latest_products', 100, function () {
+        $latest_products = Cache::remember($division . '_latest_products', 100, function () {
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
                 })->latest()->limit(24)->whereNull('parent_id')->limit(11)->get();
         });
 
-        $bestsaleproducts = Cache::remember($division.'_best_sale_products', 100, function () {
+        $bestsaleproducts = Cache::remember($division . '_best_sale_products', 100, function () {
             return Product::with('ratings')->orderBy('total_sale', 'desc')
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
                 })->latest()->limit(16)->whereNull('parent_id')->get();
         });
 
-        $featuredproducts = Cache::remember($division.'_featured_products', 100, function () {
+        $featuredproducts = Cache::remember($division . '_featured_products', 100, function () {
             return Product::with('ratings')->where('featured', '1')
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
                 })->latest()->limit(16)->whereNull('parent_id')->get();
         });
 
-        $latest_shops = Cache::remember($division.'_latest_shops', 100, function () {
+        $latest_shops = Cache::remember($division . '_latest_shops', 100, function () {
             return Shop::where("status", 1)->latest()->limit(8)->select(['id', 'slug', 'banner', 'name', 'logo'])->withCount('products')->get();
         });
-        $clients = Cache::remember($division.'_clients', 100, function () {
+        $clients = Cache::remember($division . '_clients', 100, function () {
             return Shop::where("status", 1)->pluck('logo', 'id')->toArray();
         });
 
-        $prodcats = Cache::remember($division.'_product_categories', 100, function () {
+        $prodcats = Cache::remember($division . '_product_categories', 100, function () {
             return Prodcat::with(['childrens', 'products'])->has('products')->where('parent_id', null)->limit(11)->get();
         });
 
-        $sliders = Cache::remember($division.'_sliders', 100, function () {
+        $sliders = Cache::remember($division . '_sliders', 100, function () {
             return Slider::latest()->get();
         });
 
@@ -95,7 +93,7 @@ class PageController extends Controller
         })->filter()->paginate(12);
 
 
-        $categories = Prodcat::has('products')->with('products')->whereNull('parent_id')->latest()->get();
+        $categories = Prodcat::has('products')->withCount('products')->whereNull('parent_id')->orderBy('name', 'asc')->get();
 
         $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
             $query->whereNull('parent_id');
@@ -350,7 +348,7 @@ class PageController extends Controller
             'division' => 'required|string'
         ]);
 
-        Session::put('division',$request->division);
+        Session::put('division', $request->division);
         return response()->json(['success' => true]);
     }
 }

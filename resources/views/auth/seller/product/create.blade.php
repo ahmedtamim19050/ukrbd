@@ -136,8 +136,9 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Select Categories (optinal)</label>
-                                            <select class="form-control category @error('categories') is-invalid @enderror " multiple
-                                                data-placeholder="Select Categories" name="categories[]">
+                                            <select
+                                                class="form-control category @error('categories') is-invalid @enderror "
+                                                multiple data-placeholder="Select Categories" name="categories[]">
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}">{{ $prodcat->name }}</option>
                                                 @endforeach
@@ -154,6 +155,20 @@
                                                 id="short_description">{{ old('short_description') }}</textarea>
 
                                             @error('short_description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <label class="form-label">Search Key*</label>
+                                            <textarea class="form-control @error('search_key') is-invalid @enderror" name="search_key"
+                                                placeholder="Eg: Soap,Lux soap,saban ">{{ old('search_key') }}</textarea>
+                                            <small>
+                                                Enter search keywords here which will help customer to find your
+                                                proudcts
+                                            </small>
+                                            @error('search_key')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -280,7 +295,6 @@
             <script src="{{ asset('seller-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
             <script src="{{ asset('seller-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
             <script src="{{ asset('seller-assets/js/vendor/bootstrap-tagsinput.js') }}"></script>
-
         @endpush
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}

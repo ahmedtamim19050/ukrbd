@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::where('shop_id', Auth()->user()->shop->id)->whereNull('parent_id')->filter()->paginate(10);
 
-  
+
         return view('auth.seller.product.index', compact('products'));
     }
     public function create()
@@ -54,8 +54,7 @@ class ProductController extends Controller
                 "color" => "nullable",
                 "is_variable_product" => "nullable",
                 "shipping_cost" => "nullable",
-
-
+                "search_key" => "required|max:255",
             ]
         );
         if ($request->sale_price) {
@@ -121,6 +120,7 @@ class ProductController extends Controller
                 "images.*"      => "mimes:jpg,jpeg,png",
                 "dimensions"    => "nullable",
                 "weight"        => "required|integer",
+                "search_key"        => "required|max:255",
 
 
             ]
@@ -173,6 +173,7 @@ class ProductController extends Controller
             'is_offer' => $request->offer,
             'shipping_cost' => $request->shipping_cost,
             'is_variable_product' => $request->is_variable_product,
+            'search_key' => $request->search_key,
 
         ]);
 

@@ -27,7 +27,7 @@
                                             <div class="avatar-edit">
                                                 <input type='file' id="imageUpload" name="image"
                                                     class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                             </div>
                                             <div class="avatar-preview ec-preview">
                                                 <div class="imagePreview ec-div-preview">
@@ -42,12 +42,13 @@
                                                 <div class="thumb-edit">
                                                     <input type='file' id="thumbUpload06" name="newimages"
                                                         class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                    <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                    <label for="imageUpload"> <i class="fas fa-edit"></i></label>
                                                 </div>
                                                 <div class="thumb-preview ec-preview">
                                                     <div class="image-thumb-preview">
                                                         <img class="image-thumb-preview ec-image-preview"
-                                                            src="{{ asset('seller-assets/images/vender-upload-preview.jpg') }}" alt="edit" />
+                                                            src="{{ asset('seller-assets/images/vender-upload-preview.jpg') }}"
+                                                            alt="edit" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,7 +60,8 @@
                                                             <input type='file' id="thumbUpload02"
                                                                 name="images[{{ $key }}]"
                                                                 class="ec-image-upload" accept=".png, .jpg, .jpeg" />
-                                                            <label for="imageUpload">  <i class="fas fa-edit"></i></label>
+                                                            <label for="imageUpload"> <i
+                                                                    class="fas fa-edit"></i></label>
                                                         </div>
                                                         <div class="thumb-preview ec-preview">
                                                             <div class="image-thumb-preview">
@@ -93,14 +95,14 @@
                                         </div>
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Select Categories</label>
-                                            <select 
-                                                class="form-control category @error('categories') is-invalid @enderror" name="categories[]" multiple>
+                                            <select
+                                                class="form-control category @error('categories') is-invalid @enderror"
+                                                name="categories[]" multiple>
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}"
                                                         {{ $product->prodcats->contains($prodcat->id) ? 'selected' : '' }}>
                                                         {{ $prodcat->name }}
                                                     </option>
-                                                  
                                                 @endforeach
                                             </select>
 
@@ -120,7 +122,20 @@
                                                 </span>
                                             @enderror
                                         </div>
-
+                                        <div class="col-md-12 mt-2">
+                                            <label class="form-label">Search Key*</label>
+                                            <textarea class="form-control @error('search_key') is-invalid @enderror" name="search_key"
+                                                placeholder="Eg: Soap,Lux soap,saban ">{{ old('search_key', $product->search_key) }}</textarea>
+                                            <small>
+                                                Enter search keywords here which will help customer to find your
+                                                proudcts
+                                            </small>
+                                            @error('search_key')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Price </label>
                                             <input type="text" value="{{ $product->price }}" name="price"
@@ -134,16 +149,18 @@
                                             @enderror
                                         </div>
                                         <div class="col-md-6 mt-2">
-                                        <label class="form-label">saleprice </label>
-                                        <input type="text" value="{{ $product->sale_price }}" name="sale_price"
-                                            class="form-control @error('sale_price') is-invalid @enderror" id="salePrice">
-                                        <p class="text-danger" id=""></p>
-                                        @error('sale_price')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                            <label class="form-label">saleprice </label>
+                                            <input type="text" value="{{ $product->sale_price }}"
+                                                name="sale_price"
+                                                class="form-control @error('sale_price') is-invalid @enderror"
+                                                id="salePrice">
+                                            <p class="text-danger" id=""></p>
+                                            @error('sale_price')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Quantity</label>
                                             <input type="text" value="{{ $product->quantity }}" name="quantity"
@@ -183,7 +200,7 @@
                                             <label class="form-label">Product weight</label>
                                             <input type="text" value="{{ $product->weight }}"
                                                 class="form-control @error('weight') is-invalid @enderror"
-                                                placeholder="179 grams" name="weight" required/>
+                                                placeholder="179 grams" name="weight" required />
                                             @error('weight')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -236,11 +253,12 @@
                                                 Allow make offer
                                             </label>
                                         </div> --}}
-                                 
-                                        
+
+
                                         <div class="col-md-6 d-flex mt-4">
                                             <input type="checkbox" id="is_variable_product" style="width: 25px;"
-                                                value="1" name="is_variable_product" {{$product->is_variable_product ? 'checked' : ''}}>
+                                                value="1" name="is_variable_product"
+                                                {{ $product->is_variable_product ? 'checked' : '' }}>
                                             <label for="offer" class="mt-3 ms-3">
                                                 Variable Product (optinal)
                                             </label>
@@ -395,7 +413,7 @@
                                                                             placeholder="stock" id="variable_stock"
                                                                             value="{{ $variable_product->quantity }}">
                                                                     </div>
-                                                                    
+
                                                                     <div class="form-group  col-md-4 ">
                                                                         <label class="control-label"
                                                                             for="variable_sku">Sku</label>
@@ -557,7 +575,7 @@
                 height: 200
             });
         </script>
-                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             $(document).ready(function() {
                 $('.category').select2();

@@ -69,7 +69,11 @@ class Product extends Model
             ->when(request()->has('search'), function ($q) {
                 return $q->where(function ($query) {
                     $query->where('name', 'LIKE', '%' . request()->search . '%')
-                        ->orWhere('short_description', 'LIKE', '%' . request()->search . '%');
+                        ->orWhere('short_description', 'LIKE', '%' . request()->search . '%')
+                        ->orWhere('search_key', 'LIKE', '%' . request()->search . '%')
+                        ->orWhereHas('prodcats', function ($query) {
+                            return $query->where('name', request()->search);
+                        });
                 });
             })
             ->when(request()->has('featured'), function ($q) {
@@ -183,6 +187,7 @@ class Product extends Model
 
         if (Route::is('homepage') && Route::is('shops') && Route::is('vendors')) {
 
+            
             static::addGlobalScope('division', function (Builder $builder) {
                 $division = session()->get('division');
                 if ($division && $division !== 'Bangladesh') {
