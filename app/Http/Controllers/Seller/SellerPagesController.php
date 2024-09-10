@@ -194,9 +194,9 @@ class SellerPagesController extends Controller
 
         $shop->update([
             'slug' =>  $slug,
-            'shipping_method' => 131193,
+            'shipping_method' => 74664,
             'is_shipping_enabled' => 1,
-            'store_name' => $pathao->store_name
+            'store_name' => $shop->name
         ]);
         // Mail::send('emails.pathaoToAdmin', ['datas' => $request->pathao], function ($message) {
         //     $email = setting('site.email');
