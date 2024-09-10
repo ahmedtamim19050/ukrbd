@@ -185,7 +185,7 @@ class Product extends Model
             $builder->whereHas('shop', fn($query) => $query->complete());
         });
 
-        if (Route::is('homepage') && Route::is('shops') && Route::is('vendors')) {
+        if (Route::is('homepage') || Route::is('shops') || Route::is('vendors')) {
 
             
             static::addGlobalScope('division', function (Builder $builder) {
