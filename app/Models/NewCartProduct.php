@@ -125,7 +125,7 @@ class NewCartProduct extends Model
     }
     public function ratings()
     {
-        return $this->hasMany(Rating::class)->where('status', 1)->latest();
+        return $this->hasMany(Rating::class,'product_id','id')->where('status', 1)->latest();
     }
     public function scopeParentProduct($query)
     {
