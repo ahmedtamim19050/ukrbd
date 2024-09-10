@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Route;
 
 class Shop extends Model
 {
@@ -50,7 +51,7 @@ class Shop extends Model
     }
     public function retailer()
     {
-        return $this->belongsTo(Retailer::class,'referral_id');
+        return $this->belongsTo(Retailer::class, 'referral_id');
     }
     public function massages()
     {
@@ -123,11 +124,11 @@ class Shop extends Model
             ->when(request()->has('shop_products') && request()->shop_products == 'most-popular', function ($q) {
                 return $q->orderBy('total_sale', 'desc');
             })
-            ->when(request()->has('division'),function ($q) {
-                return $q->where('division',request()->division) ;
+            ->when(request()->has('division'), function ($q) {
+                return $q->where('division', request()->division);
             })
-            ->when(request()->has('district'),function ($q) {
-                return $q->where('district',request()->district) ;
+            ->when(request()->has('district'), function ($q) {
+                return $q->where('district', request()->district);
             })
             ->when(
                 request()->has('reviews'),
@@ -186,13 +187,15 @@ class Shop extends Model
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope('division', function (Builder $builder) {
-            $division = session()->get('division');
-            if ($division && $division !=='Bangladesh') {
-                $builder->where('division', $division);
 
-            }
-        });
+        if (Route::is('homepage') && Route::is('shops') && Route::is('vendors')) {
+
+            static::addGlobalScope('division', function (Builder $builder) {
+                $division = session()->get('division');
+                if ($division && $division !== 'Bangladesh') {
+                    $builder->where('division', $division);
+                }
+            });
+        }
     }
-
 }

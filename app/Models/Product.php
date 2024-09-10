@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class Product extends Model
@@ -15,7 +16,7 @@ class Product extends Model
     protected $casts = [
         'variations' => 'array',
     ];
-    protected $with =['ratings','shop'];
+    protected $with = ['ratings', 'shop'];
     public function shop()
     {
         return $this->belongsTo(Shop::class);
@@ -41,7 +42,7 @@ class Product extends Model
     }
     public function path()
     {
-        
+
         return route('product_details', $this);
     }
     public function attributes()
@@ -177,18 +178,19 @@ class Product extends Model
         parent::boot();
 
         static::addGlobalScope('age', function (Builder $builder) {
-            $builder->whereHas('shop', fn ($query) => $query->complete());
+            $builder->whereHas('shop', fn($query) => $query->complete());
         });
 
-        static::addGlobalScope('division', function (Builder $builder) {
-            $division = session()->get('division');
-            if ($division && $division !=='Bangladesh') {
-                $builder->whereHas('shop', function ($q) use($division) {
-                    $q->where('division',$division);
-                });
-            }
-        });
+        if (Route::is('homepage') && Route::is('shops') && Route::is('vendors')) {
+
+            static::addGlobalScope('division', function (Builder $builder) {
+                $division = session()->get('division');
+                if ($division && $division !== 'Bangladesh') {
+                    $builder->whereHas('shop', function ($q) use ($division) {
+                        $q->where('division', $division);
+                    });
+                }
+            });
+        }
     }
-
-
 }
