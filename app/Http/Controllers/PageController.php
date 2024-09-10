@@ -37,7 +37,7 @@ class PageController extends Controller
             });
 
             return $categories;
-        });;
+        });
 
         $latest_products = Cache::remember($division . '_latest_products', 100, function () {
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
@@ -163,7 +163,7 @@ class PageController extends Controller
 
     {
         $shop = Shop::where('slug', $slug)->with('products')->firstOrFail();
-        $products = $shop->products()->paginate(9);
+        $products = $shop->products()->filter()->paginate(9);
 
 
 

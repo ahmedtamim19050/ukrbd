@@ -1,3 +1,6 @@
+@php
+$route = route('store_front',$shop->slug);
+@endphp
 <x-app>
     <x-slot name="css">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
@@ -10,6 +13,49 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+        <style>
+            
+            .search-container {
+                display: flex;
+                align-items: space-between;
+                background-color: transparent;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                width: 33.33%;
+                padding-left: 15px;
+                position: relative;
+                margin-left: 10px;
+                margin-bottom: 10px;
+            }
+
+            .search-container i {
+                color: #888;
+                position: absolute;
+                right: 5px;
+                top: 9px;
+            }
+
+            .search-container input {
+                border: none;
+                outline: none;
+                background: transparent;
+                font-size: 16px;
+                width: 100%;
+                padding: 10px;
+            }
+
+            .sbutton {
+                display: flex;
+                /* height: 80%; */
+                background: transparent;
+                border: none;
+                margin-right: -20px;
+                margin-bottom: -2px;
+                cursor: pointer;
+                font-size: 20px;
+        
+            }
+        </style>
     </x-slot>
 
     <!-- Start of Pgae Contetn -->
@@ -57,7 +103,7 @@
                                 </div>
                             </div>
                             <!-- End of Widget -->
-                            <div class="widget widget-collapsible widget-time">
+                            {{-- <div class="widget widget-collapsible widget-time">
                                 <h3 class="widget-title"><span>Store Time</span></h3>
                                 <ul class="widget-body">
                                     <li><label>Sunday</label></li>
@@ -68,7 +114,7 @@
                                     <li><label>Friday</label></li>
                                     <li><label>Saturday</label></li>
                                 </ul>
-                            </div>
+                            </div> --}}
                             <!-- End of Widget -->
                             {{-- @dd($bestSellingProducts) --}}
                             <div class="widget widget-collapsible widget-products">
@@ -196,23 +242,27 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-1">
-                                <nav class="toolbox sticky-toolbox sticky-content fix-top">
-                                    <div class="toolbox-left">
+                                <nav class="toolbox sticky-toolbox sticky-content fix-top" >
+                                    <div class="toolbox-left" style="width: 100%">
                                         <a href="#"
                                             class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle
                                             btn-icon-left d-block d-lg-none"><i
                                                 class="w-icon-category"></i><span>Filters</span></a>
                                         <div class="toolbox-item toolbox-sort select-box text-dark">
                                             <label>Sort By :</label>
-                                            <select name="orderby" class="form-control">
+                                            <select name="orderby" class="form-control" name="filter_products"  onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'>
                                                 <option value="default" selected="selected">Relevance</option>
-                                                <option value="popularity">Sort by popularity</option>
-                                                <option value="rating">Sort by average rating</option>
-                                                <option value="date">Sort by latest</option>
-                                                <option value="price-low">Sort by pric: low to high</option>
-                                                <option value="price-high">Sort by price: high to low</option>
+                                                <option value="most-popular">Sort by popularity</option>
+                                                <option value="trending">Trending</option>
+                                                <option value="price-low-high">Sort by pric: low to high</option>
+                                                <option value="price-high-low">Sort by price: high to low</option>
                                             </select>
                                         </div>
+                                        <form class="search-container" action="" method="get">
+                                            <input type="text" name="search" value="" placeholder="Search...">
+                                            <button class="sbutton" type="submit"><i class="fas fa-search"></i></button>
+                        
+                                        </form>
                                     </div>
                                     {{-- <div class="toolbox-right">
                                         <div class="toolbox-item toolbox-show select-box">
