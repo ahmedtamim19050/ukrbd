@@ -48,7 +48,7 @@ class CartController extends Controller
 			// 	$price = ($product->price - $request->offer_price);
 			// }
 			$price = request('offer_price');
-			Cart::add($product->id, $product->name, $price, request('quantity'), 'is_offer')->associate('App\Models\Product');
+			Cart::add($product->id, $product->name, $price, request('quantity'), 'is_offer')->associate('App\Models\NewCartProduct');
 
 			$offer->update([
 				'is_offer' => 0,
@@ -98,6 +98,6 @@ class CartController extends Controller
 		}
 
 
-		Cart::add($product->id, $product->name, $price, $request->quantity, ['weight' => $product->getWeight(), 'store_id' => $product->shop->shipping_method])->associate('App\Models\Product');
+		Cart::add($product->id, $product->name, $price, $request->quantity, ['weight' => $product->getWeight(), 'store_id' => $product->shop->shipping_method])->associate('App\Models\NewCartProduct');
 	}
 }

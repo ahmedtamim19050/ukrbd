@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
-class Product extends Model
+class NewCartProduct extends Model
 {
     use HasFactory;
+
+    protected $table = "products";
+
     protected $guarded = [];
 
     protected $casts = [
@@ -125,7 +125,7 @@ class Product extends Model
     }
     public function ratings()
     {
-        return $this->hasMany(Rating::class)->where('status', 1)->latest();
+        return $this->hasMany(Rating::class,'product_id','id')->where('status', 1)->latest();
     }
     public function scopeParentProduct($query)
     {
@@ -176,26 +176,5 @@ class Product extends Model
     public function getWeight()
     {
         return sprintf('%.3f', $this->weight / 1000);
-    }
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('age', function (Builder $builder) {
-            $builder->whereHas('shop', fn($query) => $query->complete());
-        });
-
-        if (Route::is('homepage') || Route::is('shops') || Route::is('vendors')) {
-
-            
-            static::addGlobalScope('division', function (Builder $builder) {
-                $division = session()->get('division');
-                if ($division && $division !== 'Bangladesh') {
-                    $builder->whereHas('shop', function ($q) use ($division) {
-                        $q->where('division', $division);
-                    });
-                }
-            });
-        }
     }
 }

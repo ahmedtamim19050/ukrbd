@@ -83,8 +83,8 @@
                                   <h3 class="widget-title"><label>All Categories</label></h3>
                                   <ul class="widget-body filter-items search-ul">
                                       @foreach ($categories as $category)
-                                          <li><a href="javascript::void(0)"
-                                                  onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}</a>
+                                          <li><a style="text-transform: capitalize" href="javascript::void(0)"
+                                                  onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }} <small>({{$category->products_count}})</small></a>
                                           </li>
                                       @endforeach
 
@@ -103,7 +103,7 @@
                                           <li><a href="javascript::void(0)"
                                                   onclick='updateSearchParams("","","{{ $route }}","500","1000")'>500.00
                                                   TK - 1000.00 Tk</a></li>
-                                          <li><a href="javascript::void(0)"
+                                          <li><a href="javascript::void(0)"`
                                                   onclick='updateSearchParams("","","{{ $route }}","1000","5000")'>1000.00
                                                   Tk - 5000.00 Tk</a></li>
                                           <li><a href="javascript::void(0)"

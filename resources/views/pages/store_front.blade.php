@@ -1,5 +1,5 @@
 @php
-$route = route('store_front',$shop->slug);
+    $route = route('store_front', $shop->slug);
 @endphp
 <x-app>
     <x-slot name="css">
@@ -14,7 +14,6 @@ $route = route('store_front',$shop->slug);
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <style>
-            
             .search-container {
                 display: flex;
                 align-items: space-between;
@@ -53,7 +52,7 @@ $route = route('store_front',$shop->slug);
                 margin-bottom: -2px;
                 cursor: pointer;
                 font-size: 20px;
-        
+
             }
         </style>
     </x-slot>
@@ -79,20 +78,7 @@ $route = route('store_front',$shop->slug);
                     <a href="#" class="sidebar-toggle"><i class="fas fa-chevron-right"></i></a>
                     <div class="sidebar-content">
                         <div class="sticky-sidebar">
-                            {{-- <div class="widget widget-collapsible widget-categories">
-                                <h3 class="widget-title"><span>All Categories</span></h3>
-                                <ul class="widget-body filter-items search-ul">
-                                    <li><a href="#">Clothing</a></li>
-                                    <li><a href="#">Computers</a></li>
-                                    <li><a href="#">Electronics</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Furniture</a></li>
-                                    <li><a href="#">Games</a></li>
-                                    <li><a href="#">Kitchen</a></li>
-                                    <li><a href="#">Shoes</a></li>
-                                    <li><a href="#">Sports</a></li>
-                                </ul>
-                            </div> --}}
+
                             <!-- End of Widget -->
                             <div class="widget widget-collapsible widget-contact">
                                 <h3 class="widget-title"><span>Contact E-shop</span></h3>
@@ -102,21 +88,6 @@ $route = route('store_front',$shop->slug);
                                         class="btn btn-dark btn-rounded">Send Message</a>
                                 </div>
                             </div>
-                            <!-- End of Widget -->
-                            {{-- <div class="widget widget-collapsible widget-time">
-                                <h3 class="widget-title"><span>Store Time</span></h3>
-                                <ul class="widget-body">
-                                    <li><label>Sunday</label></li>
-                                    <li><label>Monday</label></li>
-                                    <li><label>Tuesday</label></li>
-                                    <li><label>Wednesday</label></li>
-                                    <li><label>Thursday</label></li>
-                                    <li><label>Friday</label></li>
-                                    <li><label>Saturday</label></li>
-                                </ul>
-                            </div> --}}
-                            <!-- End of Widget -->
-                            {{-- @dd($bestSellingProducts) --}}
                             <div class="widget widget-collapsible widget-products">
                                 <h3 class="widget-title"><span>Best Selling</span></h3>
                                 <div class="widget-body">
@@ -242,7 +213,7 @@ $route = route('store_front',$shop->slug);
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-1">
-                                <nav class="toolbox sticky-toolbox sticky-content fix-top" >
+                                <nav class="toolbox sticky-toolbox sticky-content fix-top">
                                     <div class="toolbox-left" style="width: 100%">
                                         <a href="#"
                                             class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle
@@ -250,7 +221,8 @@ $route = route('store_front',$shop->slug);
                                                 class="w-icon-category"></i><span>Filters</span></a>
                                         <div class="toolbox-item toolbox-sort select-box text-dark">
                                             <label>Sort By :</label>
-                                            <select name="orderby" class="form-control" name="filter_products"  onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'>
+                                            <select name="orderby" class="form-control" name="filter_products"
+                                                onchange='updateSearchParams("filter_products",this.value,"{{ $route }}")'>
                                                 <option value="default" selected="selected">Relevance</option>
                                                 <option value="most-popular">Sort by popularity</option>
                                                 <option value="trending">Trending</option>
@@ -259,10 +231,16 @@ $route = route('store_front',$shop->slug);
                                             </select>
                                         </div>
                                         <form class="search-container" action="" method="get">
-                                            <input type="text" name="search" value="" placeholder="Search...">
-                                            <button class="sbutton" type="submit"><i class="fas fa-search"></i></button>
-                        
+                                            <input type="text" name="search" value=""
+                                                placeholder="Search...">
+                                            <button class="sbutton" type="submit"><i
+                                                    class="fas fa-search"></i></button>
                                         </form>
+                                        @if (request()->filled('search'))
+                                            <a href="{{ url()->current() }}" class="btn btn-primary"
+                                                style="padding:15px;position:fixed;bottom:20px;right:20px;z-index:20"><i
+                                                    class="fas fa-undo"></i> </a>
+                                        @endif
                                     </div>
                                     {{-- <div class="toolbox-right">
                                         <div class="toolbox-item toolbox-show select-box">

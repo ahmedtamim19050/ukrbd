@@ -188,7 +188,7 @@ class Shop extends Model
     {
         parent::boot();
 
-        if (Route::is('homepage') && Route::is('shops') && Route::is('vendors')) {
+        if (Route::is('homepage') || Route::is('shops') || Route::is('vendors')) {
 
             static::addGlobalScope('division', function (Builder $builder) {
                 $division = session()->get('division');
