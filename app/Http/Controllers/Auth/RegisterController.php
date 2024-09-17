@@ -67,12 +67,12 @@ class RegisterController extends Controller
 
             case 3:
 
-                if (auth()->user()->email == null && auth()->user()->phone == !null) {
+                // if (auth()->user()->email == null && auth()->user()->phone == !null) {
                     return '/vendor-register-2nd-step';
-                } else {
+                // } else {
 
-                    return '/verify-email';
-                }
+                //     return '/verify-email';
+                // }
                 break;
             case 4:
                 return RouteServiceProvider::MARCHENTIGER;
@@ -159,7 +159,7 @@ class RegisterController extends Controller
             'username' => $username,
             'password' => Hash::make($request->password),
             'role_id' => $role_id,
-            'email_verified_at' => $email_verified,
+            'email_verified_at' => now(),
 
         ];
         $user = User::create($array);

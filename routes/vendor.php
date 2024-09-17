@@ -140,5 +140,7 @@ Route::group(
             $categories =  Prodcat::select('id', 'name')->get();
             return view('auth.seller.categorylist', compact('categories'));
         })->name('category_list');
+
+        Route::post('assign-affiliate',[SellerPagesController::class,'assignAffiliate'])->name('assign.affiliate');
     }
 );

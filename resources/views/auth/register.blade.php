@@ -89,7 +89,7 @@
                                     E-shop?</a>
                                 <div class="form-checkbox d-flex align-items-center justify-content-between mb-5">
                                     <input type="checkbox" class="custom-checkbox" id="remember" name="remember">
-                                    <label for="remember" class="font-size-md">I agree to the <a href="#"
+                                    <label for="remember" class="font-size-md">I agree to the <a href="{{url('page/privacy')}}"
                                             class="text-primary font-size-md">privacy policy</a></label>
                                 </div>
                                 <button class="btn btn-primary" style="width: 100%">Sign Up</button>

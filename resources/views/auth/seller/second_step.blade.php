@@ -70,10 +70,10 @@
                                 <div class="row mb-3">
 
                                     <span class="ec-login-wrap col-md-12">
-                                        <label for="tax_no">Employer identification number (EIN) <span
+                                        <label for="tax_no">Taxpayer's Identification Number (TIN) <span
                                                 class="text-danger">*</span></label>
                                         <input id="tax_no" type="text"
-                                            placeholder="Leave blank if you don't have an EIN number."
+                                            placeholder="Leave blank if you don't have an TIN number."
                                             class="form-control bg-light @error('tax_no') is-invalid @enderror"
                                             name="tax_no" value="{{ old('tax_no') ?? '' }}" autocomplete="phone"
                                             autofocus>
@@ -92,11 +92,11 @@
                                 <div class="row mt-3 mb-3">
                                     <p>Please provide a valid government ID for identify verification</p>
                                     <span class="ec-login-wrap col-md-6">
-                                        <label for="govt_id_front">ID Front side <span
+                                        <label for="govt_id_front">NID Front side <span
                                                 class="text-danger">*</span></label>
                                         <input id="govt_id_front" type="file"
                                             class="form-control bg-light @error('govt_id_front') is-invalid @enderror"
-                                            name="govt_id_front" value="{{ old('govt_id_front') ?? '' }}" required
+                                            name="govt_id_front" value="" required
                                             autofocus>
 
                                         @error('govt_id_front')
@@ -106,12 +106,12 @@
                                         @enderror
                                     </span>
                                     <span class="ec-login-wrap col-md-6">
-                                        <label for="govt_id_back">ID Back side <span
+                                        <label for="govt_id_back">NID Back side <span
                                                 class="text-danger">*</span></label>
                                         <input id="govt_id_back" type="file" multiple
                                             placeholder="One Government ID for verification"
                                             class="form-control bg-light @error('govt_id_back') is-invalid @enderror"
-                                            name="govt_id_back" value="{{ old('govt_id_back') ?? '' }}" required
+                                            name="govt_id_back" value="" required
                                             autofocus>
 
                                         @error('govt_id_back')

@@ -590,4 +590,19 @@ class SellerPagesController extends Controller
         if (!$orders->count()) abort(403);
         return view('auth.seller.order.product_list', compact('orders'));
     }
+    public function assignAffiliate(Request $request) {
+        $request->validate([
+            'email'=>'required',
+        ]);
+        $user=User::where('username',$request->email)->where('role_id',4)->first();
+ 
+        if($user){
+            auth()->user()->shop->update([
+                'referral_id'=>$user->retailer->id,
+            ]);
+            return back()->with('success_msg', 'UKRBD Affiliate assing success');
+        }else{
+            return redirect()->back()->withErrors("This user doesn't exits.");
+        }
+    }
 }

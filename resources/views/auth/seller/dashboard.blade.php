@@ -207,6 +207,23 @@
             </div>
          
         </div>
+      
+       @if(!auth()->user()->shop->retailer)
+       <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm p-4" style="border-radius: 12px !important;">
+           <form action="{{route('vendor.assign.affiliate')}}" method="post">
+            @csrf
+             <div class="row align-items-center">
+                <div class="col-md-8">
+                    <x-forms.input type="text" name="email" id="email" label="Assign UKRBD Affiliate" required :value="old('email')"/>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+             </div>
+           </form>
+       </div>
+
+       @endif
         <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm" style="border-radius: 12px !important;">
             <div class="ec-vendor-card-header">
                 <h5>Latest 5 Orders</h5>
