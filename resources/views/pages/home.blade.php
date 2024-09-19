@@ -78,11 +78,11 @@
     <!-- End of Grey Section -->
 
     <div class="container mt-10 pt-2">
-        <div class=" br-sm mb-10"
-            style="background-color: #414548;height:200px">
-          
+        <div class=" br-sm mb-10" style="background-color: #414548;height:200px">
+
             <figure class="">
-                <img loading="lazy" src="{{asset('placeholder.jpg')}}"  data-src="{{Voyager::image(setting('banner.home_banner'))}}" alt="Banner" >
+                <img loading="lazy" src="{{ asset('placeholder.jpg') }}"
+                    data-src="{{ Voyager::image(setting('banner.home_banner')) }}" alt="Banner">
             </figure>
         </div>
         <!-- End of Banner Simple -->
@@ -125,30 +125,13 @@
                         onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
                         class="ls-normal">More Products<i class="w-icon-long-arrow-right"></i></a>
                 </div>
-                <div class="swiper-container swiper-theme appear-animate mb-9"
-                    data-swiper-options="{
-                'spaceBetween': 20,
-                'slidesPerView': 2,
-                'breakpoints': {
-                    '576': {
-                        'slidesPerView': 3
-                    },
-                    '768': {
-                        'slidesPerView': 4
-                    },
-                    '992': {
-                        'slidesPerView': 5
-                    }}}">
-                    <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
 
-                        @foreach ($category->products as $product)
-                           
-                                <x-products.card :product="$product" />
-                          
-                        @endforeach
-                        <!-- End of Product Wrap -->
-                    </div>
-                    <div class="swiper-pagination"></div>
+                <div class=" row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
+
+                    @foreach ($category->products as $product)
+                        <x-products.card :product="$product" />
+                    @endforeach
+                    <!-- End of Product Wrap -->
                 </div>
             </div>
         @endforeach
@@ -178,15 +161,14 @@
             }
         }">
             <div class="swiper-wrapper row cols-xl-8 cols-lg-6 cols-md-4 cols-sm-3 cols-2">
-               @foreach($clients as $client)
-                <div class="swiper-slide">
-                    <figure>
-                        <img src="{{Voyager::image($client)}}" alt="Brand" width="310"
-                            height="180" />
-                    </figure>
-                </div>
+                @foreach ($clients as $client)
+                    <div class="swiper-slide">
+                        <figure>
+                            <img src="{{ Voyager::image($client) }}" alt="Brand" width="310" height="180" />
+                        </figure>
+                    </div>
                 @endforeach
-                
+
             </div>
         </div>
         <!-- End of Brands Wrapper -->

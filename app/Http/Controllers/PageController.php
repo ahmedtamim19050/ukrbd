@@ -28,7 +28,7 @@ class PageController extends Controller
             $categories = Prodcat::has('products')
                 ->where('parent_id', null)
                 ->with(['childrens', 'products:id,name,slug,image,price']) // Fetch all products first
-                ->take(11)
+                ->take(30)
                 ->get();
 
             // Step 2: Manually limit products in memory
@@ -38,6 +38,11 @@ class PageController extends Controller
 
             return $categories;
         });
+
+
+        
+        $categories = Prodcat::has('products')->withCount('products')->whereNull('parent_id')->orderBy('name', 'asc')->get();
+
 
         $latest_products = Cache::remember($division . '_latest_products', 100, function () {
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
@@ -84,6 +89,7 @@ class PageController extends Controller
             'featuredproducts',
             'bestSellingCategories',
             'clients',
+            'categories'
         ));
     }
     public function shops()

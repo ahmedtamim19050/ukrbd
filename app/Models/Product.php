@@ -187,7 +187,10 @@ class Product extends Model
 
         if (Route::is('homepage') || Route::is('shops') || Route::is('vendors')) {
 
-            
+
+            static::addGlobalScope('mostSold', function (Builder $builder) {
+                $builder->orderBy('total_sale');
+            });
             static::addGlobalScope('division', function (Builder $builder) {
                 $division = session()->get('division');
                 if ($division && $division !== 'Bangladesh') {
