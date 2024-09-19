@@ -368,12 +368,26 @@
         <!-- End of .mobile-menu-close -->
 
         <div class="mobile-menu-container scrollable">
-
+            <form action="{{ route('shops') }}" method="get" class="input-wrapper">
+                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
+                    required />
+                <button class="btn btn-search" type="submit">
+                    <i class="w-icon-search"></i>
+                </button>
+            </form>
+            <!-- End of Search Form -->
+            {{-- <div class="tab">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a href="#main-menu" class="nav-link active">Main Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#categories" class="nav-link">Categories</a>
+                    </li>
+                </ul>
+            </div> --}}
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
-
-                   
-
                     <ul class="mobile-menu">
                         <li><a href="{{ route('homepage') }}">Home</a></li>
                         <li>
@@ -432,13 +446,6 @@
                         </li>
 
                     </ul>
-                    <form action="{{ route('shops') }}" method="get" class="input-wrapper">
-                        <input type="text" class="form-control" name="search" autocomplete="off"
-                            placeholder="Search" required />
-                        <button class="btn btn-search" type="submit">
-                            <i class="w-icon-search"></i>
-                        </button>
-                    </form>
                 </div>
 
             </div>
@@ -729,6 +736,11 @@
                     });
                 }
             });
+        });
+    </script>
+    <script>
+        document.querySelector('.input-wrapper').addEventListener('click', function(event) {
+            event.stopPropagation();
         });
     </script>
 </body>
