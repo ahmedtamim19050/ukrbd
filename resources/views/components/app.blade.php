@@ -372,13 +372,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
 
-                    <form action="{{ route('shops') }}" method="get" class="input-wrapper">
-                        <input type="text" class="form-control" name="search" autocomplete="off"
-                            placeholder="Search" required />
-                        <button class="btn btn-search" type="submit">
-                            <i class="w-icon-search"></i>
-                        </button>
-                    </form>
+                   
 
                     <ul class="mobile-menu">
                         <li><a href="{{ route('homepage') }}">Home</a></li>
@@ -438,6 +432,13 @@
                         </li>
 
                     </ul>
+                    <form action="{{ route('shops') }}" method="get" class="input-wrapper">
+                        <input type="text" class="form-control" name="search" autocomplete="off"
+                            placeholder="Search" required />
+                        <button class="btn btn-search" type="submit">
+                            <i class="w-icon-search"></i>
+                        </button>
+                    </form>
                 </div>
 
             </div>
