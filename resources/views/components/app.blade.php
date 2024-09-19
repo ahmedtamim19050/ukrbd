@@ -125,6 +125,12 @@
             object-fit: cover;
             aspect-ratio: 6/2 !important;
         }
+        Wolmart.$window.on("resize", function() {
+    var mobileMenu = t('.mobile-menu-wrapper');
+    if (mobileMenu.hasClass("keep-open")) {
+        mobileMenu.css("display", "block");
+    }
+});
     </style>
     {{ $css ?? null }}
     @stack('css')
