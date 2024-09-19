@@ -361,7 +361,6 @@
 
     <!-- Start of Mobile Menu -->
     <div class="mobile-menu-wrapper">
-        <div class="mobile-menu-overlay"></div>
         <!-- End of .mobile-menu-overlay -->
 
         <a href="#" class="mobile-menu-close"><i class="close-icon"></i></a>
