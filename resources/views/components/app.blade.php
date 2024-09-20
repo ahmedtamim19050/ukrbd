@@ -59,6 +59,7 @@
             font-weight: 600;
             padding-left: 40px !important;
         }
+
         #division-select2 {
             border: none;
             font-size: 16px;
@@ -388,7 +389,7 @@
         <!-- End of .mobile-menu-close -->
 
         <div class="mobile-menu-container scrollable">
-          
+
             <!-- End of Search Form -->
             {{-- <div class="tab">
                 <ul class="nav nav-tabs" role="tablist">
@@ -405,7 +406,7 @@
                     <ul class="mobile-menu">
                         <li><a href="{{ route('homepage') }}">Home</a></li>
                         <li>
-                            <a href="{{ route('shops') }}">Shop</a>
+                            <a href="{{ route('shops') }}">Products</a>
 
                         </li>
                         <li>
