@@ -41,10 +41,10 @@
         @endif
         <!-- End of Category Banner Wrapper -->
 
-        <div class="title-link-wrapper mb-4 appear-animate">
+        <div class="title-link-wrapper mb-4 appear-animate d-none  d-md-block">
             <h2 class="title title-link title-vendor pt-2 pb-2">Top Weekly Vendors</h2>
         </div>
-        <div class="swiper">
+        <div class="swiper d-none  d-md-block">
             <div class="swiper-container shadow-swiper swiper-theme vendor-wrapper appear-animate mb-10 pb-1"
                 data-swiper-options="{
                 'spaceBetween': 20,
@@ -61,7 +61,7 @@
                     }
                 }
             }">
-                <div class="swiper-wrapper row cols-xl-4 cols-md-3 cols-sm-2 cols-1">
+                <div class="swiper-wrapper row cols-xl-4 cols-md-3 cols-sm-2 cols-1 ">
                     @foreach ($latest_shops as $shop)
                         <x-shop.card :shop="$shop" />
                     @endforeach
@@ -78,16 +78,10 @@
     <!-- End of Grey Section -->
 
     <div class="container mt-10 pt-2">
-        <div class=" br-sm mb-10" style="background-color: #414548;height:200px">
-
-            <figure class="">
-                <img loading="lazy" src="{{ asset('placeholder.jpg') }}"
-                    data-src="{{ Voyager::image(setting('banner.home_banner')) }}" alt="Banner">
-            </figure>
-        </div>
+      
         <!-- End of Banner Simple -->
 
-        <div class="title-link-wrapper appear-animate mb-4">
+        {{-- <div class="title-link-wrapper appear-animate mb-4">
             <h2 class="title title-link pt-1">Featured Products</h2>
             <a href="{{ route('shops') }}">More Products<i class="w-icon-long-arrow-right"></i></a>
         </div>
@@ -115,7 +109,7 @@
                 <!-- End of Product Wrap -->
             </div>
             <div class="swiper-pagination"></div>
-        </div>
+        </div> --}}
 
         @foreach ($bestSellingCategories as $category)
             <div class="category-product">

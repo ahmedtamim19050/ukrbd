@@ -1,4 +1,4 @@
-<div class="title-link-wrapper title-deals appear-animate mb-4">
+<div class="title-link-wrapper title-deals appear-animate mb-4 d-none  d-md-block">
     <h2 class="title title-link">{{ $title }}</h2>
     <div class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
         {{-- <label>Offer Ends in: </label>
@@ -7,7 +7,7 @@
     </div>
     <a href="{{ $url }}" class="ml-0">More Products<i class="w-icon-long-arrow-right"></i></a>
 </div>
-<div class="swiper-container swiper-theme appear-animate mb-6"
+<div class="swiper-container swiper-theme appear-animate mb-6 d-none  d-md-block"
     data-swiper-options="{
     'spaceBetween': 20,
     'slidesPerView': 2,

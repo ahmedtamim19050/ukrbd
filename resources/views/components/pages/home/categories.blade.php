@@ -1,11 +1,11 @@
-<div class="title-link-wrapper title-deals appear-animate mb-4">
+<div class="title-link-wrapper title-deals appear-animate mb-4 d-none  d-md-block">
     <h2 class="title title-link">Categories</h2>
     <div class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
 
     </div>
     <a href="{{route('shops')}}" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
 </div>
-<div class="swiper-container swiper-theme shadow-swiper icon-category-wrapper appear-animate mb-10 pb-2"
+<div class="swiper-container swiper-theme shadow-swiper icon-category-wrapper appear-animate mb-10 pb-2 d-none  d-md-block"
     data-swiper-options="{
     'spaceBetween': 20,
     'slidesPerView': 2,

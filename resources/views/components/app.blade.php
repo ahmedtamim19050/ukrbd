@@ -59,6 +59,13 @@
             font-weight: 600;
             padding-left: 40px !important;
         }
+        #division-select2 {
+            border: none;
+            font-size: 16px;
+            color: #000;
+            font-weight: 600;
+            padding-left: 40px !important;
+        }
 
         /* Dropdown button */
         .dropdown .wishlist.label-down.link.d-xs-show {
@@ -123,7 +130,15 @@
 
         .slider-image {
             object-fit: cover;
-            aspect-ratio: 6/2 !important;
+            aspect-ratio: 5/2 !important;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .slider-image {
+                object-fit: cover;
+                aspect-ratio: 4/2 !important;
+            }
+
         }
 
         body.menu-open {
@@ -373,13 +388,7 @@
         <!-- End of .mobile-menu-close -->
 
         <div class="mobile-menu-container scrollable">
-            <form action="{{ route('shops') }}" method="get" class="input-wrapper">
-                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
-                    required />
-                <button class="btn btn-search" type="submit">
-                    <i class="w-icon-search"></i>
-                </button>
-            </form>
+          
             <!-- End of Search Form -->
             {{-- <div class="tab">
                 <ul class="nav nav-tabs" role="tablist">
@@ -720,6 +729,28 @@
     @endif
 
     <script>
+        $(document).ready(function() {
+            $('#division-select2').change(function() {
+                var selectedDivision = $(this).val();
+
+                if (selectedDivision) {
+                    $.ajax({
+                        url: '{{ url('select/division') }}', // The route to hit
+                        method: 'GET', // You could also use POST if needed
+                        data: {
+                            division: selectedDivision,
+                        },
+                        success: function(response) {
+                            // Handle the response if needed
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error:', error);
+                        }
+                    });
+                }
+            });
+        });
         $(document).ready(function() {
             $('#division-select').change(function() {
                 var selectedDivision = $(this).val();

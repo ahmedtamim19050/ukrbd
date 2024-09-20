@@ -11,6 +11,10 @@
         padding: 2px;
     }
 </style>
+@php
+    $route = route('shops');
+@endphp
+
 <div class="header-middle">
     <div class="container">
         <div class="header-left mr-md-4">
@@ -171,7 +175,7 @@
                 </div>
                 <!-- End of Dropdown Box -->
             </div>
-            <div style="position:relative">
+            <div style="position:relative" class="d-none d-md-block">
 
                 <select class="form-control form-control-sm" id="division-select">
                     <option value="Bangladesh">Bangladesh</option>
@@ -196,6 +200,94 @@
 
                 </i>
             </div>
+        </div>
+    </div>
+</div>
+<div class="mb-3 d-md-none">
+    <form action="{{ route('shops') }}" method="get" class="input-wrapper d-flex">
+        <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
+            required />
+        <button class="btn btn-search" type="submit">
+            <i class="w-icon-search"></i>
+        </button>
+    </form>
+    <div style="position:relative" class="mt-2">
+
+        <select class="form-control form-control-sm" id="division-select2">
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="Barishal" {{ session()->get('division') == 'Barishal' ? 'selected' : '' }}>Barishal
+            </option>
+            <option value="Chattogram" {{ session()->get('division') == 'Chattogram' ? 'selected' : '' }}>
+                Chattogram</option>
+            <option value="Dhaka" {{ session()->get('division') == 'Dhaka' ? 'selected' : '' }}>Dhaka
+            </option>
+            <option value="Khulna" {{ session()->get('division') == 'Khulna' ? 'selected' : '' }}>Khulna
+            </option>
+            <option value="Rajshahi" {{ session()->get('division') == 'Rajshahi' ? 'selected' : '' }}>Rajshahi
+            </option>
+            <option value="Rangpur" {{ session()->get('division') == 'Rangpur' ? 'selected' : '' }}>Rangpur
+            </option>
+            <option value="Mymensingh" {{ session()->get('division') == 'Mymensingh' ? 'selected' : '' }}>
+                Mymensingh</option>
+            <option value="Sylhet" {{ session()->get('division') == 'Sylhet' ? 'selected' : '' }}>Sylhet
+            </option>
+        </select>
+        <i style="font-size: 20px;position:absolute;top:10px;left:12px" class="w-icon-map-marker">
+
+        </i>
+    </div>
+    <div class="dropdown category-dropdown  mt-2" data-visible="false">
+        <a href="#" class="text-white category-toggle" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true" data-display="static" title="Browse Categories"
+            style="background-color: #2A9CF5 !important;">
+            <i class="w-icon-category"></i>
+            <span>Browse Categories</span>
+        </a>
+
+
+        <div class="dropdown-box">
+            <ul class="menu vertical-menu category-menu">
+                @foreach ($categories as $category)
+                    <li>
+                        <!-- Update the link here for parent categories -->
+                        <a id="categoryId" class="nav-link menu-item-line" href="javascript:void(0)"
+                            onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
+                            <i class=""></i>{{ $category->name }}
+                        </a>
+                        @if ($category->childrens->count() > 0)
+                            <ul class="megamenu">
+
+                                @foreach ($category->childrens as $item)
+                                    <li>
+
+                                        <a id="categoryId" class="menu-item-line" style="font-weight: 400"
+                                            href="javascript:void(0)"
+                                            onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
+                                            {{ $item->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                              
+                            </ul>
+                        @endif
+                    </li>
+
+                @endforeach
+                <li>
+
+                    <a id="categoryId" class="menu-item-line" style="font-weight: 400"
+                        href="javascript:void(0)"
+                        onclick='updateSearchParams("category","","{{ $route }}")'>
+                        View All Categories<i class="w-icon-angle-right"></i>
+                    </a>
+                </li>
+                {{-- <li>
+                <a href="#" class="font-weight-bold text-uppercase ls-25">
+                   
+                </a>
+            </li> --}}
+            </ul>
+
         </div>
     </div>
 </div>
