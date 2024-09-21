@@ -130,13 +130,14 @@
         }
 
         .slider-image {
-            object-fit: cover;
+
+            object-fit: fill;
             aspect-ratio: 5/2 !important;
         }
 
         @media only screen and (max-width: 600px) {
             .slider-image {
-                object-fit: cover;
+                object-fit: fill;
                 aspect-ratio: 4/2 !important;
             }
 
