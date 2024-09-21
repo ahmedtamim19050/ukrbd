@@ -1,7 +1,7 @@
 @php
 
     $categories = Cache::remember('main_categories', 100, function () {
-        return App\Models\Prodcat::with('childrens')->where('parent_id', null)->where('featured', true)->limit(11)->get();
+        return App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
     });
 
 @endphp
