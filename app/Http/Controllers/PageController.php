@@ -27,6 +27,7 @@ class PageController extends Controller
             // Step 1: Get the categories with all products
             $categories = Prodcat::has('products')
                 ->where('parent_id', null)
+                ->where('featured', true)
                 ->with(['childrens', 'products:id,name,slug,image,price']) // Fetch all products first
                 ->take(30)
                 ->get();
@@ -75,6 +76,7 @@ class PageController extends Controller
         $prodcats = Cache::remember($division . '_product_categories', 100, function () {
             return Prodcat::with(['childrens', 'products'])->has('products')->where('parent_id', null)->where('featured', true)->limit(11)->get();
         });
+
         $sliders = Cache::remember($division . '_sliders', 100, function () {
             return Slider::latest()->get();
         });
