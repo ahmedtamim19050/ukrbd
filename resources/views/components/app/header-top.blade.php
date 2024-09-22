@@ -248,31 +248,19 @@
         <div class="dropdown-box">
             <ul class="menu vertical-menu category-menu">
                 @foreach ($categories as $category)
-                    <li>
-                        <!-- Update the link here for parent categories -->
-                        <a id="categoryId" class="nav-link menu-item-line" href="javascript:void(0)"
-                            onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>
-                            <i class=""></i>{{ $category->name }}
-                        </a>
-                        @if ($category->childrens->count() > 0)
-                            <ul class="megamenu">
-
-                                @foreach ($category->childrens as $item)
-                                    <li>
-
-                                        <a id="categoryId" class="menu-item-line" style="font-weight: 400"
-                                            href="javascript:void(0)"
-                                            onclick='updateSearchParams("category","{{ $item->slug }}","{{ $route }}")'>
-                                            {{ $item->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                              
-                            </ul>
-                        @endif
-                    </li>
-
-                @endforeach
+                @if ($category->childrens->count() > 0)
+                    <details class="style2" >
+                        <summary>{{ $category->name }}</summary>
+                        @foreach ($category->childrens as $subChild)
+                            <x-category-tree :child="$subChild" />
+                        @endforeach
+                    </details>
+                @else
+                    <div class="content">
+                        <a href="">{{ $category->name }}</a>
+                    </div>
+                @endif
+            @endforeach
                 <li>
 
                     <a id="categoryId" class="menu-item-line" style="font-weight: 400"
