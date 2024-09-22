@@ -1,7 +1,7 @@
 @php
 
     $categories = Cache::remember('main_categories', 100, function () {
-        return App\Models\Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+        return App\Models\Prodcat::with('childrens')->where('parent_id', null)->latest()->limit(11)->get();
     });
 
 @endphp
@@ -147,6 +147,143 @@
             overflow: hidden;
             height: 100%;
         }
+
+        /* # The Rotating Marker # */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::before {
+            font-family: "Hiragino Mincho ProN", "Open Sans", sans-serif;
+            content: "";
+            position: absolute;
+            top: 1rem;
+            left: 0.8rem;
+            transform: rotate(0);
+            transform-origin: center;
+            transition: 0.2s transform ease;
+            color: #000000;
+        }
+
+        details[open]>summary:before {
+            transform: rotate(90deg);
+            transition: 0.45s transform ease;
+        }
+
+        /* # The Sliding Summary # */
+        details {
+            overflow: hidden;
+        }
+
+        details summary {
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes details-show {
+            from {
+                margin-bottom: -80%;
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+        }
+
+        details>*:not(summary) {
+            animation: details-show 500ms ease-in-out;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease-in-out;
+            color: transparent;
+            overflow: hidden;
+        }
+
+        details[open]>*:not(summary) {
+            color: inherit;
+        }
+
+        /* # Style 2 # */
+        details.style2 summary::before {
+            content: "×";
+            color: #888;
+            font-size: 2rem;
+            line-height: 1rem;
+            transform: rotate(-45deg);
+            left: 91px;
+            top: 17px;
+        }
+        details[open].style2>summary::before {
+            transform: rotate(90deg);
+            color: #888 !important;
+            transition: color ease 2s, transform ease 1s;
+        }
+
+   
+
+        body {
+            font-family: "Open Sans", sans-serif;
+            padding-bottom: 400px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        p {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        p:last-child {
+            padding: 0;
+        }
+
+        details {
+            max-width: 500px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            background: white;
+        }
+
+        summary {
+            border: 4px solid transparent;
+            outline: none;
+            padding: 1rem;
+            display: block;
+            /* background: #666; */
+            color: #888;
+            /* padding-left: 2.2rem; */
+            position: relative;
+            cursor: pointer;
+        }
+
+        details[open] summary,
+        summary:hover {
+            color: #888;
+            background: #fff;
+        }
+
+        summary:hover strong,
+        details[open] summary strong,
+        summary:hover::before,
+        details[open] summary::before {
+            color: #888;
+        }
+
+        .content {
+            padding: 10px;
+            /* border: 2px solid #888;
+            border-top: none; */
+        }
+        .content-position{
+            position: absolute;
+            right: 20px;
+        }
+        /* ul .content-x{
+            position: absolute;
+            right: -50px;
+            top: auto;
+        } */
+        
     </style>
     {{ $css ?? null }}
     @stack('css')
