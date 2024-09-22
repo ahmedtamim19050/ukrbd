@@ -278,6 +278,7 @@
 
         </div>
     </div>
+    
 </div>
 <script>
     function toggleCart() {

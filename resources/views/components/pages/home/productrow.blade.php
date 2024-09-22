@@ -7,28 +7,10 @@
     </div>
     <a href="{{ $url }}" class="ml-0">More Products<i class="w-icon-long-arrow-right"></i></a>
 </div>
-<div class="swiper-container swiper-theme appear-animate mb-6 d-none  d-md-block"
-    data-swiper-options="{
-    'spaceBetween': 20,
-    'slidesPerView': 2,
-    'breakpoints': {
-        '576': {
-            'slidesPerView': 3
-        },
-        '768': {
-            'slidesPerView': 4
-        },
-        '992': {
-            'slidesPerView': 5
-        }
-    }
-}">
-    <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
-        @foreach ($products as $product)
-            <x-products.card :product="$product" />
-        @endforeach
+<div class=" row cols-lg-5 cols-md-4 cols-sm-3 cols-2">
 
-        <!-- End of Product Wrap -->
-    </div>
-    <div class="swiper-pagination"></div>
+    @foreach ($products as $product)
+        <x-products.card :product="$product" />
+    @endforeach
+    <!-- End of Product Wrap -->
 </div>
