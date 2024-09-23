@@ -210,7 +210,7 @@
         
         }
         .vertical-menu{
-            height: 93vh;
+            height: 50vh;
             overflow-y: auto;
         }
 
