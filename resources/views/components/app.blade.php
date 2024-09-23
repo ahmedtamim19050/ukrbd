@@ -248,7 +248,7 @@
 
         body {
             font-family: "Open Sans", sans-serif;
-            padding-bottom: 400px;
+        
         }
 
         img {
@@ -332,7 +332,7 @@
     @stack('css')
 </head>
 
-<body class="home">
+<body >
     <div class="page-wrapper">
         <!-- Start of Header -->
         <header class="header">
@@ -353,9 +353,7 @@
         <!-- End of Main -->
 
         <!-- Start of Footer -->
-        <footer class="footer appear-animate" data-animation-options="{
-            'name': 'fadeIn'
-        }">
+        <footer class="footer appear-animate" >
             <div class="container">
                 <div class="footer-newsletter">
                     <div class="row justify-content-center align-items-center">
@@ -477,79 +475,7 @@
             <i class="w-icon-cart"></i>
             <p>Cart</p>
         </a>
-        {{-- <div class="dropdown-box">
-                <div class="products">
-                    <div class="product product-cart">
-                        <div class="product-detail">
-                            <h3 class="product-name">
-                                <a href="#">Beige knitted elas<br>tic
-                                    runner shoes</a>
-                            </h3>
-                            <div class="price-box">
-                                <span class="product-quantity">1</span>
-                                <span class="product-price">$25.68</span>
-                            </div>
-                        </div>
-                        <figure class="product-media">
-                            <a href="#">
-                                <img src="assets/images/cart/product-1.jpg" alt="product" height="84"
-                                    width="94" />
-                            </a>
-                        </figure>
-                        <button class="btn btn-link btn-close" aria-label="button">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
 
-                    <div class="product product-cart">
-                        <div class="product-detail">
-                            <h3 class="product-name">
-                                <a href="#">Blue utility pina<br>fore
-                                    denim dress</a>
-                            </h3>
-                            <div class="price-box">
-                                <span class="product-quantity">1</span>
-                                <span class="product-price">$32.99</span>
-                            </div>
-                        </div>
-                        <figure class="product-media">
-                            <a href="#">
-                                <img src="assets/images/cart/product-2.jpg" alt="product" width="84"
-                                    height="94" />
-                            </a>
-                        </figure>
-                        <button class="btn btn-link btn-close" aria-label="button">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="cart-total">
-                    <label>Subtotal:</label>
-                    <span class="price">$58.67</span>
-                </div>
-
-                <div class="cart-action">
-                    <a href="#" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                    <a href="#" class="btn btn-primary  btn-rounded">Checkout</a>
-                </div>
-            </div> --}}
-        <!-- End of Dropdown Box -->
-        {{-- </div> --}}
-
-        {{-- <div class="header-search hs-toggle dir-up">
-            <a href="#" class="search-toggle sticky-link">
-                <i class="w-icon-search"></i>
-                <p>Search</p>
-            </a>
-            <form action="{{route('shops')}}" class="input-wrapper">
-                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
-                    required />
-                <button class="btn btn-search" type="submit">
-                    <i class="w-icon-search"></i>
-                </button>
-            </form>
-        </div> --}}
     </div>
     <!-- End of Sticky Footer -->
 
@@ -571,17 +497,7 @@
 
         <div class="mobile-menu-container scrollable">
 
-            <!-- End of Search Form -->
-            {{-- <div class="tab">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a href="#main-menu" class="nav-link active">Main Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#categories" class="nav-link">Categories</a>
-                    </li>
-                </ul>
-            </div> --}}
+           
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
@@ -651,12 +567,6 @@
 
 
 
-    <!-- Start of Quick View -->
-    <div class="product product-single product-popup">
-        <div class="row gutter-lg" id="quick_view">
-
-        </div>
-    </div>
 
     <!-- End of Quick view -->
 
