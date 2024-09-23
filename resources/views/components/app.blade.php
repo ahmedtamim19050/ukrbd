@@ -203,10 +203,11 @@
 
         @keyframes details-show {
             from {
-                margin-bottom: -80%;
+                /* margin-bottom: -80%; */
                 opacity: 0;
                 transform: translateY(-100%);
             }
+        
         }
 
         details>*:not(summary) {
