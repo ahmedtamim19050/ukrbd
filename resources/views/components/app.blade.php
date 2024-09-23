@@ -158,7 +158,7 @@
             content: "";
             position: absolute;
             top: 1rem;
-            left: 0.8rem;
+            right:0 ;
             transform: rotate(0);
             transform-origin: center;
             transition: 0.2s transform ease;
@@ -178,6 +178,7 @@
         details summary {
             position: relative;
             z-index: 10;
+            /* padding-left: 22px; */
         }
 
         @keyframes details-show {
@@ -208,16 +209,17 @@
             font-size: 2rem;
             line-height: 1rem;
             transform: rotate(-45deg);
-            left: 91px;
+            right: 0;
             top: 17px;
         }
+
         details[open].style2>summary::before {
             transform: rotate(90deg);
             color: #888 !important;
             transition: color ease 2s, transform ease 1s;
         }
 
-   
+
 
         body {
             font-family: "Open Sans", sans-serif;
@@ -245,7 +247,7 @@
         }
 
         summary {
-            border: 4px solid transparent;
+            /* border: 4px solid transparent; */
             outline: none;
             padding: 1rem;
             display: block;
@@ -254,14 +256,28 @@
             /* padding-left: 2.2rem; */
             position: relative;
             cursor: pointer;
+            margin: 0 10px;
         }
 
         details[open] summary,
         summary:hover {
             color: #888;
-            background: #fff;
-        }
+            /* background: #e4e4e4;
+            border-radius: 10px; */
+     
 
+        }
+        .content:hover{
+            background: #e4e4e4;
+            border-radius: 10px;
+        
+
+        }
+        .active-cat{
+            background: #e4e4e4;
+            border-radius: 10px;
+        
+        }
         summary:hover strong,
         details[open] summary strong,
         summary:hover::before,
@@ -270,20 +286,22 @@
         }
 
         .content {
-            padding: 10px;
-            /* border: 2px solid #888;
-            border-top: none; */
+            padding: 5px 10px;
+            margin-bottom: 5px;
+
         }
-        .content-position{
+
+        .content-position {
             position: absolute;
             right: 20px;
+
         }
+
         /* ul .content-x{
             position: absolute;
             right: -50px;
             top: auto;
         } */
-        
     </style>
     {{ $css ?? null }}
     @stack('css')

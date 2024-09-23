@@ -20,14 +20,14 @@
                             @foreach ($categories as $category)
                                 @if ($category->childrens->count() > 0)
                                     <details class="style2" >
-                                        <summary>{{ $category->name }}</summary>
+                                        <summary class="{{request()->category==$category->slug ? 'active-cat' : ''}}">{{ $category->name }}</summary>
                                         @foreach ($category->childrens as $subChild)
                                             <x-category-tree :child="$subChild" />
                                         @endforeach
                                     </details>
                                 @else
-                                    <div class="content">
-                                        <a href="">{{ $category->name }}</a>
+                                    <div class="content {{request()->category==$category->slug ? 'active-cat' : ''}}">
+                                        <a href="javascript:void(0)" onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}</a>
                                     </div>
                                 @endif
                             @endforeach

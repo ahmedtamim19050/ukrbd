@@ -257,7 +257,7 @@
                     </details>
                 @else
                     <div class="content">
-                        <a href="">{{ $category->name }}</a>
+                        <a href="javascript:void(0)" onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}</a>
                     </div>
                 @endif
             @endforeach
