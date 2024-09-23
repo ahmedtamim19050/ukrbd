@@ -209,6 +209,10 @@
             }
         
         }
+        .vertical-menu{
+            height: 93vh;
+            overflow-y: auto;
+        }
 
         details>*:not(summary) {
             animation: details-show 500ms ease-in-out;
