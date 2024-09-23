@@ -36,41 +36,7 @@
         <!-- End of Prodcut Deals Wrapper -->
         <x-pages.home.categories :categories="$prodcats" :route="$route" />
 
-        @if (false)
-            <x-pages.home.categorybanners />
-        @endif
-        <!-- End of Category Banner Wrapper -->
-
-        <div class="title-link-wrapper mb-4 appear-animate d-none  d-md-block">
-            <h2 class="title title-link title-vendor pt-2 pb-2">Top Weekly Vendors</h2>
-        </div>
-        <div class="swiper d-none  d-md-block">
-            <div class="swiper-container shadow-swiper swiper-theme vendor-wrapper appear-animate mb-10 pb-1"
-                data-swiper-options="{
-                'spaceBetween': 20,
-                'slidesPerView': 1,
-                'breakpoints': {
-                    '576': {
-                        'slidesPerView': 2
-                    },
-                    '768': {
-                        'slidesPerView': 3
-                    },
-                    '992': {
-                        'slidesPerView': 4
-                    }
-                }
-            }">
-                <div class="swiper-wrapper row cols-xl-4 cols-md-3 cols-sm-2 cols-1 ">
-                    @foreach ($latest_shops as $shop)
-                        <x-shop.card :shop="$shop" />
-                    @endforeach
-
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-        <!-- End of Swiper Container -->
+      
     </div>
     <!-- End of Container -->
 

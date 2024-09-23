@@ -22,6 +22,11 @@ class Prodcat extends Model
     {
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
+
+    public function allChildCategories()
+    {
+        return $this->children()->with('allChildCategories');
+    }
    
     
 }

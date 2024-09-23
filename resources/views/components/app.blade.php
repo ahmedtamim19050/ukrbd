@@ -135,7 +135,27 @@
             aspect-ratio: 6/2 !important;
         }
 
+        .product{
+            margin: 5px;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 0px 10px;
+            padding-bottom: 10px;
+        transition: .9s cubic-bezier(0.075, 0.82, 0.165, 1)  !important;
+        }
+        .product:hover{
+       
+            box-shadow: 2px 2px 10px #00000079; 
+        }
+        .product-name{
+            font-size: 17px !important;
+            font-weight: 700;
+        }
         @media only screen and (max-width: 600px) {
+            .product-name{
+            font-size: 15px !important;
+            font-weight: 700;
+        }
             .slider-image {
                 object-fit: fill;
                 aspect-ratio: 4/2 !important;
@@ -205,7 +225,7 @@
         /* # Style 2 # */
         details.style2 summary::before {
             content: "×";
-            color: #888;
+            color: #888;    
             font-size: 2rem;
             line-height: 1rem;
             transform: rotate(-45deg);

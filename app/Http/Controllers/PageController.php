@@ -24,26 +24,37 @@ class PageController extends Controller
     {
         $division = session()->get('division', 'Bangladesh');
         $bestSellingCategories = Cache::remember($division . '_best_selling_categories', 100, function () {
-            // Step 1: Get the categories with all products
-            $categories = Prodcat::has('products')
-                ->where('parent_id', null)
+            // Step 1: Get the categories with all child categories and their products
+            $categories = Prodcat::where('parent_id', null)
                 ->where('featured', true)
-                ->with(['childrens', 'products:id,name,slug,image,price']) // Fetch all products first
+                ->with([
+                    'childrens.products:id,name,slug,image,price',
+                    'childrens.childrens.products:id,name,slug,image,price' // for grandchild categories
+                ])
                 ->take(30)
-                ->orderBy('role','asc')
+                ->orderBy('role', 'asc')
                 ->get();
-
-            // Step 2: Manually limit products in memory
+        
+            // Step 2: Manually limit products in memory (across parent, children, and grandchildren)
             $categories->each(function ($category) {
-                $category->setRelation('products', $category->products->take(11));
+                // Collect products from parent, child, and grandchild categories
+                $allProducts = collect($category->products)
+                    ->merge($category->childrens->flatMap(function ($child) {
+                        return $child->products->merge($child->childrens->flatMap(function ($grandchild) {
+                            return $grandchild->products;
+                        }));
+                    }));
+        
+                // Limit to 11 products and set the relation
+                $category->setRelation('products', $allProducts->take(50));
             });
-
+        
             return $categories;
         });
-
+        
 
         
-        $categories = Prodcat::has('products')->withCount('products')->whereNull('parent_id')->orderBy('name', 'asc')->get();
+        $categories = Prodcat::has('childrens')->get();
 
 
         $latest_products = Cache::remember($division . '_latest_products', 100, function () {
