@@ -519,8 +519,12 @@
                             <ul>
                                 @if (!auth()->check())
                                     <li><a href="{{ route('login') }}">Login</a></li>
-                                    <li><a href="{{ route('register') }}">Register</a></li>
-                                    <li><a href="{{ route('vendor.create') }}">Register as a vendor</a></li>
+                                   <li> <a class="" href="{{ route('register') }}"
+                                    style="font-size: small">Register as Customer</a></li>
+                                    <li>  <a class="" href="{{ route('vendor.create') }}"
+                                    style="font-size: small">Register as E-Shop </a> </li>
+                                    <li> <a class="" href="{{ route('marchentiger.create') }}"
+                                    style="font-size: small">Register as UKRBD Affiliate </a> </li>
                                 @elseif(auth()->user()->role_id == 3)
                                     <li><a href="{{ route('vendor.dashboard') }}">My Account</a></li>
 
