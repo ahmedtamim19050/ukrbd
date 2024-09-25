@@ -20,7 +20,7 @@
         <!-- Slider section -->
         <x-pages.home.slider :sliders="$sliders" />
         <!-- End of slider section -->
-        <x-pages.home.categories :categories="$prodcats" :route="$route" />
+        <x-pages.home.categories param="parent" :categories="$prodcats" :route="$route" />
         <!-- Features section -->
         {{-- <x-pages.home.features /> --}}
         <!-- End of features section -->

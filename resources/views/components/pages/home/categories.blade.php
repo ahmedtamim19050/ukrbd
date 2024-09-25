@@ -1,23 +1,22 @@
-<div class="title-link-wrapper title-deals appear-animate mb-4 d-none  d-md-block">
-    <h2 class="title title-link">Categories</h2>
-    <div class="product-countdown-container font-size-sm text-white  align-items-center mr-auto">
+<div class="title-link-wrapper title-deals appear-animate mb-5 mt-3 d-none  d-md-block">
 
-    </div>
-    <a href="{{route('shops')}}" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
+
+
+    <a href="{{ route('shops') }}" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
 </div>
 <div class="swiper-container swiper-theme shadow-swiper icon-category-wrapper appear-animate mb-10 pb-2 d-none  d-md-block"
     data-swiper-options="{
-    'spaceBetween': 20,
+    'spaceBetween': 10,
     'slidesPerView': 2,
     'breakpoints': {
         '480': {
-            'slidesPerView': 3
+            'slidesPerView': 4
         },
         '768': {
-            'slidesPerView': 5
+            'slidesPerView': 6
         },
         '992': {
-            'slidesPerView': 6
+            'slidesPerView': 8
         },
         '1200': {
             'slidesPerView': 8
@@ -31,13 +30,13 @@
         'slidesPerView': 2,
         'breakpoints': {
             '576': {
-                'slidesPerView': 3
-            },
-            '768': {
                 'slidesPerView': 5
             },
+            '768': {
+                'slidesPerView': 8
+            },
             '992': {
-                'slidesPerView': 6
+                'slidesPerView': 8
             }
         }
     }">
@@ -47,7 +46,7 @@
                     <div class="swiper-slide category category-classic category-absolute overlay-zoom br-xs swiper-slide-active"
                         role="group" aria-label="1 / 6" style="width: 190px; margin-right: 20px; height: 140px;">
                         <a href="javascript:void(0)"
-                            onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'
+                            onclick='updateSearchParams("{{ $param }}","{{ $category->slug }}","{{ $route }}")'
                             class="category-media">
                             <img src="{{ Voyager::image($category->logo) }}" alt="Category" width="130"
                                 height="130">

@@ -27,6 +27,10 @@ class Prodcat extends Model
     {
         return $this->children()->with('allChildCategories');
     }
+    public function allParentCategories()
+    {
+        return $this->parent()->with('allParentCategories');
+    }
    
     
 }
