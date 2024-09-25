@@ -14,7 +14,6 @@
 @php
     $route = route('shops');
 @endphp
-
 <div class="header-middle">
     <div class="container">
         <div class="header-left mr-md-4">

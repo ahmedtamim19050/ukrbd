@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row gutter-lg">
                 <div class="main-content">
-                    <div class="product product-single row">
+                    <div class="product-single row">
                         <div class="col-md-6 mb-6">
                             <div class="product-gallery product-gallery-sticky">
                                 <div class="swiper-container product-single-swiper swiper-theme nav-inner"

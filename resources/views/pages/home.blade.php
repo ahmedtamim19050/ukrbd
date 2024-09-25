@@ -20,7 +20,7 @@
         <!-- Slider section -->
         <x-pages.home.slider :sliders="$sliders" />
         <!-- End of slider section -->
-
+        <x-pages.home.categories :categories="$prodcats" :route="$route" />
         <!-- Features section -->
         {{-- <x-pages.home.features /> --}}
         <!-- End of features section -->
@@ -34,7 +34,7 @@
 
         <x-pages.home.productrow title="Trending Product" :products="$latest_products" url="" />
         <!-- End of Prodcut Deals Wrapper -->
-        <x-pages.home.categories :categories="$prodcats" :route="$route" />
+
 
       
     </div>

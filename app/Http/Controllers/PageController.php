@@ -54,7 +54,7 @@ class PageController extends Controller
         
 
         
-        $categories = Prodcat::has('childrens')->get();
+        $categories = Prodcat::whereNull('parent_id')->has('childrens')->get();
 
 
         $latest_products = Cache::remember($division . '_latest_products', 100, function () {
