@@ -112,6 +112,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             @foreach ($latest_orders as $order)
                                 <tr>
                                     <th scope="row">{{ $loop->index + 1 }}</th>

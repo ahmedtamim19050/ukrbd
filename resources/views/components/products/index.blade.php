@@ -43,9 +43,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = $products->perPage() * ($products->currentPage() - 1) + 1;
+                        @endphp
                         @foreach ($products as $product)
                             <tr>
-                                <th scope="row"><span>{{ $loop->index + 1 }}</span></th>
+                                <th scope="row"><span>{{ $i }}</span></th>
+
+                                @php
+                                    $i++;
+                                @endphp
                                 <td> <a href="{{ $product->path() }}"><img class="prod-img"
                                             src="{{ Voyager::image($product->image) }}" alt="product image"></a></td>
                                 <td><a href="{{ $product->path() }}"><span>{{ $product->name }}</span></a>
