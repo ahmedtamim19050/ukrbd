@@ -42,7 +42,7 @@ class SellerPagesController extends Controller
         $customer = User::filter()->get();
         $totalSell = Order::where('shop_id', $shop->id)->filter()->sum('total');
         $products = Product::whereNull('parent_id')->where('shop_id', $shop->id)
-            ->filter()->latest()->limit(5)->get();
+            ->filter()->latest()->paginate(5);
 
 
 

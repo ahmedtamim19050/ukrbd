@@ -43,6 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         @php
                             $i = $products->perPage() * ($products->currentPage() - 1) + 1;
                         @endphp
