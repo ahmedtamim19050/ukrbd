@@ -127,6 +127,7 @@ Route::get('/seller', [SellerPagesController::class, 'dashboard'])->middleware('
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
     Route::get('earnings', [AdminController::class, 'earnings'])->name('admin.earnings');
+    Route::get('user/pdf', [AdminController::class, 'userPdf'])->name('admin.user.pdf');
 });
 Auth::routes();
 Route::get('admin/payout/{order}', [PayoutsController::class, 'payouts'])->name('payout')->middleware('auth', 'role:admin');

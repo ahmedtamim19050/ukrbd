@@ -5,7 +5,8 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.0.2|8.2",
+        "barryvdh/laravel-dompdf": "^3.0",
         "bumbummen99/shoppingcart": "^4.2",
         "codeboxr/pathao-courier": "dev-main",
         "darryldecode/cart": "^4.2",
