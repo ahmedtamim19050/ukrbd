@@ -78,7 +78,7 @@
 </head>
 
 <body>
-    <h1>User List</h1>
+
     <table>
         <thead>
             <tr>
@@ -113,9 +113,7 @@
                             {{ $user->retailer?->address ? $user->retailer->address . ',' : '' }}
                             {{ $user->retailer?->post_code ?? '' }}
                         </td>
-                    @endif
-                    @if ($user->role_id == 3)
-                    
+                    @elseif ($user->role_id == 3)
                         <td>
                             {{ $user->shop?->division }}
                         </td>
@@ -130,9 +128,14 @@
                             {{ $user->shop?->address ? $user->shop->address . ',' : '' }}
                             {{ $user->shop?->post_code ?? '' }}
                         </td>
+                    @else
+                        <td>Not found</td>
+                        <td>Not found</td>
+                        <td>Not found</td>
+                        <td>Not found</td>
                     @endif
 
-                    <td>{{ $user->role->name }}</td>
+                    <td>{{ $user->role->display_name }}</td>
                 </tr>
             @endforeach
         </tbody>

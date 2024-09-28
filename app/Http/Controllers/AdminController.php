@@ -68,8 +68,8 @@ class AdminController extends Controller
             ->take($perPage)
             ->get();
         $pdf = Pdf::loadView('auth.admin.user_pdf', compact('users'))->setPaper('a4', 'landscape');
-        return $pdf->stream('user_list.pdf');
-        // return $pdf->download();
+      
+        return $pdf->download();
 
     }
 }
