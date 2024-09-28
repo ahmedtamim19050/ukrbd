@@ -93,6 +93,7 @@ class ProductController extends Controller
     }
     public function productEdit($slug)
     {
+
         $product = Product::where('slug', $slug)->firstOrFail();
         $prodcats = Prodcat::whereNotNull('parent_id')->doesntHave('childrens')->get();
         $product_attributes = Attribute::where('product_id', $product->id)->get();

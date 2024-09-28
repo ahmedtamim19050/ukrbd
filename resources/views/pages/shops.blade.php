@@ -2,7 +2,7 @@
       @php
           $route = route('shops');
       @endphp
-    
+
       <x-slot name="css">
           <!-- Vendor CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}">
@@ -44,10 +44,12 @@
               .category-height::-webkit-scrollbar-thumb:hover {
                   background: #555;
               }
+
               .category-height {
                   scrollbar-width: thin;
                   scrollbar-color: #eca09a #f1f1f1;
               }
+
               .category-height {
                   -ms-overflow-style: -ms-autohiding-scrollbar;
               }
@@ -62,9 +64,11 @@
               </ul>
           </div>
       </nav>
-
       <div class="page-content mt-5">
           <div class="container">
+              @if (request()->filled('parent'))
+                  <x-pages.home.categories param="category" :categories="$categories" :route="route('shops')" />
+              @endif
               <div class="shop-content row gutter-lg mb-10">
                   <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
                       <div class="sidebar-overlay"></div>
@@ -84,7 +88,8 @@
                                   <ul class="widget-body filter-items search-ul">
                                       @foreach ($categories as $category)
                                           <li><a style="text-transform: capitalize" href="javascript::void(0)"
-                                                  onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }} <small>({{$category->products_count}})</small></a>
+                                                  onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}
+                                                  <small>({{ $category->products_count }})</small></a>
                                           </li>
                                       @endforeach
 

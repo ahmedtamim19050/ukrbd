@@ -27,6 +27,7 @@ use App\Mail\VerifyEmail;
 use App\Models\Charge;
 use App\Models\Offer;
 use App\Models\Order;
+use App\Models\Prodcat;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
@@ -38,6 +39,7 @@ use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use TCG\Voyager\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +73,7 @@ Route::post('/add-address', [CheckoutController::class, 'userAddress'])->name('u
 
 
 Route::get('/', [PageController::class, 'home'])->name('homepage');
-Route::get('/shops', [PageController::class, 'shops'])->name('shops');
+Route::get('/products', [PageController::class, 'shops'])->name('shops');
 Route::get('/cart', [PageController::class, 'cart'])->name('cart');
 
 Route::get('/product/{product:slug}', [PageController::class, 'product_details'])->name('product_details');
@@ -195,6 +197,13 @@ Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
     });
 });
 Route::get('select/division', [PageController::class, 'selectDivision'])->name('select.division');
+
+Route::get('/test',function(){
+
+    $categories = Prodcat::whereNull('parent_id')->has('childrens')->get();
+
+    dd($categories);
+});
 
 // Route::get('/test-email', function () {
 //     $pathaoData = [

@@ -34,7 +34,7 @@ class PageController extends Controller
                 ->take(30)
                 ->orderBy('role', 'asc')
                 ->get();
-        
+
             // Step 2: Manually limit products in memory (across parent, children, and grandchildren)
             $categories->each(function ($category) {
                 // Collect products from parent, child, and grandchild categories
@@ -44,17 +44,17 @@ class PageController extends Controller
                             return $grandchild->products;
                         }));
                     }));
-        
+
                 // Limit to 11 products and set the relation
                 $category->setRelation('products', $allProducts->take(50));
             });
-        
+
             return $categories;
         });
-        
 
-        
-        $categories = Prodcat::has('childrens')->get();
+
+
+        $categories = Prodcat::whereNull('parent_id')->has('childrens')->get();
 
 
         $latest_products = Cache::remember($division . '_latest_products', 100, function () {
@@ -86,7 +86,7 @@ class PageController extends Controller
         });
 
         $prodcats = Cache::remember($division . '_product_categories', 100, function () {
-            return Prodcat::with(['childrens', 'products'])->has('products')->where('parent_id', null)->limit(11)->get();
+            return Prodcat::has('childrens')->where('parent_id', null)->limit(11)->get();
         });
 
         $sliders = Cache::remember($division . '_sliders', 100, function () {
@@ -109,10 +109,14 @@ class PageController extends Controller
     {
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
+        })->when(request()->filled('parent'), function ($query) {
+            $query->whereHas('prodcats', fn($query) => $query->whereHas('allParentCategories', fn($q) => $q->where('slug', request()->parent)));
         })->filter()->paginate(12);
 
 
-        $categories = Prodcat::has('products')->withCount('products')->whereNull('parent_id')->orderBy('name', 'asc')->get();
+        $categories = Prodcat::has('products')->when(request()->filled('parent'), function ($query) {
+            $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
+        })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
         $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
             $query->whereNull('parent_id');

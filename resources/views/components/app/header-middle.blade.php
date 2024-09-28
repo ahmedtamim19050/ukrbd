@@ -19,23 +19,35 @@
                         <ul class="menu vertical-menu category-menu">
                             @foreach ($categories as $category)
                                 @if ($category->childrens->count() > 0)
-                                    <details class="style2" >
-                                        <summary class="{{request()->category==$category->slug ? 'active-cat' : ''}}">{{ $category->name }}</summary>
+                                    <details class="style2">
+                                        <summary
+                                            class="{{ request()->category == $category->slug ? 'active-cat' : '' }}">
+                                            {{ $category->name }}</summary>
                                         @foreach ($category->childrens as $subChild)
                                             <x-category-tree :child="$subChild" />
                                         @endforeach
                                     </details>
                                 @else
-                                    <div class="content {{request()->category==$category->slug ? 'active-cat' : ''}}">
-                                        <a href="javascript:void(0)" onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}</a>
+                                    <div
+                                        class="content {{ request()->category == $category->slug ? 'active-cat' : '' }}">
+                                        <a href="javascript:void(0)"
+                                            onclick='updateSearchParams("category","{{ $category->slug }}","{{ $route }}")'>{{ $category->name }}</a>
                                     </div>
                                 @endif
                             @endforeach
+                            <li>
+
+                                <a id="categoryId" class="menu-item-line" style="font-weight: 400"
+                                    href="javascript:void(0)"
+                                    onclick='updateSearchParams("category","","{{ $route }}")'>
+                                    View All Categories<i class="w-icon-angle-right"></i>
+                                </a>
+                            </li>
                         </ul>
 
 
                     </div>
-                 
+
                 </div>
 
                 <nav class="main-nav">
