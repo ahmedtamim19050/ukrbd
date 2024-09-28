@@ -111,7 +111,7 @@
                                                 @endif
                                             </th>
                                         @endforeach
-                                    
+
                                         <th>Division</th>
                                         <th>Zilla</th>
                                         <th>Upzilla</th>
@@ -313,8 +313,7 @@
                                                     {{ $data->retailer?->address ? $data->retailer->address . ',' : '' }}
                                                     {{ $data->retailer?->post_code ?? '' }}
                                                 </td>
-                                            @endif
-                                            @if ($data->role_id == 3)
+                                            @elseif ($data->role_id == 3)
                                                 <td>
                                                     {{ $data->shop?->division }}
                                                 </td>
@@ -329,6 +328,12 @@
                                                     {{ $data->shop?->address ? $data->shop->address . ',' : '' }}
                                                     {{ $data->shop?->post_code ?? '' }}
                                                 </td>
+                                            @else
+                                                <td>Not found</td>
+                                                <td>Not found</td>
+                                                <td>Not found</td>
+                                                <td>Not found</td>
+                                              
                                             @endif
                                             <td class="no-sort no-click bread-actions">
                                                 @foreach ($actions as $action)
