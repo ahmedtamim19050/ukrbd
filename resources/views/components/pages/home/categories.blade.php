@@ -4,7 +4,7 @@
 
     <a href="{{ route('shops') }}" class="ml-0">More Categories<i class="w-icon-long-arrow-right"></i></a>
 </div>
-<div class="swiper">
+<div class="swiper mb-4">
     <div class="swiper-container swiper-theme pg-show swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
         data-swiper-options="{
     'spaceBetween': 20,
