@@ -31,7 +31,8 @@ class PageController extends Controller
                     'childrens.products:id,name,slug,image,price',
                     'childrens.childrens.products:id,name,slug,image,price' // for grandchild categories
                 ])
-                ->take(30)
+                ->has('products')
+                ->take(50)
                 ->orderBy('role', 'asc')
                 ->get();
 
