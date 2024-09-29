@@ -43,9 +43,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         @php
-                            $i = $products->perPage() * ($products->currentPage() - 1) + 1;
+                            if ($pagination) {
+                                $i = $products->perPage() * ($products->currentPage() - 1) + 1;
+                            } else {
+                                $i = 1;
+                            }
                         @endphp
                         @foreach ($products as $product)
                             <tr>
