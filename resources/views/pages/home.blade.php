@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
 
         <!-- Default CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css?v=' . filemtime()) }}">
     </x-slot>
 
 
@@ -36,7 +36,7 @@
         <!-- End of Prodcut Deals Wrapper -->
 
 
-      
+
     </div>
     <!-- End of Container -->
 
@@ -44,7 +44,7 @@
     <!-- End of Grey Section -->
 
     <div class="container mt-10 pt-2">
-      
+
         <!-- End of Banner Simple -->
 
         {{-- <div class="title-link-wrapper appear-animate mb-4">
