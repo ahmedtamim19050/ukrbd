@@ -6043,6 +6043,15 @@ blockquote {
   position: relative;
   font-size: 1rem;
   color: #666;
+  border: 2px solid #000 !important;
+  border-radius: 50% !important;
+  height: 150px !important;
+  width: 150px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
 .category a {
   color: inherit;

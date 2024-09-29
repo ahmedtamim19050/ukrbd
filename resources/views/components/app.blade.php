@@ -52,6 +52,33 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
+        .swiper-next,
+        .swiper-prev {
+            position: absolute;
+            top: 50%;
+            width: calc(var(--swiper-navigation-size)/ 44 * 27);
+            height: var(--swiper-navigation-size);
+            margin-top: calc(0px - (var(--swiper-navigation-size)/ 2));
+            z-index: 10;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--swiper-navigation-color, var(--swiper-theme-color));
+        }
+
+        .swiper-next {
+            right: 10px;
+            left: auto;
+
+        }
+
+        .swiper-prev {
+            left: 10px;
+            right: auto;
+
+        }
+
         #division-select {
             border: none;
             font-size: 16px;
@@ -135,27 +162,31 @@
             aspect-ratio: 6/2 !important;
         }
 
-        .product{
+        .product {
             margin: 5px;
             border-radius: 10px;
             overflow: hidden;
             padding: 0px 10px;
             padding-bottom: 10px;
-        transition: .9s cubic-bezier(0.075, 0.82, 0.165, 1)  !important;
+            transition: .9s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
         }
-        .product:hover{
-       
-            box-shadow: 2px 2px 10px #00000079; 
+
+        .product:hover {
+
+            box-shadow: 2px 2px 10px #00000079;
         }
-        .product-name{
+
+        .product-name {
             font-size: 17px !important;
             font-weight: 700;
         }
+
         @media only screen and (max-width: 600px) {
-            .product-name{
-            font-size: 15px !important;
-            font-weight: 700;
-        }
+            .product-name {
+                font-size: 15px !important;
+                font-weight: 700;
+            }
+
             .slider-image {
                 object-fit: fill;
                 aspect-ratio: 4/2 !important;
@@ -178,7 +209,7 @@
             content: "";
             position: absolute;
             top: 1rem;
-            right:0 ;
+            right: 0;
             transform: rotate(0);
             transform-origin: center;
             transition: 0.2s transform ease;
@@ -207,9 +238,10 @@
                 opacity: 0;
                 transform: translateY(-100%);
             }
-        
+
         }
-        .vertical-menu{
+
+        .vertical-menu {
             height: 50vh;
             overflow-y: auto;
         }
@@ -230,7 +262,7 @@
         /* # Style 2 # */
         details.style2 summary::before {
             content: "×";
-            color: #888;    
+            color: #888;
             font-size: 2rem;
             line-height: 1rem;
             transform: rotate(-45deg);
@@ -248,7 +280,7 @@
 
         body {
             font-family: "Open Sans", sans-serif;
-        
+
         }
 
         img {
@@ -289,20 +321,23 @@
             color: #888;
             /* background: #e4e4e4;
             border-radius: 10px; */
-     
+
 
         }
-        .content:hover{
+
+        .content:hover {
             background: #e4e4e4;
             border-radius: 10px;
-        
+
 
         }
-        .active-cat{
+
+        .active-cat {
             background: #e4e4e4;
             border-radius: 10px;
-        
+
         }
+
         summary:hover strong,
         details[open] summary strong,
         summary:hover::before,
@@ -332,7 +367,7 @@
     @stack('css')
 </head>
 
-<body >
+<body>
     <div class="page-wrapper">
         <!-- Start of Header -->
         <header class="header">
@@ -353,7 +388,7 @@
         <!-- End of Main -->
 
         <!-- Start of Footer -->
-        <footer class="footer appear-animate" >
+        <footer class="footer appear-animate">
             <div class="container">
                 <div class="footer-newsletter">
                     <div class="row justify-content-center align-items-center">
@@ -497,7 +532,7 @@
 
         <div class="mobile-menu-container scrollable">
 
-           
+
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
@@ -519,12 +554,12 @@
                             <ul>
                                 @if (!auth()->check())
                                     <li><a href="{{ route('login') }}">Login</a></li>
-                                   <li> <a class="" href="{{ route('register') }}"
-                                    style="font-size: small">Register as Customer</a></li>
-                                    <li>  <a class="" href="{{ route('vendor.create') }}"
-                                    style="font-size: small">Register as E-Shop </a> </li>
+                                    <li> <a class="" href="{{ route('register') }}"
+                                            style="font-size: small">Register as Customer</a></li>
+                                    <li> <a class="" href="{{ route('vendor.create') }}"
+                                            style="font-size: small">Register as E-Shop </a> </li>
                                     <li> <a class="" href="{{ route('marchentiger.create') }}"
-                                    style="font-size: small">Register as UKRBD Affiliate </a> </li>
+                                            style="font-size: small">Register as UKRBD Affiliate </a> </li>
                                 @elseif(auth()->user()->role_id == 3)
                                     <li><a href="{{ route('vendor.dashboard') }}">My Account</a></li>
 
@@ -715,7 +750,7 @@
 
         });
 
-        function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax) {
+        function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax, target = "_self") {
             var url;
 
             if (window.location.pathname !== "/shops" || (new URL(route)).pathname == '/vendors') {
@@ -727,11 +762,11 @@
             url.searchParams.set(searchParam, searchValue);
 
             // Set the price range parameters if provided
-            if (priceMin !== undefined) {
+            if (priceMin !== undefined && priceMin !== null) {
                 url.searchParams.set('priceMin', priceMin);
             }
 
-            if (priceMax !== undefined) {
+            if (priceMax !== undefined && priceMax !== null) {
                 url.searchParams.set('priceMax', priceMax);
             }
 
@@ -746,9 +781,10 @@
                 url.searchParams.set(key, value);
             });
 
-            var newUrl = url.href;
-            window.location = newUrl;
+            const newUrl = url.href;
+            window.open(newUrl, target); // Open the new URL in a new tab
         }
+
 
         function removeSearchParam(searchParam, route) {
             var url;
@@ -873,6 +909,35 @@
     <script>
         document.querySelector('.input-wrapper').addEventListener('click', function(event) {
             event.stopPropagation();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper('.swiper-container', {
+                spaceBetween: 20,
+                slidesPerView: 2,
+                allowSlideNext: true,
+                allowSlidePrev: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-next',
+                    prevEl: '.swiper-prev',
+                },
+                breakpoints: {
+                    576: {
+                        slidesPerView: 5,
+                    },
+                    768: {
+                        slidesPerView: 8,
+                    },
+                    992: {
+                        slidesPerView: 8,
+                    },
+                },
+            });
         });
     </script>
 </body>

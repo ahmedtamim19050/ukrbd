@@ -66,7 +66,7 @@
       </nav>
       <div class="page-content mt-5">
           <div class="container">
-              @if (request()->filled('parent'))
+              @if (request()->filled('parent') && $categories->count())
                   <x-pages.home.categories param="category" :categories="$categories" :route="route('shops')" />
               @endif
               <div class="shop-content row gutter-lg mb-10">
