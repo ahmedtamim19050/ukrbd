@@ -5440,7 +5440,10 @@ blockquote {
                 - Icon
             - Category Banner
 -------------------------------------*/
-.category {
+.category {  
+
+
+  
   position: relative;
   font-size: 1rem;
   color: #666;
