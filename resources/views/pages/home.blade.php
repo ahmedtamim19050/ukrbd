@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
 
         <!-- Default CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}?v={{uniqid()}}">
     </x-slot>
 
 
