@@ -65,6 +65,11 @@
           </div>
       </nav>
       <div class="page-content mt-5">
+          @if ($parent)
+              <img src="{{ Storage::url($parent->cover) }}" style="height: 250px;width:100%;" alt="">
+              <br>
+              <br>
+          @endif
           <div class="container">
               @if (request()->filled('parent') && $categories->count())
                   <x-pages.home.categories param="category" :categories="$categories" :route="route('shops')" />
@@ -207,15 +212,11 @@
                           </div> --}}
                       </nav>
                       <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-
-                          @foreach ($products as $product)
-                              <x-products.card :product="$product" />
-                          @endforeach
+                          @include('partials.products', ['products' => $products])
 
                       </div>
 
 
-                      {{ $products->withQueryString()->links() }}
                   </div>
                   <!-- End of Shop Main Content -->
               </div>

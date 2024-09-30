@@ -108,21 +108,24 @@ class PageController extends Controller
     }
     public function shops()
     {
+
+        $parent = null;
+        if (request()->filled('parent')) {
+            $parent = Prodcat::where('slug', request()->parent)->first();
+        }
+
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
         })->when(request()->filled('parent'), function ($query) {
             $query->whereHas('prodcats', fn($query) => $query->whereHas('allParentCategories', fn($q) => $q->where('slug', request()->parent)));
-        })->filter()->paginate(12);
+        })->filter()->get();
 
 
         $categories = Prodcat::has('products')->when(request()->filled('parent'), function ($query) {
             $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
         })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
-        $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
-            $query->whereNull('parent_id');
-        })->latest()->limit(8)->get();
-        return view('pages.shops', compact('products', 'categories', 'latest_shops'));
+        return view('pages.shops', compact('products', 'categories', 'parent'));
     }
     public function product_details($slug)
     {

@@ -68,13 +68,15 @@
         }
 
         .swiper-next {
-            right: 10px;
+            color: #bb1218 !important;
+            right: 0px;
             left: auto;
 
         }
 
         .swiper-prev {
-            left: 10px;
+            color: #bb1218 !important;
+            left: 0px;
             right: auto;
 
         }

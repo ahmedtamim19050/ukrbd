@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
 
 
-        $prodcats = Prodcat::whereNotNull('parent_id')->doesntHave('childrens')->get();
+        $prodcats = Prodcat::whereNotNull('parent_id')->get();
 
         return view('auth.seller.product.create', compact('prodcats'));
     }
@@ -95,7 +95,7 @@ class ProductController extends Controller
     {
 
         $product = Product::where('slug', $slug)->firstOrFail();
-        $prodcats = Prodcat::whereNotNull('parent_id')->doesntHave('childrens')->get();
+        $prodcats = Prodcat::whereNotNull('parent_id')->get();
         $product_attributes = Attribute::where('product_id', $product->id)->get();
         if (!session()->has('target')) {
             session()->flash('target', 'attribute');

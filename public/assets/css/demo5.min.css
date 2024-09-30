@@ -5452,7 +5452,11 @@ blockquote {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: border .5s ease-in;
+}
+.category:hover{
   
+  border: 2px solid #bb1218 !important;
 }
 .category a {
   color: inherit;
