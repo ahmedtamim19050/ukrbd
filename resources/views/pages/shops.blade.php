@@ -127,7 +127,31 @@
                                   </div>
                               </div>
                               <!-- End of Collapsible Widget -->
+                              @if ($filters)
+                                  @foreach ($filters as $filter)
+                                      <div class="widget widget-collapsible">
+                                          <h3 class="widget-title"><label>{{ $filter->name }}</label></h3>
 
+
+                                          <ul class="widget-body filter-items item-check mt-1">
+                                              @foreach ($filter->getValue() as $value)
+                                              
+                                                  <li class="" style="margin:10px 0;">
+                                                      <label>
+                                                          <input class="input"
+                                                              onchange="filterAttributes(this)"
+                                                              type="checkbox" name="filter[{{ $filter->name }}][{{$loop->index}}]"
+                                                              value="{{ $value }}"
+                                                              {{ in_array($value, @request()->filter[$filter->name] ?? []) ? 'checked' : '' }}>
+                                                          {{ $value }}
+                                                      </label>
+                                                  </li>
+                                              @endforeach
+                                          </ul>
+
+                                      </div>
+                                  @endforeach
+                              @endif
                               <!-- Start of Collapsible Widget -->
                               <div class="widget widget-collapsible">
                                   <h3 class="widget-title"><label>Rating</label></h3>

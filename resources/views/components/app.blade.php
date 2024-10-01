@@ -752,6 +752,15 @@
 
         });
 
+        const filterAttributes = (el) => {
+
+            if ($(el).is(':checked')) {
+                updateSearchParams($(el).attr('name'), $(el).val(), shopUrl);
+            } else {
+                removeSearchParam($(el).attr('name'), shopUrl);
+            }
+        }
+
         function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax, target = "_self") {
             var url;
 

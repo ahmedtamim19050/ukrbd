@@ -23,6 +23,10 @@ class Prodcat extends Model
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
 
+    public function filters(){
+        return $this->belongsToMany(Filter::class,'filter_prodcats');
+    }
+
     public function allChildCategories()
     {
         return $this->children()->with('allChildCategories');

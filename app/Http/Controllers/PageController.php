@@ -110,9 +110,20 @@ class PageController extends Controller
     {
 
         $parent = null;
+        $filters = collect([]);
         if (request()->filled('parent')) {
             $parent = Prodcat::where('slug', request()->parent)->first();
+            $filters = $filters->merge($parent->filters);
         }
+        
+        if (request()->filled('category')) {
+          $category = Prodcat::where('slug', request()->category)->first();
+          $filters = $filters->merge($category->filters);
+        }
+        
+        $filters = $filters->unique('id');
+        
+
 
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
@@ -125,7 +136,7 @@ class PageController extends Controller
             $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
         })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
-        return view('pages.shops', compact('products', 'categories', 'parent'));
+        return view('pages.shops', compact('products', 'categories', 'parent','filters'));
     }
     public function product_details($slug)
     {

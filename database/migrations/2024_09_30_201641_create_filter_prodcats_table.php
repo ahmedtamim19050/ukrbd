@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('filter_prodcats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('filter_id');
-            $table->foreignId('prodcats_id');
+            $table->foreignId('prodcat_id');
             $table->timestamps();
         });
     }
