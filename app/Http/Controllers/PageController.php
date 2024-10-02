@@ -132,7 +132,7 @@ class PageController extends Controller
         })->filter()->get();
 
 
-        $categories = Prodcat::has('products')->when(request()->filled('parent'), function ($query) {
+        $categories = Prodcat::when(request()->filled('parent'), function ($query) {
             $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
         })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
