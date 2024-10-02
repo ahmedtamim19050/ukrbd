@@ -87,7 +87,7 @@ class PageController extends Controller
         });
 
         $prodcats = Cache::remember($division . '_product_categories', 100, function () {
-            return Prodcat::where('parent_id', null)->get();
+            return Prodcat::where('parent_id', null)->where('featured', 1)->get();
         });
 
         $sliders = Cache::remember($division . '_sliders', 100, function () {
@@ -115,14 +115,14 @@ class PageController extends Controller
             $parent = Prodcat::where('slug', request()->parent)->first();
             $filters = $filters->merge($parent->filters);
         }
-        
+
         if (request()->filled('category')) {
-          $category = Prodcat::where('slug', request()->category)->first();
-          $filters = $filters->merge($category->filters);
+            $category = Prodcat::where('slug', request()->category)->first();
+            $filters = $filters->merge($category->filters);
         }
-        
+
         $filters = $filters->unique('id');
-        
+
 
 
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
@@ -136,7 +136,7 @@ class PageController extends Controller
             $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
         })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
-        return view('pages.shops', compact('products', 'categories', 'parent','filters'));
+        return view('pages.shops', compact('products', 'categories', 'parent', 'filters'));
     }
     public function product_details($slug)
     {
