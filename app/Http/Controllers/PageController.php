@@ -87,7 +87,7 @@ class PageController extends Controller
         });
 
         $prodcats = Cache::remember($division . '_product_categories', 100, function () {
-            return Prodcat::has('childrens')->where('parent_id', null)->get();
+            return Prodcat::where('parent_id', null)->get();
         });
 
         $sliders = Cache::remember($division . '_sliders', 100, function () {
