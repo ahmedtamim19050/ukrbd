@@ -159,11 +159,13 @@
         }
 
         .slider-image {
-
             object-fit: fill;
             aspect-ratio: 6/2 !important;
         }
-
+        
+         .slider-image img{
+            object-fit: fill;
+         }
         .product {
             margin: 5px;
             border-radius: 10px;
