@@ -25,8 +25,7 @@ class PageController extends Controller
         $division = session()->get('division', 'Bangladesh');
         $bestSellingCategories = Cache::remember($division . '_best_selling_categories', 100, function () {
             // Step 1: Get the categories with all child categories and their products
-            $categories = Prodcat::where('parent_id', null)
-                ->where('featured', true)
+            $categories = Prodcat::where('featured', true)
                 ->with([
                     'childrens.products:id,name,slug,image,price',
                     'childrens.childrens.products:id,name,slug,image,price' // for grandchild categories
