@@ -267,7 +267,7 @@
                                     @foreach ($products as $product)
                                         @if ($product->slug)
                                             <div class="product-wrap">
-                                                <div class="product text-center">
+                                                <div class=" text-center">
                                                     <x-products.card :product="$product" />
                                                 </div>
                                             </div>
@@ -309,7 +309,6 @@
                         </div>
                     </div>
                 </div>
-                {{ $products->links() }}
                 <!-- End of Main Content -->
             </div>
         </div>

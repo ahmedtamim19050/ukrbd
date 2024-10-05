@@ -198,39 +198,48 @@ class PageController extends Controller
         return view('pages.checkout');
     }
     public function store_front($slug)
-
     {
-        $shop = Shop::where('slug', $slug)->with('products')->firstOrFail();
-        $products = $shop->products()->filter()->paginate(9);
+        // Cache the shop details and related products
+        $shop = Cache::remember("shop_{$slug}", 60, function () use ($slug) {
+            return Shop::where('slug', $slug)->with('products')->firstOrFail();
+        });
 
-
+        $products = Cache::remember("shop_{$slug}_products", 60, function () use ($shop) {
+            return $shop->products()->filter()->get();
+        });
 
         // Initialize arrays to ensure they are not null even if no products are present
         $bestSellingProducts = [];
         $featuredproducts = [];
-        $reviews = $shop->ratings()->latest()->get();
+        $reviews = Cache::remember("shop_{$slug}_reviews", 60, function () use ($shop) {
+            return $shop->ratings()->latest()->get();
+        });
 
         // Check if the shop has any products
         if ($shop->products->isNotEmpty()) {
-            // Retrieve best selling products (top 3)
-            $bestSellingProducts = $shop->products()
-                ->orderBy('total_sale', 'desc')
-                ->limit(3)
-                ->whereNull('parent_id')
-                ->get();
+            // Retrieve best-selling products (top 3)
+            $bestSellingProducts = Cache::remember("shop_{$slug}_best_selling", 60, function () use ($shop) {
+                return $shop->products()
+                    ->orderBy('total_sale', 'desc')
+                    ->limit(3)
+                    ->whereNull('parent_id')
+                    ->get();
+            });
 
             // Retrieve featured products (top 3)
-            $featuredproducts = $shop->products()
-                ->where('featured', 1)
-                ->latest()
-                ->limit(3)
-                ->whereNull('parent_id')
-                ->get();
+            $featuredproducts = Cache::remember("shop_{$slug}_featured", 60, function () use ($shop) {
+                return $shop->products()
+                    ->where('featured', 1)
+                    ->latest()
+                    ->limit(3)
+                    ->whereNull('parent_id')
+                    ->get();
+            });
         }
-
 
         return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews', 'products'));
     }
+
 
 
     // public function order_page()
