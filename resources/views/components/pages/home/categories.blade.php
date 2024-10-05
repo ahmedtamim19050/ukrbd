@@ -6,7 +6,7 @@
 </div>
 
 <div class="container mb-5" style="overflow:hidden;position:relative">
-    
+
 
     <div class="category-swiper-container d-md-block d-none">
         <div class="swiper-wrapper">
@@ -55,8 +55,10 @@
     </div>
 
     <!-- Navigation Controls -->
-    <div class="nav-prev"><i class="fa fa-2x fa-chevron-left"></i></div>
-    <div class="nav-next"><i class="fa fa-2x fa-chevron-right"></i></div>
+    @if ($categories->count() > 12)
+        <div class="nav-prev"><i class="fa fa-2x fa-chevron-left"></i></div>
+        <div class="nav-next"><i class="fa fa-2x fa-chevron-right"></i></div>
+    @endif
 </div>
 
 
