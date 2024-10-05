@@ -14,7 +14,7 @@
           <!-- Default CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
 
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}?v={{uniqid()}}">
           <style>
               .rating-input {
                   margin-right: 8px;
