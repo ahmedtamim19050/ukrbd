@@ -11,9 +11,10 @@
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
           <link rel="stylesheet" type="text/css"
               href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
           <!-- Default CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
           <style>
               .rating-input {
                   margin-right: 8px;
@@ -66,7 +67,12 @@
       </nav>
       <div class="page-content mt-5">
           @if ($parent)
-              <img src="{{ Storage::url($parent->cover) }}" style="height: 250px;width:100%;" alt="">
+              <div style="position:relative;">
+                  <img src="{{ Storage::url($parent->cover) }}" style="height: 250px;width:100%;" alt="">
+                  <h2 style="position: absolute;top:50%;transform:translate(50%,-50%);color:#fff;">
+                      {{ $parent->name }}
+                  </h2>
+              </div>
               <br>
               <br>
           @endif
@@ -135,12 +141,11 @@
 
                                           <ul class="widget-body filter-items item-check mt-1">
                                               @foreach ($filter->getValue() as $value)
-                                              
                                                   <li class="" style="margin:10px 0;">
                                                       <label>
-                                                          <input class="input"
-                                                              onchange="filterAttributes(this)"
-                                                              type="checkbox" name="filter[{{ $filter->name }}][{{$loop->index}}]"
+                                                          <input class="input" onchange="filterAttributes(this)"
+                                                              type="checkbox"
+                                                              name="filter[{{ $filter->name }}][{{ $loop->index }}]"
                                                               value="{{ $value }}"
                                                               {{ in_array($value, @request()->filter[$filter->name] ?? []) ? 'checked' : '' }}>
                                                           {{ $value }}

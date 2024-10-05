@@ -5440,14 +5440,37 @@ blockquote {
                 - Icon
             - Category Banner
 -------------------------------------*/
-.category {  
+.categories-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .categories-row {
+      grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .categories-row {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+
+
+
+.category {   
   position: relative;
   font-size: 1rem;
   color: #666;
   border: 2px solid #000 !important;
   border-radius: 50% !important;
-  height: 150px !important;
-  width: 150px !important;
+  height: 100px !important;
+  width: 100px !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -5457,6 +5480,10 @@ blockquote {
 .category:hover{
   
   border: 2px solid #bb1218 !important;
+}
+.category p{
+  margin-top: 5px;
+  font-size: 10px !important;
 }
 .category a {
   color: inherit;

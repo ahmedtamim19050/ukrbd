@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="swiper-container swiper-theme animation-slider pg-inner slider-image"
                 data-swiper-options="{
-                'slidesPerView': 1,
+                'slidesPerView': 1,3
                 'autoplay': {
                     'delay': 8000,
                     'disableOnInteraction': false

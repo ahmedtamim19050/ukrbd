@@ -52,11 +52,11 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
-        .swiper-next,
-        .swiper-prev {
+        .nav-next,
+        .nav-prev {
             position: absolute;
-            top: 50%;
-            width: calc(var(--swiper-navigation-size)/ 44 * 27);
+            top: 100px;
+            width: calc(var(--swiper-navigation-size)/ 44 * 27); 
             height: var(--swiper-navigation-size);
             margin-top: calc(0px - (var(--swiper-navigation-size)/ 2));
             z-index: 10;
@@ -67,14 +67,14 @@
             color: var(--swiper-navigation-color, var(--swiper-theme-color));
         }
 
-        .swiper-next {
+        .nav-next {
             color: #bb1218 !important;
             right: 0px;
             left: auto;
 
         }
 
-        .swiper-prev {
+        .nav-prev {
             color: #bb1218 !important;
             left: 0px;
             right: auto;
@@ -162,10 +162,11 @@
             object-fit: fill;
             aspect-ratio: 6/2 !important;
         }
-        
-         .slider-image img{
+
+        .slider-image img {
             object-fit: fill;
-         }
+        }
+
         .product {
             margin: 5px;
             border-radius: 10px;
@@ -926,30 +927,15 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var swiper = new Swiper('.swiper-container', {
-                spaceBetween: 20,
-                slidesPerView: 2,
-                allowSlideNext: true,
-                allowSlidePrev: true,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
+            var swiper = new Swiper('.category-swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                loop:1,
                 navigation: {
-                    nextEl: '.swiper-next',
-                    prevEl: '.swiper-prev',
+                    nextEl: '.nav-next',
+                    prevEl: '.nav-prev',
                 },
-                breakpoints: {
-                    576: {
-                        slidesPerView: 5,
-                    },
-                    768: {
-                        slidesPerView: 8,
-                    },
-                    992: {
-                        slidesPerView: 8,
-                    },
-                },
+                
             });
         });
     </script>
