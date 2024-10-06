@@ -69,7 +69,7 @@
           @if ($parent)
               <div style="position:relative;">
                   <img src="{{ Storage::url($parent->cover) }}" style="height: 250px;width:100%;" alt="">
-                  <h2 style="position: absolute;top:50%;transform:translate(50%,-50%);color:#fff;">
+                  <h2 style="position: absolute;top:50%;left:40px;color:#fff;">
                       {{ $parent->name }}
                   </h2>
               </div>
