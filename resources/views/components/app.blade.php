@@ -56,7 +56,7 @@
         .nav-prev {
             position: absolute;
             top: 100px;
-            width: calc(var(--swiper-navigation-size)/ 44 * 27); 
+            width: calc(var(--swiper-navigation-size)/ 44 * 27);
             height: var(--swiper-navigation-size);
             margin-top: calc(0px - (var(--swiper-navigation-size)/ 2));
             z-index: 10;
@@ -164,6 +164,7 @@
         }
 
         .slider-image img {
+            aspect-ratio: 16/5 !important;
             object-fit: fill;
         }
 
@@ -927,15 +928,21 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+           
+                const swiperContainers = document.querySelectorAll('.swiper');
+                swiperContainers.forEach(function(container) {
+                    new Swiper(container, JSON.parse(container.dataset.swiperOptions));
+                });
+       
             var swiper = new Swiper('.category-swiper-container', {
                 slidesPerView: 1,
                 spaceBetween: 10,
-                loop:1,
+                loop: 1,
                 navigation: {
                     nextEl: '.nav-next',
                     prevEl: '.nav-prev',
                 },
-                
+
             });
         });
     </script>
