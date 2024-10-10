@@ -12,10 +12,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>UKRBD</title>
+    <title>UKRBD – Quality Products at Unbeatable Prices</title>
 
-    <meta name="keywords" content="{{ env('APP_NAME') }}" />
-    <meta name="description" content="{{ env('APP_NAME') }}">
+    <meta name="keywords"
+        content="UKRBD, online shopping, buy products online, affordable prices, electronics, fashion, home essentials, Bangladesh eCommerce, quality products, fast shippin" />
+    <meta name="description"
+        content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide.">
+
+
+    <meta property="og:title" content="UKRBD – Quality Products at Unbeatable Prices" />
+    <meta property="og:description"
+        content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide." />
+    <meta property="og:url" content="https://www.ukrbd.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ asset('assets/social.png') }}" />
+    <meta property="og:site_name" content="UKRBD" />
+    <meta property="og:locale" content="en_US" />
 
 
     <!-- Favicon -->
@@ -928,12 +940,12 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-           
-                const swiperContainers = document.querySelectorAll('.swiper');
-                swiperContainers.forEach(function(container) {
-                    new Swiper(container, JSON.parse(container.dataset.swiperOptions));
-                });
-       
+
+            const swiperContainers = document.querySelectorAll('.swiper');
+            swiperContainers.forEach(function(container) {
+                new Swiper(container, JSON.parse(container.dataset.swiperOptions));
+            });
+
             var swiper = new Swiper('.category-swiper-container', {
                 slidesPerView: 1,
                 spaceBetween: 10,
