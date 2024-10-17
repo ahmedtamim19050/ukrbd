@@ -55,17 +55,9 @@ class AdminController extends Controller
                         return $query->where('display_name', 'like', '%' . request()->s . '%');
                     }
                 });
-            } else {
-                if (request()->filter == 'equals') {
-                    return $q->where(request()->key, request()->s);
-                } else {
-                    return $q->where(request()->key, 'like', '%' . request()->s . '%');
-                }
-            }
+            } 
         })
             ->latest()
-            ->skip(($page - 1) * $perPage)
-            ->take($perPage)
             ->get();
         $pdf = Pdf::loadView('auth.admin.user_pdf', compact('users'))->setPaper('a4', 'landscape');
       
