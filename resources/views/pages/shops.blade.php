@@ -11,9 +11,10 @@
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.min.css') }}">
           <link rel="stylesheet" type="text/css"
               href="{{ asset('assets/vendor/magnific-popup/magnific-popup.min.css') }}">
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
           <!-- Default CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
+
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}?v={{uniqid()}}">
           <style>
               .rating-input {
                   margin-right: 8px;
@@ -65,8 +66,18 @@
           </div>
       </nav>
       <div class="page-content mt-5">
+          @if ($parent)
+              <div style="position:relative;">
+                  <img src="{{ Storage::url($parent->cover) }}" style="height: 250px;width:100%;" alt="">
+                  <h2 style="position: absolute;top:50%;left:40px;color:#fff;">
+                      {{ $parent->name }}
+                  </h2>
+              </div>
+              <br>
+              <br>
+          @endif
           <div class="container">
-              @if (request()->filled('parent'))
+              @if (request()->filled('parent') && $categories->count())
                   <x-pages.home.categories param="category" :categories="$categories" :route="route('shops')" />
               @endif
               <div class="shop-content row gutter-lg mb-10">
@@ -122,7 +133,30 @@
                                   </div>
                               </div>
                               <!-- End of Collapsible Widget -->
+                              @if ($filters)
+                                  @foreach ($filters as $filter)
+                                      <div class="widget widget-collapsible">
+                                          <h3 class="widget-title"><label>{{ $filter->name }}</label></h3>
 
+
+                                          <ul class="widget-body filter-items item-check mt-1">
+                                              @foreach ($filter->getValue() as $value)
+                                                  <li class="" style="margin:10px 0;">
+                                                      <label>
+                                                          <input class="input" onchange="filterAttributes(this)"
+                                                              type="checkbox"
+                                                              name="filter[{{ $filter->name }}][{{ $loop->index }}]"
+                                                              value="{{ $value }}"
+                                                              {{ in_array($value, @request()->filter[$filter->name] ?? []) ? 'checked' : '' }}>
+                                                          {{ $value }}
+                                                      </label>
+                                                  </li>
+                                              @endforeach
+                                          </ul>
+
+                                      </div>
+                                  @endforeach
+                              @endif
                               <!-- Start of Collapsible Widget -->
                               <div class="widget widget-collapsible">
                                   <h3 class="widget-title"><label>Rating</label></h3>
@@ -207,15 +241,11 @@
                           </div> --}}
                       </nav>
                       <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-
-                          @foreach ($products as $product)
-                              <x-products.card :product="$product" />
-                          @endforeach
+                          @include('partials.products', ['products' => $products])
 
                       </div>
 
 
-                      {{ $products->withQueryString()->links() }}
                   </div>
                   <!-- End of Shop Main Content -->
               </div>

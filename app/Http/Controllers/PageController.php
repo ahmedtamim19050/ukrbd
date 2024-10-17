@@ -25,13 +25,13 @@ class PageController extends Controller
         $division = session()->get('division', 'Bangladesh');
         $bestSellingCategories = Cache::remember($division . '_best_selling_categories', 100, function () {
             // Step 1: Get the categories with all child categories and their products
-            $categories = Prodcat::where('parent_id', null)
-                ->where('featured', true)
+            $categories = Prodcat::where('featured', true)
                 ->with([
                     'childrens.products:id,name,slug,image,price',
                     'childrens.childrens.products:id,name,slug,image,price' // for grandchild categories
                 ])
-                ->take(30)
+                ->has('products')
+                ->take(50)
                 ->orderBy('role', 'asc')
                 ->get();
 
@@ -86,7 +86,7 @@ class PageController extends Controller
         });
 
         $prodcats = Cache::remember($division . '_product_categories', 100, function () {
-            return Prodcat::has('childrens')->where('parent_id', null)->limit(11)->get();
+            return Prodcat::where('parent_id', null)->where('featured', 1)->get();
         });
 
         $sliders = Cache::remember($division . '_sliders', 100, function () {
@@ -107,21 +107,35 @@ class PageController extends Controller
     }
     public function shops()
     {
+
+        $parent = null;
+        $filters = collect([]);
+        if (request()->filled('parent')) {
+            $parent = Prodcat::where('slug', request()->parent)->first();
+            $filters = $filters->merge($parent->filters);
+        }
+
+        if (request()->filled('category')) {
+            $category = Prodcat::where('slug', request()->category)->first();
+            $filters = $filters->merge($category->filters);
+        }
+
+        $filters = $filters->unique('id');
+
+
+
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
         })->when(request()->filled('parent'), function ($query) {
             $query->whereHas('prodcats', fn($query) => $query->whereHas('allParentCategories', fn($q) => $q->where('slug', request()->parent)));
-        })->filter()->paginate(12);
+        })->filter()->get();
 
 
-        $categories = Prodcat::has('products')->when(request()->filled('parent'), function ($query) {
+        $categories = Prodcat::when(request()->filled('parent'), function ($query) {
             $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
         })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
-        $latest_shops =  Shop::where("status", 1)->whereHas('products', function ($query) {
-            $query->whereNull('parent_id');
-        })->latest()->limit(8)->get();
-        return view('pages.shops', compact('products', 'categories', 'latest_shops'));
+        return view('pages.shops', compact('products', 'categories', 'parent', 'filters'));
     }
     public function product_details($slug)
     {
@@ -183,39 +197,48 @@ class PageController extends Controller
         return view('pages.checkout');
     }
     public function store_front($slug)
-
     {
-        $shop = Shop::where('slug', $slug)->with('products')->firstOrFail();
-        $products = $shop->products()->filter()->paginate(9);
+        // Cache the shop details and related products
+        $shop = Cache::remember("shop_{$slug}", 60, function () use ($slug) {
+            return Shop::where('slug', $slug)->with('products')->firstOrFail();
+        });
 
-
+        $products = Cache::remember("shop_{$slug}_products", 60, function () use ($shop) {
+            return $shop->products()->filter()->get();
+        });
 
         // Initialize arrays to ensure they are not null even if no products are present
         $bestSellingProducts = [];
         $featuredproducts = [];
-        $reviews = $shop->ratings()->latest()->get();
+        $reviews = Cache::remember("shop_{$slug}_reviews", 60, function () use ($shop) {
+            return $shop->ratings()->latest()->get();
+        });
 
         // Check if the shop has any products
         if ($shop->products->isNotEmpty()) {
-            // Retrieve best selling products (top 3)
-            $bestSellingProducts = $shop->products()
-                ->orderBy('total_sale', 'desc')
-                ->limit(3)
-                ->whereNull('parent_id')
-                ->get();
+            // Retrieve best-selling products (top 3)
+            $bestSellingProducts = Cache::remember("shop_{$slug}_best_selling", 60, function () use ($shop) {
+                return $shop->products()
+                    ->orderBy('total_sale', 'desc')
+                    ->limit(3)
+                    ->whereNull('parent_id')
+                    ->get();
+            });
 
             // Retrieve featured products (top 3)
-            $featuredproducts = $shop->products()
-                ->where('featured', 1)
-                ->latest()
-                ->limit(3)
-                ->whereNull('parent_id')
-                ->get();
+            $featuredproducts = Cache::remember("shop_{$slug}_featured", 60, function () use ($shop) {
+                return $shop->products()
+                    ->where('featured', 1)
+                    ->latest()
+                    ->limit(3)
+                    ->whereNull('parent_id')
+                    ->get();
+            });
         }
-
 
         return view('pages.store_front', compact('shop', 'bestSellingProducts', 'featuredproducts', 'reviews', 'products'));
     }
+
 
 
     // public function order_page()

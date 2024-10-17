@@ -12,10 +12,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>UKRBD</title>
+    <title>UKRBD – Quality Products at Unbeatable Prices</title>
 
-    <meta name="keywords" content="{{ env('APP_NAME') }}" />
-    <meta name="description" content="{{ env('APP_NAME') }}">
+    <meta name="keywords"
+        content="UKRBD, online shopping, buy products online, affordable prices, electronics, fashion, home essentials, Bangladesh eCommerce, quality products, fast shippin" />
+    <meta name="description"
+        content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide.">
+
+
+    <meta property="og:title" content="UKRBD – Quality Products at Unbeatable Prices" />
+    <meta property="og:description"
+        content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide." />
+    <meta property="og:url" content="https://www.ukrbd.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ asset('assets/social.png') }}" />
+    <meta property="og:site_name" content="UKRBD" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="UKRBD – Quality Products at Unbeatable Prices" />
+<meta name="twitter:description" content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide." />
+<meta name="twitter:image" content="{{ asset('assets/social.png') }}" />
+<meta name="twitter:site" content="@UKRBD" />
+
 
 
     <!-- Favicon -->
@@ -52,6 +71,35 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
     <style>
+        .nav-next,
+        .nav-prev {
+            position: absolute;
+            top: 100px;
+            width: calc(var(--swiper-navigation-size)/ 44 * 27);
+            height: var(--swiper-navigation-size);
+            margin-top: calc(0px - (var(--swiper-navigation-size)/ 2));
+            z-index: 10;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--swiper-navigation-color, var(--swiper-theme-color));
+        }
+
+        .nav-next {
+            color: #bb1218 !important;
+            right: 0px;
+            left: auto;
+
+        }
+
+        .nav-prev {
+            color: #bb1218 !important;
+            left: 0px;
+            right: auto;
+
+        }
+
         #division-select {
             border: none;
             font-size: 16px;
@@ -130,32 +178,40 @@
         }
 
         .slider-image {
-
             object-fit: fill;
             aspect-ratio: 6/2 !important;
         }
 
-        .product{
+        .slider-image img {
+            aspect-ratio: 16/5 !important;
+            object-fit: fill;
+        }
+
+        .product {
             margin: 5px;
             border-radius: 10px;
             overflow: hidden;
             padding: 0px 10px;
             padding-bottom: 10px;
-        transition: .9s cubic-bezier(0.075, 0.82, 0.165, 1)  !important;
+            transition: .9s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
         }
-        .product:hover{
-       
-            box-shadow: 2px 2px 10px #00000079; 
+
+        .product:hover {
+
+            box-shadow: 2px 2px 10px #00000079;
         }
-        .product-name{
+
+        .product-name {
             font-size: 17px !important;
             font-weight: 700;
         }
+
         @media only screen and (max-width: 600px) {
-            .product-name{
-            font-size: 15px !important;
-            font-weight: 700;
-        }
+            .product-name {
+                font-size: 15px !important;
+                font-weight: 700;
+            }
+
             .slider-image {
                 object-fit: fill;
                 aspect-ratio: 4/2 !important;
@@ -178,7 +234,7 @@
             content: "";
             position: absolute;
             top: 1rem;
-            right:0 ;
+            right: 0;
             transform: rotate(0);
             transform-origin: center;
             transition: 0.2s transform ease;
@@ -207,9 +263,10 @@
                 opacity: 0;
                 transform: translateY(-100%);
             }
-        
+
         }
-        .vertical-menu{
+
+        .vertical-menu {
             height: 50vh;
             overflow-y: auto;
         }
@@ -230,7 +287,7 @@
         /* # Style 2 # */
         details.style2 summary::before {
             content: "×";
-            color: #888;    
+            color: #888;
             font-size: 2rem;
             line-height: 1rem;
             transform: rotate(-45deg);
@@ -248,7 +305,7 @@
 
         body {
             font-family: "Open Sans", sans-serif;
-        
+
         }
 
         img {
@@ -289,20 +346,23 @@
             color: #888;
             /* background: #e4e4e4;
             border-radius: 10px; */
-     
+
 
         }
-        .content:hover{
+
+        .content:hover {
             background: #e4e4e4;
             border-radius: 10px;
-        
+
 
         }
-        .active-cat{
+
+        .active-cat {
             background: #e4e4e4;
             border-radius: 10px;
-        
+
         }
+
         summary:hover strong,
         details[open] summary strong,
         summary:hover::before,
@@ -332,7 +392,7 @@
     @stack('css')
 </head>
 
-<body >
+<body>
     <div class="page-wrapper">
         <!-- Start of Header -->
         <header class="header">
@@ -353,7 +413,7 @@
         <!-- End of Main -->
 
         <!-- Start of Footer -->
-        <footer class="footer appear-animate" >
+        <footer class="footer appear-animate">
             <div class="container">
                 <div class="footer-newsletter">
                     <div class="row justify-content-center align-items-center">
@@ -497,7 +557,7 @@
 
         <div class="mobile-menu-container scrollable">
 
-           
+
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
@@ -519,12 +579,12 @@
                             <ul>
                                 @if (!auth()->check())
                                     <li><a href="{{ route('login') }}">Login</a></li>
-                                   <li> <a class="" href="{{ route('register') }}"
-                                    style="font-size: small">Register as Customer</a></li>
-                                    <li>  <a class="" href="{{ route('vendor.create') }}"
-                                    style="font-size: small">Register as E-Shop </a> </li>
+                                    <li> <a class="" href="{{ route('register') }}"
+                                            style="font-size: small">Register as Customer</a></li>
+                                    <li> <a class="" href="{{ route('vendor.create') }}"
+                                            style="font-size: small">Register as E-Shop </a> </li>
                                     <li> <a class="" href="{{ route('marchentiger.create') }}"
-                                    style="font-size: small">Register as UKRBD Affiliate </a> </li>
+                                            style="font-size: small">Register as UKRBD Affiliate </a> </li>
                                 @elseif(auth()->user()->role_id == 3)
                                     <li><a href="{{ route('vendor.dashboard') }}">My Account</a></li>
 
@@ -715,7 +775,16 @@
 
         });
 
-        function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax) {
+        const filterAttributes = (el) => {
+
+            if ($(el).is(':checked')) {
+                updateSearchParams($(el).attr('name'), $(el).val(), shopUrl);
+            } else {
+                removeSearchParam($(el).attr('name'), shopUrl);
+            }
+        }
+
+        function updateSearchParams(searchParam, searchValue, route, priceMin, priceMax, target = "_self") {
             var url;
 
             if (window.location.pathname !== "/shops" || (new URL(route)).pathname == '/vendors') {
@@ -727,11 +796,11 @@
             url.searchParams.set(searchParam, searchValue);
 
             // Set the price range parameters if provided
-            if (priceMin !== undefined) {
+            if (priceMin !== undefined && priceMin !== null) {
                 url.searchParams.set('priceMin', priceMin);
             }
 
-            if (priceMax !== undefined) {
+            if (priceMax !== undefined && priceMax !== null) {
                 url.searchParams.set('priceMax', priceMax);
             }
 
@@ -746,9 +815,10 @@
                 url.searchParams.set(key, value);
             });
 
-            var newUrl = url.href;
-            window.location = newUrl;
+            const newUrl = url.href;
+            window.open(newUrl, target); // Open the new URL in a new tab
         }
+
 
         function removeSearchParam(searchParam, route) {
             var url;
@@ -873,6 +943,26 @@
     <script>
         document.querySelector('.input-wrapper').addEventListener('click', function(event) {
             event.stopPropagation();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const swiperContainers = document.querySelectorAll('.swiper');
+            swiperContainers.forEach(function(container) {
+                new Swiper(container, JSON.parse(container.dataset.swiperOptions));
+            });
+
+            var swiper = new Swiper('.category-swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                loop: 1,
+                navigation: {
+                    nextEl: '.nav-next',
+                    prevEl: '.nav-prev',
+                },
+
+            });
         });
     </script>
 </body>

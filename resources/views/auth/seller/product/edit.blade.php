@@ -97,7 +97,8 @@
                                             <label class="form-label">Select Categories</label>
                                             <select
                                                 class="form-control category @error('categories') is-invalid @enderror"
-                                                name="categories[]" multiple>
+                                                name="categories[]" id="categoryInput" multiple
+                                                onchange="getFilters(this)">
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}"
                                                         {{ $product->prodcats->contains($prodcat->id) ? 'selected' : '' }}>
@@ -301,15 +302,19 @@
                                                 <input type="text" class="form-control mb-2" name="attr_name"
                                                     placeholder="Color,Size etc" required>
                                                 <input style="" type="text" class="form-control mt-2 mb-2"
-                                                    name="attr_value" data-role="tagsinput"
+                                                    name="attr_value"
                                                     placeholder="Attribute value comma separated red,yellow,white etc"
                                                     required="" value="">
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </form>
+                                        <div id="filterAttr">
+
+                                        </div>
                                         @foreach ($product_attributes as $product_attribute)
                                             <?php $attribute_value = implode(',', $product_attribute->value); ?>
-                                            <form action="{{ route('vendor.update.attribute') }}" method="post">
+                                            <form data-filter="{{ str_replace('_', ' ', $product_attribute->name) }}"
+                                                action="{{ route('vendor.update.attribute') }}" method="post">
                                                 @csrf
                                                 <div class="form-group mt-3">
                                                     <input type="text" class="form-control mb-2" name="attr_name"
@@ -318,7 +323,6 @@
                                                     <input type="hidden" value="{{ $product_attribute->id }}"
                                                         name="attr_id">
                                                     <input class="form-control" name="attr_value"
-                                                        data-role="tagsinput"
                                                         placeholder="Attribute value comma separated red,yellow,white etc"
                                                         value="{{ str_replace('_', ' ', $attribute_value) }}"
                                                         required="">
@@ -477,6 +481,54 @@
             <script src="{{ asset('seller-assets/js/vendor/jquery.magnific-popup.min.js') }}"></script>
             <script src="{{ asset('seller-assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
             <script src="{{ asset('seller-assets/js/vendor/bootstrap-tagsinput.js') }}"></script>
+
+
+            <script>
+                const getFilters = (el) => {
+                    let query = "?categories=" + ($(el).val()).join(',');
+                    fetch("{{ route('api.filters') }}" + query)
+                        .then(response => {
+                            // Check if the response is successful
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+
+                            return response.json()
+                        })
+                        .then(data => {
+                            let attributesEl = document.getElementById('filterAttr');
+                            attributesEl.innerHTML = '';
+
+                            let html = '';
+                            let elements = document.querySelectorAll('[data-filter]');
+                            let dataFilterValues = Array.from(elements).map(element => element.getAttribute('data-filter'));
+                        
+                            [...data].forEach(element => {
+                                if (dataFilterValues.includes(element.name)) return;
+                                html += ` <form class="my-2" action="{{ route('vendor.store.attribute') }}" method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <div class="form-group">
+                                    <input type="text" class="form-control mb-2" name="attr_name"
+                                        placeholder="Color,Size etc" value="${element.name}" required>
+                                    <input style="" type="text" class="form-control mt-2 mb-2"
+                                        name="attr_value"
+                                        placeholder="Attribute value comma separated red,yellow,white etc"
+                                        required="" value="${element.values}">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>`
+                            });
+                            attributesEl.innerHTML = html;
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
+                }
+
+
+                $(document).ready(() => getFilters($('#categoryInput')))
+            </script>
         @endpush
 
         <!-- End Vendor upload section -->
