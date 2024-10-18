@@ -182,10 +182,10 @@
             aspect-ratio: 6/2 !important;
         }
 
-        .slider-image img {
+        /* .slider-image img {
             aspect-ratio: 16/5 !important;
             object-fit: fill;
-        }
+        } */
 
         .product {
             margin: 5px;
