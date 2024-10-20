@@ -1,10 +1,7 @@
-@php
 
-    $categories = Cache::remember('main_categories', 100, function () {
-        return App\Models\Prodcat::has('childrens')->where('parent_id', null)->latest()->limit(11)->get();
-    });
 
-@endphp
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,10 +27,11 @@
     <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="UKRBD – Quality Products at Unbeatable Prices" />
-<meta name="twitter:description" content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide." />
-<meta name="twitter:image" content="{{ asset('assets/social.png') }}" />
-<meta name="twitter:site" content="@UKRBD" />
+    <meta name="twitter:title" content="UKRBD – Quality Products at Unbeatable Prices" />
+    <meta name="twitter:description"
+        content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide." />
+    <meta name="twitter:image" content="{{ asset('assets/social.png') }}" />
+    <meta name="twitter:site" content="@UKRBD" />
 
 
 

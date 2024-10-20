@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Prodcat extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
     public function childrens()
     {
@@ -23,8 +23,11 @@ class Prodcat extends Model
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
 
-    public function filters(){
-        return $this->belongsToMany(Filter::class,'filter_prodcats');
+ 
+
+    public function filters()
+    {
+        return $this->belongsToMany(Filter::class, 'filter_prodcats');
     }
 
     public function allChildCategories()
@@ -35,6 +38,4 @@ class Prodcat extends Model
     {
         return $this->parent()->with('allParentCategories');
     }
-   
-    
 }

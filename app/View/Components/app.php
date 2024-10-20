@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Prodcat;
+use App\Services\DependencyVariables;
 use Illuminate\View\Component;
 
 class app extends Component
@@ -15,7 +16,7 @@ class app extends Component
     public $categories;
     public function __construct()
     {
-        $this->categories = Prodcat::with('childrens')->where('parent_id', null)->limit(11)->get();
+        $this->categories = DependencyVariables::categories();
     }
 
     /**

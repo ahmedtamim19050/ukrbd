@@ -31,6 +31,7 @@ use App\Models\Prodcat;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Services\DependencyVariables;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,12 +55,6 @@ use TCG\Voyager\Models\Category;
 
 Route::get('/test/{ticket}', function (Ticket $ticket) {
     return new TicketPlaced($ticket, 'This message is for test purpose');
-});
-
-Route::get('/hello', function () {
-
-
-    return view('test_image');
 });
 
 
@@ -200,9 +195,7 @@ Route::get('select/division', [PageController::class, 'selectDivision'])->name('
 
 Route::get('/test',function(){
 
-    $categories = Prodcat::whereNull('parent_id')->has('childrens')->get();
-
-    dd($categories);
+  return DependencyVariables::getCategoryTree();
 });
 
 // Route::get('/test-email', function () {
