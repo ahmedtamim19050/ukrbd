@@ -1,7 +1,9 @@
 
 
+@php
+$categories = App\Services\DependencyVariables::categories();
 
-
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 

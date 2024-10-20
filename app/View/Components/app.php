@@ -13,10 +13,10 @@ class app extends Component
      *
      * @return void
      */
-    public $categories;
+    // public $categories;
     public function __construct()
     {
-        $this->categories = DependencyVariables::categories();
+        // $this->categories = ;
     }
 
     /**
