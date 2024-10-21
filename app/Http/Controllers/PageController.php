@@ -61,21 +61,21 @@ class PageController extends Controller
             return Product::with('ratings')->orderBy('views', 'desc')->where("status", 1)
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
-                })->latest()->limit(24)->whereNull('parent_id')->limit(11)->get();
+                })->latest()->limit(50)->whereNull('parent_id')->get();
         });
 
         $bestsaleproducts = Cache::remember($division . '_best_sale_products', 100, function () {
             return Product::with('ratings')->orderBy('total_sale', 'desc')
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
-                })->latest()->limit(16)->whereNull('parent_id')->get();
+                })->latest()->limit(50)->whereNull('parent_id')->get();
         });
 
         $featuredproducts = Cache::remember($division . '_featured_products', 100, function () {
             return Product::with('ratings')->where('featured', '1')
                 ->whereHas('shop', function ($q) {
                     $q->where('status', 1);
-                })->latest()->limit(16)->whereNull('parent_id')->get();
+                })->latest()->limit(50)->whereNull('parent_id')->get();
         });
 
         $latest_shops = Cache::remember($division . '_latest_shops', 100, function () {
@@ -128,12 +128,14 @@ class PageController extends Controller
             $q->where('status', 1);
         })->when(request()->filled('parent'), function ($query) {
             $query->whereHas('prodcats', fn($query) => $query->whereHas('allParentCategories', fn($q) => $q->where('slug', request()->parent)));
-        })->filter()->get();
+        })->filter()->limit(500)->get();
 
 
-        $categories = Prodcat::when(request()->filled('parent'), function ($query) {
-            $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
-        })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
+        $categories = Cache::remember('shops_categories',1000,function(){
+            return Prodcat::when(request()->filled('parent'), function ($query) {
+                $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
+            })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
+        });
 
         return view('pages.shops', compact('products', 'categories', 'parent', 'filters'));
     }

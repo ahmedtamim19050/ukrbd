@@ -67,12 +67,12 @@ class RegisterController extends Controller
 
             case 3:
 
-                // if (auth()->user()->email == null && auth()->user()->phone == !null) {
+                if (auth()->user()->email == null && auth()->user()->phone == !null) {
                     return '/vendor-register-2nd-step';
-                // } else {
+                } else {
 
-                //     return '/verify-email';
-                // }
+                    return '/verify-email';
+                }
                 break;
             case 4:
                 return RouteServiceProvider::MARCHENTIGER;
@@ -117,6 +117,12 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255'],
+            'phone' => [
+                'sometimes',
+                'string',
+                'max:255',
+                'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/', // Regex for Bangladeshi phone numbers
+            ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required'],
             'referral' => 'nullable'
@@ -124,7 +130,7 @@ class RegisterController extends Controller
 
         $username = $request->email;
         $email = null;
-        $phone = null;
+        $phone = $request->phone;
         $message = null;
         $email_verified = null;
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
@@ -159,7 +165,7 @@ class RegisterController extends Controller
             'username' => $username,
             'password' => Hash::make($request->password),
             'role_id' => $role_id,
-            'email_verified_at' => now(),
+            // 'email_verified_at' => now(),
 
         ];
         $user = User::create($array);

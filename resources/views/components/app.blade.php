@@ -1,7 +1,5 @@
-
-
 @php
-$categories = App\Services\DependencyVariables::categories();
+    $categories = App\Services\DependencyVariables::categories();
 
 @endphp
 <!DOCTYPE html>
@@ -178,8 +176,8 @@ $categories = App\Services\DependencyVariables::categories();
         }
 
         .slider-image {
-            object-fit: fill;
-            aspect-ratio: 6/2 !important;
+            /* object-fit: cover !important; */
+            /* aspect-ratio: 6/2 !important; */
         }
 
         /* .slider-image img {
@@ -206,15 +204,20 @@ $categories = App\Services\DependencyVariables::categories();
             font-weight: 700;
         }
 
+        .swiper-slide img {
+                /* object-fit: cover !important; */
+                /* aspect-ratio: 6/2 !important; */
+            }
+
         @media only screen and (max-width: 600px) {
             .product-name {
                 font-size: 15px !important;
                 font-weight: 700;
             }
 
-            .slider-image {
-                object-fit: fill;
-                aspect-ratio: 4/2 !important;
+            .swiper-slide img {
+                /* object-fit: fill !important; */
+                /* aspect-ratio: 4/2 !important; */
             }
 
         }

@@ -192,6 +192,17 @@
                                           </span>
                                       @enderror
                                   </div>
+                                  <div class="form-group">
+                                      <label>Your contact number *</label>
+                                      <input type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                          name="phone" id="phone" value="{{ old('phone') }}" required
+                                          autocomplete="phone" autofocus>
+                                      @error('email')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
 
                                   <div class="form-group mb-5">
                                       <label>Password *</label>

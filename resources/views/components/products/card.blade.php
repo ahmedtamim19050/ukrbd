@@ -1,5 +1,5 @@
 <div class="swiper-slide product-wrap">
-    <div class="product text-center">
+    <div class="product-hover text-center">
         <figure class="product-media">
             <a href="{{ route('product_details', $product->slug) }}">
                 <img src="{{ asset('placeholder.jpg') }}" data-src="{{ Voyager::image($product->image) }}" alt="Product"

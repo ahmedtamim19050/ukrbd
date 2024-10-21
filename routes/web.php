@@ -34,7 +34,7 @@ use App\Models\User;
 use App\Services\DependencyVariables;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 use TCG\Voyager\Facades\Voyager;
@@ -193,10 +193,10 @@ Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
 });
 Route::get('select/division', [PageController::class, 'selectDivision'])->name('select.division');
 
-Route::get('/test',function(){
+// Route::get('/test', function () {
 
-  return DependencyVariables::getCategoryTree();
-});
+//     return DependencyVariables::getCategoryTree();
+// });
 
 // Route::get('/test-email', function () {
 //     $pathaoData = [
@@ -210,7 +210,7 @@ Route::get('/test',function(){
 //     ];
 
 //     Mail::send('emails.pathaoToAdmin', ['datas' => $pathaoData], function ($message) {
-//         $message->to('admin@example.com')->subject('Test Email: Need a courier account for new shop');
+//         $message->to('thisiskazi@gmail.com')->subject('Test Email: Need a courier account for new shop');
 //     });
 
 //     return 'Test email sent!';

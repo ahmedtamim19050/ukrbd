@@ -67,12 +67,15 @@
       </nav>
       <div class="page-content mt-5">
           @if ($parent)
-              <div style="position:relative;">
-                  <img src="{{ Storage::url($parent->cover) }}" style="height: 250px;width:100%;" alt="">
-                  <h2 style="position: absolute;top:50%;left:40px;color:#fff;">
-                      {{ $parent->name }}
-                  </h2>
-              </div>
+          <div style="position: relative; height: 250px;">
+            <img src="{{ Storage::url($parent->cover) }}" style="height: 100%; width: 100%;" alt="">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                    {{ $parent->name }}
+                </h1>
+            </div>
+        </div>
+        
               <br>
               <br>
           @endif
