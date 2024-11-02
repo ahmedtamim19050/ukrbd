@@ -135,7 +135,7 @@
 
                         <div class="products">
                             @foreach (Cart::getContent() as $product)
-                                <div class="product product-cart">
+                                <div class="product product-cart" style="overflow: visible;padding:2rem 10px;">
                                     <div class="product-detail">
                                         <a href="#" class="product-name">{{ $product->name }}</a>
                                         <div class="price-box">
