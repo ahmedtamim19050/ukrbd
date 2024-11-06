@@ -32,6 +32,6 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Voyager::addAction(\App\Actions\ReplyAction::class);
         
-        // URL::forceScheme('https');
+        URL::forceScheme('https');
     }
 }
