@@ -13,6 +13,11 @@
 
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}?v={{uniqid()}}">
+        <style>
+            .intro-slide{
+                min-height: auto;
+            }
+        </style>
     </x-slot>
 
 

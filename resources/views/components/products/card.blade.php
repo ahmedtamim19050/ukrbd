@@ -34,7 +34,7 @@
                 <a href="{{ route('product_details', $product->slug) }}">
                     <ins class="new-price">{{ Sohoj::price($product->sale_price ?? $product->price) }}</ins>
                     @if ($product->sale_price)
-                        <del class="old-price">{{ Sohoj::price($product->sale_price) }}</del>
+                        <del class="old-price">{{ Sohoj::price($product->price) }}</del>
                     @endif
                 </a>
 

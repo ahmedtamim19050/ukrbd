@@ -205,9 +205,9 @@ class PageController extends Controller
             return Shop::where('slug', $slug)->with('products')->firstOrFail();
         });
 
-        $products = Cache::remember("shop_{$slug}_products", 60, function () use ($shop) {
-            return $shop->products()->filter()->get();
-        });
+        // $products = Cache::remember("shop_{$slug}_products", 60, function () use ($shop) {
+            $products= $shop->products()->filter()->get();
+        // });
 
         // Initialize arrays to ensure they are not null even if no products are present
         $bestSellingProducts = [];
@@ -392,6 +392,7 @@ class PageController extends Controller
 
     public function selectDivision(Request $request)
     {
+    
         $request->validate([
             'division' => 'required|string'
         ]);

@@ -32,7 +32,8 @@
         content="Discover a wide range of quality products on UKRBD. From electronics and fashion to home essentials, we offer competitive prices, fast delivery, and secure shopping for customers worldwide." />
     <meta name="twitter:image" content="{{ asset('assets/social.png') }}" />
     <meta name="twitter:site" content="@UKRBD" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
     <!-- Favicon -->
@@ -205,9 +206,9 @@
         }
 
         .swiper-slide img {
-                /* object-fit: cover !important; */
-                /* aspect-ratio: 6/2 !important; */
-            }
+            /* object-fit: cover !important; */
+            /* aspect-ratio: 6/2 !important; */
+        }
 
         @media only screen and (max-width: 600px) {
             .product-name {
@@ -632,7 +633,54 @@
     </div>
     <!-- End of Mobile Menu -->
 
+    <div class="modal fade" id="cityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="divisionForm" action="{{ route('select.division') }}" method="get">
 
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Choose your city</h5>
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-control form-control-sm" id="division-select-app">
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Barishal" {{ session()->get('division') == 'Barishal' ? 'selected' : '' }}>
+                                Barishal
+                            </option>
+                            <option value="Chattogram"
+                                {{ session()->get('division') == 'Chattogram' ? 'selected' : '' }}>
+                                Chattogram</option>
+                            <option value="Dhaka" {{ session()->get('division') == 'Dhaka' ? 'selected' : '' }}>Dhaka
+                            </option>
+                            <option value="Khulna" {{ session()->get('division') == 'Khulna' ? 'selected' : '' }}>
+                                Khulna
+                            </option>
+                            <option value="Rajshahi" {{ session()->get('division') == 'Rajshahi' ? 'selected' : '' }}>
+                                Rajshahi
+                            </option>
+                            <option value="Rangpur" {{ session()->get('division') == 'Rangpur' ? 'selected' : '' }}>
+                                Rangpur
+                            </option>
+                            <option value="Mymensingh"
+                                {{ session()->get('division') == 'Mymensingh' ? 'selected' : '' }}>
+                                Mymensingh</option>
+                            <option value="Sylhet" {{ session()->get('division') == 'Sylhet' ? 'selected' : '' }}>
+                                Sylhet
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- End of Quick view -->
@@ -657,7 +705,33 @@
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/star-rating.js') }}"></script>
     <script src="{{ asset('assets/js/filter.js') }}"></script>
+    @if (!session()->has('division'))
+        <script>
+            $(document).ready(function() {
+                $('#cityModal').modal('show');
+            });
 
+            $('#divisionForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var selectedDivision = $('#division-select-app').val();
+                $.ajax({
+                    type: 'get',
+                    url: $(this).attr('action'),
+                    data: {
+                        division: selectedDivision 
+                    },
+                    success: function(response) {
+                        $('#cityModal').modal('hide');
+                        window.location.reload();
+                    },
+                    error: function(error) {
+                        console.error('An error occurred:', error);
+                    }
+                });
+            });
+        </script>
+    @endif
     @yield('script')
     <script>
         function cartQnty() {
@@ -727,8 +801,8 @@
                 url: '/quickview',
                 method: 'GET',
                 data: {
-                    product_id: id
-                },
+                    division: selectedDivision,
+                }
                 success: function(response) {
                     // $('#ec_quickview_modal').modal('show')
                     $('#quick_view').html(response)

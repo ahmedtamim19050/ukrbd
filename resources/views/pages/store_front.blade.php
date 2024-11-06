@@ -231,14 +231,14 @@
                                             </select>
                                         </div>
                                         <form class="search-container" action="" method="get">
-                                            <input type="text" name="search" value=""
+                                            <input type="text" name="search" value="{{request()->search}}"
                                                 placeholder="Search...">
                                             <button class="sbutton" type="submit"><i
                                                     class="fas fa-search"></i></button>
                                         </form>
                                         @if (request()->filled('search'))
                                             <a href="{{ url()->current() }}" class="btn btn-primary"
-                                                style="padding:15px;position:fixed;bottom:20px;right:20px;z-index:20"><i
+                                                style="padding:15px;margin-top: -10px;margin-left: 7px;"><i
                                                     class="fas fa-undo"></i> </a>
                                         @endif
                                     </div>

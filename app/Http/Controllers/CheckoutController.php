@@ -29,8 +29,7 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-
-
+       
         $request->validate([
             'name' => 'required|max:60|string',
             'email' => 'nullable|max:40|email',
@@ -41,20 +40,20 @@ class CheckoutController extends Controller
             'area' => 'required',
             'order_notes' => 'nullable|max:120',
             'shipping' => 'required',
-            'payment_method' => 'required',
+            'payment_method' => 'nullable',
             'order.shipping' => 'required',
             'order.subtotal' => 'required',
             'order.total' => 'required',
         ]);
 
 
-        if (
-            $request->order['shipping'] != session('order_payment_info')['shipping'] ||
-            $request->order['subtotal'] != session('order_payment_info')['subtotal'] ||
-            $request->order['total'] != session('order_payment_info')['total']
-        ) {
-            abort(403, 'Serverside calculation is not same');
-        }
+        // if (
+        //     $request->order['shipping'] != session('order_payment_info')['shipping'] ||
+        //     $request->order['subtotal'] != session('order_payment_info')['subtotal'] ||
+        //     $request->order['total'] != session('order_payment_info')['total']
+        // ) {
+        //     abort(403, 'Serverside calculation is not same');
+        // }
 
 
         // $address = Address::find($request->prevoius_address);
@@ -74,7 +73,7 @@ class CheckoutController extends Controller
 
             return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
         }
-        try {
+        // try {
         DB::beginTransaction();
         $platform_fee = 0;
         $total = (Sohoj::newSubtotal() + $platform_fee);
@@ -101,6 +100,7 @@ class CheckoutController extends Controller
 
 
         foreach (Cart::getContent() as $item) {
+           
             OrderProduct::create([
                 'quantity' => $item->quantity,
                 'order_id' => $order->id,
@@ -110,15 +110,20 @@ class CheckoutController extends Controller
                 'variation' => $item->model->variations,
                 'shop_id' => $item->model->shop_id,
             ]);
+            $shipping_total=0;
+            if(!session()->get('division')){
 
-            $response = PathaoCourier::order()->priceCalculation([
-                "store_id" => $item->attributes['store_id'],
-                "item_type" => 2,
-                "delivery_type" => 48,
-                "item_weight" =>  minValue($item->attributes['weight'], 0.1) * $item->quantity,
-                "recipient_city" => $shipping['city']['id'],
-                "recipient_zone" => $shipping['zone']['id']
-            ]);
+                $response = PathaoCourier::order()->priceCalculation([
+                    "store_id" => $item->attributes['store_id'],
+                    "item_type" => 2,
+                    "delivery_type" => 48,
+                    "item_weight" =>  minValue($item->attributes['weight'], 0.1) * $item->quantity,
+                    "recipient_city" => $shipping['city']['id'],
+                    "recipient_zone" => $shipping['zone']['id']
+                ]);
+                $shipping_total= $response->final_price;
+            }
+          
             $childOrder = Order::create([
                 'user_id' => auth()->user() ? auth()->user()->id : null,
                 'parent_id' => $order->id,
@@ -130,15 +135,16 @@ class CheckoutController extends Controller
                 'discount' => null,
                 'discount_code' => null,
                 'tax' => null,
-                'shipping_total' => $response->final_price,
+                'shipping_total' => $shipping_total,
                 'platform_fee' => 0,
-                'total' => Sohoj::round_num(($item->price * $item->quantity) + $response->final_price),
+                'total' => Sohoj::round_num(($item->price * $item->quantity) + $shipping_total),
                 'quantity' => $item->quantity,
                 'vendor_total' => $item->model->vendor_price * $item->quantity,
                 // 'payment_method' => $request->payment_method[0],
                 'product_price' => $item->price,
             ]);
         }
+        
         $childOrders = $order->childs;
 
         foreach ($childOrders as $childOrder) {
@@ -190,13 +196,13 @@ class CheckoutController extends Controller
         } else {
             return redirect()->route('thankyou');
         }
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($e->getMessage());
-        } catch (Error $e) {
-            DB::rollBack();
-            return redirect()->back()->withErrors($e->getMessage());
-        }
+        // } catch (Exception $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // } catch (Error $e) {
+        //     DB::rollBack();
+        //     return redirect()->back()->withErrors($e->getMessage());
+        // }
     }
 
     protected function decreaseQuantities()

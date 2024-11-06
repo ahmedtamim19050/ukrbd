@@ -106,6 +106,115 @@
                                 placeholder="Notes about your order, e.g special notes for delivery"></textarea>
                         </div>
                     </div>
+                    @if (session()->get('division'))
+                    <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
+                        <div class="order-summary-wrapper sticky-sidebar">
+                            <h3 class="title text-uppercase ls-10">Your Order</h3>
+                            <div class="order-summary">
+                                <table class="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">
+                                                <b>Product</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Cart::getContent() as $item)
+                                            <tr class="bb-no">
+                                                <td class="product-name" style="
+                                                white-space: normal;
+                                            ">{{ $item->name }}<i class="fas fa-times"></i>
+                                                    <span class="product-quantity">{{ $item->quantity }}</span>
+                                                </td>
+                                                <td class="product-total">{{ Sohoj::price($item->price) }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        <tr class="cart-subtotal">
+                                            <td>
+                                                Subtotal
+                                            </td>
+                                            <td>
+                                                {{ Sohoj::price(Cart::getSubTotal()) }}
+                                            </td>
+                                        </tr>
+                                        @if (session()->has('discount'))
+                                            <tr class="cart-subtotal">
+                                                <td>
+                                                    Discount <a href="{{ route('coupon.destroy') }}"
+                                                        class="text-danger ml-2"
+                                                        style="text-decoration: underline;font-size:12px;color:red">Delete</a>
+                                                </td>
+                                                <td>
+                                                    {{ Sohoj::price(Sohoj::discount()) }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="shipping-methods">
+                                            <td class="">
+                                                <h4 class="title title-simple bb-no mb-1 pb-0 pt-3">Shipping
+                                                </h4>
+                                                <ul id="shipping-method" class="mb-4">
+
+                                                   
+                                                    <li>
+                                                        <div class="custom-radio" style="line-height:1;">
+                                                            <input type="radio" id="flat-rate"
+                                                                class="custom-control-input" value="home_delivery" name="shipping" readonly checked>
+                                                            <label for="flat-rate"
+                                                                class="custom-control-label color-dark">Home
+                                                                Delivery</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    {{ Sohoj::price($shippingCost) }}
+                                                </b>
+                                            </td>
+                                        </tr>
+                                        <tr class="order-total">
+                                            <th>
+                                                <b>Total</b>
+                                            </th>
+                                            <td>
+                                                <b>{{ Sohoj::price(Sohoj::newSubtotal() + $shippingCost) }}</b>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                                <div class="payment-methods" id="payment_method">
+                                    <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
+                                     {{-- <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" value="card" id="payment_method_card" checked />
+                                        <label class="form-check-label" for="payment_method_card"> Card / Mobile Banking / Wallet </label>
+                                     </div> --}}
+                                     <div class="form-check">
+                                        <input  class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" checked/>
+                                        <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
+                                     </div>
+                                     
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="order[shipping]" value="0">
+                                <input type="hidden" name="order[subtotal]" value="{{ Cart::getSubTotal() }}">
+                                <input type="hidden" name="order[total]" value="{{ Cart::getTotal() }}">
+                                <div class="form-group place-order pt-6">
+                                    <button type="submit" class="btn btn-dark btn-primary btn-rounded"
+                                        style="width:100%">Place
+                                        Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @else
                     <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
                         <div class="order-summary-wrapper sticky-sidebar">
                             @if ($selectedArea)
@@ -224,6 +333,7 @@
 
                         </div>
                     </div>
+                    @endif
                 </div>
             </form>
         </div>

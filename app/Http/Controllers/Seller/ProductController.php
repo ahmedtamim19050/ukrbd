@@ -126,9 +126,10 @@ class ProductController extends Controller
 
             ]
         );
+        $sale_price=0;
         if ($request->sale_price) {
             if ($request->price > $request->sale_price) {
-                $data['sale_price'] = $request->sale_price;
+                $sale_price= $request->sale_price;
             } else {
                 return redirect()->back()->withErrors('sale-price greater than price');
             }
@@ -165,7 +166,7 @@ class ProductController extends Controller
             'name' => $request->name,
 
             'price' => $request->price,
-            'sale_price' => $request->sale_price,
+            'sale_price' => $sale_price,
             'quantity' => $request->quantity,
             'description' => $request->description,
             'short_description' => $request->short_description,
