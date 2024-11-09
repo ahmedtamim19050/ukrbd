@@ -608,7 +608,7 @@ class SellerPagesController extends Controller
     public function orderDelivered(Order $order){
         $orders = $order->childs->filter(fn($order) => $order->shop_id == auth()->user()->shop->id);
         foreach ($orders as $key => $order) {
-            $order->status = 2;
+            $order->status = 4;
             $order->save();
         }
         return back()->with('success_msg', 'Delivered done');
