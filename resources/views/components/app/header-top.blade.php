@@ -57,7 +57,7 @@
                     <span class="wishlist-label d-lg-show">user</span>
                 </button>
                 <div class="dropdown-menu "
-                    style="width: 165px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px">
+                    style=" padding-left: 20px; padding-top: 10px; padding-bottom: 10px">
                     @if (auth()->check())
                         @if (auth()->user()->role_id == 2)
                             <a class="dropdown-item wishlist-label d-lg-show pt-2" href="{{ route('user.dashboard') }}"
