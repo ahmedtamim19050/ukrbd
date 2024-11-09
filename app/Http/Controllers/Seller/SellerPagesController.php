@@ -605,4 +605,12 @@ class SellerPagesController extends Controller
             return redirect()->back()->withErrors("This user doesn't exits.");
         }
     }
+    public function orderDelivered(Order $order){
+        $orders = $order->childs->filter(fn($order) => $order->shop_id == auth()->user()->shop->id);
+        foreach ($orders as $key => $order) {
+            $order->status = 2;
+            $order->save();
+        }
+        return back()->with('success_msg', 'Delivered done');
+    }
 }

@@ -112,7 +112,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @foreach ($latest_orders as $order)
                                 <tr>
                                     <th scope="row">{{ $loop->index + 1 }}</th>
@@ -130,7 +130,7 @@
                                         <div class="d-flex">
 
                                             <a class="btn btn-success btn-sm p-2 pt-0 m-1"
-                                                href="{{ route('vendor.order.products') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{$order->first()->parent_id}}">
+                                                href="{{ route('vendor.order.products') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{ $order->first()->parent_id }}">
                                                 <i class="fas fa-eye"></i> View
                                             </a>
                                             @php
@@ -141,7 +141,7 @@
 
 
 
-                                            <a href="{{ route('vendor.invoice') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{$order->first()->parent_id}}"
+                                            <a href="{{ route('vendor.invoice') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{ $order->first()->parent_id }}"
                                                 class="btn btn-info btn-sm p-2 m-1 pt-0">
                                                 Invoice
                                             </a>
@@ -149,12 +149,23 @@
 
 
                                         </div>
+                                   
                                         @if ($allOrdersStatusOne)
-                                            <a style="font-size: 12px"
-                                                href="{{ route('vendor.order.pickup', $order->first()->parent_id) }}"
-                                                class="btn btn-warning btn-sm p-2 pt-0 m-1">
-                                                Ready for pickup
-                                            </a>
+                                     
+                                            @if ($order->first()->parent->shipping_method == 'home_delivery')
+                                                <a style="font-size: 12px"
+                                                    href="{{ route('vendor.order.delivered', $order->first()->parent_id) }}"
+                                                    class="btn btn-warning btn-sm p-2 pt-0 m-1">
+                                                    Delivered
+                                                </a>
+                                            @endif
+                                            @if ($order->first()->parent->shipping_method == 'pathao')
+                                                <a style="font-size: 12px"
+                                                    href="{{ route('vendor.order.pickup', $order->first()->parent_id) }}"
+                                                    class="btn btn-warning btn-sm p-2 pt-0 m-1">
+                                                    Ready for pickup
+                                                </a>
+                                            @endif
                                         @endif
                                     </td>
 
