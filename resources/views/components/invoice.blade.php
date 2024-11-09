@@ -123,21 +123,21 @@
                                     <td colspan="3"></td>
                                     <td colspan="" class="h5">Subtotal</td>
                                     <td class="text-center h5">
-                                        {{ Sohoj::price($parentOrder->subtotal) }}
+                                        {{ Sohoj::price($orders->sum('subtotal')) }}
                                     </td>
                                 </tr>
                                 <tr style="border-top: 2px solid black">
                                     <td colspan="3"></td>
                                     <td colspan="" class="h5">Shipping </td>
                                     <td class="text-center h5">
-                                        {{ Sohoj::price($parentOrder->shipping_total) }}
+                                        {{ Sohoj::price($orders->sum('shipping_total')) }}
                                     </td>
                                 </tr>
                                 <tr style="border-top: 2px solid black">
                                     <td colspan="3"></td>
                                     <td colspan="" class="h4">Total</td>
                                     <td class="text-center h4">
-                                        {{ Sohoj::price($parentOrder->total) }}
+                                        {{ Sohoj::price($orders->sum('total')) }}
                                     </td>
                                 </tr>
 

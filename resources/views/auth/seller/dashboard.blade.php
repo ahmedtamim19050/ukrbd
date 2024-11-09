@@ -279,7 +279,7 @@
                                     </td>
                                     <td>{{ $order->count() }}</td>
                                    
-                                    <td class="text-center"><span><a href="{{ route('vendor.order.products', ['data' => urlencode(json_encode($order))]) }}"><i
+                                    <td class="text-center"><span><a href="{{ route('vendor.invoice') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{ $order->first()->parent_id }}"><i
                                                     class="fas fa-eye"></i></a> </span>
                                     </td>
                                 </tr>

@@ -105,6 +105,7 @@ class UserController extends Controller
     //-----order showing & filtering---- end//
     public function invoice(Order $order)
     {
+       
         return view('auth.user.order.invoice', compact('order'));
     }
     public function orderAccept($order)
