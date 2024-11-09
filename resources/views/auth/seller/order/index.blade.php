@@ -156,7 +156,7 @@
                                                 <a style="font-size: 12px"
                                                     href="{{ route('vendor.order.delivered', $order->first()->parent_id) }}"
                                                     class="btn btn-warning btn-sm p-2 pt-0 m-1">
-                                                    Delivered
+                                                    Complete deliver
                                                 </a>
                                             @endif
                                             @if ($order->first()->parent->shipping_method == 'pathao')

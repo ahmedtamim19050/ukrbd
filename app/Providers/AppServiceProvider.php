@@ -31,7 +31,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Voyager::addAction(\App\Actions\ReplyAction::class);
+        if(env('APP_ENV')=='production'){
+
+            URL::forceScheme('https');
+        }
         
-        URL::forceScheme('https');
     }
 }
