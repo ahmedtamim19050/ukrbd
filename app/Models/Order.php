@@ -149,7 +149,7 @@ class Order extends Model
     }
     public function scopeParent($query)
     {
-        return $query->whereNull('parent_id');
+        return $query->whereNull('parent_id')->whereHas('childs');
     }
 
     public function getStatus()

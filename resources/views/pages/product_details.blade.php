@@ -195,7 +195,11 @@
                                 <hr class="product-divider">
 
                                 <div class="product-price"><ins class="new-price"
-                                        id="amount">{{ Sohoj::price($product->price) }}</ins></div>
+                                        id="amount">{{ Sohoj::price($product->sale_price ?? $product->price) }}</ins>
+                                    @if ($product->sale_price)
+                                        <del class="old-price">{{ Sohoj::price($product->price) }}</del>
+                                    @endif
+                                </div>
 
                                 <div class="ratings-container">
                                     <input value="{{ Sohoj::average_rating($product->ratings) }}"
