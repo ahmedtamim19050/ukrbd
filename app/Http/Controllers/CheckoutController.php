@@ -90,7 +90,7 @@ class CheckoutController extends Controller
             'shipping_total' => Sohoj::round_num($request->order['shipping']),
             'platform_fee' => $platform_fee,
             'total' => Sohoj::round_num($total),
-            'quantity' => null,
+            'quantity' => Cart::getTotalQuantity(),
             'vendor_total' => null,
             'shipping_method' => $request->shipping,
             'payment_method' => $request->payment_method,
