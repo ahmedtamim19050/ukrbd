@@ -449,6 +449,13 @@ body {
 main {
   display: block;
   position: relative;
+
+}
+.product-hover{
+  background-color: #fff;
+  margin: 10px 0;
+  padding: 0 10px 10px 10px;
+  border-radius: 10px;
 }
 
 body:not(.loaded) * {
@@ -5442,7 +5449,7 @@ blockquote {
 -------------------------------------*/
 .categories-row {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   gap: 10px;
 }
 
@@ -15776,4 +15783,7 @@ a{
     -ms-grid-column-span: 2;
     grid-column-end: span 2;
   }
+}
+.category {
+  background-color: #fff;
 }

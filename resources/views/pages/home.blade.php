@@ -17,6 +17,9 @@
             .intro-slide{
                 min-height: auto;
             }
+            main{
+                background-color: #EEEEEE;
+            }
         </style>
     </x-slot>
 
@@ -102,7 +105,7 @@
         @endforeach
         <!-- End of Products -->
 
-        <h2 class="title text-left title-client  mb-5 appear-animate">Our Clients</h2>
+        {{-- <h2 class="title text-left title-client  mb-5 appear-animate">Our Clients</h2>
         <div class="swiper-container swiper-theme  brands-wrapper br-sm mb-10 appear-animate"
             data-swiper-options="{
             'autoplay': false,
@@ -135,7 +138,7 @@
                 @endforeach
 
             </div>
-        </div>
+        </div> --}}
         <!-- End of Brands Wrapper -->
 
     </div>

@@ -10,7 +10,7 @@
 
     <div class="category-swiper-container d-md-block d-none">
         <div class="swiper-wrapper">
-            @foreach ($categories->chunk(12) as $row)
+            @foreach ($categories->chunk(16) as $row)
                 <div class="swiper-slide">
                     <div class="categories-row mx-auto">
                         @foreach ($row as $category)
@@ -33,7 +33,7 @@
 
     <div class="category-swiper-container d-block d-md-none">
         <div class="swiper-wrapper">
-            @foreach ($categories->chunk(6) as $row)
+            @foreach ($categories->chunk(8) as $row)
                 <div class="swiper-slide">
                     <div class="categories-row mx-auto">
                         @foreach ($row as $category)
