@@ -79,7 +79,7 @@
 
 <body>
 
-    <table>
+    <table style="table-layout: fixed; width: 100%;">
         <thead>
             <tr>
                 <th>Name</th>
@@ -95,8 +95,8 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
+                    <td>{{ Str::limit($user->name, 20) }}</td>
+                    <td style="width: 150px; word-wrap: break-word; white-space: normal;">{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>
                     @if ($user->role_id == 4)
                         <td>
@@ -108,11 +108,11 @@
                         <td>
                             {{ $user->retailer?->upzilla }}
                         </td>
-                        <td>
-
+                        <td style="width: 150px;">
                             {{ $user->retailer?->address ? $user->retailer->address . ',' : '' }}
                             {{ $user->retailer?->post_code ?? '' }}
                         </td>
+                        
                     @elseif ($user->role_id == 3)
                         <td>
                             {{ $user->shop?->division }}

@@ -261,7 +261,7 @@
                                                 value="1" name="is_variable_product"
                                                 {{ $product->is_variable_product ? 'checked' : '' }}>
                                             <label for="offer" class="mt-3 ms-3">
-                                                Variable Product (optinal)
+                                                Product Variation (optinal)
                                             </label>
                                         </div>
 

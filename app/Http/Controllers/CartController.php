@@ -15,8 +15,9 @@ class CartController extends Controller
 	public function add(Request $request)
 	{
 		$this->cart($request);
+		return back()->with('success_msg', 'Item has been added to cart');
 
-		return response()->json(['success' => 'Item has been added to cart']);
+	
 	}
 	public function update(Request $request)
 	{
@@ -37,6 +38,7 @@ class CartController extends Controller
 
 	public function offerToCart(Request $request)
 	{
+	
 
 		$product = Product::find(request('product_id'));
 		$offer = Offer::find(request('offer'));

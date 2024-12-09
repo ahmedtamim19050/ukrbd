@@ -10,7 +10,7 @@
                             <div class="d-flex justify-content-between mb-4">
                                 {{-- <i class="fas fa-chart-pie"></i> --}}
                                 <div class="ec-select-inner dashboard-short-card-dropdown w-100">
-                                    <select onchange="filterSecond(this.value,'sales')" class="p-0 form-select"
+                                    <select onchange="filterSecond(this.value,'sales')" class=" form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
 
                                         <option value="">All Time</option>
@@ -38,7 +38,7 @@
                                 <i class="fa-solid fa-user-group dashboard-icon-btn pt-2"></i>
 
                                 <div class="ec-select-inner dashboard-short-card-dropdown w-100">
-                                    <select onchange="filterSecond(this.value,'customers')" class="p-0 form-select"
+                                    <select onchange="filterSecond(this.value,'customers')" class="form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
 
                                         <option value="">All Time</option>
@@ -71,7 +71,7 @@
 
 
                                 <div class="ec-select-inner dashboard-short-card-dropdown w-100">
-                                    <select onchange="filterSecond(this.value,'orders')" class="p-0 form-select"
+                                    <select onchange="filterSecond(this.value,'orders')" class=" form-select"
                                         name="ec-select" id="ec-select" style="font-weight: 600;">
                                         <option value="">All Time</option>
                                         <option {{ request('orders') == 3 ? 'selected' : '' }} value="3">This Day

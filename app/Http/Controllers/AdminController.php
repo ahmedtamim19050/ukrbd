@@ -59,6 +59,7 @@ class AdminController extends Controller
         })
             ->latest()
             ->get();
+            // return view('auth.admin.user_pdf', compact('users'));
         $pdf = Pdf::loadView('auth.admin.user_pdf', compact('users'))->setPaper('a4', 'landscape');
       
         return $pdf->download();
