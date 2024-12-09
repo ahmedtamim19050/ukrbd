@@ -206,7 +206,7 @@ class PageController extends Controller
         });
 
         // $products = Cache::remember("shop_{$slug}_products", 60, function () use ($shop) {
-            $products= $shop->products()->filter()->get();
+            $products= $shop->products()->filter()->orderBy('featured', 'desc')->get();
         // });
 
         // Initialize arrays to ensure they are not null even if no products are present
@@ -314,7 +314,7 @@ class PageController extends Controller
         //         return $q->where('state', 'like', '%' . $state . '%');
         //     })
         //     ->get();
-        $shops = Shop::active()->shop()->latest()->get();
+        $shops = Shop::active()->orderBy('score','desc')->shop()->latest()->get();
         return view('pages.vendors', compact('shops'));
     }
 

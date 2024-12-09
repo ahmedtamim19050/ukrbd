@@ -80,7 +80,7 @@ class Sohoj
     }
     public function round_num($price)
     {
-        return sprintf('%.2f', $price);
+        return round($price);
     }
     public function average_rating($ratings)
     {

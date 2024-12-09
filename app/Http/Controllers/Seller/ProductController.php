@@ -176,6 +176,7 @@ class ProductController extends Controller
             'shipping_cost' => $request->shipping_cost,
             'is_variable_product' => $request->is_variable_product,
             'search_key' => $request->search_key,
+            'featured'=>$request->featured,
 
         ]);
 
