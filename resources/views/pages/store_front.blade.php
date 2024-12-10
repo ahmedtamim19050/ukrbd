@@ -54,15 +54,18 @@
                 font-size: 20px;
 
             }
+            .main{
+                background-color: #EEEEEE;
+            }
         </style>
     </x-slot>
 
     <!-- Start of Pgae Contetn -->
     <div class="container">
         <div class="main">
-            <nav class="breadcrumb-nav mt-3 mb-3">
+            <nav class="breadcrumb-nav mb-3 pt-3">
                 <div class="container">
-                    <ul class="breadcrumb bb-no bg-white">
+                    <ul class="breadcrumb bb-no ">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">E-shop</a></li>
                         <li><a href="#">WC Marketplace</a></li>
@@ -76,7 +79,7 @@
                     <div class="sidebar-overlay"></div>
                     <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
                     <a href="#" class="sidebar-toggle"><i class="fas fa-chevron-right"></i></a>
-                    <div class="sidebar-content">
+                    <div class="sidebar-content" style="background-color:#EEEEEE">
                         <div class="sticky-sidebar">
 
                             <!-- End of Widget -->
@@ -92,7 +95,7 @@
                                 <h3 class="widget-title"><span>Best Selling</span></h3>
                                 <div class="widget-body">
                                     @foreach ($bestSellingProducts as $product)
-                                        <div class="product product-widget">
+                                        <div class="product product-widget pl-2" style="background-color: white">
                                             <figure class="product-media">
                                                 <a href="{{ $product->path() }}">
                                                     <img src="{{ Voyager::image($product->image) }}" alt="Product"
@@ -211,7 +214,7 @@
                                 <a href="#tab-2" class="nav-link">Reviews</a>
                             </li>
                         </ul>
-                        <div class="tab-content">
+                        <div class="tab-content" style="background-color: #EEEEEE">
                             <div class="tab-pane active" id="tab-1">
                                 <nav class="toolbox sticky-toolbox sticky-content fix-top">
                                     <div class="toolbox-left" style="width: 100%">
