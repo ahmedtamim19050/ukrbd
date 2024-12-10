@@ -652,6 +652,7 @@
                                 <select class="form-control form-control-sm" id="division-select-app"
                                     onchange="updateDistricts()">
                                     <option value="">Select Division</option>
+                                    <option value="Bangladesh">Bangladesh</option>
                                     <option value="Barishal">Barishal</option>
                                     <option value="Chattogram">Chattogram</option>
                                     <option value="Dhaka">Dhaka</option>
