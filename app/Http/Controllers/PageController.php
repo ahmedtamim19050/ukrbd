@@ -123,7 +123,6 @@ class PageController extends Controller
         $filters = $filters->unique('id');
 
 
-
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
         })->when(request()->filled('parent'), function ($query) {
@@ -131,11 +130,9 @@ class PageController extends Controller
         })->filter()->limit(500)->get();
 
 
-        $categories = Cache::remember('shops_categories',1000,function(){
-            return Prodcat::when(request()->filled('parent'), function ($query) {
-                $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
-            })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
-        });
+        $categories = Prodcat::when(request()->filled('parent'), function ($query) {
+            $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
+        })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
 
         return view('pages.shops', compact('products', 'categories', 'parent', 'filters'));
     }
