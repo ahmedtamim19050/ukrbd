@@ -1,4 +1,4 @@
-<div class="swiper-slide vendor-widget">
+<div class="swiper-slide vendor-widget" style="background-color: #fff;border-radius:10px">
     <div class="vendor-widget-banner" style="height: 300px;">
         <figure class="vendor-banner">
             <a href="{{ route('store_front', $shop->slug) }}">

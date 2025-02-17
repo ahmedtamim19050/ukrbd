@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row gutter-lg">
                 <div class="main-content">
-                    <div class="product-single row">
+                    <div class="product-single row" style="margin-top: 30px">
                         <div class="col-md-6 mb-6">
                             <div class="product-gallery product-gallery-sticky">
                                 <div class="swiper-container product-single-swiper swiper-theme nav-inner"
@@ -172,7 +172,7 @@
                                 <div class="product-bm-wrapper">
                                     <figure class="brand">
                                         <img src="{{ $product->shop->logo ? Voyager::image($product->shop->logo) : asset('assets/images/defult.png') }}"
-                                            alt="Brand" width="102" height="48" />
+                                            alt="Brand" width="102" height="48" style="object-fit: contain" />
                                     </figure>
                                     <div class="product-meta">
                                         <div class="product-categories">
@@ -195,7 +195,11 @@
                                 <hr class="product-divider">
 
                                 <div class="product-price"><ins class="new-price"
-                                        id="amount">{{ Sohoj::price($product->price) }}</ins></div>
+                                        id="amount">{{ Sohoj::price($product->sale_price ?? $product->price) }}</ins>
+                                    @if ($product->sale_price)
+                                        <del class="old-price">{{ Sohoj::price($product->price) }}</del>
+                                    @endif
+                                </div>
 
                                 <div class="ratings-container">
                                     <input value="{{ Sohoj::average_rating($product->ratings) }}"

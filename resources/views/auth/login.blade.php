@@ -92,11 +92,20 @@
     </section> --}}
 
 
-    <x-app.breadcrumb name="Sign In" />
+    <div class="login-page">
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title mb-0">LOG IN</h1>
+            </div>
+        </div>
+    </div>
+        <!-- End of Page Header -->
+ 
+
     <!-- End of Breadcrumb -->
-    <div class="page-content">
+    <div class="page-content pb-5" style="background-color: #EEEEEE">
         <div class="container">
-            <div class="login-popup">
+            <div class="login-popup mx-auto my-0" style="background-color: #fff">
                 <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
                     <ul class="nav nav-tabs text-uppercase" role="tablist">
                         <li class="nav-item">
@@ -106,7 +115,7 @@
                                 <a href="#sign-up" class="nav-link">Sign Up</a>
                             </li> --}}
                     </ul>
-                    <div class="tab-content">
+                    <div class="tab-content" >
                         <div class="tab-pane active">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf

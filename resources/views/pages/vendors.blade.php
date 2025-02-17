@@ -246,6 +246,9 @@
                 border: none;
                 padding: 10px;
             }
+            main{
+                background-color: #EEEEEE;
+            }
         </style>
     </x-slot>
 
@@ -254,7 +257,7 @@
             <!-- Start of Breadcrumb -->
             <nav class="breadcrumb-nav">
                 <div class="container">
-                    <ul class="breadcrumb mb-8" style="background-color: #ffff">
+                    <ul class="breadcrumb mb-8" >
                         <li><a href="{{ route('homepage') }}">Home</a></li>
                         <li><a href="#">Vendors</a></li>
                     </ul>

@@ -14,7 +14,7 @@
           <!-- Default CSS -->
           <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.min.css') }}">
 
-          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}?v={{uniqid()}}">
+          <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}?v={{ uniqid() }}">
           <style>
               .rating-input {
                   margin-right: 8px;
@@ -54,12 +54,23 @@
               .category-height {
                   -ms-overflow-style: -ms-autohiding-scrollbar;
               }
+
+              main {
+                  background-color: #EEEEEE;
+              }
+
+              .sticky-sidebar {
+                  padding: 0 10px
+              }
+              .select-box select, .select-menu select{
+                  height: 100% !important;
+              }
           </style>
       </x-slot>
 
       <nav class="breadcrumb-nav">
           <div class="container">
-              <ul class="breadcrumb" style="background-color: #ffff">
+              <ul class="breadcrumb" style="margin-top:5px">
                   <li><a href="{{ route('homepage') }}">Home</a></li>
                   <li><a href="#">Shops</a></li>
               </ul>
@@ -67,15 +78,16 @@
       </nav>
       <div class="page-content mt-5">
           @if ($parent)
-          <div style="position: relative; height: 250px;">
-            <img src="{{ Storage::url($parent->cover) }}" style="height: 100%; width: 100%;" alt="">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                    {{ $parent->name }}
-                </h1>
-            </div>
-        </div>
-        
+              <div style="position: relative; height: 250px;">
+                  <img src="{{ Storage::url($parent->cover) }}" style="height: 100%; width: 100%;" alt="">
+                  <div
+                      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                      <h1 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                          {{ $parent->name }}
+                      </h1>
+                  </div>
+              </div>
+
               <br>
               <br>
           @endif
@@ -204,7 +216,7 @@
                       <nav class="toolbox sticky-toolbox sticky-content fix-top">
                           <div class="toolbox-left">
                               <a href="#"
-                                  class="btn btn-primary btn-outline btn-rounded left-sidebar-toggle 
+                                  class="btn  btn-outline btn-rounded left-sidebar-toggle 
                                 btn-icon-left d-block d-lg-none"><i
                                       class="w-icon-category"></i><span>Filters</span></a>
                               <div class="toolbox-item toolbox-sort select-box text-dark">

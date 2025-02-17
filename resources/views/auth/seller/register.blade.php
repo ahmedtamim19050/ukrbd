@@ -144,11 +144,20 @@
           </style>
       </x-slot>
 
-      <x-app.breadcrumb name="Register as E-shop" />
+
+
+      <div class="login-page">
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title mb-0">Register as E-shop</h1>
+            </div>
+        </div>
+    </div>
+
       <!-- End of Breadcrumb -->
-      <div class="page-content">
+      <div class="page-content pb-5" style="background-color: #EEEEEE">
           <div class="container">
-              <div class="login-popup">
+              <div class="login-popup mx-auto my-0" style="background-color: #fff">
                   <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
                       <ul class="nav nav-tabs text-uppercase" role="tablist">
                           {{-- <li class="nav-item">

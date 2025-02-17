@@ -38,7 +38,7 @@
                     @endif
                 </a>
 
-                <form class="addToCartForm_{{ $product->id }}">
+                <form action="{{route('cart.store')}}" method="post">
                     @csrf
                     <input type="hidden" class="form-control qty" value="1" min="1" name="quantity">
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
@@ -47,8 +47,7 @@
                         onclick="setTimeout(function() { location.reload(); }, 500);"> Add To Cart
                     </button> --}}
                     <button class="btn btn-primary mt-2 btn-cart cart-store add-to-cart-btn"
-                        onclick="setTimeout(function() { location.reload(); }, 500);"
-                        data-product-id="{{ $product->id }}"
+                       type="submit"
                         style="border-radius: 10px;overflow:hidden;font-size:1rem"> <i class="fa fa-shopping-cart"></i>
                         Add to cart</button>
 

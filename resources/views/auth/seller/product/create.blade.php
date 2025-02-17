@@ -254,7 +254,7 @@
                                             <input type="checkbox" id="is_variable_product" style="width: 25px;"
                                                 value="1" name="is_variable_product">
                                             <label for="offer" class="mt-3 ms-3">
-                                                Variable Product (optinal)
+                                                Product Variation (optinal)
                                             </label>
                                         </div>
                                         {{-- <div class="d-flex">

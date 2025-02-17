@@ -646,32 +646,31 @@
                         </button> --}}
                     </div>
                     <div class="modal-body">
-                        <select class="form-control form-control-sm" id="division-select-app">
-                            <option value="Bangladesh">Bangladesh</option>
-                            <option value="Barishal" {{ session()->get('division') == 'Barishal' ? 'selected' : '' }}>
-                                Barishal
-                            </option>
-                            <option value="Chattogram"
-                                {{ session()->get('division') == 'Chattogram' ? 'selected' : '' }}>
-                                Chattogram</option>
-                            <option value="Dhaka" {{ session()->get('division') == 'Dhaka' ? 'selected' : '' }}>Dhaka
-                            </option>
-                            <option value="Khulna" {{ session()->get('division') == 'Khulna' ? 'selected' : '' }}>
-                                Khulna
-                            </option>
-                            <option value="Rajshahi" {{ session()->get('division') == 'Rajshahi' ? 'selected' : '' }}>
-                                Rajshahi
-                            </option>
-                            <option value="Rangpur" {{ session()->get('division') == 'Rangpur' ? 'selected' : '' }}>
-                                Rangpur
-                            </option>
-                            <option value="Mymensingh"
-                                {{ session()->get('division') == 'Mymensingh' ? 'selected' : '' }}>
-                                Mymensingh</option>
-                            <option value="Sylhet" {{ session()->get('division') == 'Sylhet' ? 'selected' : '' }}>
-                                Sylhet
-                            </option>
-                        </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                            
+                                <select class="form-control form-control-sm" id="division-select-app"
+                                    onchange="updateDistricts()">
+                                    <option value="">Select Division</option>
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="Barishal">Barishal</option>
+                                    <option value="Chattogram">Chattogram</option>
+                                    <option value="Dhaka">Dhaka</option>
+                                    <option value="Khulna">Khulna</option>
+                                    <option value="Rajshahi">Rajshahi</option>
+                                    <option value="Rangpur">Rangpur</option>
+                                    <option value="Mymensingh">Mymensingh</option>
+                                    <option value="Sylhet">Sylhet</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                          
+                                <select class="form-control form-control-sm" id="district-select-app">
+                                    <option value="">Select a District</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
@@ -719,7 +718,7 @@
                     type: 'get',
                     url: $(this).attr('action'),
                     data: {
-                        division: selectedDivision 
+                        division: selectedDivision
                     },
                     success: function(response) {
                         $('#cityModal').modal('hide');
@@ -1042,4 +1041,38 @@
             });
         });
     </script>
+    <script>
+        // Object holding division-wise districts
+        const districts = {
+            Barishal: ["Barguna", "Barishal Sadar", "Bhola", "Jhalokati", "Patuakhali", "Pirojpur"],
+            Chattogram: ["Bandarban", "Brahmanbaria", "Chandpur", "Chattogram Sadar", "Cox's Bazar", "Feni", "Khagrachari", "Lakshmipur", "Noakhali", "Rangamati"],
+            Dhaka: ["Dhaka Sadar", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"],
+            Khulna: ["Bagerhat", "Chuadanga", "Jashore", "Jhenaidah", "Khulna Sadar", "Kushtia", "Magura", "Meherpur", "Narail", "Satkhira"],
+            Rajshahi: ["Bogura", "Joypurhat", "Naogaon", "Natore", "Chapai Nawabganj", "Pabna", "Rajshahi Sadar", "Sirajganj"],
+            Rangpur: ["Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", "Panchagarh", "Rangpur Sadar", "Thakurgaon"],
+            Mymensingh: ["Jamalpur", "Mymensingh Sadar", "Netrokona", "Sherpur"],
+            Sylhet: ["Habiganj", "Moulvibazar", "Sunamganj", "Sylhet Sadar"],
+        };
+    
+        // Function to update districts based on selected division
+        function updateDistricts() {
+            const divisionSelect = document.getElementById("division-select-app");
+            const districtSelect = document.getElementById("district-select-app");
+            const selectedDivision = divisionSelect.value;
+    
+            // Clear existing districts
+            districtSelect.innerHTML = '<option value="">Select a District</option>';
+    
+            // Populate districts based on selected division
+            if (districts[selectedDivision]) {
+                districts[selectedDivision].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+    </script>
 </body>
+
