@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marchentiger;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bonus;
 use App\Models\Retailer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -111,5 +112,11 @@ class PageController extends Controller
 
             return back()->withErrors('Your request is not valid');
         }
+    }
+    public function bonuses()
+    {
+        $bonuses = Bonus::where('retailer_id', auth()->user()->retailer->id)->latest()->get();
+        return view('auth.marchentiger.bonuses',compact('bonuses'));
+
     }
 }

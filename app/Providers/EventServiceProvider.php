@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use App\Events\ChargeStatusHasBeenUpdated;
+use App\Events\ProductCreate;
+use App\Events\RetailerCreate;
+use App\Events\ShopCreate;
+use App\Listeners\ProductCreationRetailerDefultEarning;
+use App\Listeners\RetailerDefultEarning;
+use App\Listeners\ShopCreationRetailerDefultEarning;
 use App\Listeners\UpdateChargeable;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +28,17 @@ class EventServiceProvider extends ServiceProvider
         ],
         ChargeStatusHasBeenUpdated::class => [
             UpdateChargeable::class
-        ]
+        ],
+        RetailerCreate::class => [
+            RetailerDefultEarning::class,
+        ],
+        ShopCreate::class => [
+            ShopCreationRetailerDefultEarning::class,
+        ],
+        ProductCreate::class => [
+            ProductCreationRetailerDefultEarning::class,
+        ],
+
     ];
 
     /**

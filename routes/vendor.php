@@ -143,5 +143,6 @@ Route::group(
 
         Route::post('assign-affiliate',[SellerPagesController::class,'assignAffiliate'])->name('assign.affiliate');
         Route::get('order/delivered/{order}',[SellerPagesController::class,'orderDelivered'])->name('order.delivered');
+      
     }
 );

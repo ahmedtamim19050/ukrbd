@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\RetailerCreate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,5 +17,15 @@ class Retailer extends Model
     public function transactions()
     {
         return $this->morphMany(Transaction::class, 'transactionable');
+    }
+    public function bonuses()
+    {
+        return $this->morphMany(Bonus::class, 'bonusable');
+    }
+    protected static function booted()
+    {
+        static::created(function ($retailer) {
+            event(new RetailerCreate($retailer));
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ProductCreate;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -177,6 +178,10 @@ class Product extends Model
     {
         return sprintf('%.3f', $this->weight / 1000);
     }
+    public function bonuses()
+    {
+        return $this->morphMany(Bonus::class, 'bonusable');
+    }
     protected static function boot()
     {
         parent::boot();
@@ -199,6 +204,10 @@ class Product extends Model
                     });
                 }
             });
+       
         }
+        static::created(function ($product) {
+            event(new ProductCreate($product));
+        });
     }
 }

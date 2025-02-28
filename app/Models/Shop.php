@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\ShopCreate;
 use App\Models\Traits\HasMeta;
 use Darryldecode\Cart\Cart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -183,6 +184,10 @@ class Shop extends Model
     {
         return $this->hasMany(Earning::class, 'shop_id');
     }
+    public function bonuses()
+    {
+        return $this->morphMany(Bonus::class, 'bonusable');
+    }
 
     protected static function boot()
     {
@@ -197,5 +202,10 @@ class Shop extends Model
                 }
             });
         }
+        static::created(function ($shop) {
+            event(new ShopCreate($shop));
+        });
     }
+
+
 }

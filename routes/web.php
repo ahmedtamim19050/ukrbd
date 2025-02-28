@@ -176,6 +176,9 @@ Route::post('card/add', [SellerPagesController::class, 'cardAdd'])->name('user.c
 Route::group(['prefix' => 'admin', 'middleware' => 'admin.user'], function () {
     Route::get('/shop/{shop}/active', [HomeController::class, 'shopActive'])->name('admin.shop.active');
     Route::get('/shop/{shop}/freeforlife', [HomeController::class, 'freeforlife'])->name('admin.shop.freeforlife');
+    Route::get('bonuses', [HomeController::class, 'bonuses'])->name('admin.bonuses');
+    Route::post('bonus/active/{bonus}', [HomeController::class, 'bonusActive'])->name('admin.bonus.active');
+    Route::post('bonus/delete/{bonus}', [HomeController::class, 'bonusDelete'])->name('admin.bonus.delete');
     Route::post('/admin/transaction/action/{transaction}', [TransactionController::class, 'action'])->name('admin.transaction.action');
 });
 

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Retailer;
+use App\Models\Product;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class RetailerCreate
+class ProductCreate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,11 +20,11 @@ class RetailerCreate
      *
      * @return void
      */
-    public $retailer;
-
-    public function __construct(Retailer $retailer)
+    public $product;
+    public function __construct(Product $product)
     {
-        $this->retailer = $retailer;
+      
+        $this->product=$product;
     }
 
     /**

@@ -60,6 +60,7 @@
                     <li><a href="{{ route('marchentiger.password.change') }}">Settings</a></li>
                     @if (Auth()->user()->retailer)
                         <li><a href="{{ route('marchentiger.transictions') }}">Transactions</a></li>
+                        <li><a href="{{ route('marchentiger.bonuses') }}">Bonuses</a></li>
                     @endif
 
                     <li>

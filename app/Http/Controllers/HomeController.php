@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\VerifyEmail;
 use App\Models\Address;
+use App\Models\Bonus;
+use App\Models\Earning;
 use App\Models\Notification;
 use App\Models\Offer;
 use App\Models\User;
@@ -84,7 +86,7 @@ class HomeController extends Controller
                 "post_code" => "required",
                 "govt_id_back" => "required|image|mimes:jpeg,png",
                 "govt_id_front" => "required|image|mimes:jpeg,png",
-    
+
 
             ]
 
@@ -191,5 +193,32 @@ class HomeController extends Controller
             ]);
         }
     }
-
+    public function bonuses()
+    {
+        $bounses = Bonus::latest()->where('status',0)->get();
+        return view('auth.admin.bonuses', compact('bounses'));
+    }
+    public function bonusActive(Bonus $bonus)
+    {
+        if ($bonus->status == 0) {
+            
+            $bonus->update([
+                'status' => 1,
+            ]);
+            $bonus->retailer->update([
+                'total_own' => $bonus->retailer->total_own + $bonus->ammount,
+            ]);
+        }
+        return back()->with([
+            'message'    => "Bonus active successfully",
+            'alert-type' => 'success',
+        ]);
+    }
+    public function bonusDelete(Bonus $bonus)  {
+        $bonus->delete();
+        return back()->with([
+            'message'    => "Bonus Delete successfully",
+            'alert-type' => 'success',
+        ]);
+    }
 }
