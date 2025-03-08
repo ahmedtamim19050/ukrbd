@@ -15,7 +15,7 @@ class ProductController extends Controller
 {
     public function products()
     {
-        $products = Product::where('shop_id', Auth()->user()->shop->id)->whereNull('parent_id')->filter()->paginate(10);
+        $products = Product::latest()->where('shop_id', Auth()->user()->shop->id)->whereNull('parent_id')->filter()->paginate(10);
 
 
         return view('auth.seller.product.index', compact('products'));
@@ -33,30 +33,30 @@ class ProductController extends Controller
         $uniqueId = Str::uuid()->toString(8);
         $slug = Str::slug($request->name);
         $sku = substr($uniqueId, 0, 10);
-        // $data = $request->validate(
-        //     [
-        //         "name"          => "required|max:200",
-        //         "price"         => "required|regex:/^\\d*(\\.\\d{1,2})?$/",
-        //         "sale_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
+        $data = $request->validate(
+            [
+                "name"          => "required|max:200",
+                "price"         => "required|regex:/^\\d*(\\.\\d{1,2})?$/",
+                "sale_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
 
 
-        //         "quantity"      => "required|integer",
-        //         "description"   => "nullable",
-        //         "short_description"   => "nullable",
+                "quantity"      => "required|integer",
+                "description"   => "nullable",
+                "short_description"   => "nullable",
 
-        //         "image"         => "required|mimes:jpg,jpeg,png",
-        //         "images.*"      => "mimes:jpg,jpeg,png",
+                "image"         => "required|mimes:jpg,jpeg,png",
+                "images.*"      => "mimes:jpg,jpeg,png",
 
-        //         "dimensions"    => "nullable",
-        //         "weight"        => "required|integer|min:100",
-        //         "options" => "nullable",
-        //         "sizes" => "nullable",
-        //         "color" => "nullable",
-        //         "is_variable_product" => "nullable",
-        //         "shipping_cost" => "nullable",
-        //         "search_key" => "required|max:255",
-        //     ]
-        // );
+                "dimensions"    => "nullable",
+                "weight"        => "required|integer|min:100",
+                "options" => "nullable",
+                "sizes" => "nullable",
+                "color" => "nullable",
+                "is_variable_product" => "nullable",
+                "shipping_cost" => "nullable",
+                "search_key" => "required|max:255",
+            ]
+        );
         if ($request->sale_price) {
             if ($request->price > $request->sale_price) {
                 $data['sale_price'] = $request->sale_price;

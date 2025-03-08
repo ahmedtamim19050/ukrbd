@@ -98,7 +98,7 @@ Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.in
 Route::get('wishlist-to-cart/{product_id}', [WishlistController::class, 'wishlistToCart'])->name('wishlistToCart');
 
 //cart
-Route::post('add-cart', [CartController::class, 'add'])->name('cart.store');
+Route::post('add-cart', [CartController::class, 'add'])->middleware('auth')->name('cart.store');
 Route::post('/buynow', [CartController::class, 'buynow'])->name('cart.boynow');
 Route::post('/add-update', [CartController::class, 'update'])->name('cart.update');
 Route::get('/cart-destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
@@ -139,6 +139,7 @@ Route::get('/vendor-register-2nd-step', [HomeController::class, 'vendorSecondSte
 Route::post('/2nd-step-store', [HomeController::class, 'vendorSecondStepStore'])->name('vendor.second.step.store');
 
 Route::get('vendor/shop', [SellerPagesController::class, 'shop'])->name('vendor.shop')->middleware(['auth', 'verifiedEmail', 'second']);
+
 Route::post('/store-shop', [SellerPagesController::class, 'shopStore'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.store');
 
 Route::get('/shop/set-up-payment-method', [PaymentsController::class, 'setUpPaymentMethod'])->middleware('auth', 'verifiedEmail', 'second')->name('vendor.setUpPaymentMethod');

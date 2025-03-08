@@ -130,32 +130,32 @@ class SellerPagesController extends Controller
     {
 
 
-        // $request->validate([
-        //     'name' => ['required', 'max:40'],
-        //     'logo' => ['nullable'],
-        //     'banner' => ['nullable'],
-        //     'email' => ['required', 'max:40', 'email'],
-        //     'phone' => ['required', 'max:40'],
-        //     'description' => ['required', 'max:1000'],
-        //     'short_description' => ['required', 'max:300'],
-        //     'tags' => ['nullable', 'max:60'],
-        //     'company_name' => ['required', 'max:100'],
-        //     'company_registration' => ['required', 'max:100'],
-        //     'city' => ['required', 'max:50'],
-        //     'post_code' => ['required', 'max:10'],
-        //     'store_name' => ['required', 'string', 'unique:shops'],
-        //     'pathao.contact_name' => ['required',],
-        //     'pathao.contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
-        //     'pathao.address' => ['required', 'min:15', 'max:120'],
-        //     'pathao.secondary_contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
-        //     'pathao.city' => ['required'],
-        //     'pathao.zone' => ['required'],
-        //     'pathao.area' => ['required'],
-        //     'division' => ['required'],
-        //     'district' => ['required'],
+        $request->validate([
+            'name' => ['required', 'max:40'],
+            'logo' => ['nullable'],
+            'banner' => ['nullable'],
+            'email' => ['required', 'max:40', 'email'],
+            'phone' => ['required', 'max:40'],
+            'description' => ['required', 'max:1000'],
+            'short_description' => ['required', 'max:300'],
+            'tags' => ['nullable', 'max:60'],
+            'company_name' => ['required', 'max:100'],
+            'company_registration' => ['required', 'max:100'],
+            'city' => ['required', 'max:50'],
+            'post_code' => ['required', 'max:10'],
+            'store_name' => ['required', 'string', 'unique:shops'],
+            'pathao.contact_name' => ['required',],
+            'pathao.contact_number' => ['required', 'regex:/^01[3-9]\d{8}$/'],
+            'pathao.address' => ['required', 'min:15', 'max:120'],
+            'pathao.secondary_contact_number' => ['nullable', 'regex:/^01[3-9]\d{8}$/'],
+            'pathao.city' => ['required'],
+            'pathao.zone' => ['required'],
+            'pathao.area' => ['required'],
+            'division' => ['required'],
+            'district' => ['required'],
 
 
-        // ]);
+        ]);
 
 
 
@@ -205,7 +205,7 @@ class SellerPagesController extends Controller
         //     $message->to($email)->subject('New Shop Pathao Account Request');
         // });
 
-        return back()->with('success_msg', 'Success! Your shop has been updated/created');
+        return redirect()->route('vendor.shop.profile')->with('success_msg', 'Success! Your shop has been updated/created');
     }
     public function shippingUrl(Request $request)
     {
@@ -613,6 +613,9 @@ class SellerPagesController extends Controller
             $order->save();
         }
         return back()->with('success_msg', 'Delivered done');
+    }
+    public function shopProfile(){
+        return view('auth.seller.shop_profile_details');
     }
 
 }

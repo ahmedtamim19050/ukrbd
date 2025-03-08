@@ -49,6 +49,7 @@ Route::group(
         Route::post('/banner/store', [SellerPagesController::class, 'bannerStore'])->name('banner.store');
         Route::get('/shop/policy', [SellerPagesController::class, 'shopPolicy'])->name('shopPolicy');
         Route::post('/shop/policy/store', [SellerPagesController::class, 'shopPolicyStore'])->name('shopPolicy.store');
+        Route::get('shop/profile', [SellerPagesController::class, 'shopProfile'])->name('shop.profile');
 
         Route::post('/shop/shopMenu/store', [SellerPagesController::class, 'shopMenuStore'])->name('shopMenuStore.store');
 

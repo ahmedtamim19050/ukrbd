@@ -61,6 +61,11 @@
     <x-app.breadcrumb name="Reset Password" />
     <div class="page-content">
         <div class="container">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    Check your email / Sent Password reset link on your email
+                </div>
+            @endif
             <div class="login-popup">
                 <div class="tab tab-nav-boxed tab-nav-center tab-nav-underline">
                     <ul class="nav nav-tabs text-uppercase" role="tablist">
@@ -91,13 +96,13 @@
                                         <a href="{{ route('password.request') }}">Last your password?</a>
                                     @endif
                                 </div> --}}
-                                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Password reset link</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Password reset
+                                    link</button>
                             </form>
                         </div>
 
                     </div>
-                    <p class="text-center">Back To<a class="text-success"
-                            href="{{ route('login') }}"> Login</a></p>
+                    <p class="text-center">Back To<a class="text-success" href="{{ route('login') }}"> Login</a></p>
                     <div class="social-icons social-icon-border-color d-flex justify-content-center">
                         <a href="#" class="social-icon social-facebook w-icon-facebook"></a>
                         <a href="#" class="social-icon social-twitter w-icon-twitter"></a>

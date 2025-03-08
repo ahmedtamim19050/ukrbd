@@ -40,7 +40,7 @@
 @endpush
 <div class="row">
     <div class="form-group col-4">
-        <label for="city">City</label>
+        <label for="city">City <span class="text-danger">*</span></label>
         <select id="city-select" wire:model="selectedCity" name="pathao[city]" class="form-control">
             <option value="">Select City</option>
             @foreach ($cities as $id => $city)
@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group col-4">
-        <label for="zone">Zone</label>
+        <label for="zone">Zone <span class="text-danger">*</span></label>
         <select id="zone-select" wire:model="selectedZone" name="pathao[zone]" class="form-control">
             <option value="">Select Zone</option>
             @foreach ($zones as $id => $zone)
@@ -59,7 +59,7 @@
         </select>
     </div>
     <div class="form-group col-4">
-        <label for="area">Area</label>
+        <label for="area">Area <span class="text-danger">*</span></label>
         <select id="area-select" wire:model="selectedArea" name="pathao[area]" class="form-control">
             <option value="">Select Area</option>
             @foreach ($areas as $id => $area)

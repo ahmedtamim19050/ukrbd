@@ -277,7 +277,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="upzilla" class="form-label">Upzilla</label>
+                                        <label for="upzilla" class="form-label">Upzilla <span class="text-danger">*</span></label>
                                         <input type="text"
                                             class="form-control p-2 @error('meta.upzilla') is-invalid @enderror"
                                             value="{{ auth()->user()->shop && auth()->user()->shop->upzilla ? auth()->user()->shop->upzilla : old('meta.upzilla') }}"
@@ -289,7 +289,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="city" class="form-label">City / Village</label>
+                                        <label for="city" class="form-label">City / Village <span class="text-danger">*</span></label>
                                         <input type="text"
                                             class="form-control p-2 @error('city') is-invalid @enderror"
                                             value="{{ auth()->user()->shop && auth()->user()->shop->city ? auth()->user()->shop->city : old('city') }}"
@@ -301,7 +301,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="inputZip" class="form-label">Zip</label>
+                                        <label for="inputZip" class="form-label">Zip <span class="text-danger">*</span></label>
                                         <input type="text"
                                             class="form-control p-2 @error('post_code') is-invalid @enderror"
                                             value="{{ auth()->user()->shop && auth()->user()->shop->post_code ? auth()->user()->shop->post_code : old('post_code') }}"
@@ -341,7 +341,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label for="store_name">
-                                                Store Name
+                                                Store Name <span class="text-danger">*</span>
                                             </label>
                                             <input type="text"
                                                 class="form-control @error('post_code') is-invalid @enderror"
@@ -357,7 +357,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
                                             <label for="pathao_contact_name">
-                                                Contact name
+                                                Contact name <span class="text-danger">*</span>
                                             </label>
                                             <input type="text" class="form-control" name="pathao[contact_name]"
                                                 required>
@@ -366,7 +366,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
                                             <label for="pathao_contact_number]">
-                                                Contact number
+                                                Contact number <span class="text-danger">*</span>
                                             </label>
                                             <input type="text" class="form-control" name="pathao[contact_number]"
                                                 required>
@@ -378,7 +378,7 @@
                                                 Secondary contact number
                                             </label>
                                             <input type="text" class="form-control"
-                                                name="pathao[secondary_contact_number]" required>
+                                                name="pathao[secondary_contact_number]" >
                                         </div>
                                     </div>
 

@@ -27,6 +27,7 @@ class ProductCreationRetailerDefultEarning
 
     public function handle(ProductCreate $event)
     {
+    
         $product = $event->product;
 
         if($product && $product->shop->retailer_id){
