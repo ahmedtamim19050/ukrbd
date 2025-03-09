@@ -44,19 +44,18 @@ class PageController extends Controller
 
         if ($request->hasFile('logo')) {
             if ($retailer->logo) {
-                Storage::disk('public')->delete($retailer->logo);
+                Storage::delete($retailer->logo);
             }
 
             $logoPath = $request->file('logo')->store('logos', 'public');
-
-            $retailer->logo = $logoPath;
+            $data['logo'] = $logoPath;
         }
         if ($request->hasFile('banner')) {
             if ($retailer->banner) {
-                Storage::disk('public')->delete($retailer->banner);
+                Storage::delete($retailer->banner);
             }
             $bannerPath = $request->file('banner')->store('banners', 'public');
-            $retailer->banner = $bannerPath;
+            $data['banner'] = $bannerPath;
         }
         if ($retailer) {
             $user->retailer->update($data);

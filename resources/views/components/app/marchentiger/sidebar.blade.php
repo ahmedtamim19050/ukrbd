@@ -2,22 +2,15 @@
     <!-- Sidebar Category Block -->
     <div class="ec-sidebar-block shadow-sm">
         <div class="ec-vendor-block " style="position:relative">
-            {{-- @dd(auth()->user()->retailer) --}}
-            {{-- @if (auth()->user()->retailer)
-                <div class="vendor-block-bg"></div>
-                <a href="javascript:void(0)" class="shadow-lg"
-                    style="position: absolute; top:-11px; right:-11px; background-color: #fff; border-radius:50%;padding:10px 0"
-                    data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3">
-                        <i class="fas fa-edit"></i></span></a>
-            @else --}}
-            <img src="{{ asset('assets/images/marchent-banner.jpg') }}" alt="{{ auth()->user()->name }}"
+
+            <img src="{{ auth()->user()->retailer && isset(auth()->user()->retailer->banner) ? Voyager::image(auth()->user()->retailer->banner) : asset('assets/images/marchent-banner.jpg') }}" alt="{{ auth()->user()->name }}"
                 style="height: 190px;
                                 width: 100%;
                                 object-fit: cover;">
-            {{-- <a href="javascript:void(0)" class="shadow-lg"
+            <a href="javascript:void(0)" class="shadow-lg"
                     style="position: absolute; top:-11px; right:-11px; background-color: #fff; border-radius:50%;padding:10px 0"
                     data-bs-toggle="modal" data-bs-target="#coverModal"><span class="mx-3">
-                        <i class="fas fa-edit"></i></span></a> --}}
+                        <i class="fas fa-edit"></i></span></a>
             {{-- @endif --}}
 
             <div class="ec-vendor-block-detail" style="background-color: snow; position:relative">
@@ -43,12 +36,12 @@
                     </div>
                 @endif --}}
                 <div style="position: relative;">
-                    <img class="v-img" src="{{ asset('assets/images/marchent-logo.png') }}" style="object-fit: cover;"
+                    <img class="v-img" src="{{ auth()->user()->retailer && isset(auth()->user()->retailer->logo) ? Voyager::image(auth()->user()->retailer->logo) :  asset('assets/images/marchent-logo.png') }}" style="object-fit: cover;"
                         alt="E-shop image">
-                    {{-- <a href="javascript:void(0)" class="shadow-lg"
+                    <a href="javascript:void(0)" class="shadow-lg"
                         style="position: absolute; top:-70px; right:9px; background-color: #fff; border-radius:50%;padding:10px 0"
                         data-bs-toggle="modal" data-bs-target="#logoModal"><span class="mx-3"><i
-                                class="fas fa-edit"></i></span></a> --}}
+                                class="fas fa-edit"></i></span></a>
                 </div>
                 <h5 class="text-dark">{{ auth()->user()->name }}</h5>
 

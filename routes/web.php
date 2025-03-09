@@ -219,3 +219,12 @@ Route::get('select/division', [PageController::class, 'selectDivision'])->name('
 
 //     return 'Test email sent!';
 // });
+
+
+if (env('APP_ENV') == 'local') {
+    Route::get('/test/login-as-user/{user}', function (User $user) {
+        Auth::logout();
+        Auth::login($user);
+        return redirect('/');
+    });
+}
