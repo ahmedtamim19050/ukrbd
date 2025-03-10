@@ -1,7 +1,7 @@
 <x-seller>
-<x-slot name="css">
-    <link rel="stylesheet" href="{{ asset('seller-assets/css/chat.css') }}">
-</x-slot>
+    <x-slot name="css">
+        <link rel="stylesheet" href="{{ asset('seller-assets/css/chat.css') }}">
+    </x-slot>
 
 
     <div class="ec-shop-rightside col-lg-9 col-md-12">
@@ -9,8 +9,8 @@
             <div class="tile tile-alt" id="messages-main">
                 <div class="ms-menu">
                     <div class="ms-user clearfix">
-                        <img src="{{asset('assets/img/User-avatar.png')}}" alt=""
-                            class="img-avatar pull-left">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                            alt="" class="img-avatar pull-left">
                         <div>Signed in as <br>{{ auth()->user()->shop->name }}</div>
                     </div>
 
@@ -23,8 +23,8 @@
                                 style="{{ $u->id == $user->id ? 'background-color: #EEEEEE;' : '' }}"
                                 href="{{ route('vendor.massage', $u->id) }}">
                                 <div class="pull-left">
-                                    <img src="{{asset('assets/img/User-avatar.png')}}" alt=""
-                                        class="img-avatar">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                                        alt="" class="img-avatar">
                                 </div>
                                 <div class="media-body">
                                     <small class="list-group-item-heading ms-2">{{ $u->name }}</small>
@@ -46,8 +46,8 @@
                         </div>
 
                         <div class="pull-left hidden-xs">
-                            <img src="{{asset('assets/img/User-avatar.png')}}" alt=""
-                                class="img-avatar m-r-10">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                                alt="" class="img-avatar m-r-10">
                             <div class="lv-avatar pull-left">
 
                             </div>
@@ -61,6 +61,22 @@
                             @if ($massages)
                                 @foreach ($massages as $massage)
                                     @if ($massage->sender_id == auth()->user()->shop->id)
+                                    <div class="message-feed right">
+                                        <div class="pull-right">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                                                alt="" class="img-avatar">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="mf-content">
+                                                {{ $massage->massage }}
+                                            </div>
+                                            <small class="mf-date"><i class="fa fa-clock-o"></i>
+                                                {{ $massage->created_at->diffForHumans() }}0</small>
+                                        </div>
+                                    </div>
+                                    @else
+                                      
+
                                         <div class="message-feed media">
                                             <div class="pull-left">
                                                 <img src="{{ auth()->user()->shop->logo ? Storage::url(auth()->user()->shop->logo) : 'https://bootdey.com/img/Content/avatar/avatar1.png' }}"
@@ -77,20 +93,6 @@
                                                     {{ $massage->created_at->diffForHumans() }}</small>
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="message-feed right">
-                                            <div class="pull-right">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""
-                                                    class="img-avatar">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="mf-content">
-                                                    {{ $massage->massage }}
-                                                </div>
-                                                <small class="mf-date"><i class="fa fa-clock-o"></i>
-                                                    {{ $massage->created_at->diffForHumans() }}0</small>
-                                            </div>
-                                        </div>
                                     @endif
                                 @endforeach
                             @endif
@@ -100,7 +102,8 @@
                         @if ($user->id)
                             <form action="{{ route('vendor.massage.store', $user->id) }}">
                                 <div class="msb-reply" style="position: absolute;width: 100%;bottom:0">
-                                    <input type="text" style="border:none" placeholder="What's on your mind..." name="massage">
+                                    <input type="text" style="border:none" placeholder="What's on your mind..."
+                                        name="massage">
                                     <button type="submit"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </form>
