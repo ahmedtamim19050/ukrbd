@@ -36,52 +36,7 @@
         <script src="{{ asset('assets/js/main.min.js') }}"></script>
 
 
-        <script>
-            const stripe = Stripe("{{ env('STRIPE_KEY') }}");
-
-            const elements = stripe.elements();
-            const cardElement = elements.create('card');
-
-            cardElement.mount('#card-element');
-
-            const cardHolderName = document.getElementById('card-holder-name');
-            const cardButton = document.getElementById('card-button');
-            const clientSecret = cardButton.dataset.secret;
-
-            cardButton.addEventListener('click', async (e) => {
-                const {
-                    setupIntent,
-                    error
-                } = await stripe.confirmCardSetup(
-                    clientSecret, {
-                        payment_method: {
-                            card: cardElement,
-                            billing_details: {
-                                name: cardHolderName.value
-                            }
-                        }
-                    }
-                );
-
-                if (error) {
-                    if (error?.setupIntent) {
-                        document.getElementById('paymentmethod').value = error.setupIntent.payment_method
-                        document.getElementById('paymentmethod').checked = true
-                        document.getElementById('card-button').style.display = 'none'
-                        toastr.success('Card added');
-                    } else {
-                        toastr.error('Something went wrong. Try again letter');
-                    }
-
-                } else {
-                    document.getElementById('paymentmethod').value = setupIntent.payment_method
-                    document.getElementById('paymentmethod').checked = true
-                    document.getElementById('card-button').style.display = 'none'
-                    toastr.success('Card added');
-                }
-            });
-        </script>
-
+   
 
 
     </x-slot>

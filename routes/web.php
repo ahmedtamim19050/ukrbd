@@ -31,6 +31,7 @@ use App\Models\Prodcat;
 use App\Models\Shop;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Payment\Library\SslCommerz\SslCommerzNotification;
 use App\Services\DependencyVariables;
 use Codeboxr\PathaoCourier\Facade\PathaoCourier;
 use Illuminate\Support\Facades\Auth;
@@ -188,11 +189,11 @@ Route::get('/marchentiger-register', [RegisterController::class, 'marchentiger']
 
 Route::group(['prefix' => 'callback', 'as' => 'callback.'], function () {
     Route::group(['prefix' => 'payment', 'as' => 'payment.', 'controller' => PaymentCallbackController::class], function () {
-        Route::get('success', 'success')->name('success');
-        Route::get('canceled', 'canceled')->name('canceled');
-        Route::get('failed', 'failed')->name('failed');
-        Route::get('refund', 'refund')->name('refund');
-        Route::post('ipn', 'ipn')->name('ipn');
+        Route::any('success', 'success')->name('success');
+        Route::any('canceled', 'canceled')->name('canceled');
+        Route::any('failed', 'failed')->name('failed');
+        Route::any('refund', 'refund')->name('refund');
+        Route::any('ipn', 'ipn')->name('ipn');
     });
 });
 Route::get('select/division', [PageController::class, 'selectDivision'])->name('select.division');
@@ -228,3 +229,31 @@ if (env('APP_ENV') == 'local') {
         return redirect('/');
     });
 }
+
+
+Route::get('test',function(){
+    
+    // $sslc = new SslCommerzNotification();
+
+    // $payment_options = $sslc->makePayment([
+    //     'cus_name' => auth()->user()->name,
+    //     'cus_phone' => '01795560431',
+    //     'cus_email' => auth()->user()->email ? auth()->user()->email : auth()->user()->cus_name . '@customer.com',
+    //     'cus_country' => "Bangladesh",
+    //     'product_name' => 'Test',
+    //     'product_category' => 'Test',
+    //     'product_profile' => 'Test',
+    //     'tran_id' => uniqid(),
+    //     'currency' => 'BDT',
+    //     'total_amount' => 100,
+    //     'shipping_method' => 'NO'
+    // ], 'hosted');
+    // if (!is_array($payment_options)) {
+    //     print_r($payment_options);
+    //     $payment_options = array();
+    // }
+
+    $order = Order::latest()->first();
+
+    
+});

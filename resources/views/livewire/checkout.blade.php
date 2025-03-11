@@ -191,16 +191,15 @@
 
                                 <div class="payment-methods" id="payment_method">
                                     <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
-                                     {{-- <div class="form-check">
+                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="payment_method" value="card" id="payment_method_card" checked />
                                         <label class="form-check-label" for="payment_method_card"> Card / Mobile Banking / Wallet </label>
-                                     </div> --}}
+                                     </div>
                                      <div class="form-check">
                                         <input  class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" checked/>
                                         <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
-                                     </div>
-                                     
-                                    </div>
+                                     </div> 
+                                    
                                 </div>
 
                                 <input type="hidden" name="order[shipping]" value="0">
