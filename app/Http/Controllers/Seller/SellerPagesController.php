@@ -345,7 +345,7 @@ class SellerPagesController extends Controller
         }
         $this->notification($order->user_id, auth()->user()->shop->id, 'Order Canceled', '/user/dashboard/orders/index');
 
-        return back()->with('success_msg', 'Order has been delivered!');
+        return back()->with('success_msg', 'Order has been Canceled!');
     }
     public function orderApprove(Request $request, Order $order)
     {

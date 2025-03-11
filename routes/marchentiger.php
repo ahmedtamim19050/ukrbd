@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'as' => 'marchentiger.',
-        'prefix' => 'merchandiser/dashboard',
+        'prefix' => 'affiliate-marketer/dashboard',
     ],
     function () {
         // Route::get('/',function ()  {
