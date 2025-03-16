@@ -346,7 +346,7 @@
                                             <input type="text"
                                                 class="form-control @error('post_code') is-invalid @enderror"
                                                 name="store_name" required id="store_name"
-                                                value="{{ old('store_name') }}" required>
+                                                value="{{ auth()->user()->shop->store_name ?? old('store_name') }}" required>
                                             @error('store_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -359,7 +359,7 @@
                                             <label for="pathao_contact_name">
                                                 Contact name <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" name="pathao[contact_name]"
+                                            <input type="text" class="form-control" value="{{isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->contact_name ?? '' : ''}}" name="pathao[contact_name]"
                                                 required>
                                         </div>
                                     </div>
@@ -368,7 +368,7 @@
                                             <label for="pathao_contact_number]">
                                                 Contact number <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" name="pathao[contact_number]"
+                                            <input type="text" class="form-control" value="{{isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->contact_number ?? '' : ''}}" name="pathao[contact_number]"
                                                 required>
                                         </div>
                                     </div>
@@ -378,7 +378,7 @@
                                                 Secondary contact number
                                             </label>
                                             <input type="text" class="form-control"
-                                                name="pathao[secondary_contact_number]" >
+                                                name="pathao[secondary_contact_number]"  value="{{isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->secondary_contact_number ?? '' : ''}}">
                                         </div>
                                     </div>
 
@@ -390,7 +390,7 @@
                                             <label for="pathao_address">
                                                 Address
                                             </label>
-                                            <input type="text" class="form-control" name="pathao[address]"
+                                            <input type="text" class="form-control" value="{{isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->address ?? '' : ''}}" name="pathao[address]"
                                                 required>
                                         </div>
                                     </div>
