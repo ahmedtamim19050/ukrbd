@@ -69,10 +69,10 @@ class CheckoutController extends Controller
             'area' => ['id' => (int) explode('-', $request->area)[0], 'name' => explode('-', $request->area)[1]]
         ];
 
-        if ($this->productsAreNoLongerAvailable()) {
+        // if ($this->productsAreNoLongerAvailable()) {
 
-            return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
-        }
+        //     return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
+        // }
         // try {
         DB::beginTransaction();
         $platform_fee = 0;
@@ -188,21 +188,16 @@ class CheckoutController extends Controller
         }
         session()->forget('discount');
         session()->forget('discount_code');
-        $charge = $order->initializePayment($request->payment_method);
-
+        
         DB::commit();
-        if ($charge->method != 'cod') {
-            return redirect($charge->url);
-        } else {
-            return redirect()->route('thankyou');
-        }
-        // } catch (Exception $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->withErrors($e->getMessage());
-        // } catch (Error $e) {
-        //     DB::rollBack();
-        //     return redirect()->back()->withErrors($e->getMessage());
+        $charge = $order->initializePayment($request->payment_method);
+        return $charge;
+        // if ($charge->method != 'cod') {
+        //     return redirect($charge->url);
+        // } else {
+        //     return redirect()->route('thankyou');
         // }
+     
     }
 
     protected function decreaseQuantities()

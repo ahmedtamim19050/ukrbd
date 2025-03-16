@@ -21,6 +21,8 @@ class Payment
     public function getPaymentLink()
     {
         switch ($this->charge->method) {
+            case 'ssl':
+                
             case 'dgpay':
                 return JachaiPay::init($this->charge)->createPaymentLink();
             case 'cod':

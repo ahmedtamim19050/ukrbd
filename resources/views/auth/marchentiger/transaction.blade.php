@@ -58,6 +58,7 @@
 
                 <div class="col-md-3">
 
+                    
                     <button type="button" class="btn btn-primary"
                         {{ auth()->user()->retailer->total_own > setting('site.minmum_widthraw_request') ? '' : 'disabled' }}
                         data-bs-toggle="modal" data-bs-target="#exampleModal">Widthraw

@@ -1,5 +1,6 @@
 <x-marchentiger>
 
+{{-- @dd(auth()->user()->retailer) --}}
     <x-slot name="css">
         <style>
             .urlinput {
