@@ -75,8 +75,16 @@
                         <div class="card-header bg-transparent">
                             <h5 class="my-3">Courier Information</h5>
                         </div>
+                     
                         <div class="card-body">
-                            <p><strong>Courier Service:</strong> {{ auth()->user()->shop->courier_service ?? 'N/A' }}
+                            <p><strong>Name :</strong>
+                                {{ isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->contact_name ?? 'N/A' : 'N/A' }}
+                            </p>
+                            <p><strong>Number :</strong>
+                                {{ isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->contact_number ?? 'N/A' : 'N/A' }}
+                            </p>
+                            <p><strong>Address :</strong>
+                                {{ isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->address ?? 'N/A' : 'N/A' }}
                             </p>
                         </div>
                     </div>
@@ -93,7 +101,7 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="{{route('vendor.shop')}}" class="btn btn-primary">Edit Shop Information</a>
+                        <a href="{{ route('vendor.shop') }}" class="btn btn-primary">Edit Shop Information</a>
                     </div>
                 </div>
             </div>

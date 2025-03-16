@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Shop extends Model
 {
@@ -206,6 +207,12 @@ class Shop extends Model
             event(new ShopCreate($shop));
         });
     }
-
-
+    public function pickupAddress(): Attribute
+    {
+        
+        return Attribute::make(
+            get: fn($value) =>   json_decode($value)
+          
+        );
+    }
 }
