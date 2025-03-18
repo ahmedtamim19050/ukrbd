@@ -189,16 +189,20 @@
                                         <div class="product-sku">
                                             SKU: <span>{{ $product->sku }}</span>
                                         </div>
+
+                                      
                                     </div>
                                 </div>
 
                                 <hr class="product-divider">
-
+                               
+                                <p class="">{{ $product->quantity > 0 ? 'In Stock' :'Out of Stock' }}</p>
                                 <div class="product-price"><ins class="new-price"
                                         id="amount">{{ Sohoj::price($product->sale_price ?? $product->price) }}</ins>
                                     @if ($product->sale_price)
                                         <del class="old-price">{{ Sohoj::price($product->price) }}</del>
                                     @endif
+                               
                                 </div>
 
                                 <div class="ratings-container">

@@ -110,6 +110,8 @@
                     <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
                         <div class="order-summary-wrapper sticky-sidebar">
                             <h3 class="title text-uppercase ls-10">Your Order</h3>
+                            <p>Delivery Timeline
+                                (Inside Dhaka - 5 days | Outside Dhaka - 10 days)</p>
                             <div class="order-summary">
                                 <table class="order-table">
                                     <thead>
@@ -199,14 +201,22 @@
                                         <input  class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" checked/>
                                         <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
                                      </div> 
-                                    
+                                     <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="terms" />
+                                        <label class="form-check-label" for="terms">
+                                            I have read and agree to the 
+                                            <a href="page/terms-and-conditions" target="_blank">Terms & Conditions</a>, 
+                                            <a href="page/privacy-policy" target="_blank">Privacy Policy</a>, and 
+                                            <a href="page/return-and-refund-policy" target="_blank">Return & Refund Policy</a>.
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <input type="hidden" name="order[shipping]" value="0">
                                 <input type="hidden" name="order[subtotal]" value="{{ Cart::getSubTotal() }}">
                                 <input type="hidden" name="order[total]" value="{{ Cart::getTotal() }}">
                                 <div class="form-group place-order pt-6">
-                                    <button type="submit" class="btn btn-dark btn-primary btn-rounded"
+                                    <button disabled id="placeOrderBtn" type="submit" class="btn btn-dark btn-primary btn-rounded"
                                         style="width:100%">Place
                                         Order</button>
                                 </div>
@@ -315,8 +325,8 @@
                                 <input type="hidden" name="order[subtotal]" value="{{ $orderPaymentInfo['subtotal'] }}">
                                 <input type="hidden" name="order[total]" value="{{ $orderPaymentInfo['total'] }}">
                                 <div class="form-group place-order pt-6">
-                                    <button type="submit" class="btn btn-dark btn-primary btn-rounded"
-                                        style="width:100%">Place
+                                    <button  type="submit" class="btn btn-dark btn-primary btn-rounded"
+                                        style="width:100%" >Place
                                         Order</button>
                                 </div>
                             </div>
@@ -339,3 +349,10 @@
     </div>
     <!-- End of PageContent -->
 </main>
+<script>
+    
+    document.getElementById('terms').addEventListener('change', function() {
+
+        document.getElementById('placeOrderBtn').disabled = !this.checked;
+    });
+</script>

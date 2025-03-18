@@ -509,8 +509,8 @@
                     </div>
                     <div class="footer-right">
                         <span class="payment-label mr-lg-8">We're using safe payment for</span>
-                        <figure class="payment">
-                            <img src="assets/images/payment.png" alt="payment" width="159" height="25" />
+                        <figure class="payment" style="width: 60%">
+                            <img src="assets/images/payment.png" alt="payment"  />
                         </figure>
                     </div>
                 </div>
