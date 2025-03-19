@@ -501,7 +501,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <img src="{{ asset('assets/images/payment.png') }}" class="d-none d-md-block"
+                        <img src="{{ asset('assets/images/paymentDesktop.png') }}" class="d-none d-md-block"
                             alt="payment" />
                         <img src="{{ asset('assets/images/paymentMobile.png') }}" class="d-block d-md-none"
                             alt="payment" />
