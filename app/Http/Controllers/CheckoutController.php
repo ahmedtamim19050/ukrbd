@@ -69,10 +69,10 @@ class CheckoutController extends Controller
             'area' => ['id' => (int) explode('-', $request->area)[0], 'name' => explode('-', $request->area)[1]]
         ];
 
-        // if ($this->productsAreNoLongerAvailable()) {
+        if ($this->productsAreNoLongerAvailable()) {
 
-        //     return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
-        // }
+            return back()->withErrors('Sorry! One of the items in your cart is no longer Available!');
+        }
         // try {
         DB::beginTransaction();
         $platform_fee = 0;
