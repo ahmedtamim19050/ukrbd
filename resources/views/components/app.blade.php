@@ -457,7 +457,7 @@
                             <div class="widget widget-about">
                                 <div class="widget-body">
                                     <p class="widget-about-title">Got Question? Call us 24/7</p>
-                                    <a href="#" class="widget-about-call">{{ setting('site.phone') }}</a>
+                                    <a href="#" class="widget-about-call">{!! setting('site.address') !!}</a>
                                     <p class="widget-about-desc">{{ setting('site.description') }}
                                     </p>
                                     <label class="label-social d-block text-dark">Social Media</label>
