@@ -500,19 +500,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <img src="{{ asset('assets/images/paymentDesktop.png') }}" class="d-none d-md-block"
+                            alt="payment" />
+                        <img src="{{ asset('assets/images/paymentMobile.png') }}" class="d-block d-md-none"
+                            alt="payment" />
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div class="container">
                     <div class="footer-left">
-                        <p class="copyright">Copyright © 2024 UKRBD Store. All Rights Reserved.</p>
+                        <p class="copyright text-center">Copyright © 2024 UKRBD Store. All Rights Reserved.</p>
                     </div>
                     <div class="footer-right">
-                        <span class="payment-label mr-lg-8">We're using safe payment for</span>
-                        <figure class="payment" style="width: 60%">
-                            <img src="assets/images/payment.png" alt="payment"  />
-                        </figure>
+                        <p class="copyright text-center">Trade Licence No : 1336</p>
                     </div>
+
                 </div>
             </div>
         </footer>
@@ -648,7 +652,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
-                            
+
                                 <select class="form-control form-control-sm" id="division-select-app"
                                     onchange="updateDistricts()">
                                     <option value="">Select Division</option>
@@ -665,7 +669,7 @@
                             </div>
 
                             <div class="col-md-6">
-                          
+
                                 <select class="form-control form-control-sm" id="district-select-app">
                                     <option value="">Select a District</option>
                                 </select>
@@ -1045,24 +1049,34 @@
         // Object holding division-wise districts
         const districts = {
             Barishal: ["Barguna", "Barishal Sadar", "Bhola", "Jhalokati", "Patuakhali", "Pirojpur"],
-            Chattogram: ["Bandarban", "Brahmanbaria", "Chandpur", "Chattogram Sadar", "Cox's Bazar", "Feni", "Khagrachari", "Lakshmipur", "Noakhali", "Rangamati"],
-            Dhaka: ["Dhaka Sadar", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"],
-            Khulna: ["Bagerhat", "Chuadanga", "Jashore", "Jhenaidah", "Khulna Sadar", "Kushtia", "Magura", "Meherpur", "Narail", "Satkhira"],
-            Rajshahi: ["Bogura", "Joypurhat", "Naogaon", "Natore", "Chapai Nawabganj", "Pabna", "Rajshahi Sadar", "Sirajganj"],
-            Rangpur: ["Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", "Panchagarh", "Rangpur Sadar", "Thakurgaon"],
+            Chattogram: ["Bandarban", "Brahmanbaria", "Chandpur", "Chattogram Sadar", "Cox's Bazar", "Feni",
+                "Khagrachari", "Lakshmipur", "Noakhali", "Rangamati"
+            ],
+            Dhaka: ["Dhaka Sadar", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj",
+                "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"
+            ],
+            Khulna: ["Bagerhat", "Chuadanga", "Jashore", "Jhenaidah", "Khulna Sadar", "Kushtia", "Magura", "Meherpur",
+                "Narail", "Satkhira"
+            ],
+            Rajshahi: ["Bogura", "Joypurhat", "Naogaon", "Natore", "Chapai Nawabganj", "Pabna", "Rajshahi Sadar",
+                "Sirajganj"
+            ],
+            Rangpur: ["Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", "Panchagarh", "Rangpur Sadar",
+                "Thakurgaon"
+            ],
             Mymensingh: ["Jamalpur", "Mymensingh Sadar", "Netrokona", "Sherpur"],
             Sylhet: ["Habiganj", "Moulvibazar", "Sunamganj", "Sylhet Sadar"],
         };
-    
+
         // Function to update districts based on selected division
         function updateDistricts() {
             const divisionSelect = document.getElementById("division-select-app");
             const districtSelect = document.getElementById("district-select-app");
             const selectedDivision = divisionSelect.value;
-    
+
             // Clear existing districts
             districtSelect.innerHTML = '<option value="">Select a District</option>';
-    
+
             // Populate districts based on selected division
             if (districts[selectedDivision]) {
                 districts[selectedDivision].forEach(district => {
@@ -1075,4 +1089,3 @@
         }
     </script>
 </body>
-
