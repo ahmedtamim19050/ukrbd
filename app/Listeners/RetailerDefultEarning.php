@@ -28,7 +28,7 @@ class RetailerDefultEarning
     {
    
         $retailer=$event->retailer;
-        dd($retailer->id);
+
         $retailer->bonuses()->create([
             'ammount'=>setting('site.retailer_create_share'),
             'description'=>'Retailer Creation defualt bonus',
