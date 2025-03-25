@@ -33,6 +33,7 @@ class RetailerDefultEarning
             'description'=>'Retailer Creation defualt bonus',
             'retailer_id'=>$retailer->id
         ]);
+        dd($retailer->bonuses);
        
     }
 }

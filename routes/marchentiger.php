@@ -21,5 +21,6 @@ Route::group(
         Route::get('/transactions', [PageController::class, 'transactions'])->name('transictions');
         Route::post('/widthraw-request', [PageController::class, 'widthrawRequest'])->name('widthraw.request');
         Route::get('bonuses',[PageController::class,'bonuses'])->name('bonuses');
+        Route::get('shops',[PageController::class,'shops'])->name('shops');
     },
 );
