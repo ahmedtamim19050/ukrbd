@@ -255,7 +255,7 @@
                                                                             {{-- <p>{{$slug}}</p> --}}
 
                                                                             @if (isset($slug))
-                                                                                <a href="{{ route('product_details', ['slug' => $slug, 'id' => 'ratings']) }}#ratings"
+                                                                                <a href="{{ route('product_details', ['slug' => $slug]) }}#ratings"
                                                                                     class="btn btn-dark feedback-btn w-100 mt-2">
                                                                                     Give Feedback
                                                                                 </a>
