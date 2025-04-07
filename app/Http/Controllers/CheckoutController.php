@@ -121,7 +121,8 @@ class CheckoutController extends Controller
                     "recipient_city" => $shipping['city']['id'],
                     "recipient_zone" => $shipping['zone']['id']
                 ]);
-                $shipping_total= $response->final_price;
+                // $shipping_total= $response->final_price;
+                $shipping_total= 0;
             }
           
             $childOrder = Order::create([
