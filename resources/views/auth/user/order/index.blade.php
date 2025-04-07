@@ -249,13 +249,25 @@
                                                                                 data-id="{{ $order->id }}">
                                                                                 Return Order
                                                                             </button>
-                                                                            {{-- <a href="{{ route('product_details', [
-                                                                                'slug' => $order->product->parentproduct ? $order->product->parentproduct->slug : $order->product->slug,
+                                                                            @if($order->product->parentproduct)
+                                                                            <a href="{{ route('product_details', [
+                                                                                'slug' =>  $order->product->parentproduct->slug  ,
                                                                                 'id' => 'ratings',
                                                                             ]) }}#ratings"
                                                                                 class="btn btn-dark feedback-btn w-100 mt-2">
                                                                                 Give Feedback
-                                                                            </a> --}}
+                                                                            </a>
+                                                                            @elseif($order->product->slug)
+                                                                            <a href="{{ route('product_details', [
+                                                                                'slug' =>  $order->product->parentproduct->slug  ,
+                                                                                'id' => 'ratings',
+                                                                            ]) }}#ratings"
+                                                                                class="btn btn-dark feedback-btn w-100 mt-2">
+                                                                                Give Feedback
+                                                                            </a>
+                                                                            @else
+                                                                            <a href=""></a>
+                                                                            @endif
                                                                         @endif
                                                                         <br>
                                                                         @if ($order->status == 5)
