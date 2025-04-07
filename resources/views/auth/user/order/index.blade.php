@@ -249,13 +249,13 @@
                                                                                 data-id="{{ $order->id }}">
                                                                                 Return Order
                                                                             </button>
-                                                                            <a href="{{ route('product_details', [
+                                                                            {{-- <a href="{{ route('product_details', [
                                                                                 'slug' => $order->product->parentproduct ? $order->product->parentproduct->slug : $order->product->slug,
                                                                                 'id' => 'ratings',
                                                                             ]) }}#ratings"
                                                                                 class="btn btn-dark feedback-btn w-100 mt-2">
                                                                                 Give Feedback
-                                                                            </a>
+                                                                            </a> --}}
                                                                         @endif
                                                                         <br>
                                                                         @if ($order->status == 5)
