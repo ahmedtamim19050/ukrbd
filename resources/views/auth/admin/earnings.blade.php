@@ -174,7 +174,7 @@
                                                 </div>
                                                 <div class="col-md-2 ">
                                                     <p style="font-size: 16px" class="text-center"> <span style="font-weight:600">Your Total Profit  :</span> </p>
-                                                    <p style="font-size: 16px" class="text-center"><span style="font-weight:600"> {{Sohoj::price($admin_total_own - $retailer_total_own)}} </span> </p>
+                                                    <p style="font-size: 16px" class="text-center"><span style="font-weight:600"> {{$admin_total_own }}tk</span> </p>
                                                 </div>
                                             </div>
                                        
