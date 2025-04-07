@@ -154,9 +154,9 @@
                                                          
 
                                                                         <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
-                                                                        <p class="total"><span>E-Shop Profit :</span> {{Sohoj::price($shop_earn)}}</p>
-                                                                        <p class="total"><span>Admin Profit :</span> {{Sohoj::price($admin_earn - $retailer_earn)}}</p>
-                                                                        <p class="total"><span>UKRBD Affiliate :</span> {{Sohoj::price($retailer_earn)}}</p>
+                                                                        <p class="total"><span>E-Shop Profit :</span> {{$shop_earn}}tk</p>
+                                                                        <p class="total"><span>Admin Profit :</span> {{$admin_earn}}tk</p>
+                                                                        <p class="total"><span>UKRBD Affiliate :</span> {{$retailer_earn}}tk</p>
                                                                     </ul>
                                                                 </div>
                                                             
