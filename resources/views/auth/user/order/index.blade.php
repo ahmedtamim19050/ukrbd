@@ -252,14 +252,14 @@
                                                                             @php
                                                                                 $slug =$order->product->parentproduct->slug ?? ($order->product->slug ?? null);
                                                                             @endphp
-                                                                            <p>{{$slug}}</p>
+                                                                            {{-- <p>{{$slug}}</p> --}}
 
-                                                                            {{-- @if ($slug)
+                                                                            @if (isset($slug))
                                                                                 <a href="{{ route('product_details', ['slug' => $slug, 'id' => 'ratings']) }}#ratings"
                                                                                     class="btn btn-dark feedback-btn w-100 mt-2">
                                                                                     Give Feedback
                                                                                 </a>
-                                                                            @endif --}}
+                                                                            @endif
                                                                         @endif
                                                                         <br>
                                                                         @if ($order->status == 5)
