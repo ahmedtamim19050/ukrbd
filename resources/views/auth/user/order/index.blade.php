@@ -233,7 +233,7 @@
                                                                                         title="Click the button to let us know you received the order."
                                                                                         onclick="return confirm('Are you sure you want to confirm receipt of the order?')">Received
                                                                                         the order?</button>
-                                                                                    @elseif($order->order_accept == 1)
+                                                                                @elseif($order->order_accept == 1)
                                                                                     <div class="text-center mb-3">
                                                                                         <span
                                                                                             style="background-color: gray; color: #fff"
@@ -249,24 +249,15 @@
                                                                                 data-id="{{ $order->id }}">
                                                                                 Return Order
                                                                             </button>
-                                                                            @if($order->product->parentproduct)
-                                                                            <a href="{{ route('product_details', [
-                                                                                'slug' =>  $order->product->parentproduct->slug  ,
-                                                                                'id' => 'ratings',
-                                                                            ]) }}#ratings"
-                                                                                class="btn btn-dark feedback-btn w-100 mt-2">
-                                                                                Give Feedback
-                                                                            </a>
-                                                                            @elseif($order->product->slug)
-                                                                            <a href="{{ route('product_details', [
-                                                                                'slug' =>  $order->product->slug  ,
-                                                                                'id' => 'ratings',
-                                                                            ]) }}#ratings"
-                                                                                class="btn btn-dark feedback-btn w-100 mt-2">
-                                                                                Give Feedback
-                                                                            </a>
-                                                                            @else
-                                                                            <a href=""></a>
+                                                                            @php
+                                                                                $slug =$order->product->parentproduct->slug ?? ($order->product->slug ?? null);
+                                                                            @endphp
+
+                                                                            @if ($slug)
+                                                                                <a href="{{ route('product_details', ['slug' => $slug, 'id' => 'ratings']) }}#ratings"
+                                                                                    class="btn btn-dark feedback-btn w-100 mt-2">
+                                                                                    Give Feedback
+                                                                                </a>
                                                                             @endif
                                                                         @endif
                                                                         <br>
