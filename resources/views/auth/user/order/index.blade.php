@@ -259,7 +259,7 @@
                                                                             </a>
                                                                             @elseif($order->product->slug)
                                                                             <a href="{{ route('product_details', [
-                                                                                'slug' =>  $order->product->parentproduct->slug  ,
+                                                                                'slug' =>  $order->product->slug  ,
                                                                                 'id' => 'ratings',
                                                                             ]) }}#ratings"
                                                                                 class="btn btn-dark feedback-btn w-100 mt-2">
