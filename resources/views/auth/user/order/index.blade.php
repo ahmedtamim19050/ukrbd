@@ -250,7 +250,7 @@
                                                                                 Return Order
                                                                             </button>
                                                                             @php
-                                                                                $slug =$order->product->parentproduct->slug ?? ($order->product->slug ?? null);
+                                                                                $slug =$order->product->slug ??  ( $order->product->parentproduct->slug ?? null);
                                                                             @endphp
                                                                             {{-- <p>{{$slug}}</p> --}}
 
