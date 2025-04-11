@@ -144,6 +144,7 @@ class Sohoj
     {
 
         if ($order->shop->percentage_cost !== null) {
+
             return $order->subtotal * ($order->shop->percentage_cost / 100);
         }
         return 0;
@@ -159,7 +160,8 @@ class Sohoj
 
             $affilateIncome = $adminOwned *  ($order->shop->retailer->percentage_cost / 100);
         }
-        return $adminOwned - $affilateIncome;
+      
+        return  $affilateIncome;
     }
     public function shopTotalEarn($shop)
     {
