@@ -150,7 +150,7 @@
 
                                         </div>
                                    
-                                        @if ($allOrdersStatusOne)
+                                        {{-- @if ($allOrdersStatusOne) --}}
                                      
                                             @if ($order->first()->parent->shipping_method == 'home_delivery')
                                                 <a style="font-size: 12px"
@@ -166,7 +166,7 @@
                                                     Ready for pickup
                                                 </a>
                                             @endif
-                                        @endif
+                                        {{-- @endif --}}
                                     </td>
 
 
