@@ -54,6 +54,7 @@
                     @if (Auth()->user()->retailer)
                         <li><a href="{{ route('marchentiger.transictions') }}">Transactions</a></li>
                         <li><a href="{{ route('marchentiger.bonuses') }}">Bonuses</a></li>
+                        <li><a href="{{ route('marchentiger.shops') }}">Shops</a></li>
                     @endif
 
                     <li>

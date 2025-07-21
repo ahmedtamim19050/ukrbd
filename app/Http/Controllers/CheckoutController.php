@@ -121,7 +121,8 @@ class CheckoutController extends Controller
                     "recipient_city" => $shipping['city']['id'],
                     "recipient_zone" => $shipping['zone']['id']
                 ]);
-                $shipping_total= $response->final_price;
+                // $shipping_total= $response->final_price;
+                $shipping_total= 0;
             }
           
             $childOrder = Order::create([
@@ -148,7 +149,7 @@ class CheckoutController extends Controller
         $childOrders = $order->childs;
 
         foreach ($childOrders as $childOrder) {
-            $childOrder->update(['status' => 1]);
+            $childOrder->update(['status' => 0]);
             Earning::create([
                 'order_id' => $childOrder->id,
                 'shop_id' => $childOrder->shop->id,

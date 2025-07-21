@@ -58,6 +58,18 @@
                             <p><strong>Phone Number:</strong> {{ auth()->user()->shop->phone ?? 'N/A' }}</p>
                         </div>
                     </div>
+                    @if (auth()->user()->shop && auth()->user()->shop->retailer)
+                        <div class="card mb-4">
+                            <div class="card-header bg-transparent">
+                                <h5 class="my-3">UKRBD Affiliate Marketer</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Name:</strong> {{ auth()->user()->shop->retailer->name ?? 'N/A' }}</p>
+                                <p><strong>Phone Number:</strong> {{ auth()->user()->shop->retailer->phone ?? 'N/A' }}
+                                </p>
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="card mb-4">
                         <div class="card-header bg-transparent">
@@ -75,7 +87,7 @@
                         <div class="card-header bg-transparent">
                             <h5 class="my-3">Courier Information</h5>
                         </div>
-                     
+
                         <div class="card-body">
                             <p><strong>Name :</strong>
                                 {{ isset(auth()->user()->shop->pickup_address) ? auth()->user()->shop->pickup_address->contact_name ?? 'N/A' : 'N/A' }}

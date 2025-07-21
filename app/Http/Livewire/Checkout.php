@@ -97,7 +97,8 @@ class Checkout extends Component
 
 
 
-            $total += $response->final_price;
+            // $total += $response->final_price;
+            $total += 0;
         }
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Marchentiger;
 use App\Http\Controllers\Controller;
 use App\Models\Bonus;
 use App\Models\Retailer;
+use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -117,5 +118,10 @@ class PageController extends Controller
         $bonuses = Bonus::where('retailer_id', auth()->user()->retailer->id)->latest()->get();
         return view('auth.marchentiger.bonuses',compact('bonuses'));
 
+    }
+    public function shops() {
+        $shops=Shop::where('referral_id',auth()->user()->retailer->id)->get();
+
+        return view('auth.marchentiger.shops',compact('shops'));
     }
 }

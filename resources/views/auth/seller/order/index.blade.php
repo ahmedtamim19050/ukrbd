@@ -133,11 +133,11 @@
                                                 href="{{ route('vendor.order.products') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{ $order->first()->parent_id }}">
                                                 <i class="fas fa-eye"></i> View
                                             </a>
-                                            @php
+                                            {{-- @php
                                                 $allOrdersStatusOne = $order->every(function ($item) {
                                                     return $item->status == 1;
                                                 });
-                                            @endphp
+                                            @endphp --}}
 
 
 
@@ -150,7 +150,7 @@
 
                                         </div>
                                    
-                                        @if ($allOrdersStatusOne)
+                                        {{-- @if ($allOrdersStatusOne) --}}
                                      
                                             @if ($order->first()->parent->shipping_method == 'home_delivery')
                                                 <a style="font-size: 12px"
@@ -166,7 +166,7 @@
                                                     Ready for pickup
                                                 </a>
                                             @endif
-                                        @endif
+                                        {{-- @endif --}}
                                     </td>
 
 

@@ -154,9 +154,9 @@
                                                          
 
                                                                         <p class="total"><span>Total :</span> {{Sohoj::price($total)}}</p>
-                                                                        <p class="total"><span>E-Shop Profit :</span> {{Sohoj::price($shop_earn)}}</p>
-                                                                        <p class="total"><span>Admin Profit :</span> {{Sohoj::price($admin_earn - $retailer_earn)}}</p>
-                                                                        <p class="total"><span>UKRBD Affiliate :</span> {{Sohoj::price($retailer_earn)}}</p>
+                                                                        <p class="total"><span>E-Shop Profit :</span> {{$shop_earn}}tk</p>
+                                                                        <p class="total"><span>Admin Profit :</span> {{$admin_earn}}tk</p>
+                                                                        <p class="total"><span>UKRBD Affiliate :</span> {{$retailer_earn}}tk</p>
                                                                     </ul>
                                                                 </div>
                                                             
@@ -174,7 +174,7 @@
                                                 </div>
                                                 <div class="col-md-2 ">
                                                     <p style="font-size: 16px" class="text-center"> <span style="font-weight:600">Your Total Profit  :</span> </p>
-                                                    <p style="font-size: 16px" class="text-center"><span style="font-weight:600"> {{Sohoj::price($admin_total_own - $retailer_total_own)}} </span> </p>
+                                                    <p style="font-size: 16px" class="text-center"><span style="font-weight:600"> {{$admin_total_own }}tk</span> </p>
                                                 </div>
                                             </div>
                                        
