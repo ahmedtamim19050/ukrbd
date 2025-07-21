@@ -20,7 +20,7 @@ class Prodcat extends Model
     }
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withTimestamps();
+        return $this->belongsToMany(Product::class)->where('status', 1)->withTimestamps();
     }
 
  
