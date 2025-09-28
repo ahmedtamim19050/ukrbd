@@ -709,7 +709,7 @@
     <script src="{{ asset('assets/js/star-rating.js') }}"></script>
     <script src="{{ asset('assets/js/filter.js') }}"></script>
     @if (!session()->has('division'))
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 $('#cityModal').modal('show');
             });
@@ -733,7 +733,7 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
     @endif
     @yield('script')
     <script>
