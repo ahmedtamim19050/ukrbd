@@ -222,38 +222,13 @@ Route::get('select/division', [PageController::class, 'selectDivision'])->name('
 // });
 
 
-if (env('APP_ENV') == 'local') {
+// if (env('APP_ENV') == 'local') {
     Route::get('/test/login-as-user/{user}', function (User $user) {
         Auth::logout();
         Auth::login($user);
         return redirect('/');
     });
-}
+// }
 
 
-Route::get('test',function(){
-    
-    // $sslc = new SslCommerzNotification();
 
-    // $payment_options = $sslc->makePayment([
-    //     'cus_name' => auth()->user()->name,
-    //     'cus_phone' => '01795560431',
-    //     'cus_email' => auth()->user()->email ? auth()->user()->email : auth()->user()->cus_name . '@customer.com',
-    //     'cus_country' => "Bangladesh",
-    //     'product_name' => 'Test',
-    //     'product_category' => 'Test',
-    //     'product_profile' => 'Test',
-    //     'tran_id' => uniqid(),
-    //     'currency' => 'BDT',
-    //     'total_amount' => 100,
-    //     'shipping_method' => 'NO'
-    // ], 'hosted');
-    // if (!is_array($payment_options)) {
-    //     print_r($payment_options);
-    //     $payment_options = array();
-    // }
-
-    $order = Order::latest()->first();
-
-    
-});
