@@ -65,6 +65,22 @@
               .select-box select, .select-menu select{
                   height: 100% !important;
               }
+
+              /* Loading spinner styles */
+              .spinner-border {
+                  width: 3rem;
+                  height: 3rem;
+                  border-width: 0.3em;
+              }
+
+              #loading-indicator, #end-message {
+                  padding: 2rem 0;
+                  margin: 2rem 0;
+              }
+
+              #loading-indicator .spinner-border {
+                  color: #007bff;
+              }
           </style>
       </x-slot>
 
@@ -255,9 +271,21 @@
                               </div>
                           </div> --}}
                       </nav>
-                      <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
+                      <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2" id="products-container">
                           @include('partials.products', ['products' => $products])
+                      </div>
 
+                      <!-- Loading indicator -->
+                      <div id="loading-indicator" class="text-center mt-4" style="display: none;">
+                          <div class="spinner-border text-primary" role="status">
+                              <span class="sr-only">Loading...</span>
+                          </div>
+                          <p class="mt-2">Loading more products...</p>
+                      </div>
+
+                      <!-- End of products message -->
+                      <div id="end-message" class="text-center mt-4" style="display: none;">
+                          <p class="text-muted">No more products to load.</p>
                       </div>
 
 
@@ -268,5 +296,205 @@
           </div>
       </div>
       <!-- End of Page Content -->
+
+      <script>
+          let currentPage = 1;
+          let isLoading = false;
+          let hasMoreProducts = true;
+
+          // Function to get current URL parameters
+          function getCurrentUrlParams() {
+              const urlParams = new URLSearchParams(window.location.search);
+              return urlParams.toString();
+          }
+
+          // Function to load more products
+          function loadMoreProducts() {
+              if (isLoading || !hasMoreProducts) return;
+
+              isLoading = true;
+              document.getElementById('loading-indicator').style.display = 'block';
+
+              const nextPage = currentPage + 1;
+              const urlParams = getCurrentUrlParams();
+              const url = `{{ route('shops') }}?page=${nextPage}&${urlParams}`;
+
+              fetch(url, {
+                  method: 'GET',
+                  headers: {
+                      'X-Requested-With': 'XMLHttpRequest',
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  }
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.products) {
+                      // Append new products to the container
+                      document.getElementById('products-container').insertAdjacentHTML('beforeend', data.products);
+                      currentPage = data.nextPage - 1;
+                      hasMoreProducts = data.hasMore;
+                      
+                      if (!hasMoreProducts) {
+                          document.getElementById('end-message').style.display = 'block';
+                      }
+                  }
+              })
+              .catch(error => {
+                  console.error('Error loading more products:', error);
+              })
+              .finally(() => {
+                  isLoading = false;
+                  document.getElementById('loading-indicator').style.display = 'none';
+              });
+          }
+
+          // Intersection Observer for infinite scroll
+          let observer;
+          
+          if ('IntersectionObserver' in window) {
+              const observerOptions = {
+                  root: null,
+                  rootMargin: '100px',
+                  threshold: 0.1
+              };
+
+              observer = new IntersectionObserver((entries) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting && hasMoreProducts && !isLoading) {
+                          loadMoreProducts();
+                      }
+                  });
+              }, observerOptions);
+
+              // Start observing the loading indicator
+              const loadingIndicator = document.getElementById('loading-indicator');
+              observer.observe(loadingIndicator);
+          } else {
+              // Fallback for browsers that don't support IntersectionObserver
+              window.addEventListener('scroll', function() {
+                  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+                      if (hasMoreProducts && !isLoading) {
+                          loadMoreProducts();
+                      }
+                  }
+              });
+          }
+
+          // Reset pagination when filters change
+          function resetPagination() {
+              currentPage = 1;
+              hasMoreProducts = true;
+              document.getElementById('end-message').style.display = 'none';
+              
+              // Clear existing products and reload with current filters
+              document.getElementById('products-container').innerHTML = '';
+              
+              // Load first page with current filters
+              const urlParams = getCurrentUrlParams();
+              const url = `{{ route('shops') }}?page=1&${urlParams}`;
+              
+              fetch(url, {
+                  method: 'GET',
+                  headers: {
+                      'X-Requested-With': 'XMLHttpRequest',
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                  }
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.products) {
+                      document.getElementById('products-container').innerHTML = data.products;
+                      currentPage = 1;
+                      hasMoreProducts = data.hasMore;
+                      
+                      if (!hasMoreProducts) {
+                          document.getElementById('end-message').style.display = 'block';
+                      }
+                  }
+              })
+              .catch(error => {
+                  console.error('Error loading filtered products:', error);
+              });
+          }
+
+          // Override the existing updateSearchParams function to use AJAX instead of redirect
+          if (typeof updateSearchParams === 'function') {
+              const originalUpdateSearchParams = updateSearchParams;
+              updateSearchParams = function(param, value, route, min, max, target) {
+                  if (target === "_self" || target === undefined) {
+                      // Use AJAX for infinite scroll
+                      const url = new URL(window.location.href);
+                      url.searchParams.set(param, value);
+                      
+                      if (min !== undefined && min !== null) {
+                          url.searchParams.set('priceMin', min);
+                      }
+                      if (max !== undefined && max !== null) {
+                          url.searchParams.set('priceMax', max);
+                      }
+                      
+                      // Update URL without reloading
+                      window.history.pushState({}, '', url.href);
+                      
+                      // Reset pagination and load new results
+                      resetPagination();
+                  } else {
+                      // Use original function for other targets
+                      originalUpdateSearchParams(param, value, route, min, max, target);
+                  }
+              };
+          }
+
+          // Override filterAttributes to use AJAX
+          if (typeof filterAttributes === 'function') {
+              const originalFilterAttributes = filterAttributes;
+              filterAttributes = function(element) {
+                  const name = element.getAttribute('name');
+                  const value = element.value;
+                  const isChecked = element.checked;
+                  
+                  const url = new URL(window.location.href);
+                  
+                  if (isChecked) {
+                      url.searchParams.set(name, value);
+                  } else {
+                      url.searchParams.delete(name);
+                  }
+                  
+                  // Update URL without reloading
+                  window.history.pushState({}, '', url.href);
+                  
+                  // Reset pagination and load new results
+                  resetPagination();
+              };
+          }
+
+          // Reset pagination when rating filter changes
+          document.addEventListener('change', function(e) {
+              if (e.target.name === 'ratings') {
+                  setTimeout(resetPagination, 100);
+              }
+          });
+
+          // Initialize - check if we need to load more products on page load
+          document.addEventListener('DOMContentLoaded', function() {
+              // If there are no products initially, try to load some
+              const productContainer = document.getElementById('products-container');
+              if (productContainer && productContainer.children.length === 0) {
+                  loadMoreProducts();
+              }
+              
+              // Also trigger infinite scroll if the page is already scrolled down
+              if (window.scrollY > 0) {
+                  setTimeout(() => {
+                      if (hasMoreProducts && !isLoading) {
+                          loadMoreProducts();
+                      }
+                  }, 500);
+              }
+          });
+      </script>
 
   </x-app>

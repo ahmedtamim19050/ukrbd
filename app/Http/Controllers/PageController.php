@@ -107,7 +107,6 @@ class PageController extends Controller
     }
     public function shops()
     {
-
         $parent = null;
         $filters = collect([]);
         if (request()->filled('parent')) {
@@ -122,17 +121,28 @@ class PageController extends Controller
 
         $filters = $filters->unique('id');
 
-
+        // Get paginated products
+        $page = request()->get('page', 1);
+        $perPage = 20; // Number of products per page
+        
         $products = Product::where("status", 1)->whereNull('parent_id')->whereHas('shop', function ($q) {
             $q->where('status', 1);
         })->when(request()->filled('parent'), function ($query) {
             $query->whereHas('prodcats', fn($query) => $query->whereHas('allParentCategories', fn($q) => $q->where('slug', request()->parent)));
-        })->filter()->limit(500)->get();
-
+        })->filter()->paginate($perPage, ['*'], 'page', $page);
 
         $categories = Prodcat::when(request()->filled('parent'), function ($query) {
             $query->whereHas('parent', fn($query) => $query->where('slug', request()->parent));
         })->withCount('products')->whereNotNull('parent_id')->orderBy('name', 'asc')->get();
+
+        // If AJAX request, return JSON
+        if (request()->ajax()) {
+            return response()->json([
+                'products' => view('partials.products', ['products' => $products])->render(),
+                'hasMore' => $products->hasMorePages(),
+                'nextPage' => $products->currentPage() + 1
+            ]);
+        }
 
         return view('pages.shops', compact('products', 'categories', 'parent', 'filters'));
     }
