@@ -23,6 +23,16 @@ class Prodcat extends Model
         return $this->belongsToMany(Product::class)->where('status', 1)->withTimestamps();
     }
 
+    public function title()
+    {
+        $string = '';
+        while ($this->parent) {
+            $string = $this->parent->name . ' - ' . $string;
+            $this->parent = $this->parent->parent;
+        }
+        return $string . $this->name;
+    }
+
  
 
     public function filters()

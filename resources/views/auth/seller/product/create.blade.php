@@ -140,7 +140,7 @@
                                                 class="form-control category @error('categories') is-invalid @enderror "
                                                 multiple data-placeholder="Select Categories" name="categories[]">
                                                 @foreach ($prodcats as $prodcat)
-                                                    <option value="{{ $prodcat->id }}">{{ $prodcat->name }}</option>
+                                                    <option value="{{ $prodcat->id }}">{{ $prodcat->title() }}</option>
                                                 @endforeach
                                             </select>
                                             @error('categories')
