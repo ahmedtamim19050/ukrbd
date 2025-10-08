@@ -288,6 +288,13 @@
                           <p class="text-muted">No more products to load.</p>
                       </div>
 
+                      <!-- Debug button -->
+                      {{-- <div class="text-center mt-4">
+                          <button onclick="loadMoreProducts()" class="btn btn-primary">Test Load More Products</button>
+                          <button onclick="console.log('Current state:', {currentPage, isLoading, hasMoreProducts})" class="btn btn-secondary">Log State</button>
+                      </div> --}}
+
+
 
                   </div>
                   <!-- End of Shop Main Content -->
@@ -301,6 +308,7 @@
           let currentPage = 1;
           let isLoading = false;
           let hasMoreProducts = true;
+          let observer = null;
 
           // Function to get current URL parameters
           function getCurrentUrlParams() {
@@ -310,14 +318,20 @@
 
           // Function to load more products
           function loadMoreProducts() {
-              if (isLoading || !hasMoreProducts) return;
+              if (isLoading || !hasMoreProducts) {
+                  console.log('Skipping load - isLoading:', isLoading, 'hasMoreProducts:', hasMoreProducts);
+                  return;
+              }
 
+              console.log('Loading more products, current page:', currentPage);
               isLoading = true;
               document.getElementById('loading-indicator').style.display = 'block';
 
               const nextPage = currentPage + 1;
               const urlParams = getCurrentUrlParams();
               const url = `{{ route('shops') }}?page=${nextPage}&${urlParams}`;
+
+              console.log('Fetching URL:', url);
 
               fetch(url, {
                   method: 'GET',
@@ -327,21 +341,40 @@
                       'Content-Type': 'application/json',
                   }
               })
-              .then(response => response.json())
+              .then(response => {
+                  console.log('Response status:', response.status);
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  return response.json();
+              })
               .then(data => {
-                  if (data.products) {
+                  console.log('Received data:', data);
+                  if (data.products && data.products.trim() !== '') {
                       // Append new products to the container
                       document.getElementById('products-container').insertAdjacentHTML('beforeend', data.products);
                       currentPage = data.nextPage - 1;
                       hasMoreProducts = data.hasMore;
                       
+                      console.log('Updated currentPage:', currentPage, 'hasMoreProducts:', hasMoreProducts);
+                      
                       if (!hasMoreProducts) {
                           document.getElementById('end-message').style.display = 'block';
+                          // Stop observing when no more products
+                          if (observer) {
+                              observer.disconnect();
+                              observer = null;
+                          }
                       }
+                  } else {
+                      console.log('No products received or empty response');
+                      hasMoreProducts = false;
+                      document.getElementById('end-message').style.display = 'block';
                   }
               })
               .catch(error => {
                   console.error('Error loading more products:', error);
+                  hasMoreProducts = false;
               })
               .finally(() => {
                   isLoading = false;
@@ -349,32 +382,21 @@
               });
           }
 
-          // Intersection Observer for infinite scroll
-          let observer;
-          
-          if ('IntersectionObserver' in window) {
-              const observerOptions = {
-                  root: null,
-                  rootMargin: '100px',
-                  threshold: 0.1
-              };
-
-              observer = new IntersectionObserver((entries) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting && hasMoreProducts && !isLoading) {
-                          loadMoreProducts();
-                      }
-                  });
-              }, observerOptions);
-
-              // Start observing the loading indicator
-              const loadingIndicator = document.getElementById('loading-indicator');
-              observer.observe(loadingIndicator);
-          } else {
-              // Fallback for browsers that don't support IntersectionObserver
+          // Simple scroll-based infinite scroll
+          function initializeScrollListener() {
+              console.log('Initializing scroll listener');
+              
               window.addEventListener('scroll', function() {
-                  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+                  // Check if we're near the bottom of the page
+                  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                  const windowHeight = window.innerHeight;
+                  const documentHeight = document.documentElement.scrollHeight;
+                  
+                  // Trigger when user is 300px from bottom
+                  if (scrollTop + windowHeight >= documentHeight - 300) {
+                      console.log('Near bottom of page, checking if should load more');
                       if (hasMoreProducts && !isLoading) {
+                          console.log('Scroll triggered load more');
                           loadMoreProducts();
                       }
                   }
@@ -383,6 +405,7 @@
 
           // Reset pagination when filters change
           function resetPagination() {
+              console.log('Resetting pagination');
               currentPage = 1;
               hasMoreProducts = true;
               document.getElementById('end-message').style.display = 'none';
@@ -394,6 +417,8 @@
               const urlParams = getCurrentUrlParams();
               const url = `{{ route('shops') }}?page=1&${urlParams}`;
               
+              console.log('Loading filtered products from:', url);
+              
               fetch(url, {
                   method: 'GET',
                   headers: {
@@ -404,10 +429,13 @@
               })
               .then(response => response.json())
               .then(data => {
+                  console.log('Filtered products response:', data);
                   if (data.products) {
                       document.getElementById('products-container').innerHTML = data.products;
                       currentPage = 1;
                       hasMoreProducts = data.hasMore;
+                      
+                      console.log('Filtered products loaded, hasMore:', hasMoreProducts);
                       
                       if (!hasMoreProducts) {
                           document.getElementById('end-message').style.display = 'block';
@@ -478,18 +506,35 @@
               }
           });
 
-          // Initialize - check if we need to load more products on page load
+          // Initialize infinite scroll
           document.addEventListener('DOMContentLoaded', function() {
-              // If there are no products initially, try to load some
+              console.log('DOM Content Loaded');
               const productContainer = document.getElementById('products-container');
-              if (productContainer && productContainer.children.length === 0) {
-                  loadMoreProducts();
+              
+              if (productContainer) {
+                  const productCount = productContainer.children.length;
+                  console.log('Initial product count:', productCount);
+                  
+                  // Set initial state based on product count
+                  // If we have 20+ products, assume there are more pages
+                  hasMoreProducts = productCount >= 20;
+                  console.log('Initial hasMoreProducts:', hasMoreProducts);
+                  
+                  // Initialize the scroll listener
+                  initializeScrollListener();
+                  
+                  // If there are no products initially, try to load some
+                  if (productCount === 0) {
+                      console.log('No products found, loading initial products');
+                      loadMoreProducts();
+                  }
               }
               
-              // Also trigger infinite scroll if the page is already scrolled down
+              // Trigger infinite scroll if the page is already scrolled down
               if (window.scrollY > 0) {
                   setTimeout(() => {
                       if (hasMoreProducts && !isLoading) {
+                          console.log('Page already scrolled, triggering load');
                           loadMoreProducts();
                       }
                   }, 500);
