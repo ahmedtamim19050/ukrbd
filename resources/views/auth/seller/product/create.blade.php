@@ -183,6 +183,12 @@
                                             <p class="text-danger"></p>
                                         </div>
                                         <div class="col-md-6 mt-2">
+                                            <label class="form-label">Purchase Price </label>
+                                            <input type="text" name="vendor_price" value="{{ old('vendor_price') }}"
+                                                class="form-control" id="vendorPrice">
+                                            <p class="text-danger"></p>
+                                        </div>
+                                        <div class="col-md-6 mt-2">
                                             <label class="form-label"> Price <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="price" value="{{ old('price') }}"
@@ -196,11 +202,11 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-md-12 mt-2">
+                                        {{-- <div class="col-md-12 mt-2">
                                             <!-- <label class="form-label">Admin Price </label> -->
                                             <input type="hidden" name="vendor_price" value=""
                                                 class="form-control" id="vendorPrice">
-                                        </div>
+                                        </div> --}}
 
 
                                         <div class="col-md-12 mt-2">

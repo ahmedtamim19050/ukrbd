@@ -38,6 +38,7 @@ class ProductController extends Controller
                 "name"          => "required|max:200",
                 "price"         => "required|regex:/^\\d*(\\.\\d{1,2})?$/",
                 "sale_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
+                "vendor_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
 
 
                 "quantity"      => "required|integer",
@@ -167,6 +168,7 @@ class ProductController extends Controller
 
             'price' => $request->price,
             'sale_price' => $sale_price,
+            'vendor_price' => $request->vendor_price,
             'quantity' => $request->quantity,
             'description' => $request->description,
             'short_description' => $request->short_description,

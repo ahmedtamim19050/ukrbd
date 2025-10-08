@@ -86,7 +86,7 @@
                                             <label for="inputEmail4" class="form-label">Product name</label>
                                             <input type="text"
                                                 class="form-control @error('name') is-invalid @enderror"
-                                                value="{{ $product->name }}" name="name" id="inputEmail4">
+                                                value="{{ old('name', $product->name) }}" name="name" id="inputEmail4">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -116,7 +116,7 @@
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Short Description</label>
                                             <textarea id="short_description" class="form-control @error('short_description') is-invalid @enderror"
-                                                name="short_description" rows="2">{{ $product->short_description }}</textarea>
+                                                name="short_description" rows="2">{{ old('short_description', $product->short_description) }}</textarea>
                                             @error('short_description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Price </label>
-                                            <input type="text" value="{{ $product->price }}" name="price"
+                                            <input type="text" value="{{ old('price', $product->price) }}" name="price"
                                                 class="form-control @error('price') is-invalid @enderror"
                                                 id="price">
                                             <p class="text-danger" id=""> </p>
@@ -151,7 +151,7 @@
                                         </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">saleprice </label>
-                                            <input type="text" value="{{ $product->sale_price }}"
+                                            <input type="text" value="{{ old('sale_price', $product->sale_price) }}"
                                                 name="sale_price"
                                                 class="form-control @error('sale_price') is-invalid @enderror"
                                                 id="salePrice">
@@ -163,8 +163,21 @@
                                             @enderror
                                         </div>
                                         <div class="col-md-6 mt-2">
+                                            <label class="form-label">Purchase Price </label>
+                                            <input type="text" value="{{ old('vendor_price', $product->vendor_price) }}"
+                                                name="vendor_price"
+                                                class="form-control @error('vendor_price') is-invalid @enderror"
+                                                id="purchasePrice">
+                                            <p class="text-danger" id=""></p>
+                                            @error('vendor_price')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-6 mt-2">
                                             <label class="form-label">Quantity</label>
-                                            <input type="text" value="{{ $product->quantity }}" name="quantity"
+                                            <input type="text" value="{{ old('quantity', $product->quantity) }}" name="quantity"
                                                 class="form-control @error('quantity') is-invalid @enderror"
                                                 id="quantity1">
                                             @error('quantity')
@@ -173,17 +186,13 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-12 mt-2">
-
-                                            <input type="hidden" name="vendor_price" value=""
-                                                class="form-control" id="vendorPrice" readonly>
-                                        </div>
+                                     
 
 
                                         <div class="col-md-12 mt-2">
                                             <label class="form-label">Ful Detail</label>
                                             <textarea id="description" class="form-control  @error('description') is-invalid @enderror" name="description"
-                                                rows="4">{{ $product->description }}</textarea>
+                                                rows="4">{{ old('description', $product->description) }}</textarea>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -199,7 +208,7 @@
                                         </div> --}}
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product weight</label>
-                                            <input type="text" value="{{ $product->weight }}"
+                                            <input type="text" value="{{ old('weight', $product->weight) }}"
                                                 class="form-control @error('weight') is-invalid @enderror"
                                                 placeholder="179 grams" name="weight" required />
                                             @error('weight')
@@ -210,7 +219,7 @@
                                         </div>
                                         <div class="col-md-6 mt-2">
                                             <label class="form-label">Product Dimensions</label>
-                                            <input type="text" value="{{ $product->dimensions }}"
+                                            <input type="text" value="{{ old('dimensions', $product->dimensions) }}"
                                                 class="form-control @error('dimensions') is-invalid @enderror"
                                                 placeholder="159.9 x 73.9 x 8.1 millimeters" name="dimensions" />
                                             @error('dimensions')
