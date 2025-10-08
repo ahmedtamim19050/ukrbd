@@ -25,12 +25,7 @@ class Prodcat extends Model
 
     public function title()
     {
-        $string = '';
-        while ($this->parent) {
-            $string = $this->parent->name . ' - ' . $string;
-            $this->parent = $this->parent->parent;
-        }
-        return $string . $this->name;
+      return $this->parent ? $this->parent->name . ' > ' . $this->name : $this->name;
     }
 
  

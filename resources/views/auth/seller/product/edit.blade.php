@@ -102,7 +102,7 @@
                                                 @foreach ($prodcats as $prodcat)
                                                     <option value="{{ $prodcat->id }}"
                                                         {{ $product->prodcats->contains($prodcat->id) ? 'selected' : '' }}>
-                                                        {{ $prodcat->name }}
+                                                        {{ $prodcat->title() }}
                                                     </option>
                                                 @endforeach
                                             </select>
