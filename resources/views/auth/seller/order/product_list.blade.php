@@ -104,6 +104,11 @@
                                         Cancel Order
                                     </a>
                                 @endif
+                                @if ($order->status == 1)
+                                <a href="{{ route('vendor.order.delivered', $order->id) }}" class="btn btn-link">
+                                    Complete Order
+                                </a>
+                            @endif
                             </div>
                         </div>
                         @if($order->status == 0)

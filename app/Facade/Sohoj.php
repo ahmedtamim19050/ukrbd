@@ -12,7 +12,7 @@ class Sohoj
 {
     public function price($price)
     {
-        return  $this->round_num($price) . "Tk";
+        return  $this->round_num($price) . " Tk";
     }
     public function tax()
     {

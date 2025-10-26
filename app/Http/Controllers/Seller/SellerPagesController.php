@@ -103,9 +103,10 @@ class SellerPagesController extends Controller
 
 
 
-        $orders = Order::whereIn('id', json_decode($request->ids))->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
+        $orders = Order::whereIn('id', json_decode($request->ids))->where('status',4)->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
 
-        if (!$orders->count()) abort(403);
+        
+        if (!$orders->count()) return redirect()->route('vendor.order.products',['ids'=> $request->ids ,'parent'=> request()->parent ])->withErrors( 'Order not found or not delivered');
         return view('auth.seller.order.invoice', compact('orders'));
     }
     public function setting()
@@ -671,11 +672,10 @@ class SellerPagesController extends Controller
         }
     }
     public function orderDelivered(Order $order){
-        $orders = $order->childs->filter(fn($order) => $order->shop_id == auth()->user()->shop->id);
-        foreach ($orders as $key => $order) {
+
             $order->status = 4;
             $order->save();
-        }
+        
         return back()->with('success_msg', 'Delivered done');
     }
     public function shopProfile(){
