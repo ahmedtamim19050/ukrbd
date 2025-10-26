@@ -92,10 +92,19 @@
                             @endif
                             <a href="{{ route('vendor.invoice', $order->id) }}" class="btn btn-link"
                                 style="float:right;">Invoice</a> --}}
-                            @if ($order->status == 1)
-                                <a href="{{ route('vendor.order.cancel', $order->id) }}" class="btn btn-link"
-                                    style="float:right;">Cancel Order</a>
-                            @endif
+                            <div class="d-flex justify-content-end gap-2">
+                                @if (in_array($order->status, [0, 1]))
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" 
+                                            data-bs-target="#changeProductModal{{ $order->id }}">
+                                        <i class="fas fa-exchange-alt"></i> Change Product
+                                    </button>
+                                @endif
+                                @if ($order->status == 1)
+                                    <a href="{{ route('vendor.order.cancel', $order->id) }}" class="btn btn-link">
+                                        Cancel Order
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                         @if($order->status == 0)
                         <span class="badge"
@@ -140,7 +149,59 @@
                     </div>
                     @endforeach
 
-
+                    <!-- Change Product Modal for each order -->
+                    @foreach($orders as $order)
+                        @if (in_array($order->status, [0, 1]))
+                        @php
+                            $currentProduct = App\Models\Product::find($order->product_id);
+                        @endphp
+                        <div class="modal fade" id="changeProductModal{{ $order->id }}" tabindex="-1" aria-labelledby="changeProductModalLabel{{ $order->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="changeProductModalLabel{{ $order->id }}">Change Product - Order #{{ $order->id }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('vendor.order.changeProduct', $order->id) }}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="productSearch{{ $order->id }}" class="form-label">Search Product</label>
+                                                <input type="text" class="form-control" id="productSearch{{ $order->id }}" 
+                                                       placeholder="Search by name or SKU..." autocomplete="off">
+                                                <div id="productResults{{ $order->id }}" class="mt-2" style="max-height: 300px; overflow-y: auto;"></div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label for="selectedProduct{{ $order->id }}" class="form-label">Selected Product</label>
+                                                <div id="selectedProduct{{ $order->id }}" class="border p-3 rounded bg-light" style="display: none;">
+                                                    <p class="mb-0"><strong id="selectedProductName{{ $order->id }}"></strong></p>
+                                                    <p class="mb-0 text-muted small">SKU: <span id="selectedProductSku{{ $order->id }}"></span></p>
+                                                    <p class="mb-0">Price: <span id="selectedProductPrice{{ $order->id }}"></span></p>
+                                                </div>
+                                                <input type="hidden" name="product_id" id="productId{{ $order->id }}" required>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label for="quantity{{ $order->id }}" class="form-label">Quantity</label>
+                                                <input type="number" class="form-control" name="quantity" id="quantity{{ $order->id }}" 
+                                                       value="{{ $order->quantity }}" min="1" required>
+                                            </div>
+                                            
+                                            <div class="alert alert-info">
+                                                <strong>Current Product:</strong> {{ $currentProduct->name ?? 'N/A' }} (Qty: {{ $order->quantity }})
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Change Product</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
 
                 </div>
             </div>
@@ -151,14 +212,86 @@
 
     <x-slot name="js">
         <script>
-            var exampleModal = document.getElementById('exampleModal')
-            exampleModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget
-                var recipient = button.getAttribute('data-bs-id')
-                var modalBodyInput = exampleModal.querySelector('#orderId')
+            // Global function to select product
+            window.selectProduct = function(orderId, productId, name, sku, price, imageUrl) {
+                const productIdInput = document.getElementById('productId' + orderId);
+                const productNameSpan = document.getElementById('selectedProductName' + orderId);
+                const productSkuSpan = document.getElementById('selectedProductSku' + orderId);
+                const productPriceSpan = document.getElementById('selectedProductPrice' + orderId);
+                const selectedDiv = document.getElementById('selectedProduct' + orderId);
+                const resultsDiv = document.getElementById('productResults' + orderId);
+                const searchInput = document.getElementById('productSearch' + orderId);
+                
+                if (!productIdInput) return;
+                
+                productIdInput.value = productId;
+                productNameSpan.textContent = name;
+                productSkuSpan.textContent = sku;
+                productPriceSpan.textContent = new Intl.NumberFormat('en-BD', {style: 'currency', currency: 'BDT'}).format(price);
+                selectedDiv.style.display = 'block';
+                resultsDiv.innerHTML = '';
+                searchInput.value = '';
+            };
 
-                modalBodyInput.value = recipient
-            })
+            @foreach($orders as $order)
+                @if (in_array($order->status, [0, 1]))
+                (function() {
+                    const orderId = {{ $order->id }};
+                    const searchInput = document.getElementById('productSearch' + orderId);
+                    const resultsDiv = document.getElementById('productResults' + orderId);
+                    let searchTimeout;
+
+                    if (!searchInput) return;
+
+                    searchInput.addEventListener('input', function() {
+                        clearTimeout(searchTimeout);
+                        const search = this.value.trim();
+                        
+                        if (search.length < 2) {
+                            resultsDiv.innerHTML = '';
+                            return;
+                        }
+
+                        searchTimeout = setTimeout(() => {
+                            fetch('{{ route("vendor.order.searchProducts") }}?search=' + encodeURIComponent(search))
+                                .then(response => response.json())
+                                .then(products => {
+                                    if (products.length === 0) {
+                                        resultsDiv.innerHTML = '<div class="alert alert-warning">No products found</div>';
+                                        return;
+                                    }
+
+                                    resultsDiv.innerHTML = products.map(product => {
+                                        const price = product.sale_price > 0 ? product.sale_price : product.price;
+                                        const imageUrl = product.image ? '{{ Voyager::image("") }}' + product.image : '/placeholder.jpg';
+                                        const productName = product.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                                        return `
+                                            <div class="border rounded p-2 mb-2 product-item" 
+                                                 style="cursor: pointer; transition: background-color 0.2s;"
+                                                 onmouseover="this.style.backgroundColor='#f0f0f0'"
+                                                 onmouseout="this.style.backgroundColor='white'"
+                                                 onclick="selectProduct(${orderId}, ${product.id}, '${productName}', '${product.sku}', ${price}, '${imageUrl}')">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" alt="">
+                                                    <div>
+                                                        <strong>${product.name}</strong><br>
+                                                        <small class="text-muted">SKU: ${product.sku}</small><br>
+                                                        <small class="text-primary">Price: ${new Intl.NumberFormat('en-BD', {style: 'currency', currency: 'BDT'}).format(price)}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('');
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    resultsDiv.innerHTML = '<div class="alert alert-danger">Error searching products</div>';
+                                });
+                        }, 300);
+                    });
+                })();
+                @endif
+            @endforeach
         </script>
     </x-slot>
 </x-seller>

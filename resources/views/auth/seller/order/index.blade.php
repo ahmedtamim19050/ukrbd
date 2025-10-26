@@ -149,24 +149,19 @@
 
 
                                         </div>
-                                   
-                                        {{-- @if ($allOrdersStatusOne) --}}
-                                     
-                                            @if ($order->first()->parent->shipping_method == 'home_delivery')
+
+
+                                        @if ($order->first()->parent->shipping_method == 'home_delivery')
+                                            @if ($order->first()->status == 1)
                                                 <a style="font-size: 12px"
                                                     href="{{ route('vendor.order.delivered', $order->first()->parent_id) }}"
                                                     class="btn btn-warning btn-sm p-2 pt-0 m-1">
-                                                    Complete deliver
+                                                    Complete Order
                                                 </a>
                                             @endif
-                                            @if ($order->first()->parent->shipping_method == 'pathao')
-                                                <a style="font-size: 12px"
-                                                    href="{{ route('vendor.order.pickup', $order->first()->parent_id) }}"
-                                                    class="btn btn-warning btn-sm p-2 pt-0 m-1">
-                                                    Ready for pickup
-                                                </a>
-                                            @endif
-                                        {{-- @endif --}}
+                                        @endif
+
+
                                     </td>
 
 
@@ -178,7 +173,7 @@
 
                 </div>
             </div>
-  
+
         </div>
     </div>
 

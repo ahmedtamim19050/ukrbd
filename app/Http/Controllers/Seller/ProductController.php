@@ -49,7 +49,7 @@ class ProductController extends Controller
                 "images.*"      => "mimes:jpg,jpeg,png",
 
                 "dimensions"    => "nullable",
-                "weight"        => "required|integer|min:100",
+                "weight"        => "required|integer",
                 "options" => "nullable",
                 "sizes" => "nullable",
                 "color" => "nullable",
@@ -113,8 +113,16 @@ class ProductController extends Controller
         $request->validate(
             [
                 "name"          => "required|max:200",
-                "price"         => "required|regex:/^\\d*(\\.\\d{1,2})?$/",
-                "sale_price"     => "nullable|regex:/^\\d*(\\.\\d{1,2})?$/",
+                "price"         => "required|regex:/^\d*(\.\d{1,2})?$/",
+                "sale_price"    => [
+                    "nullable",
+                    "regex:/^\d*(\.\d{1,2})?$/",
+                    function ($attribute, $value, $fail) use ($request) {
+                        if (!is_null($value) && $request->price !== null && floatval($value) >= floatval($request->price)) {
+                            $fail('The sale price must be less than the price.');
+                        }
+                    }
+                ],
                 "quantity"      => "required|integer",
                 "description"   => "nullable",
                 "short_description"   => "nullable",
@@ -122,19 +130,11 @@ class ProductController extends Controller
                 "images.*"      => "mimes:jpg,jpeg,png",
                 "dimensions"    => "nullable",
                 "weight"        => "required|integer",
-                "search_key"        => "required|max:255",
-
-
+                "search_key"    => "required|max:255",
             ]
         );
-        $sale_price=0;
-        if ($request->sale_price) {
-            if ($request->price > $request->sale_price) {
-                $sale_price= $request->sale_price;
-            } else {
-                return redirect()->back()->withErrors('sale-price greater than price');
-            }
-        }
+       
+       
         if ($request->file('image')) {
 
             $newImage = $request->image->store("products");
@@ -167,7 +167,7 @@ class ProductController extends Controller
             'name' => $request->name,
 
             'price' => $request->price,
-            'sale_price' => $sale_price,
+            'sale_price' => $request->sale_price,
             'vendor_price' => $request->vendor_price,
             'quantity' => $request->quantity,
             'description' => $request->description,

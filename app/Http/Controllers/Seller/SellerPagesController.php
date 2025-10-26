@@ -591,6 +591,70 @@ class SellerPagesController extends Controller
         if (!$orders->count()) abort(403);
         return view('auth.seller.order.product_list', compact('orders'));
     }
+    
+    public function searchProducts(Request $request)
+    {
+        $search = $request->get('search', '');
+        $shop = auth()->user()->shop;
+        
+        $products = Product::where('shop_id', $shop->id)
+            ->whereNull('parent_id')
+            ->when($search, function($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                      ->orWhere('sku', 'LIKE', '%' . $search . '%');
+            })
+            ->limit(20)
+            ->get(['id', 'name', 'sku', 'price', 'sale_price', 'image']);
+        
+        return response()->json($products);
+    }
+    
+    public function changeProduct(Request $request, Order $order)
+    {
+        // Verify the order belongs to the seller's shop
+        if ($order->shop_id != auth()->user()->shop->id) {
+            abort(403, 'Unauthorized');
+        }
+        
+        // Only allow changing products for pending or processing orders
+        if (!in_array($order->status, [0, 1])) {
+            return back()->withErrors('Product can only be changed for pending or processing orders.');
+        }
+        
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+        
+        $product = Product::findOrFail($request->product_id);
+        
+        // Verify product belongs to seller's shop
+        if ($product->shop_id != auth()->user()->shop->id) {
+            return back()->withErrors('Product does not belong to your shop.');
+        }
+        
+        // Use sale_price if available, otherwise use price
+        $productPrice = $product->sale_price > 0 ? $product->sale_price : $product->price;
+        $quantity = $request->quantity;
+        
+        // Calculate new totals
+        $subtotal = $productPrice * $quantity;
+        $shippingTotal = $order->shipping_total ?? 0;
+        $platformFee = $order->platform_fee ?? 0;
+        $total = round($subtotal + $shippingTotal);
+        
+        // Update order
+        $order->update([
+            'product_id' => $product->id,
+            'quantity' => $quantity,
+            'subtotal' => $subtotal,
+            'total' => $total,
+            'product_price' => $productPrice,
+            'vendor_total' => ($product->vendor_price ?? 0) * $quantity,
+        ]);
+        
+        return back()->with('success_msg', 'Product changed successfully!');
+    }
     public function assignAffiliate(Request $request) {
         $request->validate([
             'email'=>'required',

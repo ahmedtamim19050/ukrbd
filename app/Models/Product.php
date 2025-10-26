@@ -210,4 +210,14 @@ class Product extends Model
             event(new ProductCreate($product));
         });
     }
+    public function setFeaturedAttribute($value)
+    {
+        if($value){
+            $this->attributes['featured'] = $value;
+        }else{
+            $this->attributes['featured'] = 0;
+
+        }
+    }
+   
 }

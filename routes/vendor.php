@@ -37,6 +37,8 @@ Route::group(
 
         Route::get('/orders/index', [SellerPagesController::class, 'ordersIndex'])->name('ordersIndex');
         Route::get('/order/products', [SellerPagesController::class, 'orderProducts'])->name('order.products');
+        Route::post('/order/change-product/{order}', [SellerPagesController::class, 'changeProduct'])->name('order.changeProduct');
+        Route::get('/order/search-products', [SellerPagesController::class, 'searchProducts'])->name('order.searchProducts');
         Route::get('/order/view/{order}', [SellerPagesController::class, 'orderView'])->name('orderView');
         Route::get('/order/{order}/returned-product-received', [SellerPagesController::class, 'returned_product_received'])->name('returned.product.received');
         Route::post('/shipping', [SellerPagesController::class, 'shippingUrl'])->name('order.shipping');

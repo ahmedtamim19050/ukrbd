@@ -304,71 +304,7 @@
         @endpush
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
-        <script>
-            $(document).ready(function() {
-                document.getElementById('price')
-
-                $('#salePrice, #price').blur(function() {
-                    // sale price calculation 
-                    var salePrice = $('#salePrice').val();
-                    var newSalePrice = parseFloat(salePrice);
-                    var salePricePercentageWithTen = (newSalePrice) * .06;
-                    var salePricePercentageWithsix = (newSalePrice) * .06;
-
-                    // price calculation 
-                    var price = $('#price').val();
-                    var newPrice = parseFloat(price);
-                    var pricePercentageWithTen = (newPrice) * .06;
-                    var pricePercentageWithsix = (newPrice) * .06;
-                    console.log(salePricePercentageWithTen);
-
-
-
-                    if (salePrice > 0) {
-
-
-                        if (salePrice < 1000) {
-                            var vendorPrice = newSalePrice - pricePercentageWithTen;
-                            $('#priceMassage').text('Platform will receive' + ' 6% of ' + salePrice +
-                                ', equaling ' + parseFloat(salePricePercentageWithTen).toFixed(2) +
-                                ', and you will receive ' + (newSalePrice - salePricePercentageWithTen) +
-                                '.');
-                            $('#vendorPrice').val(vendorPrice);
-
-                        } else {
-                            vendorPrice = newSalePrice - salePricePercentageWithsix;
-                            $('#priceMassage').text('Platform will receive' + ' 6% of ' + salePrice +
-                                ', equaling ' + parseFloat(salePricePercentageWithsix).toFixed(2) +
-                                ', and you will receive ' + (newSalePrice - salePricePercentageWithsix) +
-                                '.');
-                            $('#vendorPrice').val(vendorPrice);
-                        }
-                        $('#salePriceMassage').text('You offered a ' + parseFloat((price - salePrice) / price *
-                            100).toFixed(2) + '% discount.')
-
-                        console.log((price - salePrice) / price * 100);
-                    } else {
-
-
-                        if (price < 1000) {
-                            var vendorPrice = newPrice - pricePercentageWithTen;
-                            $('#priceMassage').text('Platform will receive' + ' 6% of ' + price +
-                                ', equaling ' + parseFloat(pricePercentageWithTen).toFixed(2) +
-                                ', and you will receive ' + (newPrice - pricePercentageWithTen) + '.');
-                            $('#vendorPrice').val(vendorPrice);
-                        } else {
-                            var vendorPrice = newPrice + pricePercentageWithsix;
-                            $('#priceMassage').text('Platform will receive' + ' 6% of ' + price +
-                                ', equaling ' + parseFloat(pricePercentageWithsix).toFixed(2) +
-                                ', and you will receive ' + (newPrice - pricePercentageWithsix) + '.');
-                            $('#vendorPrice').val(vendorPrice);
-                        }
-                    }
-
-
-                });
-            });
-        </script>
+       
         <script>
             $(document).ready(function() {
                 $('#variableCheck').on('change', function() {
