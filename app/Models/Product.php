@@ -176,6 +176,7 @@ class Product extends Model
 
     public function getWeight()
     {
+        return 10;
         return sprintf('%.3f', $this->weight / 1000);
     }
     public function bonuses()

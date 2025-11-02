@@ -133,9 +133,9 @@
                                     class="w-icon-long-arrow-right"></i></a>
                         </div>
 
-                        <div class="products">
+                        <div class="" style="height: 80vh;overflow-y: auto;">
                             @foreach (Cart::getContent() as $product)
-                                <div class="product product-cart" style="overflow: visible;padding:2rem 10px;">
+                                <div class="product product-cart" style="overflow: visible; padding:5px;">
                                     <div class="product-detail">
                                         <a href="#" class="product-name">{{ $product->name }}</a>
                                         <div class="price-box">
