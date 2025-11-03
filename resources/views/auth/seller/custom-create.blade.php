@@ -49,8 +49,6 @@
                                     <input type="text" id="globalProductSearch" class="form-control"
                                         placeholder="Search product by name or SKU" style="max-width: 300px;"
                                         autocomplete="off" />
-                                    <button type="button" class="btn btn-outline-primary btn-sm" id="addEmptyRowBtn">+
-                                        Empty Row</button>
                                 </div>
                             </div>
                             <div id="productSearchResults" class="border rounded p-2 mb-2"
@@ -99,7 +97,7 @@
                 const searchInput = document.getElementById('globalProductSearch');
                 const resultsDiv = document.getElementById('productSearchResults');
                 const itemsBody = document.getElementById('itemsTableBody');
-                const addEmptyRowBtn = document.getElementById('addEmptyRowBtn');
+                // const addEmptyRowBtn = document.getElementById('addEmptyRowBtn');
                 const subtotalText = document.getElementById('subtotalText');
                 const shippingText = document.getElementById('shippingText');
                 const totalText = document.getElementById('totalText');
@@ -202,38 +200,7 @@
                     calculateTotals();
                 }
 
-                function addEmptyRow() {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                <td>
-                    <input type=\"text\" class=\"form-control\" placeholder=\"Enter product ID and press Enter\" />
-                    <input type=\"hidden\" name=\"items[${rowIndex}][product_id]\" />
-                </td>
-                <td><input type=\"number\" class=\"form-control item-qty\" min=\"0.01\" step=\"0.01\" value=\"1\" name=\"items[${rowIndex}][quantity]\" /></td>
-                <td><input type=\"number\" class=\"form-control item-price\" min=\"0\" step=\"0.01\" value=\"0\" name=\"items[${rowIndex}][price]\" /></td>
-                <td><input type=\"number\" class=\"form-control item-line-input\" min=\"0\" step=\"0.01\" value=\"0\" /></td>
-                <td class=\"text-end\"><button type=\"button\" class=\"btn btn-sm btn-outline-danger remove-row\">Remove</button></td>
-            `;
-                    const idInput = tr.querySelector('td input[type="text"]');
-                    const hiddenId = tr.querySelector('input[type="hidden"]');
-                    idInput.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            const val = idInput.value.trim();
-                            if (!val) return;
-                            hiddenId.value = val;
-                        }
-                    });
-                    tr.querySelector('.item-qty').addEventListener('input', calculateTotals);
-                    tr.querySelector('.item-price').addEventListener('input', calculateTotals);
-                    tr.querySelector('.remove-row').addEventListener('click', function() {
-                        tr.remove();
-                        calculateTotals();
-                    });
-                    itemsBody.appendChild(tr);
-                    rowIndex++;
-                    calculateTotals();
-                }
+                // Removed manual empty row addition
 
                 searchInput.addEventListener('input', function() {
                     clearTimeout(searchTimeout);
@@ -312,8 +279,7 @@
                     }, 300);
                 });
 
-                addEmptyRowBtn.addEventListener('click', addEmptyRow);
-                addEmptyRow();
+                // removed empty row button and default row
 
                 // Basic client-side validation to ensure at least one item with product_id
                 document.getElementById('customOrderForm').addEventListener('submit', function(e) {
