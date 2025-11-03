@@ -250,9 +250,7 @@ class CheckoutController extends Controller
             if ($product->shop_id !== auth()->user()->shop->id) {
                 abort(403, 'You can only create orders for your own products.');
             }
-            if ($product->quantity < (int) $lineItem['quantity']) {
-                return back()->withErrors('Insufficient stock for product: ' . $product->name);
-            }
+        
         }
 
         DB::beginTransaction();
@@ -339,7 +337,7 @@ class CheckoutController extends Controller
                 }
             }
 
-            $this->decreaseQuantitiesForItems($request->items);
+            // $this->decreaseQuantitiesForItems($request->items);
 
             DB::commit();
             return redirect()->route('vendor.ordersIndex')->with('success', 'Custom order created');

@@ -124,7 +124,7 @@
                                                     style="color:{{ $item->getStatus()['color'] }};text-transform:uppercase">{{ $item->getStatus()['label'] }}</small>
                                             </td>
                                             <td>
-                                                <h4>{{ Sohoj::price($item->total) }}</h4>
+                                                <h4>{{ Sohoj::price($item->total_price) }}</h4>
                                             </td>
 
                                         </tr>
