@@ -228,9 +228,7 @@
                                 resultsDiv.innerHTML = products.map(p => {
                                     const price = (p.sale_price && p.sale_price > 0) ? p
                                         .sale_price : p.price;
-                                    const imageUrl = p.image ?
-                                        `https://ukrbd.com/storage/${p.image}` :
-                                        '/placeholder.jpg';
+
                                     const safeName = (p.name || '')
                                         .replace(/&/g, '&amp;')
                                         .replace(/</g, '&lt;')
@@ -244,7 +242,7 @@
                                      data-price="${price}"
                                      data-image="${p.image || ''}">
                                     <div class="d-flex align-items-center">
-                                        <img src="${imageUrl}" style="width: 42px; height: 42px; object-fit: cover; margin-right: 10px;" alt="">
+                                        <img src="https://ukrbd.com/storage/${p.image}" style="width: 42px; height: 42px; object-fit: cover; margin-right: 10px;" alt="">
                                         <div>
                                             <strong>${safeName}</strong><br>
                                             <small class="text-muted">SKU: ${p.sku || ''}</small>
