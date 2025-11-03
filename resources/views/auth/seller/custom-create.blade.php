@@ -229,7 +229,7 @@
                                     const price = (p.sale_price && p.sale_price > 0) ? p
                                         .sale_price : p.price;
                                     const imageUrl = p.image ?
-                                        `{{ Voyager::image('') }}${p.image}` :
+                                        `https://ukrbd.com/storage/${p.image}` :
                                         '/placeholder.jpg';
                                     const safeName = (p.name || '')
                                         .replace(/&/g, '&amp;')
