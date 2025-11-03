@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ asset('seller-assets/css/plugins/bootstrap.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/responsive.css') }}" />
 <link rel="stylesheet" href="{{ asset('seller-assets/css/style.css') }}" />
-<link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 {{ $css ?? null }}
 @stack('css')
 <style>
@@ -111,11 +111,11 @@
     </div>
 
     @stack('js')
-    <script src="{{ asset('seller-assets/js/main.js') }}"></script>
-    <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <x-alert :exclude="[route('user.update_profile')]" />
-    <script src="{{ asset('seller-assets/js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('seller-assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('seller-assets/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('seller-assets/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <x-alert :exclude="[route('user.update_profile')]" />
 
 
 

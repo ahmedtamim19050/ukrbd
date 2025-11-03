@@ -10,6 +10,7 @@ use App\Http\Controllers\Seller\ProductController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CheckoutController;
 use App\Models\Order;
 use App\Models\Prodcat;
 use App\Models\Product;
@@ -36,6 +37,8 @@ Route::group(
         Route::post('/products-delete{product}', [ProductController::class, 'productRemove'])->name('products.delete');
 
         Route::get('/orders/index', [SellerPagesController::class, 'ordersIndex'])->name('ordersIndex');
+        Route::get('/orders/custom/create', [CheckoutController::class, 'customCreate'])->name('orders.custom.create');
+        Route::post('/orders/custom/store', [CheckoutController::class, 'customStore'])->name('orders.custom.store');
         Route::get('/order/products', [SellerPagesController::class, 'orderProducts'])->name('order.products');
         Route::post('/order/change-product/{order}', [SellerPagesController::class, 'changeProduct'])->name('order.changeProduct');
         Route::get('/order/search-products', [SellerPagesController::class, 'searchProducts'])->name('order.searchProducts');

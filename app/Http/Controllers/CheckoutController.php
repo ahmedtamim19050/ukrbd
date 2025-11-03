@@ -29,7 +29,7 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-       
+
         $request->validate([
             'name' => 'required|max:60|string',
             'email' => 'nullable|max:40|email',
@@ -100,7 +100,7 @@ class CheckoutController extends Controller
 
 
         foreach (Cart::getContent() as $item) {
-           
+
             OrderProduct::create([
                 'quantity' => $item->quantity,
                 'order_id' => $order->id,
@@ -110,8 +110,8 @@ class CheckoutController extends Controller
                 'variation' => $item->model->variations,
                 'shop_id' => $item->model->shop_id,
             ]);
-            $shipping_total=0;
-            if(!session()->get('division')){
+            $shipping_total = 0;
+            if (!session()->get('division')) {
 
                 $response = PathaoCourier::order()->priceCalculation([
                     "store_id" => $item->attributes['store_id'],
@@ -122,9 +122,9 @@ class CheckoutController extends Controller
                     "recipient_zone" => $shipping['zone']['id']
                 ]);
                 // $shipping_total= $response->final_price;
-                $shipping_total= 0;
+                $shipping_total = 0;
             }
-          
+
             $childOrder = Order::create([
                 'user_id' => auth()->user() ? auth()->user()->id : null,
                 'parent_id' => $order->id,
@@ -145,7 +145,7 @@ class CheckoutController extends Controller
                 'product_price' => $item->price,
             ]);
         }
-        
+
         $childOrders = $order->childs;
 
         foreach ($childOrders as $childOrder) {
@@ -189,7 +189,7 @@ class CheckoutController extends Controller
         }
         session()->forget('discount');
         session()->forget('discount_code');
-        
+
         DB::commit();
         $charge = $order->initializePayment($request->payment_method);
         return $charge;
@@ -198,7 +198,166 @@ class CheckoutController extends Controller
         // } else {
         //     return redirect()->route('thankyou');
         // }
-     
+
+    }
+
+    public function customCreate()
+    {
+        if (function_exists('view') && view()->exists('auth.seller.custom-create')) {
+            return view('auth.seller.custom-create');
+        }
+        return response('Custom order create endpoint is ready. Add view resources/views/auth/seller/custom-create.blade.php to render UI.', 200);
+    }
+
+    public function customStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:60|string',
+            'email' => 'nullable|max:40|email',
+            'phone' => 'nullable|string',
+            'address' => 'required|min:3',
+            'city' => 'nullable|string',
+            'zone' => 'nullable|string',
+            'area' => 'nullable|string',
+            'order_notes' => 'nullable|max:120',
+            'shipping' => 'nullable',
+            'payment_method' => 'nullable',
+            'items' => 'required|array|min:1',
+            'items.*.product_id' => 'required|integer|exists:products,id',
+            'items.*.quantity' => 'required|numeric|min:0.01',
+            'items.*.price' => 'required|numeric|min:0',
+        ]);
+
+        $shipping = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'post_code' => $request->post_code,
+            'city' => ['id' => null, 'name' => $request->city],
+            'zone' => ['id' => null, 'name' => $request->zone],
+            'area' => ['id' => null, 'name' => $request->area]
+        ];
+
+        // Ensure vendor has a shop when creating from vendor dashboard
+        if (!auth()->check() || !auth()->user()->shop) {
+            abort(403, 'Only vendors with a shop can create custom orders.');
+        }
+
+        // Check stock availability
+        foreach ($request->items as $lineItem) {
+            $product = Product::find($lineItem['product_id']);
+            if ($product->shop_id !== auth()->user()->shop->id) {
+                abort(403, 'You can only create orders for your own products.');
+            }
+            if ($product->quantity < (int) $lineItem['quantity']) {
+                return back()->withErrors('Insufficient stock for product: ' . $product->name);
+            }
+        }
+
+        DB::beginTransaction();
+        try {
+            $platform_fee = 0;
+            $subtotal = collect($request->items)->sum(function ($i) {
+                return (float) $i['total'];
+            });
+            $shipping_total = Sohoj::round_num($request->input('order.shipping', 0));
+            $total = $subtotal + $platform_fee + $shipping_total;
+
+            $order = Order::create([
+                'status' => 1,
+                'user_id' => auth()->id(),
+                'shop_id' => null,
+                'product_id' => null,
+                'shipping' => json_encode($shipping),
+                'subtotal' => Sohoj::round_num($subtotal),
+                'discount' => null,
+                'discount_code' => null,
+                'tax' => null,
+                'shipping_total' => Sohoj::round_num($shipping_total),
+                'platform_fee' => $platform_fee,
+                'total' => Sohoj::round_num($total),
+                'quantity' => (float) collect($request->items)->sum('quantity'),
+                'vendor_total' => null,
+                'shipping_method' => $request->shipping,
+                'payment_method' => $request->payment_method ?? 'cod',
+                'customer_note' => $request->order_notes
+            ]);
+
+            foreach ($request->items as $lineItem) {
+
+                $product = Product::find($lineItem['product_id']);
+
+                OrderProduct::create([
+                    'quantity' => (float) $lineItem['quantity'],
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'price' => (float) $lineItem['price'],
+                    'total_price' => (float) $lineItem['total'],
+                    'variation' => $product->variations,
+                    'shop_id' => $product->shop_id,
+                ]);
+
+                $childOrder = Order::create([
+                    'status' => 1,
+                    'user_id' => auth()->id(),
+                    'parent_id' => $order->id,
+                    'shop_id' => $product->shop_id,
+                    'product_id' => $product->id,
+                    'shipping' => json_encode($shipping),
+                    'subtotal' => (float) $lineItem['total'],
+                    'discount' => null,
+                    'discount_code' => null,
+                    'tax' => null,
+                    'shipping_total' => 0,
+                    'platform_fee' => 0,
+                    'total' => Sohoj::round_num((float) $lineItem['price'] * (int) $lineItem['quantity']),
+                    'quantity' => (float) $lineItem['quantity'],
+                    'vendor_total' => (float) $lineItem['total'],
+                    'product_price' => (float) $lineItem['price'],
+                ]);
+            }
+
+            $childOrders = $order->childs;
+            foreach ($childOrders as $childOrder) {
+                $childOrder->update(['status' => 1]);
+                Earning::create([
+                    'order_id' => $childOrder->id,
+                    'shop_id' => $childOrder->shop->id,
+                    'retailer_id' => $childOrder->shop->referral_id,
+                    'shop_earn' => Sohoj::shopWoned($childOrder),
+                    'admin_earn' => Sohoj::adminOwned($childOrder),
+                    'retailer_earn' => Sohoj::marchentigerOwned($childOrder),
+                ]);
+                $childOrder->shop->update([
+                    'total_own' => $childOrder->shop->total_own + Sohoj::shopWoned($childOrder),
+                ]);
+                if ($childOrder->shop->retailer) {
+                    $childOrder->shop->retailer->update([
+                        'total_own' => $childOrder->shop->retailer->total_own + Sohoj::marchentigerOwned($childOrder),
+                    ]);
+                }
+            }
+
+            $this->decreaseQuantitiesForItems($request->items);
+
+            DB::commit();
+            return redirect()->route('vendor.ordersIndex')->with('success', 'Custom order created');
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    protected function decreaseQuantitiesForItems(array $items)
+    {
+        foreach ($items as $item) {
+            $product = Product::find($item['product_id']);
+            if ($product) {
+                $product->increment('total_sale');
+                $product->update(['quantity' => $product->quantity - (int) $item['quantity']]);
+            }
+        }
     }
 
     protected function decreaseQuantities()
