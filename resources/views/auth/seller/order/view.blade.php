@@ -376,12 +376,16 @@
             <div class="col-md-6 text-end">
                 <span style="font-weight: 600">Shipping Address</span><br>
                 <span>
+                    @if($order->zone && $order->area && $order->city && $order->post_code)
                     {{ json_decode($order->shipping)->country ?? null }},
                     {{ json_decode($order->shipping)->state ?? null }},
                     <br>{{ json_decode($order->shipping)->city ?? null }} ,
                     {{ json_decode($order->shipping)->address_1 ?? null }},
                     {{ json_decode($order->shipping)->address_2 ?? null }},
                     {{ json_decode($order->shipping)->post_code ?? null }},
+                    @else
+                    {{ $order->address }} , {{ $order->post_code }}
+                    @endif
 
                 </span>
             </div>
