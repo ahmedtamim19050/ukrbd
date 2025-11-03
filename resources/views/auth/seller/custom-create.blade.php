@@ -143,7 +143,7 @@
                     tr.innerHTML = `
                 <td>
                     <div class=\"d-flex align-items-center\">
-                        <img src=\"${p.image ? `{{ Voyager::image('') }}${p.image}` : '/placeholder.jpg'}\" style=\"width:48px;height:48px;object-fit:cover;\" class=\"me-2 rounded\" alt=\"\"/>
+                        <img src=\"https://ukrbd.com/storage/${p.image}\" style=\"width:48px;height:48px;object-fit:cover;\" class=\"me-2 rounded\" alt=\"\"/>
                         <div>
                             <div class=\"fw-semibold\">${p.name}</div>
                             <small class=\"text-muted\">SKU: ${p.sku || ''}</small>
