@@ -21,7 +21,7 @@
         }
     </style>
     <div class="container">
-            <div class="invoice-container" style="border:1px solid #000;padding:16px">
+            <div class="invoice-container" style="border:1px solid #000;padding:24px;max-width:900px;margin:0 auto">
             <div>
                 <div class="row">
                     <div class="col-md-8">

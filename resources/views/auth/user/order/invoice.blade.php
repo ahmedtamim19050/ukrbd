@@ -17,11 +17,11 @@
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <style>
-            /* Minimal Black & White Invoice */
+            /* Minimal Black & White with margins */
             * { color: #000 !important; }
             .invoice { display: flex; justify-content: center; align-items: center; }
-            .invoice-container { margin: 0 auto; padding: 16px; background: #fff; font-family: Arial, sans-serif; border: 1px solid #000; box-shadow: none; }
-            .invoice-header { margin-bottom: 16px; }
+            .invoice-container { margin: 0 auto; padding: 24px; background: #fff; font-family: Arial, sans-serif; border: 1px solid #000; box-shadow: none; max-width: 900px; }
+            .invoice-header { margin-bottom: 16px; border-bottom: 1px solid #000; padding-bottom: 8px; }
             .invoice-header h2 { font-size: 20px; margin: 0; }
             .invoice-info { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
             .invoice-info p { margin: 0; }
@@ -30,7 +30,9 @@
             thead th { border-bottom: 2px solid #000; }
             tfoot td { font-weight: 700; }
             .btn { border: 1px solid #000; background: #fff; }
-            @media print { .btn, .print-hide { display: none !important; } .invoice-container { max-width: 100%; border: none; } }
+            .section-title { font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin: 0 0 6px 0; }
+            @page { margin: 15mm; }
+            @media print { .btn, .print-hide { display: none !important; } .invoice { margin: 0; } .invoice-container { border: none; box-shadow: none; max-width: 100%; padding: 0; } }
             @media print {
                 thead { display: table-header-group; }
                 tfoot { display: table-row-group; }
