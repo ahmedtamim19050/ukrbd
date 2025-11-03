@@ -144,4 +144,14 @@
                 })
             </script>
         </x-slot>
+        
+        <a href="{{ route('vendor.orders.custom.create') }}" class="btn btn-primary" title="Create Custom Order" style="
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+          
+            z-index: 1000;
+        ">
+            + Custom Order
+        </a>
 </x-seller>
