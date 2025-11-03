@@ -103,11 +103,28 @@ class SellerPagesController extends Controller
 
 
 
-        $orders = Order::whereIn('id', json_decode($request->ids))->where('status',4)->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
+        $orders = Order::whereIn('id', json_decode($request->ids))->where('status', 4)->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
 
-        
-        if (!$orders->count()) return redirect()->route('vendor.order.products',['ids'=> $request->ids ,'parent'=> request()->parent ])->withErrors( 'Order not found or not delivered');
+
+        if (!$orders->count()) return redirect()->route('vendor.order.products', ['ids' => $request->ids, 'parent' => request()->parent])->withErrors('Order not found or not delivered');
         return view('auth.seller.order.invoice', compact('orders'));
+    }
+    public function completeOrder(Request $request)
+    {
+
+
+
+        $orders = Order::whereIn('id', json_decode($request->ids))->get()->filter(fn($order) => $order->shop_id == auth()->user()->shop->id && $order->parent_id == request()->parent);
+
+        $main = Order::where('id', request()->parent)->first();
+        $main->update([
+            'status' => 4,
+        ]);
+        foreach ($orders as $order) {
+            $order->update([
+                'status' => 4,
+            ]);
+        }
     }
     public function setting()
     {
@@ -592,58 +609,58 @@ class SellerPagesController extends Controller
         if (!$orders->count()) abort(403);
         return view('auth.seller.order.product_list', compact('orders'));
     }
-    
+
     public function searchProducts(Request $request)
     {
         $search = $request->get('search', '');
         $shop = auth()->user()->shop;
-        
+
         $products = Product::where('shop_id', $shop->id)
             ->whereNull('parent_id')
-            ->when($search, function($query) use ($search) {
+            ->when($search, function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%' . $search . '%')
-                      ->orWhere('sku', 'LIKE', '%' . $search . '%');
+                    ->orWhere('sku', 'LIKE', '%' . $search . '%');
             })
             ->limit(20)
             ->get(['id', 'name', 'sku', 'price', 'sale_price', 'image']);
-        
+
         return response()->json($products);
     }
-    
+
     public function changeProduct(Request $request, Order $order)
     {
         // Verify the order belongs to the seller's shop
         if ($order->shop_id != auth()->user()->shop->id) {
             abort(403, 'Unauthorized');
         }
-        
+
         // Only allow changing products for pending or processing orders
         if (!in_array($order->status, [0, 1])) {
             return back()->withErrors('Product can only be changed for pending or processing orders.');
         }
-        
+
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
-        
+
         $product = Product::findOrFail($request->product_id);
-        
+
         // Verify product belongs to seller's shop
         if ($product->shop_id != auth()->user()->shop->id) {
             return back()->withErrors('Product does not belong to your shop.');
         }
-        
+
         // Use sale_price if available, otherwise use price
         $productPrice = $product->sale_price > 0 ? $product->sale_price : $product->price;
         $quantity = $request->quantity;
-        
+
         // Calculate new totals
         $subtotal = $productPrice * $quantity;
         $shippingTotal = $order->shipping_total ?? 0;
         $platformFee = $order->platform_fee ?? 0;
         $total = round($subtotal + $shippingTotal);
-        
+
         // Update order
         $order->update([
             'product_id' => $product->id,
@@ -653,33 +670,35 @@ class SellerPagesController extends Controller
             'product_price' => $productPrice,
             'vendor_total' => ($product->vendor_price ?? 0) * $quantity,
         ]);
-        
+
         return back()->with('success_msg', 'Product changed successfully!');
     }
-    public function assignAffiliate(Request $request) {
+    public function assignAffiliate(Request $request)
+    {
         $request->validate([
-            'email'=>'required',
+            'email' => 'required',
         ]);
-        $user=User::where('username',$request->email)->where('role_id',4)->first();
- 
-        if($user){
+        $user = User::where('username', $request->email)->where('role_id', 4)->first();
+
+        if ($user) {
             auth()->user()->shop->update([
-                'referral_id'=>$user->retailer->id,
+                'referral_id' => $user->retailer->id,
             ]);
             return back()->with('success_msg', 'UKRBD Affiliate assing success');
-        }else{
+        } else {
             return redirect()->back()->withErrors("This user doesn't exits.");
         }
     }
-    public function orderDelivered(Order $order){
+    public function orderDelivered(Order $order)
+    {
 
-            $order->status = 4;
-            $order->save();
-        
+        $order->status = 4;
+        $order->save();
+
         return back()->with('success_msg', 'Delivered done');
     }
-    public function shopProfile(){
+    public function shopProfile()
+    {
         return view('auth.seller.shop_profile_details');
     }
-
 }

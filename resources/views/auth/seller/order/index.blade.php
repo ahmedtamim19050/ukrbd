@@ -41,6 +41,12 @@
                                         class="text-primary btn-link">
                                         Invoice
                                     </a>
+                                    @if ($firstOrder->status != 4 || $firstOrder->status != 3)
+                                    <a href="{{ route('vendor.complete.order') }}?ids={{ json_encode($order->pluck('id')) }}&parent={{ $order->first()->parent_id }}"
+                                            class="text-primary btn-link">
+                                            Complete Order
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

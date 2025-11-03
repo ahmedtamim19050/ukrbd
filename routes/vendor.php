@@ -46,6 +46,7 @@ Route::group(
         Route::get('/order/{order}/returned-product-received', [SellerPagesController::class, 'returned_product_received'])->name('returned.product.received');
         Route::post('/shipping', [SellerPagesController::class, 'shippingUrl'])->name('order.shipping');
         Route::get('/invoice', [SellerPagesController::class, 'invoice'])->name('invoice');
+        Route::get('/complete-order', [SellerPagesController::class, 'completeOrder'])->name('complete.order');
 
 
         Route::post('/ChangePassword', [SellerPagesController::class, 'ChangePassword'])->name('ChangePassword');
