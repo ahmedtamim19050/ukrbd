@@ -125,6 +125,7 @@ class SellerPagesController extends Controller
                 'status' => 4,
             ]);
         }
+        return back()->with('success_msg', 'Order completed successfully');
     }
     public function setting()
     {
