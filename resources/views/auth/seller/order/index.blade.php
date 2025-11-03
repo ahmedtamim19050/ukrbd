@@ -17,7 +17,7 @@
                 </div>
 
             </div>
-   
+
             <div class="ec-vendor-card-body">
 
 
@@ -55,14 +55,22 @@
                                     </h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <small>
-                                        {{ $firstOrder->zone }}, {{ $firstOrder->area }},
-                                    </small>
-                                    <br>
-                                    <h6>
-                                        {{ $firstOrder->city }},
-                                        {{ $firstOrder->post_code }}
-                                    </h6>
+                                    @if ($firstOrder->zone && $firstOrder->area && $firstOrder->city && $firstOrder->post_code)
+                                        <small>
+                                            {{ $firstOrder->zone }}, {{ $firstOrder->area }},
+                                        </small>
+                                        <br>
+                                        <h6>
+                                            {{ $firstOrder->city }},
+                                            {{ $firstOrder->post_code }}
+                                        </h6>
+                                    @else
+                                        <small>
+                                            {{ $firstOrder->address }} , {{ $firstOrder->post_code }}
+                                        </small>
+                                    @endif
+
+
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -102,22 +110,23 @@
                                     </tr>
                                 </thead> --}}
                                 <tbody>
-                                    @foreach ($order as $item )
+                                    @foreach ($order as $item)
                                         <tr>
                                             <td>
-                                                <h4>  # {{$item->id}} </h4>
+                                                <h4> # {{ $item->id }} </h4>
                                             </td>
                                             <td>
                                                 <h6>{{ $item->product->name }} X {{ $item->quantity }}</h6>
                                                 <small class="text-muted">{{ $item->product->sku }}</small>
                                             </td>
                                             <td>
-                                                <small style="color:{{ $item->getStatus()['color'] }};text-transform:uppercase">{{ $item->getStatus()['label'] }}</small>
+                                                <small
+                                                    style="color:{{ $item->getStatus()['color'] }};text-transform:uppercase">{{ $item->getStatus()['label'] }}</small>
                                             </td>
                                             <td>
                                                 <h4>{{ Sohoj::price($item->total) }}</h4>
                                             </td>
-                                         
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -144,8 +153,9 @@
                 })
             </script>
         </x-slot>
-        
-        <a href="{{ route('vendor.orders.custom.create') }}" class="btn btn-primary" title="Create Custom Order" style="
+
+        <a href="{{ route('vendor.orders.custom.create') }}" class="btn btn-primary" title="Create Custom Order"
+            style="
             position: fixed;
             right: 24px;
             bottom: 24px;
