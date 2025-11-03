@@ -17,120 +17,20 @@
         <!-- Default CSS -->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/demo5.min.css') }}">
         <style>
-            .invoice {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .invoice-container {
-                /* max-width: 700px; */
-                margin: 0 auto;
-                padding: 20px;
-                /* background-color: #fff;
-                                    border-top: 8px solid #4a4a4a;
-                                    border-bottom: 8px solid #4a4a4a;
-                                    border-left: 1px solid #ccc;
-                                    border-right: 1px solid #ccc;
-                                    color: #333; */
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                background-color: white;
-                font-family: Arial, sans-serif;
-            }
-
-            @media print {
-                .invoice-container {
-                    max-width: 800px;
-                    height: auto;
-                }
-            }
-
-            .invoice-header {
-                text-align: center;
-                margin-bottom: 40px;
-            }
-
-            .invoice-header h2 {
-                font-size: 24px;
-                margin: 0;
-                color: #555;
-            }
-
-            .invoice-info {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 40px;
-            }
-
-            .invoice-info .shop-info {
-                flex-grow: 1;
-            }
-
-            .invoice-info .shop-info p {
-                margin: 0;
-                color: #777;
-            }
-
-            .invoice-info .customer-info {
-                text-align: right;
-            }
-
-            .invoice-info .customer-info p {
-                margin: 0;
-                color: #777;
-            }
-
-            .invoice-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 40px;
-            }
-
-            .invoice-table-shop {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 40px;
-            }
-
-            .invoice-table th {
-                border-bottom: 2px solid #000;
-                padding: 10px;
-                text-align: center;
-                color: #000;
-            }
-
-            .cricle {
-                background-color: #000;
-                border-radius: 50%;
-                height: 10px;
-                width: 10px;
-            }
-
-            .invoice-table th {
-                /* background-color: #f7f7f7; */
-            }
-
-            .invoice-total {
-                text-align: right;
-                margin-bottom: 40px;
-            }
-
-            .total-amount {
-                font-size: 20px;
-                margin: 0;
-                color: #555;
-            }
-
-            .thank-you {
-                text-align: center;
-                margin-top: 40px;
-                font-style: italic;
-                color: #777;
-            }
-
-            .shop p {
-                font-size: 12px
-            }
+            /* Minimal Black & White Invoice */
+            * { color: #000 !important; }
+            .invoice { display: flex; justify-content: center; align-items: center; }
+            .invoice-container { margin: 0 auto; padding: 16px; background: #fff; font-family: Arial, sans-serif; border: 1px solid #000; box-shadow: none; }
+            .invoice-header { margin-bottom: 16px; }
+            .invoice-header h2 { font-size: 20px; margin: 0; }
+            .invoice-info { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+            .invoice-info p { margin: 0; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #000; padding: 6px 8px; text-align: left; font-size: 14px; }
+            thead th { border-bottom: 2px solid #000; }
+            tfoot td { font-weight: 700; }
+            .btn { border: 1px solid #000; background: #fff; }
+            @media print { .btn, .print-hide { display: none !important; } .invoice-container { max-width: 100%; border: none; } }
         </style>
     </x-slot>
 
@@ -155,14 +55,8 @@
                                 <h2>INVOICE #{{ $order->id }}</h2>
                             </div>
                             <div class="col-md-4">
-                                
-                                <h3>
-        
-                                    {{ $order->created_at->format('d M, Y') }}
-                                </h3>
-                                <h4 style="color:{{$order->getStatus()['color']}};text-transform:uppercase">
-                                    {{$order->getStatus()['label']}}
-                                </h4>
+                                <h3>{{ $order->created_at->format('d M, Y') }}</h3>
+                                <h4 style="color:#000 !important;text-transform:uppercase">{{$order->getStatus()['label']}}</h4>
                             </div>
                         </div>
                         <div class="row">
@@ -170,7 +64,7 @@
         
                                 <br>
         
-                                <p class="text-dark" style="font-size: 16px;">{{ $shipping->name }}
+                                <p style="font-size: 14px;">{{ $shipping->name }}
                                     <br>
                                     {{ $shipping->email }}
                                     <br>
@@ -185,7 +79,7 @@
                             </div>
                             <div class="col-md-6">
                                 <br>
-                                <p class="text-dark" style="font-size: 16px;">UKRBD
+                                <p style="font-size: 14px;">UKRBD
                                     <br>
                                     info@urkbd.com
                                     <br>
@@ -203,16 +97,16 @@
                         <br>
                         <div class="row">
                             <div class="col-12">
-                                <table class="table ">
+                                <table>
                                     <thead>
                                         <tr>
                                             <th>
                                                 E-Shop
                                             </th>
-                                            <th class="text-start">Title</th>
-                                            <th class="text-start">Qty</th>
-                                            <th class="text-start">Price</th>
-                                            <th class="text-start">Total</th>
+                                            <th>Title</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -253,24 +147,24 @@
                                     </tbody>
                                     <tfoot>
         
-                                        <tr style="border-top: 2px solid black">
+                                        <tr>
                                             <td colspan="3"></td>
-                                            <td colspan="" class="h5">Subtotal</td>
-                                            <td class="text-center h5">
+                                            <td>Subtotal</td>
+                                            <td>
                                                 {{ Sohoj::price($order->subtotal) }}
                                             </td>
                                         </tr>
-                                        <tr style="border-top: 2px solid black">
+                                        <tr>
                                             <td colspan="3"></td>
-                                            <td colspan="" class="h5">Shipping </td>
-                                            <td class="text-center h5">
+                                            <td>Shipping</td>
+                                            <td>
                                                 {{ Sohoj::price($order->shipping_total) }}
                                             </td>
                                         </tr>
-                                        <tr style="border-top: 2px solid black">
+                                        <tr>
                                             <td colspan="3"></td>
-                                            <td colspan="" class="h4">Total</td>
-                                            <td class="text-center h4">
+                                            <td>Total</td>
+                                            <td>
                                                 {{ Sohoj::price($order->total + $order->shipping_total) }}
                                             </td>
                                         </tr>
