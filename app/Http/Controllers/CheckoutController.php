@@ -309,7 +309,7 @@ class CheckoutController extends Controller
                     'tax' => null,
                     'shipping_total' => 0,
                     'platform_fee' => 0,
-                    'total' => Sohoj::round_num((float) $lineItem['price'] * (int) $lineItem['quantity']),
+                    'total' => (float) $lineItem['total'],
                     'quantity' => (float) $lineItem['quantity'],
                     'vendor_total' => (float) $lineItem['total'],
                     'product_price' => (float) $lineItem['price'],
