@@ -13,6 +13,13 @@
 </div>
 
 <div id="printableArea">
+    <style>
+        @media print {
+            thead { display: table-header-group; }
+            tfoot { display: table-row-group; }
+            tr { page-break-inside: avoid; }
+        }
+    </style>
     <div class="container">
             <div class="invoice-container" style="border:1px solid #000;padding:16px">
             <div>

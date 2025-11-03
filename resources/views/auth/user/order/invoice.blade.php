@@ -31,6 +31,11 @@
             tfoot td { font-weight: 700; }
             .btn { border: 1px solid #000; background: #fff; }
             @media print { .btn, .print-hide { display: none !important; } .invoice-container { max-width: 100%; border: none; } }
+            @media print {
+                thead { display: table-header-group; }
+                tfoot { display: table-row-group; }
+                tr { page-break-inside: avoid; }
+            }
         </style>
     </x-slot>
 
