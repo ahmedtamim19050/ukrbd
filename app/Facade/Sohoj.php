@@ -12,7 +12,21 @@ class Sohoj
 {
     public function price($price)
     {
-        return  $this->round_num($price) . " Tk";
+        // Show 2 decimal places (fractional support), trim .00, preserve .50
+        $val = $this->round_num($price);
+
+        // If integer, still show .00 for forced explicit money formatting, or use your preferred logic
+        if (is_numeric($val)) {
+            $formatted = number_format((float)$val, 2, '.', '');
+            // Remove trailing .00 for cleaner output but keep .5/.25 etc.
+            if (strpos($formatted, '.00') !== false) {
+                $formatted = (int)$val;
+            }
+        } else {
+            $formatted = $val;
+        }
+
+        return $formatted . " Tk";
     }
     public function tax()
     {
