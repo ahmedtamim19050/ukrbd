@@ -8,20 +8,29 @@
 
 
 <div class="d-flex justify-content-start mb-2 print-hide">
-    <button onclick="printDiv('printableArea')" class="btn btn-primary" style="border:1px solid #000;background:#fff;color:#000">Print this page</button>
+    <button onclick="printDiv('printableArea')" class="btn btn-primary"
+        style="border:1px solid #000;background:#fff;color:#000">Print this page</button>
 
 </div>
 
 <div id="printableArea">
     <style>
         @media print {
-            thead { display: table-header-group; }
-            tfoot { display: table-row-group; }
-            tr { page-break-inside: avoid; }
+            thead {
+                display: table-header-group;
+            }
+
+            tfoot {
+                display: table-row-group;
+            }
+
+            tr {
+                page-break-inside: avoid;
+            }
         }
     </style>
     <div class="container">
-            <div class="invoice-container" style="border:1px solid #000;padding:24px;max-width:900px;margin:0 auto">
+        <div class="invoice-container" style="border:1px solid #000;padding:24px;max-width:900px;margin:0 auto">
             <div>
                 <div class="row">
                     <div class="col-md-8">
@@ -29,7 +38,8 @@
                     </div>
                     <div class="col-md-4">
                         <h3>{{ $orders->first()->created_at->format('d M, Y') }}</h3>
-                        <h4 style="color:#000 !important;text-transform:uppercase">{{$orders->first()->getStatus()['label']}}</h4>
+                        <h4 style="color:#000 !important;text-transform:uppercase">
+                            {{ $orders->first()->getStatus()['label'] }}</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -101,9 +111,10 @@
                                             {{ $order->quantity }}
                                         </td>
                                         <td style="border:1px solid #000;padding:6px 8px;">
-                                            {{ Sohoj::price($product->price) }}
+                                            {{ Sohoj::price($order->product_price) }}
                                         </td>
-                                        <td style="border:1px solid #000;padding:6px 8px;">{{ Sohoj::price($order->subtotal) }}</td>
+                                        <td style="border:1px solid #000;padding:6px 8px;">
+                                            {{ Sohoj::price($order->subtotal) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
