@@ -75,16 +75,41 @@ class SellerPagesController extends Controller
 
         return view('auth.seller.shop_profile');
     }
-    public function ordersIndex()
+    public function ordersIndex(Request $request)
     {
         $orders = Order::whereNotNull('parent_id')
             ->where('shop_id', auth()->user()->shop->id)
+            ->when($request->from_date, function ($query) use ($request) {
+                $query->whereDate('created_at', '>=', $request->from_date);
+            })
+            ->when($request->to_date, function ($query) use ($request) {
+                $query->whereDate('created_at', '<=', $request->to_date);
+            })
             ->latest()
             ->get();
 
         $latest_orders = $orders->groupBy('parent_id');
 
         return view('auth.seller.order.index', compact('latest_orders'));
+    }
+    public function exportDeliveredOrders(Request $request)
+    {
+        $fromDate = $request->get('from_date');
+        $toDate = $request->get('to_date');
+        
+        $filename = 'delivered_orders_' . date('Y-m-d');
+        if ($fromDate && $toDate) {
+            $filename = 'delivered_orders_' . $fromDate . '_to_' . $toDate;
+        } elseif ($fromDate) {
+            $filename = 'delivered_orders_from_' . $fromDate;
+        } elseif ($toDate) {
+            $filename = 'delivered_orders_until_' . $toDate;
+        }
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Exports\DeliveredOrdersExport($fromDate, $toDate),
+            $filename . '.xlsx'
+        );
     }
     public function orderView(Order $order)
     {
@@ -618,12 +643,13 @@ class SellerPagesController extends Controller
 
         $products = Product::where('shop_id', $shop->id)
             ->whereNull('parent_id')
+            ->where('quantity', '>', 0)
             ->when($search, function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('sku', 'LIKE', '%' . $search . '%');
             })
             ->limit(20)
-            ->get(['id', 'name', 'sku', 'price', 'sale_price', 'image']);
+            ->get(['id', 'name', 'sku', 'price', 'sale_price', 'image','quantity']);
 
         return response()->json($products);
     }

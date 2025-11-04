@@ -246,7 +246,10 @@
                                         <div>
                                             <strong>${safeName}</strong><br>
                                             <small class="text-muted">SKU: ${p.sku || ''}</small>
+                                       
                                             <small class="ms-2 text-primary">${formatCurrency(price)}</small>
+                                            <br>
+                                                 <small class="text-warning fw-bold">Stock: ${p.quantity || ''}</small>
                                         </div>
                                     </div>
                                 </div>`;

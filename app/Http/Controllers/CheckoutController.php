@@ -337,7 +337,7 @@ class CheckoutController extends Controller
                 }
             }
 
-            // $this->decreaseQuantitiesForItems($request->items);
+            $this->decreaseQuantitiesForItems($request->items);
 
             DB::commit();
             return redirect()->route('vendor.ordersIndex')->with('success', 'Custom order created');

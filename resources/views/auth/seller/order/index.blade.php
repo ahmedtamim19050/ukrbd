@@ -3,19 +3,42 @@
         <div class="ec-vendor-dashboard-card space-bottom-30 shadow-sm" style="border-radius: 12px !important;">
             <div class="ec-vendor-card-header">
                 <h5>Customer Orders</h5>
-                <div class="d-flex">
-                    <div class="ec-header-btn">
-                        <input class="form-control ec-search-bar" placeholder="Search products..." type="text">
-
+                <form method="GET" action="{{ route('vendor.ordersIndex') }}" id="filterForm">
+                    <div class="d-flex flex-wrap gap-2 align-items-end">
+                        <div class="ec-header-btn">
+                            <label class="form-label mb-1" style="font-size: 12px;">From Date</label>
+                            <input class="form-control" name="from_date" type="date" 
+                                value="{{ request('from_date') }}" 
+                                style="height: 47px;line-height: 48px;">
+                        </div>
+                        <div class="ec-header-btn">
+                            <label class="form-label mb-1" style="font-size: 12px;">To Date</label>
+                            <input class="form-control" name="to_date" type="date" 
+                                value="{{ request('to_date') }}" 
+                                style="height: 47px;line-height: 48px;">
+                        </div>
+                        <div class="ec-header-btn">
+                            <button type="submit" class="btn btn-outline-dark" 
+                                style="height: 47px;line-height: 48px; border:1px solid black">
+                                <i class="fi-rr-filter"></i> Filter
+                            </button>
+                        </div>
+                        <div class="ec-header-btn">
+                            <a class="btn btn-secondary" 
+                                href="{{ route('vendor.ordersIndex') }}"
+                                style="height: 47px;line-height: 48px;">
+                                <i class="fi-rr-cross"></i> Clear
+                            </a>
+                        </div>
+                        <div class="ec-header-btn">
+                            <a class="btn btn-success" 
+                                href="{{ route('vendor.orders.exportDelivered', ['from_date' => request('from_date'), 'to_date' => request('to_date')]) }}"
+                                style="height: 47px;line-height: 48px;">
+                                <i class="fi-rr-file-excel"></i> Export Delivered Orders
+                            </a>
+                        </div>
                     </div>
-                    <div class="ec-header-btn">
-                        <a class="btn  btn-outline-dark" style="height: 47px;line-height: 48px; border:1px solid black"
-                            href="#"><i class="fi-rr-filter"></i> Filter</a>
-                    </div>
-
-
-                </div>
-
+                </form>
             </div>
 
             <div class="ec-vendor-card-body">

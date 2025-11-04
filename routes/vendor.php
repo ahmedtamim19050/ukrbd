@@ -37,6 +37,7 @@ Route::group(
         Route::post('/products-delete{product}', [ProductController::class, 'productRemove'])->name('products.delete');
 
         Route::get('/orders/index', [SellerPagesController::class, 'ordersIndex'])->name('ordersIndex');
+        Route::get('/orders/export-delivered', [SellerPagesController::class, 'exportDeliveredOrders'])->name('orders.exportDelivered');
         Route::get('/orders/custom/create', [CheckoutController::class, 'customCreate'])->name('orders.custom.create');
         Route::post('/orders/custom/store', [CheckoutController::class, 'customStore'])->name('orders.custom.store');
         Route::get('/order/products', [SellerPagesController::class, 'orderProducts'])->name('order.products');
