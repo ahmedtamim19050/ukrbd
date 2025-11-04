@@ -34,7 +34,7 @@
                             <a class="btn btn-success" 
                                 href="{{ route('vendor.orders.exportDelivered', ['from_date' => request('from_date'), 'to_date' => request('to_date')]) }}"
                                 style="height: 47px;line-height: 48px;">
-                                <i class="fi-rr-file-excel"></i> Export Delivered Orders
+                                <i class="fi-rr-file-excel"></i> Export Completed Orders
                             </a>
                         </div>
                     </div>
