@@ -49,9 +49,11 @@
                     @if (Auth()->user()->shop)
                         @if (Auth()->user()->shop->status == 1)
                             <li><a href="{{ route('vendor.massage') }}">Massages</a></li>
-                            <li><a href="{{ route('vendor.products') }}">Products</a></li>
-                            <li><a href="{{ route('vendor.ordersIndex') }}">Orders</a></li>
+                    <li><a href="{{ route('vendor.products') }}">Products</a></li>
+                    <li><a href="{{ route('vendor.ordersIndex') }}">Orders</a></li>
                     <li><a href="{{ route('vendor.orders.custom.create') }}">Create Custom Order</a></li>
+                    <li><a href="{{ route('vendor.purchases.index') }}">Purchases</a></li>
+                    <li><a href="{{ route('vendor.purchases.create') }}">Record Purchase</a></li>
                             <li><a href="{{ route('vendor.banner') }}">Offer Banner</a></li>
                             <li><a href="{{ route('vendor.shopPolicy') }}">Shop Policy</a></li>
                             <li><a href="{{ route('vendor.earnings') }}">Earnings</a></li>
@@ -89,6 +91,8 @@
                                 <li><a href="{{ route('vendor.products') }}">Products</a></li>
                                 <li><a href="{{ route('vendor.ordersIndex') }}">Orders</a></li>
                                 <li><a href="{{ route('vendor.orders.custom.create') }}">Create Custom Order</a></li>
+                                <li><a href="{{ route('vendor.purchases.index') }}">Purchases</a></li>
+                                <li><a href="{{ route('vendor.purchases.create') }}">Record Purchase</a></li>
                                 <li><a href="{{ route('vendor.banner') }}">Offer Banner</a></li>
                                 <li><a href="{{ route('vendor.shopPolicy') }}">Shop Policy</a></li>
                                 <li><a href="{{ route('vendor.earnings') }}">Earnings</a></li>

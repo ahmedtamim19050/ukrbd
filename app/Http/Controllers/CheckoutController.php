@@ -226,6 +226,7 @@ class CheckoutController extends Controller
             'items.*.product_id' => 'required|integer|exists:products,id',
             'items.*.quantity' => 'required|numeric|min:0.01',
             'items.*.price' => 'required|numeric|min:0',
+            'discount' => 'nullable|numeric|min:0',
         ]);
 
         $shipping = [
@@ -260,7 +261,8 @@ class CheckoutController extends Controller
                 return (float) $i['total'];
             });
             $shipping_total = Sohoj::round_num($request->input('order.shipping', 0));
-            $total = $subtotal + $platform_fee + $shipping_total;
+            $discount = Sohoj::round_num((float) $request->input('discount', 0));
+            $total = max(0, ($subtotal - $discount) + $platform_fee + $shipping_total);
 
             $order = Order::create([
                 'status' => 1,
@@ -269,7 +271,7 @@ class CheckoutController extends Controller
                 'product_id' => null,
                 'shipping' => json_encode($shipping),
                 'subtotal' => Sohoj::round_num($subtotal),
-                'discount' => null,
+                'discount' => $discount,
                 'discount_code' => null,
                 'tax' => null,
                 'shipping_total' => Sohoj::round_num($shipping_total),

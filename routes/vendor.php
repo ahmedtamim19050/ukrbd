@@ -7,6 +7,7 @@ use App\Http\Controllers\MassageController;
 use App\Http\Controllers\ProductVariationController;
 use App\Http\Controllers\Seller\ExportImportController;
 use App\Http\Controllers\Seller\ProductController;
+use App\Http\Controllers\Seller\PurchaseController;
 use App\Http\Controllers\Seller\SellerPagesController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\TransactionController;
@@ -151,6 +152,12 @@ Route::group(
 
         Route::post('assign-affiliate',[SellerPagesController::class,'assignAffiliate'])->name('assign.affiliate');
         Route::get('order/delivered/{order}',[SellerPagesController::class,'orderDelivered'])->name('order.delivered');
+
+        // Purchases (Stock-in) routes
+        Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+        Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+        Route::get('/purchases/export', [PurchaseController::class, 'export'])->name('purchases.export');
+        Route::post('/purchases/store', [PurchaseController::class, 'store'])->name('purchases.store');
       
     }
 );

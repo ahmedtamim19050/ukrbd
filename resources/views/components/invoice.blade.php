@@ -2,7 +2,7 @@
 
     $shipping = json_decode($orders->first()->shipping);
     $shop = App\Models\Shop::find($orders->first()->shop_id);
-    $parentOrder = App\Models\Order::where('parent_id', $orders->first()->parent_id)->first();
+    $parentOrder = App\Models\Order::find($orders->first()->parent_id);
 @endphp
 
 
@@ -134,11 +134,20 @@
                                         {{ Sohoj::price($orders->sum('shipping_total')) }}
                                     </td>
                                 </tr>
+                                @if($parentOrder && $parentOrder->discount > 0)
+                                <tr>
+                                    <td colspan="2" style="border:none"></td>
+                                    <td style="border:1px solid #000;padding:6px 8px;">Discount</td>
+                                    <td style="border:1px solid #000;padding:6px 8px;">
+                                        -{{ Sohoj::price($parentOrder->discount) }}
+                                    </td>
+                                </tr>
+                                @endif
                                 <tr>
                                     <td colspan="2" style="border:none"></td>
                                     <td style="border:1px solid #000;padding:6px 8px;">Total</td>
                                     <td style="border:1px solid #000;padding:6px 8px;">
-                                        {{ Sohoj::price($orders->sum('total')) }}
+                                        {{ Sohoj::price(max(0, ($orders->sum('total') - ($parentOrder->discount ?? 0)))) }}
                                     </td>
                                 </tr>
 

@@ -75,6 +75,10 @@
                                             id="subtotalText">0.00</strong></div>
                                     <div class="d-flex justify-content-between"><span>Shipping</span><strong
                                             id="shippingText">0.00</strong></div>
+                                    <div class="d-flex justify-content-between align-items-center gap-2 mt-2">
+                                        <span>Discount</span>
+                                        <input type="number" min="0" step="0.01" name="discount" id="discountInput" class="form-control" style="max-width: 140px;" value="0">
+                                    </div>
                                     <div class="d-flex justify-content-between border-top mt-2 pt-2">
                                         <span>Total</span><strong id="totalText">0.00</strong>
                                     </div>
@@ -101,6 +105,7 @@
                 const subtotalText = document.getElementById('subtotalText');
                 const shippingText = document.getElementById('shippingText');
                 const totalText = document.getElementById('totalText');
+                const discountInput = document.getElementById('discountInput');
                 const orderShippingHidden = document.getElementById('orderShippingHidden');
                 const searchUrl = document.getElementById('customOrderForm').dataset.searchUrl;
 
@@ -132,9 +137,10 @@
                         subtotal += line;
                     });
                     const shipping = parseFloat(orderShippingHidden.value || '0');
+                    const discount = Math.max(0, parseFloat(discountInput.value || '0'));
                     subtotalText.textContent = formatCurrency(subtotal);
                     shippingText.textContent = formatCurrency(shipping);
-                    totalText.textContent = formatCurrency(subtotal + shipping);
+                    totalText.textContent = formatCurrency(Math.max(0, subtotal + shipping - discount));
                 }
 
                 function addRowFromProduct(p) {
@@ -281,6 +287,7 @@
                 });
 
                 // removed empty row button and default row
+                discountInput.addEventListener('input', calculateTotals);
 
                 // Basic client-side validation to ensure at least one item with product_id
                 document.getElementById('customOrderForm').addEventListener('submit', function(e) {
