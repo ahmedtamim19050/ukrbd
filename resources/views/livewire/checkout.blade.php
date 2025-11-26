@@ -106,7 +106,7 @@
                                 placeholder="Notes about your order, e.g special notes for delivery"></textarea>
                         </div>
                     </div>
-                    @if (session()->get('division'))
+                    {{-- @if (session()->get('division')) --}}
                     <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
                         <div class="order-summary-wrapper sticky-sidebar">
                             <h3 class="title text-uppercase ls-10">Your Order</h3>
@@ -223,7 +223,7 @@
                             </div>
                         </div>
                     </div>
-                    @else
+                    {{-- @else
                     <div class="col-lg-5 mb-4 sticky-sidebar-wrapper">
                         <div class="order-summary-wrapper sticky-sidebar">
                             @if ($selectedArea)
@@ -309,10 +309,7 @@
 
                                 <div class="payment-methods" id="payment_method">
                                     <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
-                                     {{-- <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment_method" value="card" id="payment_method_card" checked />
-                                        <label class="form-check-label" for="payment_method_card"> Card / Mobile Banking / Wallet </label>
-                                     </div> --}}
+                                 
                                      <div class="form-check">
                                         <input checked class="form-check-input" type="radio" name="payment_method" value="cod" id="payment_method_cod" />
                                         <label class="form-check-label" for="payment_method_cod"> Cash on delivery </label>
@@ -342,7 +339,7 @@
 
                         </div>
                     </div>
-                    @endif
+                    @endif --}}
                 </div>
             </form>
         </div>
