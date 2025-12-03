@@ -61,7 +61,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 return (float) ($group->first()->cost_price ?? 0);
             });
 
-       
+
         $grouped = $orders->groupBy('parent_id');
 
         $index = 0;
@@ -97,6 +97,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             $this->rows->push((object) [
                 'sl' => $index,
                 'invoice_id' => optional($first->parent)->id ?? $parentId,
+                'customer_name' => optional($first->parent)->full_name ?? '',
                 'date' => optional($first->parent)->created_at ?? $first->created_at,
                 'sell_total' => (float) $sellTotal,
                 'purchase_total' => (float) $purchaseTotal,
@@ -110,6 +111,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         $this->rows->push((object) [
             'sl' => '',
             'invoice_id' => 'TOTAL',
+            'customer_name' => '',
             'date' => null,
             'sell_total' => (float) $totalSell,
             'purchase_total' => (float) $totalPurchase,
@@ -229,5 +231,3 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         ];
     }
 }
-
-
