@@ -37,6 +37,13 @@
                                 <i class="fi-rr-file-excel"></i> Export Completed Orders
                             </a>
                         </div>
+                        <div class="ec-header-btn">
+                            <a class="btn btn-outline-success" 
+                                href="{{ route('vendor.orders.exportSalesReport', ['from_date' => request('from_date'), 'to_date' => request('to_date')]) }}"
+                                style="height: 47px;line-height: 48px;">
+                                <i class="fi-rr-file-excel"></i> Sales Report
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -127,17 +134,10 @@
                                     </h3>
                                 </div>
                             </div>
-                            <h6 class="mt-4">Items</h6>
+                            {{-- <h6 class="mt-4">Items</h6>
 
                             <table class="table">
-                                {{-- <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Product</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead> --}}
+                            
                                 <tbody>
                                     @foreach ($order as $item)
                                         <tr>
@@ -159,7 +159,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table> --}}
                         </div>
                     </div>
                 @endforeach

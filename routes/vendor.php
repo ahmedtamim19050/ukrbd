@@ -49,6 +49,7 @@ Route::group(
         Route::post('/shipping', [SellerPagesController::class, 'shippingUrl'])->name('order.shipping');
         Route::get('/invoice', [SellerPagesController::class, 'invoice'])->name('invoice');
         Route::get('/complete-order', [SellerPagesController::class, 'completeOrder'])->name('complete.order');
+        Route::get('/orders/export-sales-report', [SellerPagesController::class, 'exportSalesReport'])->name('orders.exportSalesReport');
 
 
         Route::post('/ChangePassword', [SellerPagesController::class, 'ChangePassword'])->name('ChangePassword');

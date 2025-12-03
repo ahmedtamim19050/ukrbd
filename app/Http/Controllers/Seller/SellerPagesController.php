@@ -13,6 +13,7 @@ use App\Models\OrderProduct;
 use App\Models\Prodcat;
 use App\Models\Product;
 use App\Models\Retailer;
+use App\Models\Purchase;
 use App\Models\Shop;
 use App\Models\ShopPolicy;
 use App\Models\User;
@@ -108,6 +109,25 @@ class SellerPagesController extends Controller
 
         return \Maatwebsite\Excel\Facades\Excel::download(
             new \App\Exports\DeliveredOrdersExport($fromDate, $toDate),
+            $filename . '.xlsx'
+        );
+    }
+    public function exportSalesReport(Request $request)
+    {
+        $fromDate = $request->get('from_date');
+        $toDate = $request->get('to_date');
+
+        $filename = 'sales_report_' . date('Y-m-d');
+        if ($fromDate && $toDate) {
+            $filename = 'sales_report_' . $fromDate . '_to_' . $toDate;
+        } elseif ($fromDate) {
+            $filename = 'sales_report_from_' . $fromDate;
+        } elseif ($toDate) {
+            $filename = 'sales_report_until_' . $toDate;
+        }
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Exports\SalesReportExport($fromDate, $toDate),
             $filename . '.xlsx'
         );
     }
