@@ -130,6 +130,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 '',
                 'TOTAL',
                 '',
+                '',
                 (float) ($row->sell_total ?? 0),
                 (float) ($row->purchase_total ?? 0),
                 (float) ($row->profit ?? 0),
@@ -140,6 +141,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         return [
             $row->sl,
             $row->invoice_id,
+            $row->customer_name ?? '',
             $row->date ? $row->date->format('Y-m-d') : '',
             (float) ($row->sell_total ?? 0),
             (float) ($row->purchase_total ?? 0),
@@ -153,6 +155,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         return [
             'SL',
             'Invoice ID',
+            'Customer Name',
             'Date',
             'Sell Price',
             'Purchase Price',
@@ -171,7 +174,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 $sheet->insertNewRowBefore(1, 3);
 
                 $sheet->setCellValue('A1', 'Sales Report');
-                $sheet->mergeCells('A1:G1');
+                $sheet->mergeCells('A1:H1');
                 $sheet->getStyle('A1')->applyFromArray([
                     'font' => ['bold' => true, 'size' => 16],
                     'alignment' => [
@@ -182,7 +185,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
                 $shopName = auth()->user()->shop->name ?? 'N/A';
                 $sheet->setCellValue('A2', 'Shop: ' . $shopName);
-                $sheet->mergeCells('A2:G2');
+                $sheet->mergeCells('A2:H2');
                 $sheet->getStyle('A2')->applyFromArray([
                     'font' => ['bold' => true, 'size' => 12],
                     'alignment' => [
@@ -202,7 +205,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
                 if ($dateRange) {
                     $sheet->setCellValue('A3', $dateRange);
-                    $sheet->mergeCells('A3:G3');
+                    $sheet->mergeCells('A3:H3');
                     $sheet->getStyle('A3')->applyFromArray([
                         'alignment' => [
                             'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -212,7 +215,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 }
 
                 // Style headings row (row 4 after inserts)
-                $sheet->getStyle('A4:G4')->applyFromArray([
+                $sheet->getStyle('A4:H4')->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
@@ -224,7 +227,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                     ],
                 ]);
 
-                foreach (range('A', 'G') as $col) {
+                foreach (range('A', 'H') as $col) {
                     $sheet->getColumnDimension($col)->setAutoSize(true);
                 }
             },
