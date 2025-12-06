@@ -68,12 +68,14 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         $totalSell = 0;
         $totalPurchase = 0;
         $totalProfit = 0;
+        $totalDiscount = 0;
 
         foreach ($grouped as $parentId => $group) {
             /** @var \App\Models\Order $first */
             $first = $group->first();
 
             $sellTotal = $group->sum('total');
+            $discount = (float) (optional($first->parent)->discount ?? 0);
 
             $purchaseTotal = 0;
             foreach ($group as $child) {
@@ -85,12 +87,13 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 $purchaseTotal += (float) $child->quantity * $costPerUnit;
             }
 
-            $profit = $sellTotal - $purchaseTotal;
+            $profit = $sellTotal - $discount - $purchaseTotal;
             $margin = $sellTotal > 0 ? round(($profit / $sellTotal) * 100, 2) : 0;
 
             $totalSell += $sellTotal;
             $totalPurchase += $purchaseTotal;
             $totalProfit += $profit;
+            $totalDiscount += $discount;
 
             $index++;
 
@@ -100,6 +103,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 'customer_name' => optional($first->parent)->full_name ?? '',
                 'date' => optional($first->parent)->created_at ?? $first->created_at,
                 'sell_total' => (float) $sellTotal,
+                'discount' => (float) $discount,
                 'purchase_total' => (float) $purchaseTotal,
                 'profit' => (float) $profit,
                 'margin' => (float) $margin,
@@ -114,6 +118,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             'customer_name' => '',
             'date' => null,
             'sell_total' => (float) $totalSell,
+            'discount' => (float) $totalDiscount,
             'purchase_total' => (float) $totalPurchase,
             'profit' => (float) $totalProfit,
             'margin' => (float) $totalMargin,
@@ -132,6 +137,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 '',
                 '',
                 (float) ($row->sell_total ?? 0),
+                (float) ($row->discount ?? 0),
                 (float) ($row->purchase_total ?? 0),
                 (float) ($row->profit ?? 0),
                 (float) ($row->margin ?? 0),
@@ -144,6 +150,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             $row->customer_name ?? '',
             $row->date ? $row->date->format('Y-m-d') : '',
             (float) ($row->sell_total ?? 0),
+            (float) ($row->discount ?? 0),
             (float) ($row->purchase_total ?? 0),
             (float) ($row->profit ?? 0),
             (float) ($row->margin ?? 0), // percentage
@@ -158,6 +165,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             'Customer Name',
             'Date',
             'Sell Price',
+            'Discount',
             'Purchase Price',
             'Profit',
             'Profit Margin (%)',
@@ -174,7 +182,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 $sheet->insertNewRowBefore(1, 3);
 
                 $sheet->setCellValue('A1', 'Sales Report');
-                $sheet->mergeCells('A1:H1');
+                $sheet->mergeCells('A1:I1');
                 $sheet->getStyle('A1')->applyFromArray([
                     'font' => ['bold' => true, 'size' => 16],
                     'alignment' => [
@@ -185,7 +193,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
                 $shopName = auth()->user()->shop->name ?? 'N/A';
                 $sheet->setCellValue('A2', 'Shop: ' . $shopName);
-                $sheet->mergeCells('A2:H2');
+                $sheet->mergeCells('A2:I2');
                 $sheet->getStyle('A2')->applyFromArray([
                     'font' => ['bold' => true, 'size' => 12],
                     'alignment' => [
@@ -205,7 +213,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
                 if ($dateRange) {
                     $sheet->setCellValue('A3', $dateRange);
-                    $sheet->mergeCells('A3:H3');
+                    $sheet->mergeCells('A3:I3');
                     $sheet->getStyle('A3')->applyFromArray([
                         'alignment' => [
                             'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -215,7 +223,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 }
 
                 // Style headings row (row 4 after inserts)
-                $sheet->getStyle('A4:H4')->applyFromArray([
+                $sheet->getStyle('A4:I4')->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
@@ -227,7 +235,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                     ],
                 ]);
 
-                foreach (range('A', 'H') as $col) {
+                foreach (range('A', 'I') as $col) {
                     $sheet->getColumnDimension($col)->setAutoSize(true);
                 }
             },
