@@ -31,10 +31,9 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
     {
         $shopId = auth()->user()->shop->id;
 
-        $query = Order::whereNotNull('parent_id')
-            ->where('shop_id', $shopId)
+        $query = Order::whereNull('parent_id')
             ->where('status', 4) // delivered / completed
-            ->with(['product', 'parent']);
+            ->with(['product']);
 
         if ($this->fromDate) {
             $query->whereDate('created_at', '>=', $this->fromDate);
@@ -50,46 +49,34 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
         }
 
         // Preload latest purchase cost per product for this shop
-        $productIds = $orders->pluck('product_id')->filter()->unique();
-        $purchaseCosts = Purchase::where('shop_id', $shopId)
-            ->whereIn('product_id', $productIds)
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->groupBy('product_id')
-            ->map(function ($group) {
-                // latest purchase cost_price
-                return (float) ($group->first()->cost_price ?? 0);
-            });
 
+        $grouped = $orders;
 
-        $grouped = $orders->groupBy('parent_id');
 
         $index = 0;
+        $totalSubtotal = 0;
         $totalSell = 0;
         $totalPurchase = 0;
         $totalProfit = 0;
         $totalDiscount = 0;
 
-        foreach ($grouped as $parentId => $group) {
-            /** @var \App\Models\Order $first */
-            $first = $group->first();
-
-            $sellTotal = $group->sum('total');
-            $discount = (float) (optional($first->parent)->discount ?? 0);
+       
+        foreach ($grouped as  $group) {
+            
+            $sellTotal = $group->total; // Net sell after discount
+            $discount = (float) $group->discount;
+            $subtotal = (float) $group->subtotal; // Subtotal from database
 
             $purchaseTotal = 0;
-            foreach ($group as $child) {
-                // Prefer latest purchase cost; if not available, fallback to product vendor_price
-                $costPerUnit = $purchaseCosts->get($child->product_id);
-                if ($costPerUnit === null) {
-                    $costPerUnit = (float) optional($child->product)->vendor_price ?? 0.0;
-                }
-                $purchaseTotal += (float) $child->quantity * $costPerUnit;
+            foreach ($group->childs as $child) {
+                $purchaseTotal += (float) $child->quantity * (float) $child->product->vendor_price;
             }
 
-            $profit = $sellTotal - $discount - $purchaseTotal;
+
+            $profit = $sellTotal - $purchaseTotal;
             $margin = $sellTotal > 0 ? round(($profit / $sellTotal) * 100, 2) : 0;
 
+            $totalSubtotal += $subtotal;
             $totalSell += $sellTotal;
             $totalPurchase += $purchaseTotal;
             $totalProfit += $profit;
@@ -99,11 +86,12 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
             $this->rows->push((object) [
                 'sl' => $index,
-                'invoice_id' => optional($first->parent)->id ?? $parentId,
-                'customer_name' => optional($first->parent)->full_name ?? '',
-                'date' => optional($first->parent)->created_at ?? $first->created_at,
-                'sell_total' => (float) $sellTotal,
+                'invoice_id' => $group->id,
+                'customer_name' => $group->full_name ?? '',
+                'date' => $group->created_at,
+                'subtotal' => (float) $subtotal,
                 'discount' => (float) $discount,
+                'sell_total' => (float) $sellTotal,
                 'purchase_total' => (float) $purchaseTotal,
                 'profit' => (float) $profit,
                 'margin' => (float) $margin,
@@ -117,8 +105,9 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             'invoice_id' => 'TOTAL',
             'customer_name' => '',
             'date' => null,
-            'sell_total' => (float) $totalSell,
+            'subtotal' => (float) $totalSubtotal,
             'discount' => (float) $totalDiscount,
+            'sell_total' => (float) $totalSell,
             'purchase_total' => (float) $totalPurchase,
             'profit' => (float) $totalProfit,
             'margin' => (float) $totalMargin,
@@ -136,8 +125,9 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 'TOTAL',
                 '',
                 '',
-                (float) ($row->sell_total ?? 0),
+                (float) ($row->subtotal ?? 0),
                 (float) ($row->discount ?? 0),
+                (float) ($row->sell_total ?? 0),
                 (float) ($row->purchase_total ?? 0),
                 (float) ($row->profit ?? 0),
                 (float) ($row->margin ?? 0),
@@ -149,8 +139,9 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             $row->invoice_id,
             $row->customer_name ?? '',
             $row->date ? $row->date->format('Y-m-d') : '',
-            (float) ($row->sell_total ?? 0),
+            (float) ($row->subtotal ?? 0),
             (float) ($row->discount ?? 0),
+            (float) ($row->sell_total ?? 0),
             (float) ($row->purchase_total ?? 0),
             (float) ($row->profit ?? 0),
             (float) ($row->margin ?? 0), // percentage
@@ -164,10 +155,11 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             'Invoice ID',
             'Customer Name',
             'Date',
-            'Sell Price',
+            'Subtotal',
             'Discount',
-            'Purchase Price',
-            'Profit',
+            'Net total',
+            'Purchase total',
+            'Profit total',
             'Profit Margin (%)',
         ];
     }
@@ -182,7 +174,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 $sheet->insertNewRowBefore(1, 3);
 
                 $sheet->setCellValue('A1', 'Sales Report');
-                $sheet->mergeCells('A1:I1');
+                $sheet->mergeCells('A1:J1');
                 $sheet->getStyle('A1')->applyFromArray([
                     'font' => ['bold' => true, 'size' => 16],
                     'alignment' => [
@@ -193,7 +185,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
                 $shopName = auth()->user()->shop->name ?? 'N/A';
                 $sheet->setCellValue('A2', 'Shop: ' . $shopName);
-                $sheet->mergeCells('A2:I2');
+                $sheet->mergeCells('A2:J2');
                 $sheet->getStyle('A2')->applyFromArray([
                     'font' => ['bold' => true, 'size' => 12],
                     'alignment' => [
@@ -213,7 +205,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
 
                 if ($dateRange) {
                     $sheet->setCellValue('A3', $dateRange);
-                    $sheet->mergeCells('A3:I3');
+                    $sheet->mergeCells('A3:J3');
                     $sheet->getStyle('A3')->applyFromArray([
                         'alignment' => [
                             'horizontal' => Alignment::HORIZONTAL_CENTER,
@@ -223,7 +215,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                 }
 
                 // Style headings row (row 4 after inserts)
-                $sheet->getStyle('A4:I4')->applyFromArray([
+                $sheet->getStyle('A4:J4')->applyFromArray([
                     'font' => ['bold' => true],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
@@ -235,7 +227,7 @@ class SalesReportExport implements FromCollection, WithHeadings, WithMapping, Wi
                     ],
                 ]);
 
-                foreach (range('A', 'I') as $col) {
+                foreach (range('A', 'J') as $col) {
                     $sheet->getColumnDimension($col)->setAutoSize(true);
                 }
             },
