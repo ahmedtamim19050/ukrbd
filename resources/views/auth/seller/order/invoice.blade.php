@@ -112,6 +112,28 @@
 
 
     <div class="ec-shop-rightside col-lg-9 col-md-12">
-        <x-invoice :orders="$orders" />
+        <div class="mb-3 print-hide">
+            <label for="invoice_date" class="form-label">Invoice Date:</label>
+            <input type="date" 
+                   id="invoice_date" 
+                   class="form-control" 
+                   value="{{ $invoiceDate->format('Y-m-d') }}" 
+                   style="max-width: 200px; display: inline-block;"
+                   onchange="updateInvoiceDate(this.value)">
+        </div>
+        <x-invoice :orders="$orders" :invoiceDate="$invoiceDate" />
     </div>
+
+    <script>
+        function updateInvoiceDate(date) {
+            if (!date) return;
+            
+            // Get current URL and preserve all existing parameters
+            const url = new URL(window.location.href);
+            url.searchParams.set('invoice_date', date);
+            
+            // Reload the page with the new date parameter (all other params are preserved)
+            window.location.href = url.toString();
+        }
+    </script>
 </x-seller>

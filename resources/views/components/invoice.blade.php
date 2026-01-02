@@ -3,6 +3,9 @@
     $shipping = json_decode($orders->first()->shipping);
     $shop = App\Models\Shop::find($orders->first()->shop_id);
     $parentOrder = App\Models\Order::find($orders->first()->parent_id);
+    
+    // Use provided invoiceDate or default to order's created_at
+    $displayDate = isset($invoiceDate) ? $invoiceDate : $orders->first()->created_at;
 @endphp
 
 
@@ -37,7 +40,7 @@
                         <h2>INVOICE #{{ $orders->first()->id }}</h2>
                     </div>
                     <div class="col-md-4">
-                        <h3>{{ $orders->first()->created_at->format('d M, Y') }}</h3>
+                        <h3>{{ $displayDate->format('d M, Y') }}</h3>
                         <h4 style="color:#000 !important;text-transform:uppercase">
                             {{ $orders->first()->getStatus()['label'] }}</h4>
                     </div>

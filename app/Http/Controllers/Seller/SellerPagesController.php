@@ -152,7 +152,20 @@ class SellerPagesController extends Controller
 
 
         if (!$orders->count()) return redirect()->route('vendor.order.products', ['ids' => $request->ids, 'parent' => request()->parent])->withErrors('Order not found or not delivered');
-        return view('auth.seller.order.invoice', compact('orders'));
+        
+        // Get the invoice date from request or default to order created_at
+        $invoiceDate = $request->get('invoice_date');
+        if ($invoiceDate) {
+            try {
+                $invoiceDate = Carbon::parse($invoiceDate);
+            } catch (\Exception $e) {
+                $invoiceDate = $orders->first()->created_at;
+            }
+        } else {
+            $invoiceDate = $orders->first()->created_at;
+        }
+        
+        return view('auth.seller.order.invoice', compact('orders', 'invoiceDate'));
     }
     public function completeOrder(Request $request)
     {
